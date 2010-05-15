@@ -27,7 +27,7 @@ VERSION=`cat ${SOURCE_DIR}/VERSION`
 
 prepare_changelog =                                                               \
   sed -e "s/DISTRIB/$(1)/g"                                                       \
-      -e "s/PACKAGE_VERSION/$(2)-2~$(1)1/g"                                       \
+      -e "s/PACKAGE_VERSION/$(2)-1~$(1)1/g"                                       \
       ${SOURCE_DIR}/debian/changelog.template > ${SOURCE_DIR}/debian/changelog
 
 all: deb
