@@ -1,0 +1,17 @@
+colorex (PACKAGE_VERSION) DISTRIB; urgency=low
+
+  * Repackaging
+
+ -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Thu, 15 May 2010 15:09:29 +0200
+
+colorex (1.1-1) etch; urgency=low
+
+  * bugfix and some littles improvements
+
+ -- Julien Antony <julienantony@gmail.com>  Thu,  4 Jun 2009 11:51:06 +0200
+
+colorex (1.0-1) etch; urgency=low
+
+  * Initial release
+
+ -- Julien Antony <julienantony@gmail.com>  Thu, 23 Oct 2008 15:04:46 +0200

@@ -1,0 +1,13 @@
+Source: colorex
+Section: utils
+Priority: optional
+Maintainer: Julien Nicoulaud <julien.nicoulaud@gmail.com>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.4
+Homepage: http://github.com/nicoulaj/colorex
+
+Package: colorex
+Architecture: all
+Depends: ${misc:Depends} python
+Description: Colorize files using patterns.
+ Colorex colors parts of files or STDIN using words or regexps.

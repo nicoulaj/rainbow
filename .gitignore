@@ -1,0 +1,12 @@
+src/debian/colorex.debhelper.log
+src/debian/colorex.substvars
+src/debian/colorex
+src/debian/changelog
+src/debian/files
+*.deb
+*.tar.gz
+*.changes
+*.build
+*.dsc
+*.upload
+.idea
