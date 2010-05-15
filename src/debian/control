@@ -2,6 +2,7 @@ Source: colorex
 Section: utils
 Priority: optional
 Maintainer: Julien Nicoulaud <julien.nicoulaud@gmail.com>
+Original-Maintainer: Julien Antony <julienantony@gmail.com>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.8.4
 Homepage: http://github.com/nicoulaj/colorex
