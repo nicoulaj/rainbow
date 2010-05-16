@@ -1,5 +1,11 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
+  * 
+
+ -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Thu, 16 May 2010 20:09:29 +0200
+
+colorex (1.2) DISTRIB; urgency=low
+
   * Added a bash-completion script for the 'colorex' command.
   * Make the script read the version from an external file.
 
