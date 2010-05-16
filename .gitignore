@@ -1,4 +1,5 @@
 src/debian/colorex.debhelper.log
+src/debian/colorex.*.debhelper
 src/debian/colorex.substvars
 src/debian/colorex
 src/debian/changelog
