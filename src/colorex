@@ -23,7 +23,7 @@ import sys
 import re
 
 usage = "%prog [options] file1 file2 ... "
-version = "%prog 1.1"
+version = "%prog " + open('/usr/share/colorex/VERSION', 'r').read()
 description = """Display files or sdtin with pretty colors for matched patterns. if you don't specify files, stdin is used.
 Regular expressions are interpreted, so if you want to match a '*' escape it with a backslash.
 eg: colorex --red '\*' foo.txt
