@@ -1,2 +1,3 @@
 colorex /usr/bin
+bash-completion/colorex /etc/bash_completion.d
 VERSION /usr/share/colorex

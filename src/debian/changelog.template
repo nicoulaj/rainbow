@@ -1,6 +1,6 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
-  * 
+  * Added a bash-completion script for the 'colorex' command.
 
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Thu, 15 May 2010 15:09:29 +0200
 
