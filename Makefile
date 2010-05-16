@@ -20,10 +20,11 @@
 # ──────────────────────────────────────────────────────────────────────────────────────────────────
 
 SHELL=/bin/bash
-SOURCE_DIR=src
-OUTPUT_DIR=.
+PKG_NAME=colorex
 DISTRIB=`lsb_release -sc`
 VERSION=`cat ${SOURCE_DIR}/VERSION`
+SOURCE_DIR=src
+OUTPUT_DIR=.
 
 prepare_changelog =                                                               \
   sed -e "s/DISTRIB/$(1)/g"                                                       \
@@ -54,7 +55,7 @@ signed-src-pkg:
 
 release-for-distrib: clean signed-deb signed-src-pkg
 	@echo "Uploading source package to Launchpad (distrib: ${DISTRIB}, version: ${VERSION})"
-	@dput ppa:julien-nicoulaud/colorex colorex_*_source.changes
+	@dput ppa:julien-nicoulaud/colorex ${PKG_NAME}_*_source.changes
 
 release:
 	@$(MAKE) release-for-distrib DISTRIB=jaunty
@@ -65,8 +66,8 @@ release:
 clean:
 	@echo "Cleaning output files"
 	@rm -vf ${OUTPUT_DIR}/*.{dsc,deb,tar.gz,changes,build,dsc,upload}
-	@rm -rvf ${SOURCE_DIR}/debian/colorex.debhelper.log \
-	         ${SOURCE_DIR}/debian/colorex.substvars \
-	         ${SOURCE_DIR}/debian/colorex \
+	@rm -rvf ${SOURCE_DIR}/debian/*debhelper* \
+	         ${SOURCE_DIR}/debian/*substvars* \
+	         ${SOURCE_DIR}/debian/${PKG_NAME} \
 	         ${SOURCE_DIR}/debian/changelog \
 	         ${SOURCE_DIR}/debian/files
