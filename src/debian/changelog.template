@@ -2,6 +2,12 @@ colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
   * 
 
+ -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 23 May 2010 16:49:16 +0200
+
+colorex (1.3) DISTRIB; urgency=low
+
+  * Added a man page.
+
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Thu, 16 May 2010 20:09:29 +0200
 
 colorex (1.2) DISTRIB; urgency=low
