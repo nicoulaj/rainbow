@@ -1,0 +1,110 @@
+.TH COLOREX 1 "May 23, 2010"
+
+
+.SH NAME
+colorex \- Colorize files using patterns.
+
+
+.SH SYNOPSIS
+.B colorex
+[options] [files...]
+
+
+.SH DESCRIPTION
+Display files or sdtin with pretty colors for matched patterns. If you
+don't specify files, STDIN is used.
+
+
+.SH OPTIONS
+These programs follow the usual GNU command line syntax, with long
+options starting with two dashes (`-').
+A summary of options is included below.
+
+.TP
+.B \-h, \-\-help
+Show a help message and exit.
+
+.TP
+.B \-\-version
+Show version of program.
+
+.TP
+.B \-b PATTERN, \-\-blue=PATTERN
+Display PATTERN in blue.
+
+.TP
+.B \-r PATTERN, \-\-red=PATTERN
+Display PATTERN in red.
+
+.TP
+.B \-g PATTERN, \-\-green=PATTERN
+Display PATTERN in green.
+
+.TP
+.B \-y PATTERN, \-\-yellow=PATTERN
+Display PATTERN in yellow.
+
+.TP
+.B \-m PATTERN, \-\-magenta=PATTERN
+Display PATTERN in magenta.
+
+.TP
+.B \-c PATTERN, \-\-cyan=PATTERN
+Display PATTERN in cyan.
+
+.TP
+.B \-B PATTERN, \-\-bblue=PATTERN
+Display PATTERN in blue background.
+
+.TP
+.B \-R PATTERN, \-\-bred=PATTERN
+Display PATTERN in red background.
+
+.TP
+.B \-G PATTERN, \-\-bgreen=PATTERN
+Display PATTERN in green background.
+
+.TP
+.B \-Y PATTERN, \-\-byellow=PATTERN
+Display PATTERN in yellow background.
+
+.TP
+.B \-M PATTERN, \-\-bmagenta=PATTERN
+Display PATTERN in magenta background.
+
+.TP
+.B \-C BCYAN, \-\-bcyan=BCYAN
+Display PATTERN in cyan background.
+
+.TP
+.B \-K PATTERN, \-\-blink=PATTERN
+Display PATTERN blinking.
+
+.TP
+.B \-D PATTERN, \-\-bold=PATTERN
+Display PATTERN in bold.
+
+.TP
+.B \-N PATTERN, \-\-bisounours=PATTERN
+Display PATTERN with random colors.
+
+
+.SH EXAMPLES
+.TP
+Colorize a Log4J-style log file in live:
+tail -f my-file.log | colorex --red='^\\[ERROR\\].*' --yellow='^\\[WARN\\].*'
+
+.PP
+Regular expressions are interpreted, so if you want to match a '*' escape
+it with a backslash.
+
+
+.SH BUGS
+Please report bugs at http://github.com/nicoulaj/colorex/issues.
+
+
+.SH AUTHOR
+.PP
+This manual page was written by Julien Nicoulaud <julien.nicoulaud@gmail.com>,
+for the colorex project (http://github.com/nicoulaj/colorex), and may be used
+by others.

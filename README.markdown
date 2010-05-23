@@ -34,7 +34,8 @@ You can build the .deb package from the sources:
     make
 
 ## Getting started
-After installing the package, call the help to get started:
+After installing the package, call the help or read the man page to get started:
+    man colorex
     colorex --help
 
 
