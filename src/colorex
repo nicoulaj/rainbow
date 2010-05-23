@@ -22,29 +22,29 @@ import random
 import sys
 import re
 
-usage = "%prog [options] file1 file2 ... "
+# Options parser setup
+usage = "%prog [options] [file...] "
 version = "%prog " + open('/usr/share/colorex/VERSION', 'r').read()
-description = """Display files or sdtin with pretty colors for matched patterns. if you don't specify files, stdin is used.
-Regular expressions are interpreted, so if you want to match a '*' escape it with a backslash.
-eg: colorex --red '\*' foo.txt
-(some patterns can't be used if they match ansi escape code)"""
+description = """Display files or STDIN with pretty colors for matched
+patterns. If you don't specify files, stdin is used.For more information,
+see colorex man page."""
 parser = OptionParser(usage=usage, version=version, description=description)
-parser.formatter.max_help_position = 40
-parser.formatter.width = 90
-parser.add_option("-b", "--blue", action="append", dest="blue", help="display BLUE pattern in blue")
-parser.add_option("-r", "--red", action="append", dest="red", help="display RED pattern in red")
-parser.add_option("-g", "--green", action="append", dest="green", help="display GREEN pattern in green")
-parser.add_option("-y", "--yellow", action="append", dest="yellow", help="display YELLOW pattern in yellow")
-parser.add_option("-m", "--magenta", action="append", dest="magenta", help="display MAGENTA pattern in magenta")
-parser.add_option("-c", "--cyan", action="append", dest="cyan", help="display CYAN pattern in cyan")
-parser.add_option("-B", "--bblue", action="append", dest="bblue", help="display BBLUE pattern in blue background")
-parser.add_option("-R", "--bred", action="append", dest="bred", help="display BRED pattern in red background")
-parser.add_option("-G", "--bgreen", action="append", dest="bgreen", help="display BGREEN pattern in green background")
-parser.add_option("-Y", "--byellow", action="append", dest="byellow", help="display BYELLOW pattern in yellow background")
-parser.add_option("-M", "--bmagenta", action="append", dest="bmagenta", help="display BMAGENTA pattern in magenta background")
-parser.add_option("-C", "--bcyan", action="append", dest="bcyan", help="display BCYAN pattern in cyan background")
-parser.add_option("-K", "--blink", action="append", dest="blink", help="display BLINK pattern blinking")
-parser.add_option("-D", "--bold", action="append", dest="bold", help="display BOLD pattern in bold")
+parser.formatter.max_help_position = 36
+parser.formatter.width = 84
+parser.add_option("-b", "--blue", action="append", dest="blue", help="display BLUE pattern in blue.")
+parser.add_option("-r", "--red", action="append", dest="red", help="display RED pattern in red.")
+parser.add_option("-g", "--green", action="append", dest="green", help="display GREEN pattern in green.")
+parser.add_option("-y", "--yellow", action="append", dest="yellow", help="display YELLOW pattern in yellow.")
+parser.add_option("-m", "--magenta", action="append", dest="magenta", help="display MAGENTA pattern in magenta.")
+parser.add_option("-c", "--cyan", action="append", dest="cyan", help="display CYAN pattern in cyan.")
+parser.add_option("-B", "--bblue", action="append", dest="bblue", help="display BBLUE pattern in blue background.")
+parser.add_option("-R", "--bred", action="append", dest="bred", help="display BRED pattern in red background.")
+parser.add_option("-G", "--bgreen", action="append", dest="bgreen", help="display BGREEN pattern in green background.")
+parser.add_option("-Y", "--byellow", action="append", dest="byellow", help="display BYELLOW pattern in yellow background.")
+parser.add_option("-M", "--bmagenta", action="append", dest="bmagenta", help="display BMAGENTA pattern in magenta background.")
+parser.add_option("-C", "--bcyan", action="append", dest="bcyan", help="display BCYAN pattern in cyan background.")
+parser.add_option("-K", "--blink", action="append", dest="blink", help="display BLINK pattern blinking.")
+parser.add_option("-D", "--bold", action="append", dest="bold", help="display BOLD pattern in bold.")
 
 (options, args) = parser.parse_args()
 options = options.__dict__
