@@ -26,31 +26,28 @@ VERSION=`cat ${SOURCE_DIR}/VERSION`
 SOURCE_DIR=src
 OUTPUT_DIR=.
 
-prepare_changelog =                                                               \
-  sed -e "s/DISTRIB/$(1)/g"                                                       \
-      -e "s/PACKAGE_VERSION/$(2)-1~$(1)1/g"                                       \
-      ${SOURCE_DIR}/debian/changelog.template > ${SOURCE_DIR}/debian/changelog
 
 all: deb
 
-deb:
+prepare-changelog:
+	@sed -e "s/DISTRIB/${DISTRIB}/g" \
+	     -e "s/PACKAGE_VERSION/${VERSION}-1~${DISTRIB}1/g" \
+	     ${SOURCE_DIR}/debian/changelog.template > ${SOURCE_DIR}/debian/changelog
+
+deb: prepare-changelog
 	@echo "Building Debian package (distrib: ${DISTRIB}, version: ${VERSION})"
-	@$(call prepare_changelog,${DISTRIB},${VERSION})
 	@(cd ${SOURCE_DIR} && debuild -b -i -I -us -uc)
 
-signed-deb:
+signed-deb: prepare-changelog
 	@echo "Building signed Debian package (distrib: ${DISTRIB}, version: ${VERSION})"
-	@$(call prepare_changelog,${DISTRIB},${VERSION})
 	@(cd ${SOURCE_DIR} && debuild -b -i -I)
 
-src-pkg:
+src-pkg: prepare-changelog
 	@echo "Building source package (distrib: ${DISTRIB}, version: ${VERSION})"
-	@$(call prepare_changelog,${DISTRIB},${VERSION})
 	@(cd ${SOURCE_DIR} && debuild -S -i -I -us -uc)
 
-signed-src-pkg:
+signed-src-pkg: prepare-changelog
 	@echo "Building signed source package (distrib: ${DISTRIB}, version: ${VERSION})"
-	@$(call prepare_changelog,${DISTRIB},${VERSION})
 	@(cd ${SOURCE_DIR} && debuild -S -i -I)
 
 release-for-distrib: clean signed-deb signed-src-pkg
