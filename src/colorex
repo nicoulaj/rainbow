@@ -45,67 +45,62 @@ parser.add_option("-M", "--bmagenta", action="append", dest="bmagenta", help="di
 parser.add_option("-C", "--bcyan", action="append", dest="bcyan", help="display BCYAN pattern in cyan background")
 parser.add_option("-K", "--blink", action="append", dest="blink", help="display BLINK pattern blinking")
 parser.add_option("-D", "--bold", action="append", dest="bold", help="display BOLD pattern in bold")
-parser.add_option("-N", "--bisounours", action="store_true", dest="bisounours", default=False, help="display with random colors")
 
 (options, args) = parser.parse_args()
 options = options.__dict__
 colorcode = {'red':chr(27)+'[31m', 'green':chr(27)+'[32m', 'yellow':chr(27)+'[33m',
-             'blue':chr(27)+'[34m', 'magenta':chr(27)+'[35m', 'cyan':chr(27)+'[36m',
-             'bred':chr(27)+'[41m', 'bgreen':chr(27)+'[42m', 'byellow':chr(27)+'[43m',
-             'bblue':chr(27)+'[44m', 'bmagenta':chr(27)+'[45m', 'bcyan':chr(27)+'[46m',
-             'blink':chr(27)+'[5m', 'bold':chr(27)+'[1m',
-             'reset':chr(27)+'[0m'}
+			 'blue':chr(27)+'[34m', 'magenta':chr(27)+'[35m', 'cyan':chr(27)+'[36m',
+			 'bred':chr(27)+'[41m', 'bgreen':chr(27)+'[42m', 'byellow':chr(27)+'[43m',
+			 'bblue':chr(27)+'[44m', 'bmagenta':chr(27)+'[45m', 'bcyan':chr(27)+'[46m',
+			 'blink':chr(27)+'[5m', 'bold':chr(27)+'[1m',
+			 'reset':chr(27)+'[0m'}
 ambigous_pattern = [0]
 
 def check_pattern():
-    for pattern_list in options.values():
-        if pattern_list and type(pattern_list) != type(True):
-            for pattern in pattern_list:
-                for ansi_seq in colorcode.values():
-                    match_obj = re.search(pattern , ansi_seq)
-                    if match_obj:
-                        ambigous_pattern[0] = pattern
-                        return False
-    return True
+	for pattern_list in options.values():
+		if pattern_list and type(pattern_list) != type(True):
+			for pattern in pattern_list:
+				for ansi_seq in colorcode.values():
+					match_obj = re.search(pattern , ansi_seq)
+					if match_obj:
+						ambigous_pattern[0] = pattern
+						return False
+	return True
 
 def colorise(line):
-    if options['bisounours']:
-        color = random.choice(colorcode.keys())
-        line = line.replace(line,  colorcode[color] + line.rstrip() + colorcode['reset'])
-    else:
-        for color in colorcode.keys():
-            if color != 'reset':
-                if options[color]:
-                    for pattern in options[color]:
-                        match_obj = re.search(pattern , line)
-                        if match_obj:
-                            line = re.sub(pattern, colorcode[color] + match_obj.group() + colorcode['reset'], line)
-    return line.rstrip()
+	for color in colorcode.keys():
+		if color != 'reset':
+			if options[color]:
+				for pattern in options[color]:
+					match_obj = re.search(pattern , line)
+					if match_obj:
+						line = re.sub(pattern, colorcode[color] + match_obj.group() + colorcode['reset'], line)
+	return line.rstrip()
 
 try:
-    if check_pattern():
-        if args:
-            for file in args:
-                try:
-                    file_handle = open(file, 'r')
-                    for line in file_handle:
-                        print colorise(line)
-                    file_handle.close()
-                except Exception,info:
-                    sys.stderr.write("ERROR : can't read file %s\n" % file)
-                    sys.stderr.write(str(info) + '\n')
-        else:
-            while True:
-                line = raw_input()
-                print colorise(line)
-    else:
-        sys.stderr.write("ERROR : ambigous pattern '%s'\n" % ambigous_pattern[0])
+	if check_pattern():
+		if args:
+			for file in args:
+				try:
+					file_handle = open(file, 'r')
+					for line in file_handle:
+						print colorise(line)
+					file_handle.close()
+				except Exception,info:
+					sys.stderr.write("ERROR : can't read file %s\n" % file)
+					sys.stderr.write(str(info) + '\n')
+		else:
+			while True:
+				line = raw_input()
+				print colorise(line)
+	else:
+		sys.stderr.write("ERROR : ambigous pattern '%s'\n" % ambigous_pattern[0])
 
 except EOFError:
-    sys.stderr.write('End of Input ...\n')
+	sys.stderr.write('End of Input ...\n')
 
 except KeyboardInterrupt:
-    sys.stderr.write('KeyboardInterrupt ...')
+	sys.stderr.write('KeyboardInterrupt ...')
 
 except Exception, info:
-    sys.stderr.write("ERROR : %s\n" % info)
+	sys.stderr.write("ERROR : %s\n" % info)
