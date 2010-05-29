@@ -21,7 +21,7 @@
 _colorex()
 {
   cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $( compgen -W "--version -h --help -b --blue= -r RED --red= -g --green= -y --yellow= -m --magenta= -c --cyan= -B --bblue= -R --bred= -G --bgreen= -Y --byellow= -M --bmagenta= -C --bcyan= -K --blink= -D --bold= -N --bisounours" -- $cur ) )
+  COMPREPLY=( $( compgen -W "--version -h --help -b --blue= -r RED --red= -g --green= -y --yellow= -m --magenta= -c --cyan= -B --bblue= -R --bred= -G --bgreen= -Y --byellow= -M --bmagenta= -C --bcyan= -K --blink= -D --bold=" -- $cur ) )
 }
 
 complete -o nospace -F _colorex colorex
