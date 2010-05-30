@@ -19,14 +19,16 @@ import ConfigParser
 import random
 import sys
 import re
-
+import os
 
 # --------------------------------------------------------------------------------------------------
 # Constants
 # --------------------------------------------------------------------------------------------------
 
-COLOREX_HOME = '/usr/share/colorex'
-COLOREX_CONFIGS_HOME = COLOREX_HOME + '/configs'
+COLOREX_HOME = os.path.join(os.sep,'usr','share','colorex')
+COLOREX_CONFIGS_HOME = os.path.join(COLOREX_HOME,'configs')
+USER_CONFIGS_HOME = os.path.expanduser('~/.colorex')
+
 USAGE = "%prog [options] [file...] "
 VERSION_FILE = COLOREX_HOME + '/VERSION'
 DESCRIPTION = """Display files or STDIN with pretty colors for matched patterns. If you don't specify
@@ -91,7 +93,7 @@ def parse_config(config):
         if filter in FILTERS:
             register_pattern(cfg.get("filters",filter),filter)
         else:
-            sys.stderr.write("ERROR: unknown filter %s\n" % filter)
+            sys.stderr.write("ERROR: unknown filter '%s'.\n" % filter)
             sys.exit(1)
 
 def colorize(line):
@@ -149,9 +151,14 @@ try:
                 sys.stderr.write("ERROR : can't read file %s\n" % file)
                 sys.stderr.write(str(info) + '\n')
     else:
-        while True:
-            line = raw_input()
-            print colorize(line)
+        try:
+            while True:
+                line = raw_input()
+                print colorize(line)
+        except KeyboardInterrupt:
+            while True:
+                line = raw_input()
+                print colorize(line)
 
 except EOFError:
     sys.exit(0)
