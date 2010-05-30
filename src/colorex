@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -12,7 +12,7 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 from optparse import OptionParser, OptionGroup
 import ConfigParser
@@ -21,9 +21,9 @@ import sys
 import re
 import os
 
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # Constants
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 # Places
 COLOREX_HOME = os.path.join(os.sep,'usr','share','colorex')
@@ -62,22 +62,22 @@ FILTERS = {
  }
 
 # Groups of filters
-FILTERS_GROUPS = {
-  'text_color':       { 'name': 'Text color',
-                        'help': 'Use these options to associate patterns to text colors.',
-                        'filters': [ 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan' ] },
-  'background_color': { 'name': 'Background color',
-                        'help': 'Use these options to associate patterns to text background colors.',
-                        'filters': [ 'bred', 'bgreen', 'byellow', 'bblue', 'bmagenta', 'bcyan' ] },
-  'formattings':      { 'name': 'Formatting',
-                        'help': 'Use these options to associate patterns to text formattings. Some of the filters do not work on all terminals.',
-                        'filters': [ 'bold', 'faint', 'italic', 'underline', 'underline-double', 'blink', 'blink-rapid', 'negative', 'hide' ] }
- }
+FILTERS_GROUPS = [
+  { 'name': 'Text color',
+    'help': 'Use these options to associate patterns to text colors.',
+    'filters': [ 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan' ] },
+  { 'name': 'Background color',
+    'help': 'Use these options to associate patterns to text background colors.',
+    'filters': [ 'bred', 'bgreen', 'byellow', 'bblue', 'bmagenta', 'bcyan' ] },
+  { 'name': 'Formatting',
+    'help': 'Use these options to associate patterns to text formattings. Some of the filters do not work on all terminals.',
+    'filters': [ 'bold', 'faint', 'italic', 'underline', 'underline-double', 'blink', 'blink-rapid', 'negative', 'hide' ] }
+ ]
 
 
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # Functions
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 def register_pattern(pattern,filter_name):
     if pattern not in patterns:
@@ -87,7 +87,7 @@ def register_pattern(pattern,filter_name):
     patterns[pattern]['pattern_start'] += FILTERS[filter_name]['filter_start']
     patterns[pattern]['pattern_end'] += FILTERS[filter_name]['filter_end']
 
-def pattern_option_callback(option, opt, value, parser):
+def handle_command_line_pattern_option(option, opt, value, parser):
     register_pattern(value,option.get_opt_string()[2:])
 
 def import_config(config):
@@ -116,7 +116,6 @@ def import_config(config):
             register_pattern(cfg.get("filters",filter),filter)
         else:
             sys.stderr.write("ERROR: unknown filter '%s'.\n" % filter)
-            sys.exit(1)
 
 def colorize(line):
     for (pattern,pattern_filter) in patterns.items():
@@ -125,9 +124,9 @@ def colorize(line):
     return line.rstrip()
 
 
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # Main
-# --------------------------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 
 patterns = {}
 
@@ -135,22 +134,22 @@ patterns = {}
 parser = OptionParser(usage=USAGE, version="%prog " + open(VERSION_FILE, 'r').readline(), description=DESCRIPTION)
 parser.formatter.max_help_position = 50
 parser.formatter.width = 100
-parser.add_option("-f", "--config", action="append", dest="config", type="string", help="blabla.")
+parser.add_option("-f", "--config", action="append", dest="config", type="string", help="")
 
-for filter_group in FILTERS_GROUPS.values():
+for filter_group in FILTERS_GROUPS:
     filter_option_group = OptionGroup(parser, filter_group['name'], filter_group['help'])
     for filter_name in filter_group['filters']:
         filter = FILTERS[filter_name]
         if 'short_option' in filter:
             filter_option_group.add_option("-" + filter['short_option'],
                                            "--" + filter_name, action="callback",
-                                           callback=pattern_option_callback,
+                                           callback=handle_command_line_pattern_option,
                                            type="string",
                                            help=filter['help'])
         else:
             filter_option_group.add_option("--" + filter_name,
                                            action="callback",
-                                           callback=pattern_option_callback,
+                                           callback=handle_command_line_pattern_option,
                                            type="string",
                                            help=filter['help'])
     parser.add_option_group(filter_option_group)
@@ -168,24 +167,23 @@ try:
                 file_handle = open(file, 'r')
                 for line in file_handle:
                     print colorize(line)
-                file_handle.close()
             except Exception,info:
                 sys.stderr.write("ERROR : can't read file %s\n" % file)
                 sys.stderr.write(str(info) + '\n')
+            finally:
+                file_handle.close()
     else:
         try:
             while True:
                 line = raw_input()
                 print colorize(line)
         except KeyboardInterrupt:
+            # Let the process finish what it has to say.
             while True:
                 line = raw_input()
                 print colorize(line)
 
-except EOFError:
-    sys.exit(0)
-
-except KeyboardInterrupt:
+except (EOFError, KeyboardInterrupt):
     sys.exit(0)
 
 except Exception, info:
