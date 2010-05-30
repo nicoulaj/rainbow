@@ -25,15 +25,18 @@ import os
 # Constants
 # --------------------------------------------------------------------------------------------------
 
+# Places
 COLOREX_HOME = os.path.join(os.sep,'usr','share','colorex')
 COLOREX_CONFIGS_HOME = os.path.join(COLOREX_HOME,'configs')
 USER_CONFIGS_HOME = os.path.expanduser('~/.colorex')
 
+# Messages displayed in help
 USAGE = "%prog [options] [file...] "
-VERSION_FILE = COLOREX_HOME + '/VERSION'
+VERSION_FILE = os.path.join(COLOREX_HOME,'VERSION')
 DESCRIPTION = """Display files or STDIN with pretty colors for matched patterns. If you don't specify
 files, stdin is used. For more information, see colorex man page."""
 
+# Filters available
 FILTERS = {
   'red':                { 'short_option': 'r', 'help': 'display RED pattern in red',                                  'filter_start': chr(27)+'[31m', 'filter_end': chr(27)+'[39m' },
   'green':              { 'short_option': 'g', 'help': 'display GREEN pattern in green',                              'filter_start': chr(27)+'[32m', 'filter_end': chr(27)+'[39m' },
@@ -57,7 +60,8 @@ FILTERS = {
   'negative':           {                      'help': 'display NEGATIVE pattern swapping foreground and background', 'filter_start': chr(27)+'[7m',  'filter_end': chr(27)+'[27m' },
   'hide':               {                      'help': 'hide HIDE pattern',                                           'filter_start': chr(27)+'[8m',  'filter_end': chr(27)+'[28m' }
  }
- 
+
+# Groups of filters
 FILTERS_GROUPS = {
   'text_color':       { 'name': 'Text color',
                         'help': 'Use these options to associate patterns to text colors.',
@@ -86,9 +90,27 @@ def register_pattern(pattern,filter_name):
 def pattern_option_callback(option, opt, value, parser):
     register_pattern(value,option.get_opt_string()[2:])
 
-def parse_config(config):
+def import_config(config):
+
+    # Try to locate the config
+    if os.path.isfile(config):
+        config_file = config
+    elif os.path.isfile(config + '.cfg'):
+        config_file = config + '.cfg'
+    elif os.path.isfile(os.path.join(USER_CONFIGS_HOME,config)):
+        config_file = os.path.join(USER_CONFIGS_HOME,config)
+    elif os.path.isfile(os.path.join(USER_CONFIGS_HOME,config + '.cfg')):
+        config_file = os.path.join(USER_CONFIGS_HOME,config + '.cfg')
+    elif os.path.isfile(os.path.join(COLOREX_CONFIGS_HOME,config)):
+        config_file = os.path.join(COLOREX_CONFIGS_HOME,config)
+    elif os.path.isfile(os.path.join(COLOREX_CONFIGS_HOME,config + '.cfg')):
+        config_file = os.path.join(COLOREX_CONFIGS_HOME,config + '.cfg')
+    else:
+        sys.stderr.write("ERROR : Could not locate the config %s.\n" % config)
+        return
+
     cfg = ConfigParser.ConfigParser()
-    cfg.read(config)
+    cfg.read(config_file)
     for filter in cfg.options("filters"):
         if filter in FILTERS:
             register_pattern(cfg.get("filters",filter),filter)
@@ -137,7 +159,7 @@ for filter_group in FILTERS_GROUPS.values():
 
 if options.config:
     for config in options.config:
-        parse_config(config)
+        import_config(config)
 
 try:
     if args:
