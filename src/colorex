@@ -21,22 +21,54 @@ import sys
 import re
 import os
 
+
 # ----------------------------------------------------------------------
-# Constants
+# Constants & variables
 # ----------------------------------------------------------------------
 
-# Places
 COLOREX_HOME = os.path.join(os.sep,'usr','share','colorex')
-COLOREX_CONFIGS_HOME = os.path.join(COLOREX_HOME,'configs')
-USER_CONFIGS_HOME = os.path.expanduser('~/.colorex')
+"""
+The location where colorex assets are stored.
 
-# Messages displayed in help
-USAGE = "%prog [options] [file...] "
+@type: string
+"""
+
+COLOREX_CONFIGS_HOME = os.path.join(COLOREX_HOME,'configs')
+"""
+The location where colorex configs are stored.
+
+@type: string
+"""
+
+USER_CONFIGS_HOME = os.path.expanduser('~/.colorex')
+"""
+The location where colorex user-defined configs are stored.
+
+@type: string
+"""
+
 VERSION_FILE = os.path.join(COLOREX_HOME,'VERSION')
+"""
+The location of the file containing the script version number.
+
+@type: string
+"""
+
+USAGE = "%prog [options] [file...] "
+"""
+A string showing the script usage syntax.
+
+@type: string
+"""
+
 DESCRIPTION = """Display files or STDIN with pretty colors for matched patterns. If you don't specify
 files, stdin is used. For more information, see colorex man page."""
+"""
+A string describing the script.
 
-# Filters available
+@type: string
+"""
+
 FILTERS = {
   'red':                { 'short_option': 'r', 'help': 'display RED pattern in red',                                  'filter_start': chr(27)+'[31m', 'filter_end': chr(27)+'[39m' },
   'green':              { 'short_option': 'g', 'help': 'display GREEN pattern in green',                              'filter_start': chr(27)+'[32m', 'filter_end': chr(27)+'[39m' },
@@ -60,9 +92,15 @@ FILTERS = {
   'negative':           {                      'help': 'display NEGATIVE pattern swapping foreground and background', 'filter_start': chr(27)+'[7m',  'filter_end': chr(27)+'[27m' },
   'hide':               {                      'help': 'hide HIDE pattern',                                           'filter_start': chr(27)+'[8m',  'filter_end': chr(27)+'[28m' }
  }
+"""
+A dictionary of the filters available in the scripts.
 
-# Groups of filters
-FILTERS_GROUPS = [
+The filter name defines the command line long option name. The other fields are self-explanatory.
+
+@type: dict
+"""
+
+FILTER_GROUPS = [
   { 'name': 'Text color',
     'help': 'Use these options to associate patterns to text colors.',
     'filters': [ 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan' ] },
@@ -73,26 +111,93 @@ FILTERS_GROUPS = [
     'help': 'Use these options to associate patterns to text formattings. Some of the filters do not work on all terminals.',
     'filters': [ 'bold', 'faint', 'italic', 'underline', 'underline-double', 'blink', 'blink-rapid', 'negative', 'hide' ] }
  ]
+"""
+A dictionary defining groups of filters.
+
+This is used to make the C{--help} option output easier to read.
+
+@type: string
+"""
+
+patterns = {}
+"""
+The dictionary containing patterns registered through configs and command line options.
+
+@type: dict
+"""
+
+optionParser = OptionParser(usage=USAGE, version="%prog " + open(VERSION_FILE, 'r').readline(), description=DESCRIPTION)
+"""
+The parser used to handle command line arguments.
+
+@type: OptionParser
+"""
 
 
 # ----------------------------------------------------------------------
 # Functions
 # ----------------------------------------------------------------------
 
-def register_pattern(pattern,filter_name):
+
+def register_pattern_with_filter(pattern,filter_name):
+    """
+    Register a pattern to be processed by a filter.
+
+    This functions populates the L{patterns} dictionary.
+
+    @param pattern: the pattern (regular expression).
+    @type pattern: string
+    @param filter_name: the filter to associate with the pattern. It must be a key of L{FILTERS}.
+    @type filter_name: string
+    @rtype: void
+    """
+
+    # If this is new pattern, create a new entry with the corresponding compiled regex.    
     if pattern not in patterns:
         patterns[pattern] = { 'pattern_start': '',
                               'pattern_end': '',
                               'regex' : re.compile(pattern) }
+
+    # Update the pattern before and after strings with the filter ones.
     patterns[pattern]['pattern_start'] += FILTERS[filter_name]['filter_start']
     patterns[pattern]['pattern_end'] += FILTERS[filter_name]['filter_end']
 
+
 def handle_command_line_pattern_option(option, opt, value, parser):
-    register_pattern(value,option.get_opt_string()[2:])
+    """
+    Handle a command line option defining a pattern/filter association.
+    
+    @param option: the Option instance calling the callback.
+    @type option: Option
+    @param opt: the option string seen on the command-line.
+    @type opt: string
+    @param value: the argument to this option seen on the command-line.
+    @type value: string
+    @param parser: the OptionParser instance.
+    @type parser: OptionParser
+    @rtype: void
+    """
 
-def import_config(config):
+    # The pattern is the option value, the filter name is computed from the option name ("--filter").
+    register_pattern_with_filter(value,option.get_opt_string()[2:])
 
-    # Try to locate the config
+
+def process_config(config):
+    """
+    Try to locate a config, and then register every pattern <-> filter association defined within it.
+
+    @param config: the config file to look for. The function will look for (in the following order):
+        - C{config}
+        - C{config.cfg}
+        - C{L{USER_CONFIGS_HOME}/config}
+        - C{L{USER_CONFIGS_HOME}/config.cfg}
+        - C{L{COLOREX_CONFIGS_HOME}/config}
+        - C{L{COLOREX_CONFIGS_HOME}/config.cfg}
+    @type config: string
+    @rtype: void
+    """
+
+    # Try to locate the config.
     if os.path.isfile(config):
         config_file = config
     elif os.path.isfile(config + '.cfg'):
@@ -109,35 +214,56 @@ def import_config(config):
         sys.stderr.write("ERROR : Could not locate the config %s.\n" % config)
         return
 
-    cfg = ConfigParser.ConfigParser()
-    cfg.read(config_file)
-    for filter in cfg.options("filters"):
+    # Parse the configuration file and register patterns defined within it.
+    configParser = ConfigParser.ConfigParser()
+    configParser.read(config_file)
+    for filter in configParser.options("filters"):
         if filter in FILTERS:
-            register_pattern(cfg.get("filters",filter),filter)
+            register_pattern_with_filter(configParser.get("filters",filter),filter)
         else:
             sys.stderr.write("ERROR: unknown filter '%s'.\n" % filter)
 
-def colorize(line):
+
+def apply_filters(line):
+    """
+    Colorize the line using the L{patterns} dictionary.
+
+    @param line: the line to process.
+    @type line: string
+    @return: the processed line.
+    @rtype: string
+    """
+
+    # Look for each pattern registered.
     for (pattern,pattern_filter) in patterns.items():
+
+        # Apply filter for each match.
         for match in pattern_filter['regex'].finditer(line):
             line = line.replace(match.group(),pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end'])
+
     return line.rstrip()
+
 
 
 # ----------------------------------------------------------------------
 # Main
 # ----------------------------------------------------------------------
 
-patterns = {}
+# Setup the command line option parser
+optionParser.formatter.max_help_position = 50
+optionParser.formatter.width = 100
 
-# Command line options parser setup
-parser = OptionParser(usage=USAGE, version="%prog " + open(VERSION_FILE, 'r').readline(), description=DESCRIPTION)
-parser.formatter.max_help_position = 50
-parser.formatter.width = 100
-parser.add_option("-f", "--config", action="append", dest="config", type="string", help="")
+# Register the "--config" command line option.
+optionParser.add_option("-f",
+                        "--config",
+                        action="append",
+                        dest="config",
+                        type="string",
+                        help="Load a config file defining patterns. Go to " + COLOREX_CONFIGS_HOME + " for examples.")
 
-for filter_group in FILTERS_GROUPS:
-    filter_option_group = OptionGroup(parser, filter_group['name'], filter_group['help'])
+# Walk through filter groups and register each filter as a command line option.
+for filter_group in FILTER_GROUPS:
+    filter_option_group = OptionGroup(optionParser, filter_group['name'], filter_group['help'])
     for filter_name in filter_group['filters']:
         filter = FILTERS[filter_name]
         if 'short_option' in filter:
@@ -152,40 +278,45 @@ for filter_group in FILTERS_GROUPS:
                                            callback=handle_command_line_pattern_option,
                                            type="string",
                                            help=filter['help'])
-    parser.add_option_group(filter_option_group)
+    optionParser.add_option_group(filter_option_group)
 
-(options, args) = parser.parse_args()
+# Parse command line options.
+(options, args) = optionParser.parse_args()
 
+# If configs passed, process them.
 if options.config:
     for config in options.config:
-        import_config(config)
+        process_config(config)
 
 try:
+    # If files passed to the command lines, process each one of them, line by line.
     if args:
         for file in args:
             try:
                 file_handle = open(file, 'r')
                 for line in file_handle:
-                    print colorize(line)
+                    print apply_filters(line)
             except Exception,info:
                 sys.stderr.write("ERROR : can't read file %s\n" % file)
                 sys.stderr.write(str(info) + '\n')
             finally:
                 file_handle.close()
+
+    # Else process STDIN.
     else:
         try:
             while True:
-                line = raw_input()
-                print colorize(line)
+                print apply_filters(raw_input())
         except KeyboardInterrupt:
-            # Let the process finish what it has to say.
+            # Let a chance to the interrupted process to finish.
             while True:
-                line = raw_input()
-                print colorize(line)
+                print apply_filters(raw_input())
 
+# Exit on keyboard interrupt and end of file.
 except (EOFError, KeyboardInterrupt):
     sys.exit(0)
 
+# Raise an error for any other exception.
 except Exception, info:
     sys.stderr.write("ERROR : %s\n" % info)
     sys.exit(1)
