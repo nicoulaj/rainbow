@@ -4,6 +4,7 @@ src/debian/colorex.substvars
 src/debian/colorex
 src/debian/changelog
 src/debian/files
+src/colorexc
 *.deb
 *.tar.gz
 *.changes
