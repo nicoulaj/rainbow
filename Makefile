@@ -35,7 +35,7 @@ prepare-changelog:
 	     -e "s/PACKAGE_VERSION/${VERSION}-1~${DISTRIB}1/g" \
 	     ${SOURCE_DIR}/debian/changelog.template > ${SOURCE_DIR}/debian/changelog
 
-doc:
+doc: clean
 	@echo "Generating documentation with Epydoc."
 	@epydoc --config epydoc.cfg
 
