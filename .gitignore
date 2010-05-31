@@ -11,3 +11,6 @@ src/debian/files
 *.dsc
 *.upload
 .idea
+*.iml
+*.ipr
+*.iws
