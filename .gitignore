@@ -17,3 +17,4 @@ src/debian/files
 .settings
 .project
 .classpath
+doc

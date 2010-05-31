@@ -25,6 +25,7 @@ DISTRIB=`lsb_release -sc`
 VERSION=`cat ${SOURCE_DIR}/VERSION`
 SOURCE_DIR=src
 OUTPUT_DIR=.
+DOC_DIR=doc
 
 
 all: deb
@@ -33,6 +34,10 @@ prepare-changelog:
 	@sed -e "s/DISTRIB/${DISTRIB}/g" \
 	     -e "s/PACKAGE_VERSION/${VERSION}-1~${DISTRIB}1/g" \
 	     ${SOURCE_DIR}/debian/changelog.template > ${SOURCE_DIR}/debian/changelog
+
+doc:
+	@echo "Generating documentation with Epydoc."
+	@epydoc --config epydoc.cfg
 
 deb: prepare-changelog
 	@echo "Building Debian package (distrib: ${DISTRIB}, version: ${VERSION})"
@@ -67,4 +72,5 @@ clean:
 	         ${SOURCE_DIR}/debian/*substvars* \
 	         ${SOURCE_DIR}/debian/${PKG_NAME} \
 	         ${SOURCE_DIR}/debian/changelog \
-	         ${SOURCE_DIR}/debian/files
+	         ${SOURCE_DIR}/debian/files \
+	         ${DOC_DIR}
