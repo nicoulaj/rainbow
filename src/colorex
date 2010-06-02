@@ -160,6 +160,8 @@ def register_pattern_with_filter(pattern,filter_name):
     @rtype: void
     """
 
+    logger.debug("Binding pattern '%s' with filter '%s'.", pattern, filter_name)
+
     # If this is new pattern, create a new entry with the corresponding compiled regex.    
     if pattern not in patterns:
         patterns[pattern] = { 'pattern_start': '',
@@ -205,6 +207,8 @@ def process_config(config):
     @rtype: void
     """
 
+    logger.debug("Processing config '%s'.", config)
+
     # Try to locate the config.
     if os.path.isfile(config):
         config_file = config
@@ -219,8 +223,10 @@ def process_config(config):
     elif os.path.isfile(os.path.join(COLOREX_CONFIGS_HOME,config + '.cfg')):
         config_file = os.path.join(COLOREX_CONFIGS_HOME,config + '.cfg')
     else:
-        logger.error("Could not locate the config '%s'." % config)
+        logger.error("Could not locate the config '%s'.", config)
         return
+
+    logger.debug("Config '%s' located at '%s'.", config, config_file)
 
     # Parse the configuration file and register patterns defined within it.
     configParser = ConfigParser.ConfigParser()
@@ -229,7 +235,9 @@ def process_config(config):
         if filter in FILTERS:
             register_pattern_with_filter(configParser.get("filters",filter),filter)
         else:
-            logger.warning("Unknown filter '%s'." % filter)
+            logger.warning("Unknown filter '%s'.", filter)
+
+    logger.info("Loaded config '%s'.", config)
 
 
 def apply_filters(line):
@@ -278,7 +286,7 @@ optionParser.add_option("-v",
                         "--verbose",
                         action="count",
                         dest="verbosity",
-                        help="blabla")
+                        help="Turn on verbose mode. This option can be called several times to increase the verbosity level.")
 
 # Walk through filter groups and register each filter as a command line option.
 for filter_group in FILTER_GROUPS:
@@ -315,22 +323,25 @@ try:
     # If files passed to the command lines, process each one of them, line by line.
     if args:
         for file in args:
+            logger.debug("Opening file '%s'.", file)
             try:
                 file_handle = open(file, 'r')
+                logger.info("Processing file '%s'.", file)
                 try:
                     for line in file_handle:
                         print apply_filters(line)
                 except Exception,info:
-                    logger.error("Error reading file %s." % file)
+                    logger.error("Error while processing file %s.", file)
                     logger.error(str(info))
                 finally:
                     file_handle.close()
             except Exception,info:
-                logger.error("Can't read file %s." % file)
+                logger.error("Could not read file %s.", file)
                 logger.error(str(info))
 
     # Else process STDIN.
     else:
+        logger.info("No arguments given, using STDIN as input.")
         try:
             while True:
                 print apply_filters(raw_input())
@@ -345,5 +356,5 @@ except (EOFError, KeyboardInterrupt):
 
 # Raise an error for any other exception.
 except Exception, info:
-    logger.fatal("%s" % info)
+    logger.fatal("%s", info)
     sys.exit(1)
