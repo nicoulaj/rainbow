@@ -35,10 +35,6 @@ prepare-changelog:
 	     -e "s/PACKAGE_VERSION/${VERSION}-1~${DISTRIB}1/g" \
 	     ${SOURCE_DIR}/debian/changelog.template > ${SOURCE_DIR}/debian/changelog
 
-doc: clean
-	@echo "Generating documentation with Epydoc."
-	@epydoc --config epydoc.cfg
-
 deb: prepare-changelog
 	@echo "Building Debian package (distrib: ${DISTRIB}, version: ${VERSION})"
 	@(cd ${SOURCE_DIR} && debuild -b -i -I -us -uc)
@@ -65,6 +61,10 @@ release:
 	@$(MAKE) release-for-distrib DISTRIB=lucid
 	@$(MAKE) release-for-distrib DISTRIB=maverick
 
+doc: clean
+	@echo "Generating documentation with Epydoc."
+	@epydoc --config epydoc.cfg
+
 clean:
 	@echo "Cleaning output files"
 	@rm -vf ${OUTPUT_DIR}/*.{dsc,deb,tar.gz,changes,build,dsc,upload}
@@ -73,4 +73,5 @@ clean:
 	         ${SOURCE_DIR}/debian/${PKG_NAME} \
 	         ${SOURCE_DIR}/debian/changelog \
 	         ${SOURCE_DIR}/debian/files \
+	         ${SOURCE_DIR}/colorexc \
 	         ${DOC_DIR}
