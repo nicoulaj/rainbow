@@ -36,23 +36,18 @@ prepare-changelog:
 	     ${SOURCE_DIR}/debian/changelog.template > ${SOURCE_DIR}/debian/changelog
 
 deb: prepare-changelog
-	@echo "Building Debian package (distrib: ${DISTRIB}, version: ${VERSION})"
 	@(cd ${SOURCE_DIR} && debuild -b -i -I -us -uc)
 
 signed-deb: prepare-changelog
-	@echo "Building signed Debian package (distrib: ${DISTRIB}, version: ${VERSION})"
 	@(cd ${SOURCE_DIR} && debuild -b -i -I)
 
 src-pkg: prepare-changelog
-	@echo "Building source package (distrib: ${DISTRIB}, version: ${VERSION})"
 	@(cd ${SOURCE_DIR} && debuild -S -i -I -us -uc)
 
 signed-src-pkg: prepare-changelog
-	@echo "Building signed source package (distrib: ${DISTRIB}, version: ${VERSION})"
 	@(cd ${SOURCE_DIR} && debuild -S -i -I)
 
 release-for-distrib: clean signed-deb signed-src-pkg
-	@echo "Uploading source package to Launchpad (distrib: ${DISTRIB}, version: ${VERSION})"
 	@dput ppa:julien-nicoulaud/colorex ${PKG_NAME}_*_source.changes
 
 release:
@@ -62,11 +57,9 @@ release:
 	@$(MAKE) release-for-distrib DISTRIB=maverick
 
 doc: clean
-	@echo "Generating documentation with Epydoc."
 	@epydoc --config epydoc.cfg
 
 clean:
-	@echo "Cleaning output files"
 	@rm -vf ${OUTPUT_DIR}/*.{dsc,deb,tar.gz,changes,build,dsc,upload}
 	@rm -rvf ${SOURCE_DIR}/debian/*debhelper* \
 	         ${SOURCE_DIR}/debian/*substvars* \
