@@ -248,14 +248,22 @@ def process_config(config):
 
     logger.debug("Config '%s' located at '%s'.", config, config_file)
 
-    # Parse the configuration file and register patterns defined within it.
+    # Parse the configuration file
     configParser = ConfigParser.ConfigParser()
     configParser.read(config_file)
-    for filter in configParser.options("filters"):
-        if filter in FILTERS:
-            register_pattern_with_filter(configParser.get("filters",filter),filter)
-        else:
-            logger.warning("Unknown filter '%s'.", filter)
+
+    # Process config imports
+    if configParser.has_section('general'):
+        for config_import in [v.strip() for v in configParser.get('general', 'imports').split(',')]:
+            process_config(config_import)
+
+    # Register patterns defined in the config.
+    if configParser.has_section('filters'):
+        for filter in configParser.options("filters"):
+            if filter in FILTERS:
+                register_pattern_with_filter(configParser.get("filters",filter),filter)
+            else:
+                logger.warning("Unknown filter '%s'.", filter)
 
     logger.info("Loaded config '%s'.", config)
 
