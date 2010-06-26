@@ -99,6 +99,9 @@ FILTERS = {
   'reset-bcolor':       {                      'help': 'reset background color at RESET_BCOLOR pattern',                          'filter_start': ''            , 'filter_end': chr(27)+'[49m' },
   'bold':               {                      'help': 'display BOLD pattern in bold',                                            'filter_start': chr(27)+'[1m',  'filter_end': chr(27)+'[22m' },
   'faint':              {                      'help': 'display FAINT pattern with decreased intensity',                          'filter_start': chr(27)+'[2m',  'filter_end': chr(27)+'[22m' },
+  'start-bold':         {                      'help': 'toggle bold on at START_BOLD pattern',                                    'filter_start': chr(27)+'[1m',  'filter_end': ''             },
+  'start-faint':        {                      'help': 'toggle faint on at START_FAINT pattern',                                  'filter_start': chr(27)+'[2m',  'filter_end': ''             },
+  'reset-intensity':    {                      'help': 'reset text intensity at RESET_INTENSITY pattern',                         'filter_start': ''           ,  'filter_end': chr(27)+'[22m' },
   'italic':             {                      'help': 'display ITALIC pattern in italic',                                        'filter_start': chr(27)+'[3m',  'filter_end': chr(27)+'[23m' },
   'underline':          {                      'help': 'display UNDERLINE pattern underlined',                                    'filter_start': chr(27)+'[4m',  'filter_end': chr(27)+'[24m' },
   'underline-double':   {                      'help': 'display UNDERLINE_DOUBLE pattern double underlined',                      'filter_start': chr(27)+'[21m', 'filter_end': chr(27)+'[24m' },
@@ -116,15 +119,18 @@ The filter name defines the command line long option name. The other fields are 
 """
 
 FILTER_GROUPS = [
-  { 'name': 'Text color',
-    'help': 'Use these options to associate patterns to text colors.',
+  { 'name': 'Foreground color',
+    'help': 'Use these options to associate patterns to text foreground colors.',
     'filters': [ 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'start-red', 'start-green', 'start-yellow', 'start-blue', 'start-magenta', 'start-cyan', 'reset-color' ] },
   { 'name': 'Background color',
     'help': 'Use these options to associate patterns to text background colors.',
     'filters': [ 'bred', 'bgreen', 'byellow', 'bblue', 'bmagenta', 'bcyan', 'start-bred', 'start-bgreen', 'start-byellow', 'start-bblue', 'start-bmagenta', 'start-bcyan', 'reset-bcolor' ] },
+  { 'name': 'Text intensity',
+    'help': 'Use these options to associate patterns to text emphasis.',
+    'filters': [ 'bold', 'faint', 'start-bold', 'start-faint', 'reset-intensity' ] },
   { 'name': 'Formatting',
-    'help': 'Use these options to associate patterns to text formattings. Some of the filters do not work on all terminals.',
-    'filters': [ 'bold', 'faint', 'italic', 'underline', 'underline-double', 'blink', 'blink-rapid', 'negative', 'hide' ] }
+    'help': 'Use these options to associate patterns to text formattings. Some of the filters may not work on all terminals.',
+    'filters': [ 'italic', 'underline', 'underline-double', 'blink', 'blink-rapid', 'negative', 'hide' ] }
  ]
 """
 A dictionary defining groups of filters.
