@@ -283,101 +283,118 @@ def apply_filters(line):
     return line.rstrip()
 
 
+def main(argv=None):
+    """
+    Colorex main program.
+
+    @param argv: the program arguments.
+    @type argv: string
+    @return: the exit code of the program.
+    @rtype: int
+    """
+
+    # Resolve argv
+    if argv is None:
+        argv = sys.argv
+
+    # Setup the logger.
+    logger_console_handler = logging.StreamHandler()
+    logger_formatter = logging.Formatter("[%(name)s|%(levelname)s] %(message)s")
+    logger_console_handler.setFormatter(logger_formatter)
+    logger.addHandler(logger_console_handler)
+
+    # Setup the command line option parser.
+    optionParser.formatter.max_help_position = 50
+    optionParser.formatter.width = 150
+
+    # Register the command line options.
+    optionParser.add_option("-f",
+                            "--config",
+                            action="append",
+                            dest="config",
+                            type="string",
+                            help="Load a config file defining patterns. Go to " + COLOREX_CONFIGS_HOME + " for examples.")
+    optionParser.add_option("-v",
+                            "--verbose",
+                            action="count",
+                            dest="verbosity",
+                            help="Turn on verbose mode. This option can be called several times to increase the verbosity level.")
+
+    # Walk through filter groups and register each filter as a command line option.
+    for filter_group in FILTER_GROUPS:
+        filter_option_group = OptionGroup(optionParser, filter_group['name'], filter_group['help'])
+        for filter_name in filter_group['filters']:
+            filter = FILTERS[filter_name]
+            if 'short_option' in filter:
+                filter_option_group.add_option("-" + filter['short_option'],
+                                               "--" + filter_name, action="callback",
+                                               callback=handle_command_line_pattern_option,
+                                               type="string",
+                                               help=filter['help'])
+            else:
+                filter_option_group.add_option("--" + filter_name,
+                                               action="callback",
+                                               callback=handle_command_line_pattern_option,
+                                               type="string",
+                                               help=filter['help'])
+        optionParser.add_option_group(filter_option_group)
+
+    # Parse command line options.
+    (options, args) = optionParser.parse_args()
+
+    # Set the logger level, default is WARNING.
+    if options.verbosity:
+        logger.setLevel(logging.WARNING - 10 * options.verbosity)
+
+    # If configs passed, process them.
+    if options.config:
+        for config in options.config:
+            process_config(config)
+
+    try:
+        # If files passed to the command lines, process each one of them, line by line.
+        if args:
+            for file in args:
+                logger.debug("Opening file '%s'.", file)
+                try:
+                    file_handle = open(file, 'r')
+                    logger.info("Processing file '%s'.", file)
+                    try:
+                        for line in file_handle:
+                            print apply_filters(line)
+                    except Exception,info:
+                        logger.error("Error while processing file %s.", file)
+                        logger.error(str(info))
+                    finally:
+                        file_handle.close()
+                except Exception,info:
+                    logger.error("Could not read file %s.", file)
+                    logger.error(str(info))
+
+        # Else process STDIN.
+        else:
+            logger.info("No arguments given, using STDIN as input.")
+            try:
+                while True:
+                    print apply_filters(raw_input())
+            except KeyboardInterrupt:
+                # Let a chance to the interrupted process to finish.
+                while True:
+                    print apply_filters(raw_input())
+
+    # Exit on keyboard interrupt and end of file.
+    except (EOFError, KeyboardInterrupt):
+        return 0
+
+    # Raise an error for any other exception.
+    except Exception, info:
+        logger.fatal("%s", info)
+        return 1
+
 
 # ----------------------------------------------------------------------
 # Main
 # ----------------------------------------------------------------------
 
-# Setup the logger.
-logger_console_handler = logging.StreamHandler()
-logger_formatter = logging.Formatter("[%(name)s|%(levelname)s] %(message)s")
-logger_console_handler.setFormatter(logger_formatter)
-logger.addHandler(logger_console_handler)
-
-# Setup the command line option parser.
-optionParser.formatter.max_help_position = 50
-optionParser.formatter.width = 150
-
-# Register the command line options.
-optionParser.add_option("-f",
-                        "--config",
-                        action="append",
-                        dest="config",
-                        type="string",
-                        help="Load a config file defining patterns. Go to " + COLOREX_CONFIGS_HOME + " for examples.")
-optionParser.add_option("-v",
-                        "--verbose",
-                        action="count",
-                        dest="verbosity",
-                        help="Turn on verbose mode. This option can be called several times to increase the verbosity level.")
-
-# Walk through filter groups and register each filter as a command line option.
-for filter_group in FILTER_GROUPS:
-    filter_option_group = OptionGroup(optionParser, filter_group['name'], filter_group['help'])
-    for filter_name in filter_group['filters']:
-        filter = FILTERS[filter_name]
-        if 'short_option' in filter:
-            filter_option_group.add_option("-" + filter['short_option'],
-                                           "--" + filter_name, action="callback",
-                                           callback=handle_command_line_pattern_option,
-                                           type="string",
-                                           help=filter['help'])
-        else:
-            filter_option_group.add_option("--" + filter_name,
-                                           action="callback",
-                                           callback=handle_command_line_pattern_option,
-                                           type="string",
-                                           help=filter['help'])
-    optionParser.add_option_group(filter_option_group)
-
-# Parse command line options.
-(options, args) = optionParser.parse_args()
-
-# Set the logger level, default is WARNING.
-if options.verbosity:
-    logger.setLevel(logging.WARNING - 10 * options.verbosity)
-
-# If configs passed, process them.
-if options.config:
-    for config in options.config:
-        process_config(config)
-
-try:
-    # If files passed to the command lines, process each one of them, line by line.
-    if args:
-        for file in args:
-            logger.debug("Opening file '%s'.", file)
-            try:
-                file_handle = open(file, 'r')
-                logger.info("Processing file '%s'.", file)
-                try:
-                    for line in file_handle:
-                        print apply_filters(line)
-                except Exception,info:
-                    logger.error("Error while processing file %s.", file)
-                    logger.error(str(info))
-                finally:
-                    file_handle.close()
-            except Exception,info:
-                logger.error("Could not read file %s.", file)
-                logger.error(str(info))
-
-    # Else process STDIN.
-    else:
-        logger.info("No arguments given, using STDIN as input.")
-        try:
-            while True:
-                print apply_filters(raw_input())
-        except KeyboardInterrupt:
-            # Let a chance to the interrupted process to finish.
-            while True:
-                print apply_filters(raw_input())
-
-# Exit on keyboard interrupt and end of file.
-except (EOFError, KeyboardInterrupt):
-    sys.exit(0)
-
-# Raise an error for any other exception.
-except Exception, info:
-    logger.fatal("%s", info)
-    sys.exit(1)
+if __name__ == "__main__":
+    sys.exit(main())
