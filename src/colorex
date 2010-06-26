@@ -14,13 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import sys, re, os, logging, ConfigParser
 from optparse import OptionParser, OptionGroup
-import ConfigParser
-import random
-import sys
-import re
-import os
-import logging
 
 
 # ----------------------------------------------------------------------
