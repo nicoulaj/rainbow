@@ -258,7 +258,7 @@ def process_config(config):
         config_file = os.path.join(COLOREX_CONFIGS_HOME,config + '.cfg')
     else:
         logger.error("Could not locate the config '%s'.", config)
-        return
+        return 1
 
     logger.debug("Config '%s' located at '%s'.", config, config_file)
 
