@@ -207,6 +207,25 @@ def handle_command_line_pattern_option(option, opt, value, parser):
     register_pattern_with_filter(value,option.get_opt_string()[2:])
 
 
+def handle_command_line_verbosity_option(option, opt, value, parser):
+    """
+    Handle a command line option increasing the logger verbosity.
+
+    @param option: the Option instance calling the callback.
+    @type option: Option
+    @param opt: the option string seen on the command-line.
+    @type opt: string
+    @param value: the argument to this option seen on the command-line.
+    @type value: string
+    @param parser: the OptionParser instance.
+    @type parser: OptionParser
+    @rtype: void
+    """
+
+    # Decrease the logger level.
+    logger.setLevel(logger.level - 10)
+
+
 def process_config(config):
     """
     Try to locate a config, and then register every pattern <-> filter association defined within it.
@@ -302,6 +321,7 @@ def main(argv=None):
     logger_formatter = logging.Formatter("[%(name)s|%(levelname)s] %(message)s")
     logger_console_handler.setFormatter(logger_formatter)
     logger.addHandler(logger_console_handler)
+    logger.setLevel(logging.WARNING)
 
     # Setup the command line option parser.
     optionParser.formatter.max_help_position = 50
@@ -316,8 +336,8 @@ def main(argv=None):
                             help="Load a config file defining patterns. Go to " + COLOREX_CONFIGS_HOME + " for examples.")
     optionParser.add_option("-v",
                             "--verbose",
-                            action="count",
-                            dest="verbosity",
+                            action="callback",
+                            callback=handle_command_line_verbosity_option,
                             help="Turn on verbose mode. This option can be called several times to increase the verbosity level.")
 
     # Walk through filter groups and register each filter as a command line option.
@@ -341,10 +361,6 @@ def main(argv=None):
 
     # Parse command line options.
     (options, args) = optionParser.parse_args()
-
-    # Set the logger level, default is WARNING.
-    if options.verbosity:
-        logger.setLevel(logging.WARNING - 10 * options.verbosity)
 
     # If configs passed, process them.
     if options.config:
