@@ -9,86 +9,281 @@ colorex \- Colorize files using patterns.
 .B colorex
 [options] [files...]
 
+some-command |
+.B colorex
+[options]
+
 
 .SH DESCRIPTION
-Display files or sdtin with pretty colors for matched patterns. If you
+Display files colored matching words or regular expressions. If you
 don't specify files, STDIN is used.
 
 
 .SH OPTIONS
 These programs follow the usual GNU command line syntax, with long
-options starting with two dashes (`-').
-A summary of options is included below.
+options starting with two dashes (`-'). A summary of options is included below.
+
+.PP
+.B
+Common options
 
 .TP
-.B \-h, \-\-help
-Show a help message and exit.
+.B
+    \-v, \-\-version
+    show program's version number and exit
 
 .TP
-.B \-\-version
-Show version of program.
+.B
+    \-h, \-\-help
+    show this help message and exit
 
 .TP
-.B \-b PATTERN, \-\-blue=PATTERN
-Display PATTERN in blue.
+.B
+    \-v, \-\-verbose
+    Turn on verbose mode. This option can be called several times to increase the verbosity level.
 
 .TP
-.B \-r PATTERN, \-\-red=PATTERN
-Display PATTERN in red.
+.B
+    \-f CONFIG, \-\-config CONFIG
+    Load a config file defining patterns. Go to /usr/share/colorex/configs for examples. The option can be called several times.
+
+.PP
+.B
+Foreground color
+\- Use these options to associate patterns to text foreground colors.
 
 .TP
-.B \-g PATTERN, \-\-green=PATTERN
-Display PATTERN in green.
+.B
+    \-r RED, \-\-red RED
+    display RED pattern in red
 
 .TP
-.B \-y PATTERN, \-\-yellow=PATTERN
-Display PATTERN in yellow.
+.B
+    \-g GREEN, \-\-green GREEN
+    display GREEN pattern in green
 
 .TP
-.B \-m PATTERN, \-\-magenta=PATTERN
-Display PATTERN in magenta.
+.B
+    \-y YELLOW, \-\-yellow YELLOW
+    display YELLOW pattern in yellow
 
 .TP
-.B \-c PATTERN, \-\-cyan=PATTERN
-Display PATTERN in cyan.
+.B
+    \-b BLUE, \-\-blue BLUE
+    display BLUE pattern in blue
 
 .TP
-.B \-B PATTERN, \-\-bblue=PATTERN
-Display PATTERN in blue background.
+.B
+    \-m MAGENTA, \-\-magenta MAGENTA
+    display MAGENTA pattern in magenta
 
 .TP
-.B \-R PATTERN, \-\-bred=PATTERN
-Display PATTERN in red background.
+.B
+    \-c CYAN, \-\-cyan CYAN
+    display CYAN pattern in cyan
 
 .TP
-.B \-G PATTERN, \-\-bgreen=PATTERN
-Display PATTERN in green background.
+.B
+    \-\-start\-red START_RED
+    toggle foreground color to red at START_RED pattern
 
 .TP
-.B \-Y PATTERN, \-\-byellow=PATTERN
-Display PATTERN in yellow background.
+.B
+    \-\-start\-green START_GREEN
+    toggle foreground color to green at START_GREEN pattern
 
 .TP
-.B \-M PATTERN, \-\-bmagenta=PATTERN
-Display PATTERN in magenta background.
+.B
+    \-\-start\-yellow START_YELLOW
+    toggle foreground color to yellow at START_YELLOW pattern
 
 .TP
-.B \-C BCYAN, \-\-bcyan=BCYAN
-Display PATTERN in cyan background.
+.B
+    \-\-start\-blue START_BLUE
+    toggle foreground color to blue at START_BLUE pattern
 
 .TP
-.B \-K PATTERN, \-\-blink=PATTERN
-Display PATTERN blinking.
+.B
+    \-\-start\-magenta START_MAGENTA
+    toggle foreground color to magenta at START_MAGENTA pattern
 
 .TP
-.B \-D PATTERN, \-\-bold=PATTERN
-Display PATTERN in bold.
+.B
+    \-\-start\-cyan START_CYAN
+    toggle foreground color to cyan at START_CYAN pattern
+
+.TP
+.B
+    \-\-reset\-color RESET_COLOR
+    reset foreground color at RESET_COLOR pattern
+
+.PP
+.B
+Background color
+\- Use these options to associate patterns to text background colors.
+
+.TP
+.B
+    \-R BRED, \-\-bred BRED
+    display BRED pattern in red background
+
+.TP
+.B
+    \-G BGREEN, \-\-bgreen BGREEN
+    display BGREEN pattern in green background
+
+.TP
+.B
+    \-Y BYELLOW, \-\-byellow BYELLOW
+    display BYELLOW pattern in yellow background
+
+.TP
+.B
+    \-B BBLUE, \-\-bblue BBLUE
+    display BBLUE pattern in blue background
+
+.TP
+.B
+    \-M BMAGENTA, \-\-bmagenta BMAGENTA
+    display BMAGENTA pattern in magenta background
+
+.TP
+.B
+    \-C BCYAN, \-\-bcyan BCYAN
+    display BCYAN pattern in cyan background
+
+.TP
+.B
+    \-\-start\-bred START_BRED
+    toggle background color to red at START_BRED pattern
+
+.TP
+.B
+    \-\-start\-bgreen START_BGREEN
+    toggle background color to green at START_BGREEN pattern
+
+.TP
+.B
+    \-\-start\-byellow START_BYELLOW
+    toggle background color to yellow at START_BYELLOW pattern
+
+.TP
+.B
+    \-\-start\-bblue START_BBLUE
+    toggle background color to blue at START_BBLUE pattern
+
+.TP
+.B
+    \-\-start\-bmagenta START_BMAGENTA
+    toggle background color to magenta at START_BMAGENTA pattern
+
+.TP
+.B
+    \-\-start\-bcyan START_BCYAN
+    toggle background color to cyan at START_BCYAN pattern
+
+.TP
+.B
+    \-\-reset\-bcolor RESET_BCOLOR
+    reset background color at RESET_BCOLOR pattern
+
+.PP
+.B
+Text intensity
+\- Use these options to associate patterns to text emphasis.
+
+.TP
+.B
+    \-\-bold BOLD
+    display BOLD pattern in bold
+
+.TP
+.B
+    \-\-faint FAINT
+    display FAINT pattern with decreased intensity
+
+.TP
+.B
+    \-\-start\-bold START_BOLD
+    toggle bold on at START_BOLD pattern
+
+.TP
+.B
+    \-\-start\-faint START_FAINT
+    toggle faint on at START_FAINT pattern
+
+.TP
+.B
+    \-\-reset\-intensity RESET_INTENSITY
+    reset text intensity at RESET_INTENSITY pattern
+
+.PP
+.B
+Other formattings
+\- Use these options to associate patterns to text formattings. Some of the filters may not work on all terminals.
+
+.TP
+.B
+    \-\-italic ITALIC
+    display ITALIC pattern in italic
+
+.TP
+.B
+    \-\-underline UNDERLINE
+    display UNDERLINE pattern underlined
+
+.TP
+.B
+    \-\-underline\-double UNDERLINE_DOUBLE
+    display UNDERLINE_DOUBLE pattern double underlined
+
+.TP
+.B
+    \-\-blink BLINK
+    display BLINK pattern blinking
+
+.TP
+.B
+    \-\-blink-rapid BLINK_RAPID
+    display BLINK pattern blinking
+
+.TP
+.B
+    \-\-negative NEGATIVE
+    display NEGATIVE pattern swapping foreground and background
+
+.TP
+.B
+    \-\-hide HIDE
+    hide HIDE pattern
+
+
+.SH CONFIGS
+.TP
+The \-f or \-\- config allows to load patterns defined in a configuration file, for example:
+colorex \-\-config MY_CONFIG
+.PP
+With this command , colorex will look for a config at the following places, in the following order:
+  * MY_CONFIG
+  * MY_CONFIG.cfg
+  * ~/.colorex/MY_CONFIG
+  * ~/.colorex/MY_CONFIG.cfg
+  * /usr/share/colorex/configs/MY_CONFIG
+  * /usr/share/colorex/configs/MY_CONFIG.cfg
+
+colorex comes bundled with several configs, for example for the ping, top and netcat commands, for Tomcat/JBoss/Log4J
+logs, etc. These configs are located at /usr/share/colorex/configs and can serve as examples for you own ones.
 
 
 .SH EXAMPLES
+
 .TP
-Colorize a Log4J-style log file in live:
-tail -f my-file.log | colorex --red='^\\[ERROR\\].*' --yellow='^\\[WARN\\].*'
+Ping Google with IP addresses colorized in red:
+ping www.google.com | colorex --red '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}'
+
+.TP
+Watch a Log4J-style log file using the provided Log4J config:
+tail -f my-file.log | colorex \-\-config log4j
 
 .PP
 Regular expressions are interpreted, so if you want to match a '*' escape
@@ -96,7 +291,7 @@ it with a backslash.
 
 
 .SH BUGS
-Please report bugs at http://github.com/nicoulaj/colorex/issues.
+Please report bugs to http://github.com/nicoulaj/colorex/issues.
 
 
 .SH AUTHOR
