@@ -15,13 +15,42 @@
 #   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Description
-#   Auto-completion script for the colorex command.
+#   Bash auto-completion script for the colorex command.
 # --------------------------------------------------------------------------------------------------
 
 _colorex()
 {
+  local COLOREX_CONFIGS_HOME=/usr/share/colorex/configs
+  local USER_CONFIGS_HOME=~/.colorex
+
   cur=${COMP_WORDS[COMP_CWORD]}
-  COMPREPLY=( $( compgen -W "--version -h --help -b --blue= -r RED --red= -g --green= -y --yellow= -m --magenta= -c --cyan= -B --bblue= -R --bred= -G --bgreen= -Y --byellow= -M --bmagenta= -C --bcyan= -K --blink= -D --bold=" -- $cur ) )
+  if [ $COMP_CWORD -eq 1 ]; then
+    COMPREPLY=( $( compgen -W "--version -h --help -v -f -r -g -y -b -m -c -R -G -Y -B -M -C --verbose --config --red --green --yellow --blue --magenta --cyan --start-red --start-green --start-yellow --start-blue --start-magenta --start-cyan --reset-color --bred --bgreen --byellow --bblue --bmagenta --bcyan --start-bcyan --start-bred --start-bgreen --start-byellow --start-bblue --start-bmagenta --reset-bcolor --bold --faint --start-bold --start-faint --reset-intensity --italic --underline --underline-double --blink --blink-rapid --negative --hide" -- $cur ) )
+  else
+    first=${COMP_WORDS[1]}
+    case "$first" in
+      --version|-h|--help)
+        COMPREPLY=()
+        ;;
+      *)
+        prev=${COMP_WORDS[COMP_CWORD-1]}
+        case "$prev" in
+          -r|-g|-y|-b|-m|-c|-R|-G|-Y|-B|-M|-C|--red|--green|--yellow|--blue|--magenta|--cyan|--start-red|--start-green|--start-yellow|--start-blue|--start-magenta|--start-cyan|--reset-color|--bred|--bgreen|--byellow|--bblue|--bmagenta|--bcyan|--start-bcyan|--start-bred|--start-bgreen|--start-byellow|--start-bblue|--start-bmagenta|--reset-bcolor|--bold|--faint|--start-bold|--start-faint|--reset-intensity|--italic|--underline|--underline-double|--blink|--blink-rapid|--negative|--hide)
+            COMPREPLY=()
+            ;;
+          -f|--config)
+            COMPREPLY=( $(compgen -f -X "!*.cfg" $cur ) \
+                        $(compgen -d $cur ) \
+                        $(compgen -W "`ls $USER_CONFIGS_HOME 2> /dev/null | sed 's/\(.*\)\..*/\1/'`" $cur) \
+                        $(compgen -W "`ls $COLOREX_CONFIGS_HOME 2> /dev/null | sed 's/\(.*\)\..*/\1/'`" $cur) )
+            ;;
+          *)
+            COMPREPLY=( $( compgen -W "-v -f -r -g -y -b -m -c -R -G -Y -B -M -C --verbose --config --red --green --yellow --blue --magenta --cyan --start-red --start-green --start-yellow --start-blue --start-magenta --start-cyan --reset-color --bred --bgreen --byellow --bblue --bmagenta --bcyan --start-bcyan --start-bred --start-bgreen --start-byellow --start-bblue --start-bmagenta --reset-bcolor --bold --faint --start-bold --start-faint --reset-intensity --italic --underline --underline-double --blink --blink-rapid --negative --hide" -- $cur ) )
+            ;;
+        esac
+        ;;
+    esac
+  fi
 }
 
-complete -o nospace -F _colorex colorex
+complete -o filenames -F _colorex colorex
