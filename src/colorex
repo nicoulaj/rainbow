@@ -57,8 +57,8 @@ A string showing the script usage syntax.
 @type: string
 """
 
-DESCRIPTION = """Display files or STDIN with pretty colors for matched patterns. If you don't specify
-files, stdin is used. For more information, see colorex man page."""
+DESCRIPTION = """Display files or STDIN with colors and formatting for matched patterns. If you don't specify
+files, STDIN is used. For more information, see colorex man page (man colorex)."""
 """
 A string describing the script.
 
@@ -66,44 +66,44 @@ A string describing the script.
 """
 
 FILTERS = {
-  'red':                { 'short_option': 'r', 'help': 'display RED pattern in red',                                              'filter_start': chr(27)+'[31m', 'filter_end': chr(27)+'[39m' },
-  'green':              { 'short_option': 'g', 'help': 'display GREEN pattern in green',                                          'filter_start': chr(27)+'[32m', 'filter_end': chr(27)+'[39m' },
-  'yellow':             { 'short_option': 'y', 'help': 'display YELLOW pattern in yellow',                                        'filter_start': chr(27)+'[33m', 'filter_end': chr(27)+'[39m' },
-  'blue':               { 'short_option': 'b', 'help': 'display BLUE pattern in blue',                                            'filter_start': chr(27)+'[34m', 'filter_end': chr(27)+'[39m' },
-  'magenta':            { 'short_option': 'm', 'help': 'display MAGENTA pattern in magenta',                                      'filter_start': chr(27)+'[35m', 'filter_end': chr(27)+'[39m' },
-  'cyan':               { 'short_option': 'c', 'help': 'display CYAN pattern in cyan',                                            'filter_start': chr(27)+'[36m', 'filter_end': chr(27)+'[39m' },
-  'start-red':          {                      'help': 'toggle foreground color to red at START_RED pattern',                     'filter_start': chr(27)+'[31m', 'filter_end': ''             },
-  'start-green':        {                      'help': 'toggle foreground color to green at START_GREEN pattern',                 'filter_start': chr(27)+'[32m', 'filter_end': ''             },
-  'start-yellow':       {                      'help': 'toggle foreground color to yellow at START_YELLOW pattern',               'filter_start': chr(27)+'[33m', 'filter_end': ''             },
-  'start-blue':         {                      'help': 'toggle foreground color to blue at START_BLUE pattern',                   'filter_start': chr(27)+'[34m', 'filter_end': ''             },
-  'start-magenta':      {                      'help': 'toggle foreground color to magenta at START_MAGENTA pattern',             'filter_start': chr(27)+'[35m', 'filter_end': ''             },
-  'start-cyan':         {                      'help': 'toggle foreground color to cyan at START_CYAN pattern',                   'filter_start': chr(27)+'[36m', 'filter_end': ''             },
-  'reset-color':        {                      'help': 'reset foreground color at RESET_COLOR pattern',                           'filter_start': ''            , 'filter_end': chr(27)+'[39m' },
-  'bred':               { 'short_option': 'R', 'help': 'display BRED pattern in red background',                                  'filter_start': chr(27)+'[41m', 'filter_end': chr(27)+'[49m' },
-  'bgreen':             { 'short_option': 'G', 'help': 'display BGREEN pattern in green background',                              'filter_start': chr(27)+'[42m', 'filter_end': chr(27)+'[49m' },
-  'byellow':            { 'short_option': 'Y', 'help': 'display BYELLOW pattern in yellow background',                            'filter_start': chr(27)+'[43m', 'filter_end': chr(27)+'[49m' },
-  'bblue':              { 'short_option': 'B', 'help': 'display BBLUE pattern in blue background',                                'filter_start': chr(27)+'[44m', 'filter_end': chr(27)+'[49m' },
-  'bmagenta':           { 'short_option': 'M', 'help': 'display BMAGENTA pattern in magenta background',                          'filter_start': chr(27)+'[45m', 'filter_end': chr(27)+'[49m' },
-  'bcyan':              { 'short_option': 'C', 'help': 'display BCYAN pattern in cyan background',                                'filter_start': chr(27)+'[46m', 'filter_end': chr(27)+'[49m' },
-  'start-bcyan':        {                      'help': 'toggle background color to cyan background at START_BCYAN pattern',       'filter_start': chr(27)+'[46m', 'filter_end': ''             },
-  'start-bred':         {                      'help': 'toggle background color to red background at START_BRED pattern',         'filter_start': chr(27)+'[41m', 'filter_end': ''             },
-  'start-bgreen':       {                      'help': 'toggle background color to green background at START_BGREEN pattern',     'filter_start': chr(27)+'[42m', 'filter_end': ''             },
-  'start-byellow':      {                      'help': 'toggle background color to yellow background at START_BYELLOW pattern',   'filter_start': chr(27)+'[43m', 'filter_end': ''             },
-  'start-bblue':        {                      'help': 'toggle background color to blue background at START_BBLUE pattern',       'filter_start': chr(27)+'[44m', 'filter_end': ''             },
-  'start-bmagenta':     {                      'help': 'toggle background color to magenta background at START_BMAGENTA pattern', 'filter_start': chr(27)+'[45m', 'filter_end': ''             },
-  'reset-bcolor':       {                      'help': 'reset background color at RESET_BCOLOR pattern',                          'filter_start': ''            , 'filter_end': chr(27)+'[49m' },
-  'bold':               {                      'help': 'display BOLD pattern in bold',                                            'filter_start': chr(27)+'[1m',  'filter_end': chr(27)+'[22m' },
-  'faint':              {                      'help': 'display FAINT pattern with decreased intensity',                          'filter_start': chr(27)+'[2m',  'filter_end': chr(27)+'[22m' },
-  'start-bold':         {                      'help': 'toggle bold on at START_BOLD pattern',                                    'filter_start': chr(27)+'[1m',  'filter_end': ''             },
-  'start-faint':        {                      'help': 'toggle faint on at START_FAINT pattern',                                  'filter_start': chr(27)+'[2m',  'filter_end': ''             },
-  'reset-intensity':    {                      'help': 'reset text intensity at RESET_INTENSITY pattern',                         'filter_start': ''           ,  'filter_end': chr(27)+'[22m' },
-  'italic':             {                      'help': 'display ITALIC pattern in italic',                                        'filter_start': chr(27)+'[3m',  'filter_end': chr(27)+'[23m' },
-  'underline':          {                      'help': 'display UNDERLINE pattern underlined',                                    'filter_start': chr(27)+'[4m',  'filter_end': chr(27)+'[24m' },
-  'underline-double':   {                      'help': 'display UNDERLINE_DOUBLE pattern double underlined',                      'filter_start': chr(27)+'[21m', 'filter_end': chr(27)+'[24m' },
-  'blink':              {                      'help': 'display BLINK pattern blinking',                                          'filter_start': chr(27)+'[5m',  'filter_end': chr(27)+'[25m' },
-  'blink-rapid':        {                      'help': 'display BLINK pattern blinking',                                          'filter_start': chr(27)+'[6m',  'filter_end': chr(27)+'[25m' },
-  'negative':           {                      'help': 'display NEGATIVE pattern swapping foreground and background',             'filter_start': chr(27)+'[7m',  'filter_end': chr(27)+'[27m' },
-  'hide':               {                      'help': 'hide HIDE pattern',                                                       'filter_start': chr(27)+'[8m',  'filter_end': chr(27)+'[28m' }
+  'red':                { 'short_option': 'r', 'help': 'display RED pattern in red',                                   'filter_start': chr(27)+'[31m', 'filter_end': chr(27)+'[39m' },
+  'green':              { 'short_option': 'g', 'help': 'display GREEN pattern in green',                               'filter_start': chr(27)+'[32m', 'filter_end': chr(27)+'[39m' },
+  'yellow':             { 'short_option': 'y', 'help': 'display YELLOW pattern in yellow',                             'filter_start': chr(27)+'[33m', 'filter_end': chr(27)+'[39m' },
+  'blue':               { 'short_option': 'b', 'help': 'display BLUE pattern in blue',                                 'filter_start': chr(27)+'[34m', 'filter_end': chr(27)+'[39m' },
+  'magenta':            { 'short_option': 'm', 'help': 'display MAGENTA pattern in magenta',                           'filter_start': chr(27)+'[35m', 'filter_end': chr(27)+'[39m' },
+  'cyan':               { 'short_option': 'c', 'help': 'display CYAN pattern in cyan',                                 'filter_start': chr(27)+'[36m', 'filter_end': chr(27)+'[39m' },
+  'start-red':          {                      'help': 'toggle foreground color to red at START_RED pattern',          'filter_start': chr(27)+'[31m', 'filter_end': ''             },
+  'start-green':        {                      'help': 'toggle foreground color to green at START_GREEN pattern',      'filter_start': chr(27)+'[32m', 'filter_end': ''             },
+  'start-yellow':       {                      'help': 'toggle foreground color to yellow at START_YELLOW pattern',    'filter_start': chr(27)+'[33m', 'filter_end': ''             },
+  'start-blue':         {                      'help': 'toggle foreground color to blue at START_BLUE pattern',        'filter_start': chr(27)+'[34m', 'filter_end': ''             },
+  'start-magenta':      {                      'help': 'toggle foreground color to magenta at START_MAGENTA pattern',  'filter_start': chr(27)+'[35m', 'filter_end': ''             },
+  'start-cyan':         {                      'help': 'toggle foreground color to cyan at START_CYAN pattern',        'filter_start': chr(27)+'[36m', 'filter_end': ''             },
+  'reset-color':        {                      'help': 'reset foreground color at RESET_COLOR pattern',                'filter_start': ''            , 'filter_end': chr(27)+'[39m' },
+  'bred':               { 'short_option': 'R', 'help': 'display BRED pattern in red background',                       'filter_start': chr(27)+'[41m', 'filter_end': chr(27)+'[49m' },
+  'bgreen':             { 'short_option': 'G', 'help': 'display BGREEN pattern in green background',                   'filter_start': chr(27)+'[42m', 'filter_end': chr(27)+'[49m' },
+  'byellow':            { 'short_option': 'Y', 'help': 'display BYELLOW pattern in yellow background',                 'filter_start': chr(27)+'[43m', 'filter_end': chr(27)+'[49m' },
+  'bblue':              { 'short_option': 'B', 'help': 'display BBLUE pattern in blue background',                     'filter_start': chr(27)+'[44m', 'filter_end': chr(27)+'[49m' },
+  'bmagenta':           { 'short_option': 'M', 'help': 'display BMAGENTA pattern in magenta background',               'filter_start': chr(27)+'[45m', 'filter_end': chr(27)+'[49m' },
+  'bcyan':              { 'short_option': 'C', 'help': 'display BCYAN pattern in cyan background',                     'filter_start': chr(27)+'[46m', 'filter_end': chr(27)+'[49m' },
+  'start-bcyan':        {                      'help': 'toggle background color to cyan at START_BCYAN pattern',       'filter_start': chr(27)+'[46m', 'filter_end': ''             },
+  'start-bred':         {                      'help': 'toggle background color to red at START_BRED pattern',         'filter_start': chr(27)+'[41m', 'filter_end': ''             },
+  'start-bgreen':       {                      'help': 'toggle background color to green at START_BGREEN pattern',     'filter_start': chr(27)+'[42m', 'filter_end': ''             },
+  'start-byellow':      {                      'help': 'toggle background color to yellow at START_BYELLOW pattern',   'filter_start': chr(27)+'[43m', 'filter_end': ''             },
+  'start-bblue':        {                      'help': 'toggle background color to blue at START_BBLUE pattern',       'filter_start': chr(27)+'[44m', 'filter_end': ''             },
+  'start-bmagenta':     {                      'help': 'toggle background color to magenta at START_BMAGENTA pattern', 'filter_start': chr(27)+'[45m', 'filter_end': ''             },
+  'reset-bcolor':       {                      'help': 'reset background color at RESET_BCOLOR pattern',               'filter_start': ''            , 'filter_end': chr(27)+'[49m' },
+  'bold':               {                      'help': 'display BOLD pattern in bold',                                 'filter_start': chr(27)+'[1m',  'filter_end': chr(27)+'[22m' },
+  'faint':              {                      'help': 'display FAINT pattern with decreased intensity',               'filter_start': chr(27)+'[2m',  'filter_end': chr(27)+'[22m' },
+  'start-bold':         {                      'help': 'toggle bold on at START_BOLD pattern',                         'filter_start': chr(27)+'[1m',  'filter_end': ''             },
+  'start-faint':        {                      'help': 'toggle faint on at START_FAINT pattern',                       'filter_start': chr(27)+'[2m',  'filter_end': ''             },
+  'reset-intensity':    {                      'help': 'reset text intensity at RESET_INTENSITY pattern',              'filter_start': ''           ,  'filter_end': chr(27)+'[22m' },
+  'italic':             {                      'help': 'display ITALIC pattern in italic',                             'filter_start': chr(27)+'[3m',  'filter_end': chr(27)+'[23m' },
+  'underline':          {                      'help': 'display UNDERLINE pattern underlined',                         'filter_start': chr(27)+'[4m',  'filter_end': chr(27)+'[24m' },
+  'underline-double':   {                      'help': 'display UNDERLINE_DOUBLE pattern double underlined',           'filter_start': chr(27)+'[21m', 'filter_end': chr(27)+'[24m' },
+  'blink':              {                      'help': 'display BLINK pattern blinking',                               'filter_start': chr(27)+'[5m',  'filter_end': chr(27)+'[25m' },
+  'blink-rapid':        {                      'help': 'display BLINK pattern blinking',                               'filter_start': chr(27)+'[6m',  'filter_end': chr(27)+'[25m' },
+  'negative':           {                      'help': 'display NEGATIVE pattern swapping foreground and background',  'filter_start': chr(27)+'[7m',  'filter_end': chr(27)+'[27m' },
+  'hide':               {                      'help': 'hide HIDE pattern',                                            'filter_start': chr(27)+'[8m',  'filter_end': chr(27)+'[28m' }
  }
 """
 A dictionary of the filters available in the scripts.
@@ -123,7 +123,7 @@ FILTER_GROUPS = [
   { 'name': 'Text intensity',
     'help': 'Use these options to associate patterns to text emphasis.',
     'filters': [ 'bold', 'faint', 'start-bold', 'start-faint', 'reset-intensity' ] },
-  { 'name': 'Formatting',
+  { 'name': 'Other formattings',
     'help': 'Use these options to associate patterns to text formattings. Some of the filters may not work on all terminals.',
     'filters': [ 'italic', 'underline', 'underline-double', 'blink', 'blink-rapid', 'negative', 'hide' ] }
  ]
@@ -333,7 +333,7 @@ def main(argv=None):
                             action="append",
                             dest="config",
                             type="string",
-                            help="Load a config file defining patterns. Go to " + COLOREX_CONFIGS_HOME + " for examples.")
+                            help="Load a config file defining patterns. Go to %s for examples. The option can be called several times." % (COLOREX_CONFIGS_HOME))
     optionParser.add_option("-v",
                             "--verbose",
                             action="callback",
