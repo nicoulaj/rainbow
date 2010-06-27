@@ -9,6 +9,7 @@ Homepage: http://github.com/nicoulaj/colorex
 
 Package: colorex
 Architecture: all
-Depends: ${misc:Depends} python
+Depends: python (>= 2.6)
+Recommends: bash-completion, sed (>= 4.2)
 Description: Colorize files using patterns.
- Colorex colors parts of files or STDIN using words or regexps.
+ Colorex colors files or STDIN using words or regular expressions.
