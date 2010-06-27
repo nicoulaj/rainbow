@@ -306,8 +306,6 @@ def main():
     """
     Colorex main program.
 
-    @param argv: the program arguments.
-    @type argv: string
     @return: the exit code of the program.
     @rtype: int
     """
