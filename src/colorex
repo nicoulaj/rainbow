@@ -302,7 +302,7 @@ def apply_filters(line):
     return line.rstrip()
 
 
-def main(argv=None):
+def main():
     """
     Colorex main program.
 
@@ -311,10 +311,6 @@ def main(argv=None):
     @return: the exit code of the program.
     @rtype: int
     """
-
-    # Resolve argv
-    if argv is None:
-        argv = sys.argv
 
     # Setup the logger.
     logger_console_handler = logging.StreamHandler()
