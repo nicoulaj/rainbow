@@ -1,0 +1,205 @@
+[INFO]
+NOTE: Maven is executing in offline mode. Any artifacts not already in your local
+repository will be inaccessible.
+
+[INFO] Scanning for projects...
+[INFO] Reactor build order:
+[INFO]   Flexmojos Parent
+[INFO]   Flexmojos Sandbox
+[INFO]   Flexmojos Generator
+[INFO]   Flexmojos Generator api
+[INFO]   Flexmojos Generator - graniteds 1.1.0
+[INFO]   Flexmojos Generator - graniteds 2.0.0
+[INFO]   Flexmojos Generator - graniteds 2.1.0
+[INFO]   Flexmojos Generator - Constraints
+[INFO]   Flexmojos Generator Maven Plugin
+[INFO]   Flexmojos Testing
+[INFO]   Flexmojos Tester api
+[INFO]   Flexmojos Maven Plugin
+[INFO]   Flexmojos Super poms
+[INFO]   Flexmojos Archetypes
+[INFO]   Flexmojos Archetypes - flex-application
+[INFO]   Flexmojos Archetypes - flex-library
+[INFO]   Flexmojos Archetypes - modular web application
+[INFO]   Flexmojos Unit Test support - parent
+[INFO]   Flexmojos Unit Test support
+[INFO]   Flexmojos Unit Test support - flexunit
+[INFO]   Flexmojos Unit Test support - flexunit 4
+[INFO]   Flexmojos Unit Test support - fluint
+[INFO]   Flexmojos Unit Test support - funit
+[INFO]   Flexmojos Unit Test support - asunit
+[INFO]   Flexmojos Unit Test support - advancedflex
+[INFO]   Flexmojos Integration Tests
+[INFO]   Flexmojos Aggregator
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD ERROR
+[INFO] ------------------------------------------------------------------------
+[INFO] Error building POM (may not be this project's POM).
+
+
+Project ID: org.sonatype.tycho:tycho-maven-plugin
+
+Reason: POM 'org.sonatype.tycho:tycho-maven-plugin' not found in repository: System is offline.
+
+  org.sonatype.tycho:tycho-maven-plugin:pom:0.8.0
+
+
+ for project org.sonatype.tycho:tycho-maven-plugin
+
+
+[INFO] ------------------------------------------------------------------------
+[INFO] For more information, run Maven with the -e switch
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1 second
+[INFO] Finished at: Wed Jun 30 00:26:20 CEST 2010
+[INFO] Final Memory: 8M/160M
+[INFO] ------------------------------------------------------------------------
+
+[INFO] Scanning for projects...
+[INFO] Reactor build order:
+[INFO]   Flexmojos Parent
+[INFO]   Flexmojos Sandbox
+[INFO]   Flexmojos Generator
+[INFO]   Flexmojos Generator api
+[INFO]   Flexmojos Generator - graniteds 1.1.0
+[INFO]   Flexmojos Generator - graniteds 2.0.0
+[INFO]   Flexmojos Generator - graniteds 2.1.0
+[INFO]   Flexmojos Generator - Constraints
+[INFO]   Flexmojos Generator Maven Plugin
+[INFO]   Flexmojos Testing
+[INFO]   Flexmojos Tester api
+[INFO]   Flexmojos Maven Plugin
+[INFO]   Flexmojos Super poms
+[INFO]   Flexmojos Archetypes
+[INFO]   Flexmojos Archetypes - flex-application
+[INFO]   Flexmojos Archetypes - flex-library
+[INFO]   Flexmojos Archetypes - modular web application
+[INFO]   Flexmojos Unit Test support - parent
+[INFO]   Flexmojos Unit Test support
+[INFO]   Flexmojos Unit Test support - flexunit
+[INFO]   Flexmojos Unit Test support - flexunit 4
+[INFO]   Flexmojos Unit Test support - fluint
+[INFO]   Flexmojos Unit Test support - funit
+[INFO]   Flexmojos Unit Test support - asunit
+[INFO]   Flexmojos Unit Test support - advancedflex
+[INFO]   Flexmojos Integration Tests
+[INFO]   Flexmojos Aggregator
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-maven-plugin/0.8.0/tycho-maven-plugin-0.8.0.pom
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-maven-plugin:pom:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-maven-plugin/0.8.0/tycho-maven-plugin-0.8.0.pom
+895b downloaded  (tycho-maven-plugin-0.8.0.pom)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho/0.8.0/tycho-0.8.0.pom
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho:pom:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho/0.8.0/tycho-0.8.0.pom
+2K downloaded  (tycho-0.8.0.pom)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-maven-plugin/0.8.0/tycho-maven-plugin-0.8.0.jar
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-maven-plugin:maven-plugin:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-maven-plugin/0.8.0/tycho-maven-plugin-0.8.0.jar
+3K downloaded  (tycho-maven-plugin-0.8.0.jar)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-osgi-components/0.8.0/tycho-osgi-components-0.8.0.pom
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-osgi-components:pom:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-osgi-components/0.8.0/tycho-osgi-components-0.8.0.pom
+526b downloaded  (tycho-osgi-components-0.8.0.pom)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/org.eclipse.osgi/3.5.2.R35x_v20100126/org.eclipse.osgi-3.5.2.R35x_v20100126.pom
+[INFO] Unable to find resource 'org.sonatype.tycho:org.eclipse.osgi:pom:3.5.2.R35x_v20100126' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/org.eclipse.osgi/3.5.2.R35x_v20100126/org.eclipse.osgi-3.5.2.R35x_v20100126.pom
+268b downloaded  (org.eclipse.osgi-3.5.2.R35x_v20100126.pom)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-equinox/0.8.0/tycho-equinox-0.8.0.pom
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-equinox:pom:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-equinox/0.8.0/tycho-equinox-0.8.0.pom
+457b downloaded  (tycho-equinox-0.8.0.pom)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-p2-facade/0.8.0/tycho-p2-facade-0.8.0.pom
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-p2-facade:pom:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-p2-facade/0.8.0/tycho-p2-facade-0.8.0.pom
+513b downloaded  (tycho-p2-facade-0.8.0.pom)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-p2/0.8.0/tycho-p2-0.8.0.pom
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-p2:pom:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-p2/0.8.0/tycho-p2-0.8.0.pom
+742b downloaded  (tycho-p2-0.8.0.pom)
+Downloading: http://maven.ju-n.net/maven2/junit/junit/4.1/junit-4.1.pom
+[INFO] Unable to find resource 'junit:junit:pom:4.1' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/junit/junit/4.1/junit-4.1.pom
+323b downloaded  (junit-4.1.pom)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-p2-runtime/0.8.0/tycho-p2-runtime-0.8.0.pom
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-p2-runtime:pom:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-p2-runtime/0.8.0/tycho-p2-runtime-0.8.0.pom
+380b downloaded  (tycho-p2-runtime-0.8.0.pom)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-osgi-components/0.8.0/tycho-osgi-components-0.8.0.jar
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-osgi-components:jar:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-osgi-components/0.8.0/tycho-osgi-components-0.8.0.jar
+
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/org.eclipse.osgi/3.5.2.R35x_v20100126/org.eclipse.osgi-3.5.2.R35x_v20100126.jar
+[INFO] Unable to find resource 'org.sonatype.tycho:org.eclipse.osgi:jar:3.5.2.R35x_v20100126' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/org.eclipse.osgi/3.5.2.R35x_v20100126/org.eclipse.osgi-3.5.2.R35x_v20100126.jar
+
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-equinox/0.8.0/tycho-equinox-0.8.0.jar
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-equinox:jar:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-equinox/0.8.0/tycho-equinox-0.8.0.jar
+5K downloaded  (tycho-equinox-0.8.0.jar)
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-p2-facade/0.8.0/tycho-p2-facade-0.8.0.jar
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-p2-facade:jar:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-p2-facade/0.8.0/tycho-p2-facade-0.8.0.jar
+
+Downloading: http://maven.ju-n.net/maven2/org/sonatype/tycho/tycho-p2-runtime/0.8.0/tycho-p2-runtime-0.8.0.zip
+[INFO] Unable to find resource 'org.sonatype.tycho:tycho-p2-runtime:zip:0.8.0' in repository ju-n-net-plugin-repository (http://maven.ju-n.net/maven2)
+Downloading: http://repository.exoplatform.org/content/groups/all/org/sonatype/tycho/tycho-p2-runtime/0.8.0/tycho-p2-runtime-0.8.0.zip
+
+[INFO] snapshot org.sonatype.flexmojos:flexmojos-maven-plugin:3.8-SNAPSHOT: checking for updates from sonatype-oss-plugin-snapshots-repository
+[INFO] snapshot org.sonatype.flexmojos:flexmojos-maven-plugin:3.8-SNAPSHOT: checking for updates from OW2-plugin-snapshots-repository
+Downloading: https://oss.sonatype.org/content/repositories/snapshots/org/sonatype/flexmojos/flexmojos-maven-plugin/3.8-SNAPSHOT/flexmojos-maven-plugin-3.8-SNAPSHOT.jar
+[INFO] Unable to find resource 'org.sonatype.flexmojos:flexmojos-maven-plugin:maven-plugin:3.8-SNAPSHOT' in repository sonatype-oss-plugin-snapshots-repository (https://oss.sonatype.org/content/repositories/snapshots)
+Downloading: http://maven.ow2.org/maven2-snapshot/org/sonatype/flexmojos/flexmojos-maven-plugin/3.8-SNAPSHOT/flexmojos-maven-plugin-3.8-SNAPSHOT.jar
+[INFO] Unable to find resource 'org.sonatype.flexmojos:flexmojos-maven-plugin:maven-plugin:3.8-SNAPSHOT' in repository OW2-plugin-snapshots-repository (http://maven.ow2.org/maven2-snapshot)
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD ERROR
+[INFO] ------------------------------------------------------------------------
+[INFO] Plugin could not be found - check that the goal name is correct: Unable to download the artifact from any repository
+
+Try downloading the file manually from the project website.
+
+Then, install it using the command:
+    mvn install:install-file -DgroupId=org.sonatype.flexmojos -DartifactId=flexmojos-maven-plugin -Dversion=3.8-SNAPSHOT -Dpackaging=maven-plugin -Dfile=/path/to/file
+
+Alternatively, if you host your own repository you can deploy the file there:
+    mvn deploy:deploy-file -DgroupId=org.sonatype.flexmojos -DartifactId=flexmojos-maven-plugin -Dversion=3.8-SNAPSHOT -Dpackaging=maven-plugin -Dfile=/path/to/file -Durl=[url] -DrepositoryId=[id]
+
+
+  org.sonatype.flexmojos:flexmojos-maven-plugin:maven-plugin:3.8-SNAPSHOT
+
+from the specified remote repositories:
+  sonatype-oss-plugin-snapshots-repository (https://oss.sonatype.org/content/repositories/snapshots),
+  OW2-plugin-repository (http://maven.ow2.org/maven2),
+  flexpmd-plugin-repository (http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/release/),
+  ju-n-net-plugin-repository (http://maven.ju-n.net/maven2),
+  java-net-plugin-repository (http://download.java.net/maven/2),
+  central (http://repo1.maven.org/maven2),
+  jboss-plugin-repository (http://repository.jboss.org/maven2),
+  sonatype-oss-plugin-repository (https://oss.sonatype.org/content/repositories/releases),
+  exoplatform-plugin-repository (http://repository.exoplatform.org/content/groups/all),
+  flexmojos-plugin-repository (https://repository.sonatype.org/content/groups/flexgroup/),
+  OW2-plugin-snapshots-repository (http://maven.ow2.org/maven2-snapshot)
+
+
+  org.sonatype.flexmojos:flexmojos-maven-plugin:maven-plugin:3.8-SNAPSHOT
+
+from the specified remote repositories:
+  sonatype-oss-plugin-snapshots-repository (https://oss.sonatype.org/content/repositories/snapshots),
+  OW2-plugin-repository (http://maven.ow2.org/maven2),
+  flexpmd-plugin-repository (http://opensource.adobe.com/svn/opensource/flexpmd/maven-repository/release/),
+  ju-n-net-plugin-repository (http://maven.ju-n.net/maven2),
+  java-net-plugin-repository (http://download.java.net/maven/2),
+  central (http://repo1.maven.org/maven2),
+  jboss-plugin-repository (http://repository.jboss.org/maven2),
+  sonatype-oss-plugin-repository (https://oss.sonatype.org/content/repositories/releases),
+  exoplatform-plugin-repository (http://repository.exoplatform.org/content/groups/all),
+  flexmojos-plugin-repository (https://repository.sonatype.org/content/groups/flexgroup/),
+  OW2-plugin-snapshots-repository (http://maven.ow2.org/maven2-snapshot)
+
+
+[INFO] ------------------------------------------------------------------------
+[INFO] For more information, run Maven with the -e switch
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 1 minute 6 seconds
+[INFO] Finished at: Wed Jun 30 00:28:09 CEST 2010
+[INFO] Final Memory: 17M/159M
+[INFO] ------------------------------------------------------------------------
