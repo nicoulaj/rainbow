@@ -1,5 +1,11 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
+  *
+
+ -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Wed, 30 Jun 2010 00:25:12 +0200
+
+colorex (2.0) DISTRIB; urgency=low
+
   * Removed bisounours option (Issue 2).
   * Added support for config files (Issue 1).
   * Allow config files to import each other.
