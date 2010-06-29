@@ -1,6 +1,11 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
-  * 
+  * Removed bisounours option (Issue 2).
+  * Added support for config files (Issue 1).
+  * Allow config files to import each other.
+  * Added builtin config files (ping, top, Maven, Tomcat, JBoss, etc).
+  * Added new filters.
+  * Improved error reporting and logging, added verbose option.
 
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 23 May 2010 16:49:16 +0200
 
@@ -23,13 +28,13 @@ colorex (1.1-2) DISTRIB; urgency=low
 
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Thu, 15 May 2010 15:09:29 +0200
 
-colorex (1.1-1) etch; urgency=low
+colorex (1.1-1) DISTRIB; urgency=low
 
   * bugfix and some littles improvements
 
  -- Julien Antony <julienantony@gmail.com>  Thu,  4 Jun 2009 11:51:06 +0200
 
-colorex (1.0-1) etch; urgency=low
+colorex (1.0-1) DISTRIB; urgency=low
 
   * Initial release
 
