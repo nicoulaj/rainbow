@@ -2,15 +2,16 @@
 
 
 ## Description
-**Colorize files using patterns.**
+**Colorize files or STDIN using patterns.**
 
-This is a repackaging of [Linibou's colorex](http://www.linibou.com/colorex/).
+This is a fork of [Linibou's colorex](http://www.linibou.com/colorex/).
 
 
 ## Features
 Colorex colors parts of files or STDIN using words or regexps, for example:
 
     tail -f some-log-file | colorex --red='^\[ERROR\].*' --yellow='^\[WARN\].*'
+    ping www.google.com | colorex --config ping
 
 
 ## Installing
@@ -22,10 +23,6 @@ To install on Ubuntu 9.10+, just run the following commands:
     sudo add-apt-repository ppa:julien-nicoulaud/colorex
     sudo apt-get update
     sudo apt-get install colorex
-
-### Downloading the Debian package
-You can find the last version of the Debian package in the
-[downloads](http://github.com/nicoulaj/colorex/downloads) section.
 
 ### Building from sources
 You can build the .deb package from the sources:
