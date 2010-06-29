@@ -14,4 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-traceroute www.google.com 2>&1 | ../src/colorex --config ../src/configs/traceroute.cfg
+traceroute www.google.com 2>&1 | ../src/colorex $@ --config ../src/configs/traceroute.cfg

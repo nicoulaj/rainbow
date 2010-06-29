@@ -14,4 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-ping www.google.com 2>&1 | ../src/colorex --config ../src/configs/ping.cfg
+ping www.google.com 2>&1 | ../src/colorex $@ --config ../src/configs/ping.cfg

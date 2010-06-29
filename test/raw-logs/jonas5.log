@@ -1,0 +1,152 @@
+OW2 JOnAS 5.2.0-M1 [ http://jonas.ow2.org / jonas@ow2.org ]
+JONAS_BASE is set to /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1
+
+Welcome to OW2 JOnAS (Running on Felix).
+-----------------------------------------------
+
+2010-06-29 19:02:39,385 : NameServiceManager.startNonStartedNS : Name service for jrmp is started on port ' 1099'.
+2010-06-29 19:02:39,387 : CarolRegistryService.__doStart : Carol Registry Service started
+2010-06-29 19:02:39,530 : JOnASJMXService$2.execute : JMX security is disabled
+2010-06-29 19:02:39,530 : JOnASJMXService.__doStart : JMX Service started using connector(s)[service:jmx:rmi://localhost/jndi/rmi://localhost:1099/jrmpconnector_jonas]
+2010-06-29 19:02:39,602 : JNDIInterceptorsComponent.__start : JNDI Interceptors component started
+2010-06-29 19:02:39,650 : J2EEServer.__info : JOnAS AS v5.2.0-M1 named 'jonas' STARTING
+2010-06-29 19:02:39,688 : JOnASWorkCleanerService.__doStart : WorkCleaner Service started.
+2010-06-29 19:02:39,741 : TransactionRecoveryImpl.<init> : JOTM properties file= /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/conf/jotm.properties
+2010-06-29 19:02:39,742 : Current.setDefaultRecovery : Jotm Recovery= false
+2010-06-29 19:02:39,748 : JOTMTransactionService.__doStart : TransactionService started, default timeout= 60
+2010-06-29 19:02:39,799 : HsqlDBServiceImpl.__doStart : Starting HSQLDB server 1.8.0 on port 9001
+2010-06-29 19:02:39,899 : HsqlDBServiceImpl.__doStart : HSQLDB server started.
+2010-06-29 19:02:39,913 : HsqlDBServiceImpl.__doStart : Dropping and adding user 'jonas' with password 'jonas'.
+2010-06-29 19:02:39,976 : PolicyProvider.init : Using JOnAS PolicyConfigurationFactory provider and JOnAS Policy provider
+2010-06-29 19:02:40,102 : JonasSecurityServiceImpl.__doStart : Security Service started
+2010-06-29 19:02:40,145 : JOnASWorkManagerService.__doStart : WorkManager Service started.
+2010-06-29 19:02:40,201 : RARDeployer.doDeploy : Deploying jonas-jca-jdbc-cp-5.2.0-M1.rar
+2010-06-29 19:02:40,457 : Rar.processRar : jonas-jca-jdbc-cp-5.2.0-M1.rar available
+2010-06-29 19:02:40,461 : RARDeployer.doDeploy : Deploying jonas-jca-jdbc-ds-5.2.0-M1.rar
+2010-06-29 19:02:40,541 : Rar.processRar : jonas-jca-jdbc-ds-5.2.0-M1.rar available
+2010-06-29 19:02:40,544 : RARDeployer.doDeploy : Deploying jonas-jca-jdbc-dm-5.2.0-M1.rar
+2010-06-29 19:02:40,619 : Rar.processRar : jonas-jca-jdbc-dm-5.2.0-M1.rar available
+2010-06-29 19:02:40,624 : RARDeployer.doDeploy : Deploying jonas-jca-jdbc-xa-5.2.0-M1.rar
+2010-06-29 19:02:40,701 : Rar.processRar : jonas-jca-jdbc-xa-5.2.0-M1.rar available
+2010-06-29 19:02:40,702 : JOnASResourceService.__doStart : Resource Service started
+2010-06-29 19:02:41,202 : EventComponent.start : started.
+2010-06-29 19:02:41,216 : StatisticComponent.start : Statistics component started with factories: [org.ow2.easybeans.statistic.MeanCallTimeStatisticFactory, org.ow2.easybeans.statistic.CallCountStatisticFactory, org.ow2.easybeans.statistic.TotalCallTimeStatisticFactory]
+2010-06-29 19:02:41,217 : ComponentManager.startComponents : [ Component(s) started : Quartz Event Carol RemoteJNDIResolver Jmx Statistic ]
+2010-06-29 19:02:41,242 : Embedded.start : Démarrage de EasyBeans '1.2.0-M1.5455' effectué en '283' ms.
+2010-06-29 19:02:41,948 : CXFService.__doStart : Apache CXF 2.2.7 started
+2010-06-29 19:02:42,444 : Jdk14Logger.log : Using a shared selector for servlet write/read
+2010-06-29 19:02:42,453 : Jdk14Logger.log : Initializing Coyote HTTP/1.1 on http-9000
+2010-06-29 19:02:42,462 : Jdk14Logger.log : Starting service jonas
+2010-06-29 19:02:42,463 : Jdk14Logger.log : Starting Servlet Engine: Apache Tomcat/6.0.26
+2010-06-29 19:02:42,500 : Jdk14Logger.log : Starting Coyote HTTP/1.1 on http-9000
+2010-06-29 19:02:42,606 : JOnASEARService.__doStart : EAR Service started
+2010-06-29 19:02:42,619 : DeployableMonitorService.__doStart : Use the deploy directories '[]', development mode is 'true'
+2010-06-29 19:02:43,639 : DeployableMonitor.detectNewArchives : Deployables to deploy at startup: [[/home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/db_access_jdbc1.rar, /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/db_access_jdbc_xa1.rar, /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/db_access_jdbc_xa2.rar, /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/ctxroot.xml, /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/doc.xml, /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/jonasAdmin.xml, /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/joram.xml, /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/mejb.xml, /home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/deploy/jasmine-eos-war-1.3.1-SNAPSHOT.war]]
+2010-06-29 19:02:43,641 : RARDeployer.doDeploy : Deploying db_access_jdbc1.rar
+2010-06-29 19:02:43,682 : Rar.processRar : db_access_jdbc1.rar available
+2010-06-29 19:02:43,825 : RARDeployer.doDeploy : Deploying db_access_jdbc_xa1.rar
+2010-06-29 19:02:43,857 : Rar.processRar : db_access_jdbc_xa1.rar available
+2010-06-29 19:02:43,983 : RARDeployer.doDeploy : Deploying db_access_jdbc_xa2.rar
+2010-06-29 19:02:44,013 : Rar.processRar : db_access_jdbc_xa2.rar available
+2010-06-29 19:02:44,162 : WARDeployer.doDeploy : Deploying jonas-ctxroot-5.2.0-M1.war
+2010-06-29 19:02:44,397 : Jdk14Logger.log : Dual registration of jndi stream handler: factory already defined
+2010-06-29 19:02:44,584 : BaseWebContainerService.registerWar : War jonas-ctxroot-5.2.0-M1.war available at the context /.
+2010-06-29 19:02:44,717 : WARDeployer.doDeploy : Deploying jonas-doc-en-5.2.0-M1.war
+2010-06-29 19:02:45,268 : BaseWebContainerService.registerWar : War jonas-doc-en-5.2.0-M1.war available at the context /jonas-doc-en.
+2010-06-29 19:02:45,431 : WARDeployer.doDeploy : Deploying jonas-admin-5.2.0-M1.war
+log4j:WARN No appenders could be found for logger (org.granite.config.GraniteConfigListener).
+log4j:WARN Please initialize the log4j system properly.
+2010-06-29 19:02:49,617 : BaseWebContainerService.registerWar : War jonas-admin-5.2.0-M1.war available at the context /jonasAdmin.
+2010-06-29 19:02:49,782 : RARDeployer.doDeploy : Deploying joram_ra_for_jonas-5.2.5.rar
+2010-06-29 19:02:50,167 : Rar.processRar : joram_ra_for_jonas-5.2.5.rar available
+2010-06-29 19:02:50,381 : EasyBeansDeployer.doDeploy : Deploying 'mejb-5.2.0-M1.jar'...
+2010-06-29 19:02:50,490 : Enhancer.enhance : Beans found are [MEJB]
+2010-06-29 19:02:50,627 : JContainer3.start : Container '/home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/work/ejb3s/jonas/mejb-5.2.0-M1_2010.03.29-18.13.41.jar' [1 SLSB, 0 SFSB, 0 MDB] started in 228 ms
+2010-06-29 19:02:50,628 : EasyBeansDeployer.doDeploy : 'mejb-5.2.0-M1.jar' EJB3 Deployable is now deployed
+2010-06-29 19:02:50,808 : WARDeployer.doDeploy : Deploying jasmine-eos-war-1.3.1-SNAPSHOT.war
+2010-06-29 19:02:51,194 : JdkLogger.info : Registering MBean: org.granite:type=GraniteConfig,context=GraniteDS Pojo
+2010-06-29 19:02:51,235 : JdkLogger.info : Using configuration: {closeStreams=true, inputBufferSize=null, outputBufferSize=null}
+2010-06-29 19:02:51,250 : JdkLogger.info : Starting Gravity...
+2010-06-29 19:02:51,254 : JdkLogger.info : Starting Gravity Pool (corePoolSize=5, maximumPoolSize=20, keepAliveTimeMillis=10000, queueCapacity=2147483647)...
+2010-06-29 19:02:51,255 : JdkLogger.info : Registering MBean: org.granite:type=Gravity,context=/jasmine-eos
+2010-06-29 19:02:51,262 : JdkLogger.info : Gravity successfully started.
+2010-06-29 19:02:51,263 : Jdk14Logger.log : Marking servlet InitServlet as unavailable
+2010-06-29 19:02:51,264 : Jdk14Logger.log : Servlet /jasmine-eos threw load() exception
+java.lang.ClassNotFoundException: org.ow2.jasmine.monitoring.eventswitch.beans.JasmineEventPurgeTaskSLBRemote
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1516)
+	at org.apache.catalina.loader.WebappClassLoader.loadClass(WebappClassLoader.java:1361)
+	at java.lang.Class.getDeclaredFields0(Native Method)
+	at java.lang.Class.privateGetDeclaredFields(Class.java:2291)
+	at java.lang.Class.getDeclaredFields(Class.java:1743)
+	at org.apache.catalina.util.DefaultAnnotationProcessor.processAnnotations(DefaultAnnotationProcessor.java:166)
+	at org.apache.catalina.core.StandardWrapper.loadServlet(StandardWrapper.java:1120)
+	at org.apache.catalina.core.StandardWrapper.load(StandardWrapper.java:993)
+	at org.apache.catalina.core.StandardContext.loadOnStartup(StandardContext.java:4187)
+	at org.apache.catalina.core.StandardContext.start(StandardContext.java:4496)
+	at org.ow2.jonas.web.tomcat6.JOnASStandardContext.start(JOnASStandardContext.java:277)
+	at org.apache.catalina.core.ContainerBase.addChildInternal(ContainerBase.java:791)
+	at org.apache.catalina.core.ContainerBase.addChild(ContainerBase.java:771)
+	at org.apache.catalina.core.StandardHost.addChild(StandardHost.java:546)
+	at org.ow2.jonas.web.tomcat6.Tomcat6Service.__doRegisterWar(Tomcat6Service.java:733)
+	at org.ow2.jonas.web.tomcat6.Tomcat6Service.doRegisterWar(Tomcat6Service.java)
+	at org.ow2.jonas.web.base.BaseWebContainerService.registerWar(BaseWebContainerService.java:982)
+	at org.ow2.jonas.web.base.BaseWebContainerService.registerWar(BaseWebContainerService.java:1162)
+	at org.ow2.jonas.web.base.WARDeployer.doDeploy(WARDeployer.java:78)
+	at org.ow2.util.ee.deploy.impl.deployer.AbsDeployer$1.execute(AbsDeployer.java:96)
+	at org.ow2.util.ee.deploy.impl.deployer.AbsDeployer$1.execute(AbsDeployer.java:95)
+	at org.ow2.util.execution.helper.RunnableHelper.execute(RunnableHelper.java:77)
+	at org.ow2.util.ee.deploy.impl.deployer.AbsDeployer.deploy(AbsDeployer.java:94)
+	at org.ow2.util.ee.deploy.impl.deployer.DeployerManager.deploy(DeployerManager.java:129)
+	at org.ow2.jonas.deployablemonitor.DeployableMonitor.detectNewArchives(DeployableMonitor.java:443)
+	at org.ow2.jonas.deployablemonitor.DeployableMonitor.checkNewArchives(DeployableMonitor.java:265)
+	at org.ow2.jonas.deployablemonitor.DeployableMonitor.run(DeployableMonitor.java:175)
+2010-06-29 19:02:51,268 : BaseWebContainerService.registerWar : War jasmine-eos-war-1.3.1-SNAPSHOT.war available at the context /jasmine-eos.
+2010-06-29 19:02:51,447 : J2EEServer.__info : JOnAS AS v5.2.0-M1 named 'jonas' RUNNING
+
+OW2 JOnAS 5.2.0-M1 [ http://jonas.ow2.org / jonas@ow2.org ]
+Connected on service:jmx:rmi:///jndi/rmi://localhost:1099/jrmpconnector_jonas
+Trying to stop server named jonas
+[SUCCESS] JOnAS 'jonas' stopped (JVM shutdown).
+2010-06-29 19:05:16,553 : DeployableMonitorService.__doStop : DeployableMonitor stopped successfully
+2010-06-29 19:05:16,557 : JOnASEARService.__doStop : EAR Service stopped
+2010-06-29 19:05:16,568 : WARDeployer.doUndeploy : Undeploying jonas-ctxroot-5.2.0-M1.war
+colorex/test% 2010-06-29 19:05:16,604 : BaseWebContainerService.unRegisterWar : War jonas-ctxroot-5.2.0-M1.war no longer available
+2010-06-29 19:05:16,605 : WARDeployer.doUndeploy : Undeploying jonas-admin-5.2.0-M1.war
+2010-06-29 19:05:17,616 : BaseWebContainerService.unRegisterWar : War jonas-admin-5.2.0-M1.war no longer available
+2010-06-29 19:05:17,617 : WARDeployer.doUndeploy : Undeploying jonas-doc-en-5.2.0-M1.war
+2010-06-29 19:05:17,624 : BaseWebContainerService.unRegisterWar : War jonas-doc-en-5.2.0-M1.war no longer available
+2010-06-29 19:05:17,624 : WARDeployer.doUndeploy : Undeploying jasmine-eos-war-1.3.1-SNAPSHOT.war
+2010-06-29 19:05:17,627 : JdkLogger.info : Starting Gravity (now=true)...
+2010-06-29 19:05:17,628 : JdkLogger.info : Stopping Gravity Pool Now...
+2010-06-29 19:05:17,629 : JdkLogger.info : Gravity sucessfully stopped.
+2010-06-29 19:05:17,629 : JdkLogger.info : Unregistering MBean: org.granite:type=GraniteConfig,context=GraniteDS Pojo
+2010-06-29 19:05:17,657 : BaseWebContainerService.unRegisterWar : War jasmine-eos-war-1.3.1-SNAPSHOT.war no longer available
+2010-06-29 19:05:17,663 : Jdk14Logger.log : Pausing Coyote HTTP/1.1 on http-9000
+2010-06-29 19:05:18,664 : Jdk14Logger.log : Stopping service jonas
+2010-06-29 19:05:18,666 : Jdk14Logger.log : Stopping Coyote HTTP/1.1 on http-9000
+2010-06-29 19:05:19,788 : CXFService.__doStop : CXF service stopped
+2010-06-29 19:05:19,793 : EasyBeansDeployer.doUndeploy : Undeploying 'mejb-5.2.0-M1.jar'...
+2010-06-29 19:05:19,798 : Embedded.removeContainer : Container '/home/nicoulaj/servers/jonas/jonas_bases/jonas-full-5.2.0-M1/work/ejb3s/jonas/mejb-5.2.0-M1_2010.03.29-18.13.41.jar' removed
+2010-06-29 19:05:19,799 : EasyBeansDeployer.doUndeploy : 'mejb-5.2.0-M1.jar' EJB3 Deployable is now undeployed
+2010-06-29 19:05:19,802 : StatisticComponent.stop : Stopped
+2010-06-29 19:05:19,803 : CarolComponent.stop : Carol Component Stopped
+2010-06-29 19:05:19,804 : EventComponent.stop : stopped.
+2010-06-29 19:05:19,808 : Embedded.stop : EasyBeans '1.2.0-M1.5455' est désormais arrêté.
+2010-06-29 19:05:19,815 : RARDeployer.doUndeploy : Undeploying db_access_jdbc_xa1.rar
+2010-06-29 19:05:19,817 : RARDeployer.doUndeploy : Undeploying jonas-jca-jdbc-ds-5.2.0-M1.rar
+2010-06-29 19:05:19,819 : RARDeployer.doUndeploy : Undeploying jonas-jca-jdbc-cp-5.2.0-M1.rar
+2010-06-29 19:05:19,821 : RARDeployer.doUndeploy : Undeploying jonas-jca-jdbc-xa-5.2.0-M1.rar
+2010-06-29 19:05:19,823 : RARDeployer.doUndeploy : Undeploying db_access_jdbc1.rar
+2010-06-29 19:05:19,825 : RARDeployer.doUndeploy : Undeploying db_access_jdbc_xa2.rar
+2010-06-29 19:05:19,827 : RARDeployer.doUndeploy : Undeploying jonas-jca-jdbc-dm-5.2.0-M1.rar
+2010-06-29 19:05:19,829 : RARDeployer.doUndeploy : Undeploying joram_ra_for_jonas-5.2.5.rar
+2010-06-29 19:05:20,013 : JOnASResourceService.__doStop : Resource Service stopped
+2010-06-29 19:05:20,016 : JOnASWorkManagerService.__doStop : WorkManager Service stopped.
+2010-06-29 19:05:20,019 : JonasSecurityServiceImpl.__doStop : Security Service stopped
+2010-06-29 19:05:20,022 : HsqlDBServiceImpl.__doStop : HSQLDB server stopped.
+2010-06-29 19:05:20,026 : JOTMTransactionService.__doStop : TransactionService stopped
+2010-06-29 19:05:20,029 : J2EEServer.__info : JOnAS AS v5.2.0-M1 named 'jonas' STANDBY
+2010-06-29 19:05:20,031 : JOnASWorkCleanerService.__doStop : WorkCleaner Service stopped.
+2010-06-29 19:05:20,033 : JNDIInterceptorsComponent.__stop : JNDI Interceptors component stopped
+2010-06-29 19:05:20,040 : JOnASJMXService.__doStop : JMX Service stopped
+2010-06-29 19:05:20,240 : CarolRegistryService.__doStop : Carol Registry Service stopped

@@ -14,4 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-top 2>&1 | ../src/colorex $@ --config ../src/configs/top.cfg
+cat raw-logs/jonas5.log | ../src/colorex $@ --config ../src/configs/jonas.cfg
