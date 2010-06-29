@@ -1,3 +1,4 @@
+#!/bin/sh
 # ----------------------------------------------------------------------
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -12,18 +13,5 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
-# Description:
-#   Example Colorex configuration for Tomcat output.
-# 
-# Usage:
-#   $ tomcat/bin/catalina.sh run 2&>1 | colorex --config=tomcat
-# ----------------------------------------------------------------------
 
-[general]
-imports: java-stack-trace
-
-[filters]
-faint: ^[A-Z][a-z]+\s\d+,\s\d+\s\d+:\d+:\d+|^\d+\s[a-z]+\s\d+\s\d+:\d+:\d+
-red: ^GRAVE:\s.*|^SEVERE:\s.*
-yellow: ^ATTENTION:\s.*|^WARNING:\s.*
-bold: ^Using\s.*
+cat raw-logs/*.diff | ../src/colorex $@ --config ../src/configs/diff.cfg

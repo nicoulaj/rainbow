@@ -1,0 +1,1267 @@
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3
+
+  JAVA: java
+
+  JAVA_OPTS: -server -Xms128m -Xmx512m -XX:MaxPermSize=256m -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Stack=true -Dprogram.name=run.sh -Djava.library.path=/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/bin/native/lib64
+
+  CLASSPATH: /home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/bin/run.jar
+
+=========================================================================
+
+21:20:40,867 INFO  [AbstractJBossASServerBase] Server Configuration:
+
+	JBOSS_HOME URL: file:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/
+	Bootstrap: $JBOSS_HOME/server/default/conf/bootstrap.xml
+	Common Base: $JBOSS_HOME/common/
+	Common Library: $JBOSS_HOME/common/lib/
+	Server Name: default
+	Server Base: $JBOSS_HOME/server/
+	Server Library: $JBOSS_HOME/server/default/lib/
+	Server Config: $JBOSS_HOME/server/default/conf/
+	Server Home: $JBOSS_HOME/server/default/
+	Server Data: $JBOSS_HOME/server/default/data/
+	Server Log: $JBOSS_HOME/server/default/log/
+	Server Temp: $JBOSS_HOME/server/default/tmp/
+
+21:20:40,869 INFO  [AbstractServer] Starting: JBossAS [6.0.0.20100429-M3 "Neo"]
+21:20:42,106 INFO  [ServerInfo] Java version: 1.6.0_20,Sun Microsystems Inc.
+21:20:42,107 INFO  [ServerInfo] Java Runtime: Java(TM) SE Runtime Environment (build 1.6.0_20-b02)
+21:20:42,107 INFO  [ServerInfo] Java VM: Java HotSpot(TM) 64-Bit Server VM 16.3-b01,Sun Microsystems Inc.
+21:20:42,107 INFO  [ServerInfo] OS-System: Linux 2.6.32-22-generic,amd64
+21:20:42,107 INFO  [ServerInfo] VM arguments: -Xms128m -Xmx512m -XX:MaxPermSize=256m -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Stack=true -Dprogram.name=run.sh -Djava.library.path=/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/bin/native/lib64 -Djava.endorsed.dirs=/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/lib/endorsed
+21:20:42,137 INFO  [JMXKernel] Legacy JMX core initialized
+21:20:44,971 INFO  [AbstractServerConfig] JBoss Web Services - Native Server 3.3.0.CR1.SP2
+21:20:46,694 ATTENTION [FileConfigurationParser] AIO wasn't located on this platform, it will fall back to using pure Java NIO. If your platform is Linux, install LibAIO to enable the AIO journal
+21:20:49,047 ATTENTION [FileConfigurationParser] AIO wasn't located on this platform, it will fall back to using pure Java NIO. If your platform is Linux, install LibAIO to enable the AIO journal
+21:20:49,149 INFO  [JMXConnector] starting JMXConnector on host 127.0.0.1:1090
+21:20:49,221 INFO  [MailService] Mail Service bound to java:/Mail
+21:20:49,709 INFO  [HornetQServerImpl] live server is starting..
+21:20:49,757 INFO  [JournalStorageManager] Using NIO Journal
+21:20:49,773 ATTENTION [HornetQServerImpl] Security risk! It has been detected that the cluster admin user and password have not been changed from the installation default. Please see the HornetQ user guide, cluster chapter, for instructions on how to do this.
+21:20:51,143 INFO  [NettyAcceptor] Started Netty Acceptor version 3.2.0.BETA1-r2215 127.0.0.1:5455
+21:20:51,146 INFO  [NettyAcceptor] Started Netty Acceptor version 3.2.0.BETA1-r2215 127.0.0.1:5445
+21:20:51,150 INFO  [HornetQServerImpl] HornetQ Server version 2.1.0.BETA3 (Hungry Hornet, 117) started
+21:20:51,216 INFO  [WebService] Using RMI server codebase: http://127.0.0.1:8083/
+21:20:51,622 INFO  [AprLifecycleListener] The Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/bin/native/lib64
+21:20:51,662 ERROR [Http11Protocol] Erreur à l'initialisation du point de contact: java.net.BindException: Address already in use /127.0.0.1:8080
+	at org.apache.tomcat.util.net.JIoEndpoint.init(JIoEndpoint.java:1004) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Protocol.init(Http11Protocol.java:186) [:6.0.0.20100429-M3]
+	at org.apache.catalina.connector.Connector.initialize(Connector.java:1018) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardService.initialize(StandardService.java:701) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardServer.initialize(StandardServer.java:710) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.service.deployers.TomcatService.startService(TomcatService.java:332) [:6.0.0.20100429-M3]
+	at org.jboss.system.ServiceMBeanSupport.jbossInternalStart(ServiceMBeanSupport.java:355) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.ServiceMBeanSupport.pojoStart(ServiceMBeanSupport.java:195) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.reflect.plugins.introspection.ReflectionUtils.invoke(ReflectionUtils.java:59) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.reflect.plugins.introspection.ReflectMethodInfoImpl.invoke(ReflectMethodInfoImpl.java:168) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.joinpoint.plugins.BasicMethodJoinPoint.dispatch(BasicMethodJoinPoint.java:66) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.kernel.plugins.dependency.KernelControllerContextAction$JoinpointDispatchWrapper.execute(KernelControllerContextAction.java:257) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.ExecutionWrapper.execute(ExecutionWrapper.java:47) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.KernelControllerContextAction.dispatchExecutionWrapper(KernelControllerContextAction.java:125) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.KernelControllerContextAction.dispatchJoinPoint(KernelControllerContextAction.java:72) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.LifecycleAction.installActionInternal(LifecycleAction.java:202) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.InstallsAwareAction.installAction(InstallsAwareAction.java:54) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.InstallsAwareAction.installAction(InstallsAwareAction.java:42) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.action.SimpleControllerContextAction.simpleInstallAction(SimpleControllerContextAction.java:62) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.action.AccessControllerContextAction.install(AccessControllerContextAction.java:71) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractControllerContextActions.install(AbstractControllerContextActions.java:51) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractControllerContext.install(AbstractControllerContext.java:377) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:2042) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1081) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:937) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:652) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.system.ServiceController.doChange(ServiceController.java:671) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.ServiceController.start(ServiceController.java:443) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.microcontainer.jmx.ServiceControllerStartStopLifecycleCallback.install(ServiceControllerStartStopLifecycleCallback.java:44) [:6.0.0.20100429-M3]
+	at sun.reflect.GeneratedMethodAccessor239.invoke(Unknown Source) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.reflect.plugins.introspection.ReflectionUtils.invoke(ReflectionUtils.java:59) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.reflect.plugins.introspection.ReflectMethodInfoImpl.invoke(ReflectMethodInfoImpl.java:168) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.joinpoint.plugins.BasicMethodJoinPoint.dispatch(BasicMethodJoinPoint.java:66) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.beans.info.plugins.AbstractBeanInfo.invoke(AbstractBeanInfo.java:300) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.kernel.plugins.dependency.AbstractKernelControllerContext.invoke(AbstractKernelControllerContext.java:305) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractLifecycleCallbackItem.install(AbstractLifecycleCallbackItem.java:87) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.handleLifecycleCallbacks(AbstractController.java:2016) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.handleInstallLifecycleCallbacks(AbstractController.java:1981) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1089) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:937) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:652) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.system.ServiceController.doChange(ServiceController.java:671) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.ServiceController.start(ServiceController.java:443) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.microcontainer.jmx.ServiceControllerStartStopLifecycleCallback.install(ServiceControllerStartStopLifecycleCallback.java:44) [:6.0.0.20100429-M3]
+	at sun.reflect.GeneratedMethodAccessor239.invoke(Unknown Source) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.reflect.plugins.introspection.ReflectionUtils.invoke(ReflectionUtils.java:59) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.reflect.plugins.introspection.ReflectMethodInfoImpl.invoke(ReflectMethodInfoImpl.java:168) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.joinpoint.plugins.BasicMethodJoinPoint.dispatch(BasicMethodJoinPoint.java:66) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.beans.info.plugins.AbstractBeanInfo.invoke(AbstractBeanInfo.java:300) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.kernel.plugins.dependency.AbstractKernelControllerContext.invoke(AbstractKernelControllerContext.java:305) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractLifecycleCallbackItem.install(AbstractLifecycleCallbackItem.java:87) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.handleLifecycleCallbacks(AbstractController.java:2016) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.handleInstallLifecycleCallbacks(AbstractController.java:1981) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1089) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:892) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:639) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.deployers.vfs.deployer.kernel.BeanMetaDataDeployer.deploy(BeanMetaDataDeployer.java:180) [:2.2.0.Alpha4]
+	at org.jboss.deployers.vfs.deployer.kernel.BeanMetaDataDeployer.deploy(BeanMetaDataDeployer.java:58) [:2.2.0.Alpha4]
+	at org.jboss.deployers.spi.deployer.helpers.AbstractSimpleRealDeployer.internalDeploy(AbstractSimpleRealDeployer.java:62) [:2.2.0.Alpha4]
+	at org.jboss.deployers.spi.deployer.helpers.AbstractRealDeployer.deploy(AbstractRealDeployer.java:55) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployerWrapper.deploy(DeployerWrapper.java:179) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.doDeploy(DeployersImpl.java:1857) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.doInstallParentFirst(DeployersImpl.java:1575) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.doInstallParentFirst(DeployersImpl.java:1596) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.install(DeployersImpl.java:1516) [:2.2.0.Alpha4]
+	at org.jboss.dependency.plugins.AbstractControllerContext.install(AbstractControllerContext.java:377) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:2042) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1081) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:937) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:652) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.change(DeployersImpl.java:2008) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.process(DeployersImpl.java:1101) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.main.MainDeployerImpl.process(MainDeployerImpl.java:679) [:2.2.0.Alpha4]
+	at org.jboss.system.server.profileservice.repository.MainDeployerAdapter.process(MainDeployerAdapter.java:117) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.repository.ProfileDeployAction.install(ProfileDeployAction.java:70) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.repository.AbstractProfileAction.install(AbstractProfileAction.java:53) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.repository.AbstractProfileService.install(AbstractProfileService.java:403) [:6.0.0.20100429-M3]
+	at org.jboss.dependency.plugins.AbstractControllerContext.install(AbstractControllerContext.java:377) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:2042) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1081) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:892) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:639) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.system.server.profileservice.repository.AbstractProfileService.registerProfile(AbstractProfileService.java:308) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.ProfileServiceBootstrap.start(ProfileServiceBootstrap.java:256) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.ProfileServiceBootstrap.start(ProfileServiceBootstrap.java:97) [:6.0.0.20100429-M3]
+	at org.jboss.bootstrap.impl.base.server.AbstractServer.startBootstraps(AbstractServer.java:827) [jboss-bootstrap-impl-base.jar:2.1.0-alpha-5]
+	at org.jboss.bootstrap.impl.base.server.AbstractServer$StartServerTask.run(AbstractServer.java:417) [jboss-bootstrap-impl-base.jar:2.1.0-alpha-5]
+	at java.lang.Thread.run(Thread.java:619) [:1.6.0_20]
+
+21:20:51,679 ERROR [AbstractKernelController] Error installing to Start: name=WebServer state=Create: LifecycleException:  L'initialisation du gestionnaire de protocole a échoué: java.net.BindException: Address already in use /127.0.0.1:8080
+	at org.apache.catalina.connector.Connector.initialize(Connector.java:1020) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardService.initialize(StandardService.java:701) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardServer.initialize(StandardServer.java:710) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.service.deployers.TomcatService.startService(TomcatService.java:332) [:6.0.0.20100429-M3]
+	at org.jboss.system.ServiceMBeanSupport.jbossInternalStart(ServiceMBeanSupport.java:355) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.ServiceMBeanSupport.pojoStart(ServiceMBeanSupport.java:195) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.reflect.plugins.introspection.ReflectionUtils.invoke(ReflectionUtils.java:59) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.reflect.plugins.introspection.ReflectMethodInfoImpl.invoke(ReflectMethodInfoImpl.java:168) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.joinpoint.plugins.BasicMethodJoinPoint.dispatch(BasicMethodJoinPoint.java:66) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.kernel.plugins.dependency.KernelControllerContextAction$JoinpointDispatchWrapper.execute(KernelControllerContextAction.java:257) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.ExecutionWrapper.execute(ExecutionWrapper.java:47) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.KernelControllerContextAction.dispatchExecutionWrapper(KernelControllerContextAction.java:125) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.KernelControllerContextAction.dispatchJoinPoint(KernelControllerContextAction.java:72) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.LifecycleAction.installActionInternal(LifecycleAction.java:202) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.InstallsAwareAction.installAction(InstallsAwareAction.java:54) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.kernel.plugins.dependency.InstallsAwareAction.installAction(InstallsAwareAction.java:42) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.action.SimpleControllerContextAction.simpleInstallAction(SimpleControllerContextAction.java:62) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.action.AccessControllerContextAction.install(AccessControllerContextAction.java:71) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractControllerContextActions.install(AbstractControllerContextActions.java:51) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractControllerContext.install(AbstractControllerContext.java:377) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:2042) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1081) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:937) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:652) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.system.ServiceController.doChange(ServiceController.java:671) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.ServiceController.start(ServiceController.java:443) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.microcontainer.jmx.ServiceControllerStartStopLifecycleCallback.install(ServiceControllerStartStopLifecycleCallback.java:44) [:6.0.0.20100429-M3]
+	at sun.reflect.GeneratedMethodAccessor239.invoke(Unknown Source) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.reflect.plugins.introspection.ReflectionUtils.invoke(ReflectionUtils.java:59) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.reflect.plugins.introspection.ReflectMethodInfoImpl.invoke(ReflectMethodInfoImpl.java:168) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.joinpoint.plugins.BasicMethodJoinPoint.dispatch(BasicMethodJoinPoint.java:66) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.beans.info.plugins.AbstractBeanInfo.invoke(AbstractBeanInfo.java:300) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.kernel.plugins.dependency.AbstractKernelControllerContext.invoke(AbstractKernelControllerContext.java:305) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractLifecycleCallbackItem.install(AbstractLifecycleCallbackItem.java:87) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.handleLifecycleCallbacks(AbstractController.java:2016) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.handleInstallLifecycleCallbacks(AbstractController.java:1981) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1089) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:937) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:652) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.system.ServiceController.doChange(ServiceController.java:671) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.ServiceController.start(ServiceController.java:443) [:6.0.0.20100429-M3 (Build SVNTag:JBoss_6.0.0.20100429-M3 date: 20100502)]
+	at org.jboss.system.microcontainer.jmx.ServiceControllerStartStopLifecycleCallback.install(ServiceControllerStartStopLifecycleCallback.java:44) [:6.0.0.20100429-M3]
+	at sun.reflect.GeneratedMethodAccessor239.invoke(Unknown Source) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.reflect.plugins.introspection.ReflectionUtils.invoke(ReflectionUtils.java:59) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.reflect.plugins.introspection.ReflectMethodInfoImpl.invoke(ReflectMethodInfoImpl.java:168) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.joinpoint.plugins.BasicMethodJoinPoint.dispatch(BasicMethodJoinPoint.java:66) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.beans.info.plugins.AbstractBeanInfo.invoke(AbstractBeanInfo.java:300) [jboss-reflect.jar:2.2.0.Alpha4]
+	at org.jboss.kernel.plugins.dependency.AbstractKernelControllerContext.invoke(AbstractKernelControllerContext.java:305) [jboss-kernel.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractLifecycleCallbackItem.install(AbstractLifecycleCallbackItem.java:87) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.handleLifecycleCallbacks(AbstractController.java:2016) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.handleInstallLifecycleCallbacks(AbstractController.java:1981) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1089) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:892) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:639) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.deployers.vfs.deployer.kernel.BeanMetaDataDeployer.deploy(BeanMetaDataDeployer.java:180) [:2.2.0.Alpha4]
+	at org.jboss.deployers.vfs.deployer.kernel.BeanMetaDataDeployer.deploy(BeanMetaDataDeployer.java:58) [:2.2.0.Alpha4]
+	at org.jboss.deployers.spi.deployer.helpers.AbstractSimpleRealDeployer.internalDeploy(AbstractSimpleRealDeployer.java:62) [:2.2.0.Alpha4]
+	at org.jboss.deployers.spi.deployer.helpers.AbstractRealDeployer.deploy(AbstractRealDeployer.java:55) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployerWrapper.deploy(DeployerWrapper.java:179) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.doDeploy(DeployersImpl.java:1857) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.doInstallParentFirst(DeployersImpl.java:1575) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.doInstallParentFirst(DeployersImpl.java:1596) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.install(DeployersImpl.java:1516) [:2.2.0.Alpha4]
+	at org.jboss.dependency.plugins.AbstractControllerContext.install(AbstractControllerContext.java:377) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:2042) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1081) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:937) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:652) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.change(DeployersImpl.java:2008) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.process(DeployersImpl.java:1101) [:2.2.0.Alpha4]
+	at org.jboss.deployers.plugins.main.MainDeployerImpl.process(MainDeployerImpl.java:679) [:2.2.0.Alpha4]
+	at org.jboss.system.server.profileservice.repository.MainDeployerAdapter.process(MainDeployerAdapter.java:117) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.repository.ProfileDeployAction.install(ProfileDeployAction.java:70) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.repository.AbstractProfileAction.install(AbstractProfileAction.java:53) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.repository.AbstractProfileService.install(AbstractProfileService.java:403) [:6.0.0.20100429-M3]
+	at org.jboss.dependency.plugins.AbstractControllerContext.install(AbstractControllerContext.java:377) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:2042) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:1081) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.executeOrIncrementStateDirectly(AbstractController.java:1320) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1244) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1137) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:892) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:639) [jboss-dependency.jar:2.2.0.Alpha9]
+	at org.jboss.system.server.profileservice.repository.AbstractProfileService.registerProfile(AbstractProfileService.java:308) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.ProfileServiceBootstrap.start(ProfileServiceBootstrap.java:256) [:6.0.0.20100429-M3]
+	at org.jboss.system.server.profileservice.ProfileServiceBootstrap.start(ProfileServiceBootstrap.java:97) [:6.0.0.20100429-M3]
+	at org.jboss.bootstrap.impl.base.server.AbstractServer.startBootstraps(AbstractServer.java:827) [jboss-bootstrap-impl-base.jar:2.1.0-alpha-5]
+	at org.jboss.bootstrap.impl.base.server.AbstractServer$StartServerTask.run(AbstractServer.java:417) [jboss-bootstrap-impl-base.jar:2.1.0-alpha-5]
+	at java.lang.Thread.run(Thread.java:619) [:1.6.0_20]
+
+21:20:51,734 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/jboss-local-jdbc.rar/META-INF/ra.xml
+21:20:51,742 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/jboss-xa-jdbc.rar/META-INF/ra.xml
+21:20:51,747 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/jms-ra.rar/META-INF/ra.xml
+21:20:51,757 INFO  [HornetQResourceAdapter] HornetQ resource adaptor started
+21:20:51,761 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/mail-ra.rar/META-INF/ra.xml
+21:20:51,770 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/quartz-ra.rar/META-INF/ra.xml
+21:20:51,850 INFO  [SimpleThreadPool] Job execution threads will use class loader of thread: Thread-2
+21:20:51,876 INFO  [SchedulerSignalerImpl] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+21:20:51,877 INFO  [QuartzScheduler] Quartz Scheduler v.1.7.3 created.
+21:20:51,879 INFO  [RAMJobStore] RAMJobStore initialized.
+21:20:51,879 INFO  [StdSchedulerFactory] Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+21:20:51,879 INFO  [StdSchedulerFactory] Quartz scheduler version: 1.7.3
+21:20:51,880 INFO  [QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+21:20:52,134 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 'jboss.jca:service=DataSourceBinding,name=DefaultDS' to JNDI name 'java:DefaultDS'
+21:20:52,299 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 'jboss.jca:service=ConnectionFactoryBinding,name=JmsXA' to JNDI name 'java:JmsXA'
+21:20:52,321 INFO  [xnio] XNIO Version 2.1.0.CR2
+21:20:52,324 INFO  [nio] XNIO NIO Implementation Version 2.1.0.CR2
+21:20:52,415 INFO  [remoting] JBoss Remoting version 3.1.0.Beta2
+21:20:52,594 INFO  [service] Removing bootstrap log handlers
+21:20:52,665 INFO  [org.jboss.system.server.profileservice.ProfileServiceBootstrap] Loading profile: ProfileKey@25b0eadd[domain=default, server=default, name=default]
+21:20:52,668 ERROR [org.jboss.system.server.profileservice.ProfileServiceBootstrap] Failed to load profile: Summary of incomplete deployments (SEE PREVIOUS ERRORS FOR DETAILS):
+
+DEPLOYMENTS MISSING DEPENDENCIES:
+  Deployment "AdminConsoleActivator" is missing the following dependencies:
+    Dependency "WebServer" (should be in state "Installed", but is actually in state "**ERROR**")
+  Deployment "JBossWSConsoleActivator" is missing the following dependencies:
+    Dependency "WebServer" (should be in state "Installed", but is actually in state "**ERROR**")
+  Deployment "JmxConsoleActivator" is missing the following dependencies:
+    Dependency "WebServer" (should be in state "Installed", but is actually in state "**ERROR**")
+  Deployment "jboss.web.deployment:war=/ROOT" is missing the following dependencies:
+    Dependency "jboss.web:service=WebServer" (should be in state "Create", but is actually in state "** NOT FOUND Depends on 'jboss.web:service=WebServer' **")
+  Deployment "jboss.web.deployment:war=/invoker" is missing the following dependencies:
+    Dependency "jboss.web:service=WebServer" (should be in state "Create", but is actually in state "** NOT FOUND Depends on 'jboss.web:service=WebServer' **")
+
+DEPLOYMENTS IN ERROR:
+  Deployment "WebServer" is in error due to the following reason(s): **ERROR**, LifecycleException:  L'initialisation du gestionnaire de protocole a échoué: java.net.BindException: Address already in use /127.0.0.1:8080
+  Deployment "jboss.web:service=WebServer" is in error due to the following reason(s): ** NOT FOUND Depends on 'jboss.web:service=WebServer' **
+
+21:20:52,668 INFO  [org.jboss.bootstrap.impl.base.server.AbstractServer] JBossAS [6.0.0.20100429-M3 "Neo"] Started in 11s:796ms
+21:21:02,710 INFO  [org.quartz.utils.UpdateChecker] New update(s) found: 1.8.3 [http://www.terracotta.org/kit/reflector?kitID=default&pageID=QuartzChangeLog]
+c^C21:21:27,694 INFO  [STDOUT] Posting Shutdown Request to the server...
+21:21:27,694 INFO  [org.jboss.bootstrap.impl.base.server.AbstractServer] Stopping: JBossAS [6.0.0.20100429-M3 "Neo"]
+21:21:27,750 INFO  [service] Restored bootstrap log handlers
+21:21:27,818 INFO  [ConnectionFactoryBindingService] Unbound ConnectionManager 'jboss.jca:service=ConnectionFactoryBinding,name=JmsXA' from JNDI name 'java:JmsXA'
+21:21:27,826 INFO  [ConnectionFactoryBindingService] Unbound ConnectionManager 'jboss.jca:service=DataSourceBinding,name=DefaultDS' from JNDI name 'java:DefaultDS'
+21:21:27,963 INFO  [HypersonicDatabase] Database standalone closed clean
+21:21:27,965 INFO  [QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutting down.
+21:21:27,965 INFO  [QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED paused.
+21:21:27,965 INFO  [QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+21:21:27,970 INFO  [HornetQResourceAdapter] HornetQ resource adapter stopped
+21:21:28,037 INFO  [HornetQServerImpl] HornetQ Server version 2.1.0.BETA3 (Hungry Hornet, 117) stopped
+21:21:28,077 INFO  [MailService] Mail service 'java:/Mail' removed from JNDI
+21:21:28,111 INFO  [JMXConnector] JMXConnector stopped
+21:21:33,789 INFO  [AbstractServer] Stopped: JBossAS [6.0.0.20100429-M3 "Neo"] in 6s:95ms
+
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3
+
+  JAVA: java
+
+  JAVA_OPTS: -server -Xms128m -Xmx512m -XX:MaxPermSize=256m -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Stack=true -Dprogram.name=run.sh -Djava.library.path=/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/bin/native/lib64
+
+  CLASSPATH: /home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/bin/run.jar
+
+=========================================================================
+
+21:22:34,557 INFO  [AbstractJBossASServerBase] Server Configuration:
+
+	JBOSS_HOME URL: file:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/
+	Bootstrap: $JBOSS_HOME/server/default/conf/bootstrap.xml
+	Common Base: $JBOSS_HOME/common/
+	Common Library: $JBOSS_HOME/common/lib/
+	Server Name: default
+	Server Base: $JBOSS_HOME/server/
+	Server Library: $JBOSS_HOME/server/default/lib/
+	Server Config: $JBOSS_HOME/server/default/conf/
+	Server Home: $JBOSS_HOME/server/default/
+	Server Data: $JBOSS_HOME/server/default/data/
+	Server Log: $JBOSS_HOME/server/default/log/
+	Server Temp: $JBOSS_HOME/server/default/tmp/
+
+21:22:34,559 INFO  [AbstractServer] Starting: JBossAS [6.0.0.20100429-M3 "Neo"]
+21:22:35,738 INFO  [ServerInfo] Java version: 1.6.0_20,Sun Microsystems Inc.
+21:22:35,738 INFO  [ServerInfo] Java Runtime: Java(TM) SE Runtime Environment (build 1.6.0_20-b02)
+21:22:35,738 INFO  [ServerInfo] Java VM: Java HotSpot(TM) 64-Bit Server VM 16.3-b01,Sun Microsystems Inc.
+21:22:35,738 INFO  [ServerInfo] OS-System: Linux 2.6.32-22-generic,amd64
+21:22:35,739 INFO  [ServerInfo] VM arguments: -Xms128m -Xmx512m -XX:MaxPermSize=256m -Dorg.jboss.resolver.warning=true -Dsun.rmi.dgc.client.gcInterval=3600000 -Dsun.rmi.dgc.server.gcInterval=3600000 -Djava.net.preferIPv4Stack=true -Djava.net.preferIPv4Stack=true -Dprogram.name=run.sh -Djava.library.path=/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/bin/native/lib64 -Djava.endorsed.dirs=/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/lib/endorsed
+21:22:35,769 INFO  [JMXKernel] Legacy JMX core initialized
+21:22:38,545 INFO  [AbstractServerConfig] JBoss Web Services - Native Server 3.3.0.CR1.SP2
+21:22:40,152 ATTENTION [FileConfigurationParser] AIO wasn't located on this platform, it will fall back to using pure Java NIO. If your platform is Linux, install LibAIO to enable the AIO journal
+21:22:42,525 ATTENTION [FileConfigurationParser] AIO wasn't located on this platform, it will fall back to using pure Java NIO. If your platform is Linux, install LibAIO to enable the AIO journal
+21:22:42,621 INFO  [JMXConnector] starting JMXConnector on host 127.0.0.1:1090
+21:22:42,686 INFO  [MailService] Mail Service bound to java:/Mail
+21:22:43,135 INFO  [HornetQServerImpl] live server is starting..
+21:22:43,180 INFO  [JournalStorageManager] Using NIO Journal
+21:22:43,193 ATTENTION [HornetQServerImpl] Security risk! It has been detected that the cluster admin user and password have not been changed from the installation default. Please see the HornetQ user guide, cluster chapter, for instructions on how to do this.
+21:22:44,105 INFO  [NettyAcceptor] Started Netty Acceptor version 3.2.0.BETA1-r2215 127.0.0.1:5445
+21:22:44,109 INFO  [NettyAcceptor] Started Netty Acceptor version 3.2.0.BETA1-r2215 127.0.0.1:5455
+21:22:44,111 INFO  [HornetQServerImpl] HornetQ Server version 2.1.0.BETA3 (Hungry Hornet, 117) started
+21:22:44,166 INFO  [WebService] Using RMI server codebase: http://127.0.0.1:8083/
+21:22:44,596 INFO  [AprLifecycleListener] The Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/bin/native/lib64
+21:22:44,679 INFO  [TomcatDeployment] deploy, ctxPath=/invoker
+21:22:45,017 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/jboss-local-jdbc.rar/META-INF/ra.xml
+21:22:45,024 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/jboss-xa-jdbc.rar/META-INF/ra.xml
+21:22:45,029 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/jms-ra.rar/META-INF/ra.xml
+21:22:45,040 INFO  [HornetQResourceAdapter] HornetQ resource adaptor started
+21:22:45,044 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/mail-ra.rar/META-INF/ra.xml
+21:22:45,053 INFO  [RARDeployment] Required license terms exist, view vfs:/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/deploy/quartz-ra.rar/META-INF/ra.xml
+21:22:45,100 INFO  [SimpleThreadPool] Job execution threads will use class loader of thread: Thread-2
+21:22:45,133 INFO  [SchedulerSignalerImpl] Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+21:22:45,134 INFO  [QuartzScheduler] Quartz Scheduler v.1.7.3 created.
+21:22:45,136 INFO  [RAMJobStore] RAMJobStore initialized.
+21:22:45,136 INFO  [StdSchedulerFactory] Quartz scheduler 'DefaultQuartzScheduler' initialized from default resource file in Quartz package: 'quartz.properties'
+21:22:45,136 INFO  [StdSchedulerFactory] Quartz scheduler version: 1.7.3
+21:22:45,137 INFO  [QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED started.
+21:22:45,404 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 'jboss.jca:service=DataSourceBinding,name=DefaultDS' to JNDI name 'java:DefaultDS'
+21:22:45,575 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 'jboss.jca:service=ConnectionFactoryBinding,name=JmsXA' to JNDI name 'java:JmsXA'
+21:22:45,597 INFO  [xnio] XNIO Version 2.1.0.CR2
+21:22:45,599 INFO  [nio] XNIO NIO Implementation Version 2.1.0.CR2
+21:22:45,688 INFO  [remoting] JBoss Remoting version 3.1.0.Beta2
+21:22:45,747 INFO  [TomcatDeployment] deploy, ctxPath=/
+21:22:45,837 INFO  [service] Removing bootstrap log handlers
+21:22:45,873 INFO  [org.jboss.system.server.profileservice.ProfileServiceBootstrap] Loading profile: ProfileKey@23ab8f3f[domain=default, server=default, name=default]
+21:22:45,887 INFO  [org.apache.coyote.http11.Http11Protocol] Démarrage de Coyote HTTP/1.1 sur http-127.0.0.1-8080
+21:22:45,891 INFO  [org.apache.coyote.ajp.AjpProtocol] Starting Coyote AJP/1.3 on ajp-127.0.0.1-8009
+21:22:45,891 INFO  [org.jboss.bootstrap.impl.base.server.AbstractServer] JBossAS [6.0.0.20100429-M3 "Neo"] Started in 11s:329ms
+21:22:46,854 INFO  [org.quartz.utils.UpdateChecker] New update(s) found: 1.8.3 [http://www.terracotta.org/kit/reflector?kitID=default&pageID=QuartzChangeLog]
+21:23:20,512 INFO  [org.jboss.web.tomcat.service.deployers.TomcatDeployment] deploy, ctxPath=/admin-console
+21:23:20,529 INFO  [org.apache.catalina.core.StandardContext] The listener "com.sun.faces.config.ConfigureListener" is already configured for this context. The duplicate definition has been ignored.
+21:23:20,534 ATTENTION [javax.enterprise.resource.webcontainer.jsf.config] JSF1025 : [/admin-console] le paramètre d'initialisation du contexte 'facelets.LIBRARIES' est désapprouvé.  Cette option sera toujours configurée, mais à l'avenir, utilisez 'javax.faces.FACELETS_LIBRARIES'.
+21:23:20,534 INFO  [javax.enterprise.resource.webcontainer.jsf.config] JSF1019 : [/admin-console] option de configuration 'javax.faces.FACELETS_LIBRARIES' réinitialisée sur '/WEB-INF/on.component.taglib.xml'
+21:23:20,539 INFO  [javax.enterprise.resource.webcontainer.jsf.config] Initialisation de Mojarra 2.0.2 (FCS b10) pour le contexte '/admin-console'
+21:23:21,663 INFO  [javax.servlet.ServletContextListener] Welcome to Seam 2.1.0.SP1
+21:23:22,688 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/async, package: org.jboss.seam.async, prefix: org.jboss.seam.async
+21:23:22,688 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/framework, package: org.jboss.seam.framework, prefix: org.jboss.seam.core.framework
+21:23:22,688 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/theme, package: org.jboss.seam.theme, prefix: org.jboss.seam.theme
+21:23:22,688 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/security, package: org.jboss.seam.security.management, prefix: org.jboss.seam.security
+21:23:22,688 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/bpm, package: org.jboss.seam.bpm, prefix: org.jboss.seam.bpm
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/mail, package: org.jboss.seam.mail, prefix: org.jboss.seam.mail
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/security, package: org.jboss.seam.security, prefix: org.jboss.seam.security
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/web, package: org.jboss.seam.web, prefix: org.jboss.seam.web
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/captcha, package: org.jboss.seam.captcha, prefix: org.jboss.seam.captcha
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/navigation, package: org.jboss.seam.navigation, prefix: org.jboss.seam.navigation
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/core, package: org.jboss.seam.core, prefix: org.jboss.seam.core
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/international, package: org.jboss.seam.international, prefix: org.jboss.seam.international
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/cache, package: org.jboss.seam.cache, prefix: org.jboss.seam.cache
+21:23:22,689 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/jms, package: org.jboss.seam.jms, prefix: org.jboss.seam.jms
+21:23:22,690 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/ui, package: org.jboss.seam.ui, prefix: org.jboss.seam.ui
+21:23:22,690 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/transaction, package: org.jboss.seam.transaction, prefix: org.jboss.seam.transaction
+21:23:22,690 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/security, package: org.jboss.seam.security.permission, prefix: org.jboss.seam.security
+21:23:22,690 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/drools, package: org.jboss.seam.drools, prefix: org.jboss.seam.drools
+21:23:22,690 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/document, package: org.jboss.seam.document, prefix: org.jboss.seam.document
+21:23:22,690 INFO  [org.jboss.seam.init.Initialization] Namespace: http://jboss.com/products/seam/persistence, package: org.jboss.seam.persistence, prefix: org.jboss.seam.persistence
+21:23:22,691 INFO  [org.jboss.seam.init.Initialization] reading /WEB-INF/components.xml
+21:23:22,704 INFO  [org.jboss.seam.init.Initialization] reading properties from: /seam.properties
+21:23:22,704 INFO  [org.jboss.seam.init.Initialization] reading properties from: /jndi.properties
+21:23:22,705 INFO  [org.jboss.seam.init.Initialization] initializing Seam
+21:23:22,708 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.core.manager
+21:23:22,708 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.core.locale
+21:23:22,709 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.web.isUserInRole
+21:23:22,709 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.web.userPrincipal
+21:23:22,709 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.core.locale
+21:23:22,709 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.core.resourceLoader
+21:23:22,709 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.transaction.synchronizations
+21:23:22,709 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.core.expressions
+21:23:22,710 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.web.parameters
+21:23:22,710 INFO  [org.jboss.seam.init.Initialization] two components with same name, higher precedence wins: org.jboss.seam.persistence.persistenceProvider
+21:23:22,713 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.init, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.core.Init
+21:23:22,724 INFO  [org.jboss.seam.init.Initialization] Installing components...
+21:23:22,731 INFO  [org.jboss.seam.Component] Component: DefaultPageControlSettingsUIBean, scope: APPLICATION, type: JAVA_BEAN, class: org.rhq.core.gui.model.DefaultPageControlSettingsUIBean
+21:23:22,735 INFO  [org.jboss.seam.Component] Component: addNewOpenMap, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.configuration.resource.AddNewOpenMapMemberPropertyToResourceConfigurationUIBean
+21:23:22,736 INFO  [org.jboss.seam.Component] Component: bootstrapAction, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.BootstrapAction
+21:23:22,737 INFO  [org.jboss.seam.Component] Component: commonActionUtil, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.CommonActionUtil
+21:23:22,739 INFO  [org.jboss.seam.Component] Component: configHelperFactory, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.configuration.resource.ConfigHelperFactory
+21:23:22,740 INFO  [org.jboss.seam.Component] Component: contentDisplayAction, scope: SESSION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.SingleResourceContentAction
+21:23:22,742 INFO  [org.jboss.seam.Component] Component: contentHistoryManager, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.on.embedded.bean.history.content.ContentHistoryManagerBean
+21:23:22,743 INFO  [org.jboss.seam.Component] Component: createContentBackedResourceAction, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.content.CreateContentBackedResourceAction
+21:23:22,745 INFO  [org.jboss.seam.Component] Component: datascrollerUI, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.DatascrollerUIBean
+21:23:22,746 INFO  [org.jboss.seam.Component] Component: debugAction, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.DebugAction
+21:23:22,747 INFO  [org.jboss.seam.Component] Component: discoveryAction, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.DiscoveryAction
+21:23:22,748 INFO  [org.jboss.seam.Component] Component: exceptionAction, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.ExceptionAction
+21:23:22,749 INFO  [org.jboss.seam.Component] Component: historyManager, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.on.embedded.bean.history.operation.OperationHistoryManagerBean
+21:23:22,750 INFO  [org.jboss.seam.Component] Component: idChunkFactory, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.configuration.resource.IdChunkFactory
+21:23:22,752 INFO  [org.jboss.seam.Component] Component: inventoryEventListener, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.on.embedded.EmbeddedInventoryEventListener
+21:23:22,754 INFO  [org.jboss.seam.Component] Component: metricAction, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.MetricAction
+21:23:22,758 INFO  [org.jboss.seam.Component] Component: navigationAction, scope: SESSION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.NavigationAction
+21:23:22,760 INFO  [org.jboss.seam.Component] Component: navigationContent, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.NavigationContent
+21:23:22,761 INFO  [org.jboss.seam.Component] Component: operationAction, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.SingleResourceOperationAction
+21:23:22,762 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.async.asynchronousExceptionHandler, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.async.AsynchronousExceptionHandler
+21:23:22,763 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.async.dispatcher, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.async.ThreadPoolDispatcher
+21:23:22,764 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.captcha.captcha, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.captcha.Captcha
+21:23:22,764 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.captcha.captchaImage, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.captcha.CaptchaImage
+21:23:22,764 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.ConversationIdGenerator, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.core.ConversationIdGenerator
+21:23:22,766 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.contexts, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.core.Contexts
+21:23:22,766 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.conversation, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.core.Conversation
+21:23:22,766 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.conversationEntries, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.core.ConversationEntries
+21:23:22,767 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.conversationListFactory, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.core.ConversationList
+21:23:22,767 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.conversationPropagation, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.core.ConversationPropagation
+21:23:22,767 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.conversationStackFactory, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.core.ConversationStack
+21:23:22,768 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.events, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.core.Events
+21:23:22,768 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.expressions, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.faces.FacesExpressions
+21:23:22,769 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.interpolator, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.core.Interpolator
+21:23:22,769 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.locale, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.international.Locale
+21:23:22,769 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.manager, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.faces.FacesManager
+21:23:22,770 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.resourceBundle, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.core.ResourceBundle
+21:23:22,770 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.resourceLoader, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.faces.ResourceLoader
+21:23:22,771 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.core.validators, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.core.Validators
+21:23:22,771 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.document.documentStore, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.document.DocumentStore
+21:23:22,772 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.exception.exceptions, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.exception.Exceptions
+21:23:22,773 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.dataModels, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.faces.DataModels
+21:23:22,773 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.facesContext, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.faces.FacesContext
+21:23:22,773 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.facesPage, scope: PAGE, type: JAVA_BEAN, class: org.jboss.seam.faces.FacesPage
+21:23:22,774 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.httpError, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.faces.HttpError
+21:23:22,774 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.redirect, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.faces.Redirect
+21:23:22,774 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.renderer, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.ui.facelet.FaceletsRenderer
+21:23:22,775 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.switcher, scope: PAGE, type: JAVA_BEAN, class: org.jboss.seam.faces.Switcher
+21:23:22,775 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.uiComponent, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.faces.UiComponent
+21:23:22,775 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.faces.validation, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.faces.Validation
+21:23:22,776 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.framework.currentDate, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.framework.CurrentDate
+21:23:22,777 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.framework.currentDatetime, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.framework.CurrentDatetime
+21:23:22,778 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.framework.currentTime, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.framework.CurrentTime
+21:23:22,779 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.graphicImage.image, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.ui.graphicImage.Image
+21:23:22,780 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.international.localeSelector, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.international.LocaleSelector
+21:23:22,780 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.international.messagesFactory, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.international.Messages
+21:23:22,782 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.international.statusMessages, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.faces.FacesMessages
+21:23:22,783 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.international.timeZone, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.international.TimeZone
+21:23:22,783 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.international.timeZoneSelector, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.international.TimeZoneSelector
+21:23:22,784 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.mail.mailSession, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.mail.MailSession
+21:23:22,785 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.navigation.pages, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.navigation.Pages
+21:23:22,786 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.navigation.safeActions, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.navigation.SafeActions
+21:23:22,786 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.persistence.persistenceContexts, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.persistence.PersistenceContexts
+21:23:22,787 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.persistence.persistenceProvider, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.persistence.HibernatePersistenceProvider
+21:23:22,787 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.configurationFactory, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.security.Configuration
+21:23:22,788 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.credentials, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.security.Credentials
+21:23:22,788 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.entityPermissionChecker, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.security.EntityPermissionChecker
+21:23:22,789 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.facesSecurityEvents, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.security.FacesSecurityEvents
+21:23:22,789 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.identifierPolicy, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.security.permission.IdentifierPolicy
+21:23:22,790 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.identity, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.security.Identity
+21:23:22,790 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.identityManager, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.security.management.IdentityManager
+21:23:22,791 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.management.roleAction, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.security.management.action.RoleAction
+21:23:22,792 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.management.roleSearch, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.security.management.action.RoleSearch
+21:23:22,794 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.management.userAction, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.security.management.action.UserAction
+21:23:22,795 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.management.userSearch, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.security.management.action.UserSearch
+21:23:22,796 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.passwordHash, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.security.management.PasswordHash
+21:23:22,797 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.permission.permissionSearch, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.security.permission.action.PermissionSearch
+21:23:22,798 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.permissionManager, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.security.permission.PermissionManager
+21:23:22,799 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.permissionMapper, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.security.permission.PermissionMapper
+21:23:22,799 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.persistentPermissionResolver, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.security.permission.PersistentPermissionResolver
+21:23:22,800 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.security.rememberMe, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.security.RememberMe
+21:23:22,800 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.theme.themeFactory, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.theme.Theme
+21:23:22,801 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.theme.themeSelector, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.theme.ThemeSelector
+21:23:22,801 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.transaction.synchronizations, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.transaction.SeSynchronizations
+21:23:22,801 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.transaction.transaction, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.transaction.Transaction
+21:23:22,802 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.EntityConverter, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.seam.ui.EntityConverter
+21:23:22,803 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.entityIdentifierStore, scope: PAGE, type: JAVA_BEAN, class: org.jboss.seam.ui.EntityIdentifierStore
+21:23:22,804 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.entityLoader, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.ui.JpaEntityLoader
+21:23:22,805 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.facelet.faceletCompiler, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.ui.facelet.FaceletCompiler
+21:23:22,806 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.facelet.facesContextFactory, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.ui.facelet.RendererFacesContextFactory
+21:23:22,806 WARN  [org.jboss.seam.Component] Component class should be serializable: org.jboss.seam.ui.facelet.mockHttpSession
+21:23:22,806 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.facelet.mockHttpSession, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.ui.facelet.HttpSessionManager
+21:23:22,807 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.facelet.mockServletContext, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.ui.facelet.ServletContextManager
+21:23:22,807 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.graphicImage.graphicImageResource, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.ui.graphicImage.GraphicImageResource
+21:23:22,807 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.graphicImage.graphicImageStore, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.ui.graphicImage.GraphicImageStore
+21:23:22,808 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.ui.resource.webResource, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.ui.resource.WebResource
+21:23:22,808 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.ajax4jsfFilter, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.web.Ajax4jsfFilter
+21:23:22,809 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.ajax4jsfFilterInstantiator, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.ui.filter.Ajax4jsfFilterInstantiator
+21:23:22,809 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.exceptionFilter, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.web.ExceptionFilter
+21:23:22,809 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.identityFilter, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.web.IdentityFilter
+21:23:22,810 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.isUserInRole, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.faces.IsUserInRole
+21:23:22,810 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.loggingFilter, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.web.LoggingFilter
+21:23:22,811 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.multipartFilter, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.web.MultipartFilter
+21:23:22,811 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.parameters, scope: STATELESS, type: JAVA_BEAN, class: org.jboss.seam.faces.Parameters
+21:23:22,812 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.redirectFilter, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.web.RedirectFilter
+21:23:22,812 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.servletContexts, scope: EVENT, type: JAVA_BEAN, class: org.jboss.seam.web.ServletContexts
+21:23:22,813 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.session, scope: SESSION, type: JAVA_BEAN, class: org.jboss.seam.web.Session
+21:23:22,813 INFO  [org.jboss.seam.Component] Component: org.jboss.seam.web.userPrincipal, scope: APPLICATION, type: JAVA_BEAN, class: org.jboss.seam.faces.UserPrincipal
+21:23:22,814 INFO  [org.jboss.seam.Component] Component: resourceAction, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.ResourceAction
+21:23:22,816 INFO  [org.jboss.seam.Component] Component: resourceCRUDAction, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.SingleResourceAction
+21:23:22,817 INFO  [org.jboss.seam.Component] Component: resourceConfigurationUIBean, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.configuration.resource.ResourceConfigurationUIBean
+21:23:22,819 WARN  [org.jboss.seam.Component] Component class should be serializable: sessionInfoAction
+21:23:22,819 INFO  [org.jboss.seam.Component] Component: sessionInfoAction, scope: SESSION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.SessionInfoAction
+21:23:22,820 INFO  [org.jboss.seam.Component] Component: summaryAction, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.SummaryAction
+21:23:22,821 INFO  [org.jboss.seam.Component] Component: tableManager, scope: PAGE, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.TableManager
+21:23:22,822 INFO  [org.jboss.seam.Component] Component: templateDropDownPopulator, scope: EVENT, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.configuration.resource.TemplateDropDownPopulator
+21:23:22,823 INFO  [org.jboss.seam.Component] Component: updateBackingContentAction, scope: CONVERSATION, type: JAVA_BEAN, class: org.jboss.on.embedded.ui.content.UpdateBackingContentAction
+21:23:22,825 INFO  [org.jboss.seam.contexts.Contexts] starting up: org.jboss.seam.security.persistentPermissionResolver
+21:23:22,825 WARN  [org.jboss.seam.security.permission.PersistentPermissionResolver] no permission store available - please install a PermissionStore with the name 'org.jboss.seam.security.jpaPermissionStore' if persistent permissions are required.
+21:23:22,826 INFO  [org.jboss.seam.contexts.Contexts] starting up: org.jboss.seam.security.permissionMapper
+21:23:22,826 INFO  [org.jboss.seam.contexts.Contexts] starting up: org.jboss.seam.navigation.pages
+21:23:22,833 INFO  [org.jboss.seam.contexts.Contexts] starting up: org.jboss.seam.security.entityPermissionChecker
+21:23:22,833 INFO  [org.jboss.seam.contexts.Contexts] starting up: bootstrapAction
+21:23:22,840 INFO  [org.jboss.seam.contexts.Contexts] starting up: org.jboss.seam.security.facesSecurityEvents
+21:23:22,841 INFO  [org.jboss.seam.init.Initialization] done initializing Seam
+21:23:22,843 INFO  [org.jboss.seam.servlet.SeamFilter] Initializing filter: org.jboss.seam.web.loggingFilter
+21:23:22,843 INFO  [org.jboss.seam.servlet.SeamFilter] Initializing filter: org.jboss.seam.web.ajax4jsfFilter
+21:23:22,846 INFO  [org.ajax4jsf.cache.CacheManager] Selected [org.ajax4jsf.cache.LRUMapCacheFactory] cache factory
+21:23:22,846 INFO  [org.ajax4jsf.cache.LRUMapCacheFactory] Creating LRUMap cache instance using parameters: {facelets.DEVELOPMENT=true, facelets.LIBRARIES=/WEB-INF/on.component.taglib.xml, org.jboss.on.embedded.LazyStartupListener=org.jboss.seam.servlet.SeamListener, com.sun.faces.duplicateJARPattern=^tmp\d+(\S*\.jar), javax.faces.CONFIG_FILES=/WEB-INF/navigation.xml, org.richfaces.SKIN=jboss-console, com.sun.faces.injectionProvider=org.jboss.web.jsf.integration.injection.JBossDelegatingInjectionProvider, javax.faces.STATE_SAVING_METHOD=server, javax.faces.DEFAULT_SUFFIX=.xhtml}
+21:23:22,847 INFO  [org.ajax4jsf.cache.LRUMapCacheFactory] Creating LRUMap cache instance of default capacity
+21:23:22,850 INFO  [org.ajax4jsf.cache.CacheManager] Selected [org.ajax4jsf.cache.LRUMapCacheFactory] cache factory
+21:23:22,850 INFO  [org.ajax4jsf.cache.LRUMapCacheFactory] Creating LRUMap cache instance using parameters: {facelets.DEVELOPMENT=true, facelets.LIBRARIES=/WEB-INF/on.component.taglib.xml, org.jboss.on.embedded.LazyStartupListener=org.jboss.seam.servlet.SeamListener, com.sun.faces.duplicateJARPattern=^tmp\d+(\S*\.jar), javax.faces.CONFIG_FILES=/WEB-INF/navigation.xml, org.richfaces.SKIN=jboss-console, com.sun.faces.injectionProvider=org.jboss.web.jsf.integration.injection.JBossDelegatingInjectionProvider, javax.faces.STATE_SAVING_METHOD=server, javax.faces.DEFAULT_SUFFIX=.xhtml}
+21:23:22,850 INFO  [org.ajax4jsf.cache.LRUMapCacheFactory] Creating LRUMap cache instance of default capacity
+21:23:22,850 INFO  [org.jboss.seam.servlet.SeamFilter] Initializing filter: org.jboss.seam.web.redirectFilter
+21:23:22,850 INFO  [org.jboss.seam.servlet.SeamFilter] Initializing filter: org.jboss.seam.web.exceptionFilter
+21:23:22,850 INFO  [org.jboss.seam.servlet.SeamFilter] Initializing filter: org.jboss.seam.web.multipartFilter
+21:23:22,850 INFO  [org.jboss.seam.servlet.SeamFilter] Initializing filter: org.jboss.seam.web.identityFilter
+21:23:22,855 INFO  [org.jboss.seam.contexts.Contexts] starting up: org.jboss.seam.security.identity
+21:23:22,857 INFO  [org.jboss.seam.contexts.Contexts] starting up: org.jboss.seam.web.session
+21:23:22,858 INFO  [org.jboss.seam.contexts.Contexts] starting up: sessionInfoAction
+21:23:52,626 INFO  [org.jboss.on.embedded.ui.BootstrapAction] Initializing Administration Console v1.4.0.Beta3...
+21:23:52,630 INFO  [org.rhq.core.pc.PluginContainer] Initializing Plugin Container v3.0.0.B04...
+21:23:53,358 INFO  [org.rhq.core.clientapi.agent.metadata.PluginDependencyGraph] Optional plugin [JBossAS] was requested by plugins [[Hibernate]] but it does not exist in the dependency graph yet and will be ignored
+21:23:53,358 INFO  [org.rhq.core.clientapi.agent.metadata.PluginDependencyGraph] Optional plugin [JBossAS] was requested by plugins [[HornetQ]] but it does not exist in the dependency graph yet and will be ignored
+21:23:53,449 ERROR [org.rhq.core.pc.plugin.PluginManager] Plugin [Platforms] at [jndi:/localhost/admin-console/plugins/rhq-platform-plugin-3.0.0.B04.jar] could not be loaded and will therefore not be deployed.: org.rhq.core.clientapi.descriptor.PluginTransformException: Failed to create plugin.
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:77) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager$1.execute(PluginManager.java:184) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.loadPlugin(PluginManager.java:339) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.initialize(PluginManager.java:156) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.startContainerService(PluginContainer.java:372) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.initialize(PluginContainer.java:245) [:3.0.0.B04]
+	at org.jboss.on.embedded.ui.BootstrapAction.initPluginContainer(BootstrapAction.java:155) [:1.4.0.Beta3]
+	at org.jboss.on.embedded.ui.BootstrapAction.init(BootstrapAction.java:105) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInvocationContext.proceed(RootInvocationContext.java:31) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.transaction.RollbackInterceptor.aroundInvoke(RollbackInterceptor.java:28) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.BijectionInterceptor.aroundInvoke(BijectionInterceptor.java:77) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.MethodContextInterceptor.aroundInvoke(MethodContextInterceptor.java:44) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInterceptor.invoke(RootInterceptor.java:107) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.interceptInvocation(JavaBeanInterceptor.java:166) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.invoke(JavaBeanInterceptor.java:102) [:2.1.0.SP1]
+	at org.jboss.on.embedded.ui.BootstrapAction_$$_javassist_0.init(BootstrapAction_$$_javassist_0.java) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.util.Reflections.invokeAndWrap(Reflections.java:138) [:2.1.0.SP1]
+	at org.jboss.seam.Component.callComponentMethod(Component.java:2201) [:2.1.0.SP1]
+	at org.jboss.seam.core.Events.raiseEvent(Events.java:85) [:2.1.0.SP1]
+	at org.jboss.seam.security.Identity.login(Identity.java:265) [:2.1.0.SP1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:329) [:1.0_02.CR2]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:274) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.getValue(AstMethodSuffix.java:59) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.invoke(AstMethodSuffix.java:65) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstValue.invoke(AstValue.java:96) [:1.0_02.CR2]
+	at org.jboss.el.MethodExpressionImpl.invoke(MethodExpressionImpl.java:276) [:1.0_02.CR2]
+	at com.sun.facelets.el.TagMethodExpression.invoke(TagMethodExpression.java:68) [:1.1.15.B1]
+	at javax.faces.component.MethodBindingMethodExpressionAdapter.invoke(MethodBindingMethodExpressionAdapter.java:88) [:2.0.2-FCS]
+	at com.sun.faces.application.ActionListenerImpl.processAction(ActionListenerImpl.java:102) [:2.0.2-FCS]
+	at javax.faces.component.UICommand.broadcast(UICommand.java:315) [:2.0.2-FCS]
+	at org.ajax4jsf.component.AjaxViewRoot.processEvents(AjaxViewRoot.java:329) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.broadcastEventsForPhase(AjaxViewRoot.java:304) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processPhase(AjaxViewRoot.java:261) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processApplication(AjaxViewRoot.java:474) [:3.3.2.GA]
+	at com.sun.faces.lifecycle.InvokeApplicationPhase.execute(InvokeApplicationPhase.java:82) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.Phase.doPhase(Phase.java:101) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.LifecycleImpl.execute(LifecycleImpl.java:118) [:2.0.2-FCS]
+	at javax.faces.webapp.FacesServlet.service(FacesServlet.java:312) [:2.0.2-FCS]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:336) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:83) [:2.1.0.SP1]
+	at org.jboss.seam.web.IdentityFilter.doFilter(IdentityFilter.java:38) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.MultipartFilter.doFilter(MultipartFilter.java:90) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.ExceptionFilter.doFilter(ExceptionFilter.java:64) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.RedirectFilter.doFilter(RedirectFilter.java:45) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.ajax4jsf.webapp.BaseXMLFilter.doXmlFilter(BaseXMLFilter.java:206) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.handleRequest(BaseFilter.java:290) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.processUploadsAndHandleRequest(BaseFilter.java:388) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.doFilter(BaseFilter.java:515) [:3.3.3.Final]
+	at org.jboss.seam.web.Ajax4jsfFilter.doFilter(Ajax4jsfFilter.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.LoggingFilter.doFilter(LoggingFilter.java:58) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter.doFilter(SeamFilter.java:158) [:2.1.0.SP1]
+	at org.jboss.on.embedded.LazyStartupFilter.doFilter(LazyStartupFilter.java:87) [:1.4.0.Beta3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:274) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:293) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityAssociationValve.invoke(SecurityAssociationValve.java:183) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.JaccContextValve.invoke(JaccContextValve.java:95) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.process(SecurityContextEstablishmentValve.java:126) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.invoke(SecurityContextEstablishmentValve.java:70) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127) [:6.0.0.20100429-M3]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.service.jca.CachedConnectionValve.invoke(CachedConnectionValve.java:158) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [:6.0.0.20100429-M3]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:872) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:653) [:6.0.0.20100429-M3]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:951) [:6.0.0.20100429-M3]
+	at java.lang.Thread.run(Thread.java:619) [:1.6.0_20]
+Caused by: java.io.FileNotFoundException: /localhost/admin-console/plugins/rhq-platform-plugin-3.0.0.B04.jar (No such file or directory)
+	at java.io.FileInputStream.open(Native Method) [:1.6.0_20]
+	at java.io.FileInputStream.<init>(FileInputStream.java:106) [:1.6.0_20]
+	at org.rhq.core.util.MessageDigestGenerator.getDigest(MessageDigestGenerator.java:207) [:3.0.0.B04]
+	at org.rhq.core.util.MessageDigestGenerator.getDigestString(MessageDigestGenerator.java:226) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.getMd5(PluginTransformer.java:98) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:71) [:3.0.0.B04]
+	... 93 more
+
+21:23:53,546 ERROR [org.rhq.core.pc.plugin.PluginManager] Plugin [JMX] at [jndi:/localhost/admin-console/plugins/rhq-jmx-plugin-3.0.0.B04.jar] could not be loaded and will therefore not be deployed.: org.rhq.core.clientapi.descriptor.PluginTransformException: Failed to create plugin.
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:77) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager$1.execute(PluginManager.java:184) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.loadPlugin(PluginManager.java:339) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.initialize(PluginManager.java:156) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.startContainerService(PluginContainer.java:372) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.initialize(PluginContainer.java:245) [:3.0.0.B04]
+	at org.jboss.on.embedded.ui.BootstrapAction.initPluginContainer(BootstrapAction.java:155) [:1.4.0.Beta3]
+	at org.jboss.on.embedded.ui.BootstrapAction.init(BootstrapAction.java:105) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInvocationContext.proceed(RootInvocationContext.java:31) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.transaction.RollbackInterceptor.aroundInvoke(RollbackInterceptor.java:28) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.BijectionInterceptor.aroundInvoke(BijectionInterceptor.java:77) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.MethodContextInterceptor.aroundInvoke(MethodContextInterceptor.java:44) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInterceptor.invoke(RootInterceptor.java:107) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.interceptInvocation(JavaBeanInterceptor.java:166) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.invoke(JavaBeanInterceptor.java:102) [:2.1.0.SP1]
+	at org.jboss.on.embedded.ui.BootstrapAction_$$_javassist_0.init(BootstrapAction_$$_javassist_0.java) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.util.Reflections.invokeAndWrap(Reflections.java:138) [:2.1.0.SP1]
+	at org.jboss.seam.Component.callComponentMethod(Component.java:2201) [:2.1.0.SP1]
+	at org.jboss.seam.core.Events.raiseEvent(Events.java:85) [:2.1.0.SP1]
+	at org.jboss.seam.security.Identity.login(Identity.java:265) [:2.1.0.SP1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:329) [:1.0_02.CR2]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:274) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.getValue(AstMethodSuffix.java:59) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.invoke(AstMethodSuffix.java:65) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstValue.invoke(AstValue.java:96) [:1.0_02.CR2]
+	at org.jboss.el.MethodExpressionImpl.invoke(MethodExpressionImpl.java:276) [:1.0_02.CR2]
+	at com.sun.facelets.el.TagMethodExpression.invoke(TagMethodExpression.java:68) [:1.1.15.B1]
+	at javax.faces.component.MethodBindingMethodExpressionAdapter.invoke(MethodBindingMethodExpressionAdapter.java:88) [:2.0.2-FCS]
+	at com.sun.faces.application.ActionListenerImpl.processAction(ActionListenerImpl.java:102) [:2.0.2-FCS]
+	at javax.faces.component.UICommand.broadcast(UICommand.java:315) [:2.0.2-FCS]
+	at org.ajax4jsf.component.AjaxViewRoot.processEvents(AjaxViewRoot.java:329) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.broadcastEventsForPhase(AjaxViewRoot.java:304) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processPhase(AjaxViewRoot.java:261) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processApplication(AjaxViewRoot.java:474) [:3.3.2.GA]
+	at com.sun.faces.lifecycle.InvokeApplicationPhase.execute(InvokeApplicationPhase.java:82) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.Phase.doPhase(Phase.java:101) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.LifecycleImpl.execute(LifecycleImpl.java:118) [:2.0.2-FCS]
+	at javax.faces.webapp.FacesServlet.service(FacesServlet.java:312) [:2.0.2-FCS]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:336) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:83) [:2.1.0.SP1]
+	at org.jboss.seam.web.IdentityFilter.doFilter(IdentityFilter.java:38) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.MultipartFilter.doFilter(MultipartFilter.java:90) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.ExceptionFilter.doFilter(ExceptionFilter.java:64) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.RedirectFilter.doFilter(RedirectFilter.java:45) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.ajax4jsf.webapp.BaseXMLFilter.doXmlFilter(BaseXMLFilter.java:206) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.handleRequest(BaseFilter.java:290) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.processUploadsAndHandleRequest(BaseFilter.java:388) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.doFilter(BaseFilter.java:515) [:3.3.3.Final]
+	at org.jboss.seam.web.Ajax4jsfFilter.doFilter(Ajax4jsfFilter.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.LoggingFilter.doFilter(LoggingFilter.java:58) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter.doFilter(SeamFilter.java:158) [:2.1.0.SP1]
+	at org.jboss.on.embedded.LazyStartupFilter.doFilter(LazyStartupFilter.java:87) [:1.4.0.Beta3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:274) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:293) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityAssociationValve.invoke(SecurityAssociationValve.java:183) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.JaccContextValve.invoke(JaccContextValve.java:95) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.process(SecurityContextEstablishmentValve.java:126) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.invoke(SecurityContextEstablishmentValve.java:70) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127) [:6.0.0.20100429-M3]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.service.jca.CachedConnectionValve.invoke(CachedConnectionValve.java:158) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [:6.0.0.20100429-M3]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:872) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:653) [:6.0.0.20100429-M3]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:951) [:6.0.0.20100429-M3]
+	at java.lang.Thread.run(Thread.java:619) [:1.6.0_20]
+Caused by: java.io.FileNotFoundException: /localhost/admin-console/plugins/rhq-jmx-plugin-3.0.0.B04.jar (No such file or directory)
+	at java.io.FileInputStream.open(Native Method) [:1.6.0_20]
+	at java.io.FileInputStream.<init>(FileInputStream.java:106) [:1.6.0_20]
+	at org.rhq.core.util.MessageDigestGenerator.getDigest(MessageDigestGenerator.java:207) [:3.0.0.B04]
+	at org.rhq.core.util.MessageDigestGenerator.getDigestString(MessageDigestGenerator.java:226) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.getMd5(PluginTransformer.java:98) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:71) [:3.0.0.B04]
+	... 93 more
+
+21:23:53,817 ERROR [org.rhq.core.pc.plugin.PluginManager] Plugin [JBossAS5] at [jndi:/localhost/admin-console/plugins/jopr-jboss-as-5-plugin-3.0.0.B04.jar] could not be loaded and will therefore not be deployed.: org.rhq.core.clientapi.descriptor.PluginTransformException: Failed to create plugin.
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:77) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager$1.execute(PluginManager.java:184) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.loadPlugin(PluginManager.java:339) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.initialize(PluginManager.java:156) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.startContainerService(PluginContainer.java:372) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.initialize(PluginContainer.java:245) [:3.0.0.B04]
+	at org.jboss.on.embedded.ui.BootstrapAction.initPluginContainer(BootstrapAction.java:155) [:1.4.0.Beta3]
+	at org.jboss.on.embedded.ui.BootstrapAction.init(BootstrapAction.java:105) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInvocationContext.proceed(RootInvocationContext.java:31) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.transaction.RollbackInterceptor.aroundInvoke(RollbackInterceptor.java:28) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.BijectionInterceptor.aroundInvoke(BijectionInterceptor.java:77) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.MethodContextInterceptor.aroundInvoke(MethodContextInterceptor.java:44) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInterceptor.invoke(RootInterceptor.java:107) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.interceptInvocation(JavaBeanInterceptor.java:166) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.invoke(JavaBeanInterceptor.java:102) [:2.1.0.SP1]
+	at org.jboss.on.embedded.ui.BootstrapAction_$$_javassist_0.init(BootstrapAction_$$_javassist_0.java) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.util.Reflections.invokeAndWrap(Reflections.java:138) [:2.1.0.SP1]
+	at org.jboss.seam.Component.callComponentMethod(Component.java:2201) [:2.1.0.SP1]
+	at org.jboss.seam.core.Events.raiseEvent(Events.java:85) [:2.1.0.SP1]
+	at org.jboss.seam.security.Identity.login(Identity.java:265) [:2.1.0.SP1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:329) [:1.0_02.CR2]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:274) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.getValue(AstMethodSuffix.java:59) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.invoke(AstMethodSuffix.java:65) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstValue.invoke(AstValue.java:96) [:1.0_02.CR2]
+	at org.jboss.el.MethodExpressionImpl.invoke(MethodExpressionImpl.java:276) [:1.0_02.CR2]
+	at com.sun.facelets.el.TagMethodExpression.invoke(TagMethodExpression.java:68) [:1.1.15.B1]
+	at javax.faces.component.MethodBindingMethodExpressionAdapter.invoke(MethodBindingMethodExpressionAdapter.java:88) [:2.0.2-FCS]
+	at com.sun.faces.application.ActionListenerImpl.processAction(ActionListenerImpl.java:102) [:2.0.2-FCS]
+	at javax.faces.component.UICommand.broadcast(UICommand.java:315) [:2.0.2-FCS]
+	at org.ajax4jsf.component.AjaxViewRoot.processEvents(AjaxViewRoot.java:329) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.broadcastEventsForPhase(AjaxViewRoot.java:304) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processPhase(AjaxViewRoot.java:261) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processApplication(AjaxViewRoot.java:474) [:3.3.2.GA]
+	at com.sun.faces.lifecycle.InvokeApplicationPhase.execute(InvokeApplicationPhase.java:82) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.Phase.doPhase(Phase.java:101) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.LifecycleImpl.execute(LifecycleImpl.java:118) [:2.0.2-FCS]
+	at javax.faces.webapp.FacesServlet.service(FacesServlet.java:312) [:2.0.2-FCS]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:336) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:83) [:2.1.0.SP1]
+	at org.jboss.seam.web.IdentityFilter.doFilter(IdentityFilter.java:38) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.MultipartFilter.doFilter(MultipartFilter.java:90) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.ExceptionFilter.doFilter(ExceptionFilter.java:64) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.RedirectFilter.doFilter(RedirectFilter.java:45) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.ajax4jsf.webapp.BaseXMLFilter.doXmlFilter(BaseXMLFilter.java:206) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.handleRequest(BaseFilter.java:290) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.processUploadsAndHandleRequest(BaseFilter.java:388) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.doFilter(BaseFilter.java:515) [:3.3.3.Final]
+	at org.jboss.seam.web.Ajax4jsfFilter.doFilter(Ajax4jsfFilter.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.LoggingFilter.doFilter(LoggingFilter.java:58) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter.doFilter(SeamFilter.java:158) [:2.1.0.SP1]
+	at org.jboss.on.embedded.LazyStartupFilter.doFilter(LazyStartupFilter.java:87) [:1.4.0.Beta3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:274) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:293) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityAssociationValve.invoke(SecurityAssociationValve.java:183) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.JaccContextValve.invoke(JaccContextValve.java:95) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.process(SecurityContextEstablishmentValve.java:126) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.invoke(SecurityContextEstablishmentValve.java:70) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127) [:6.0.0.20100429-M3]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.service.jca.CachedConnectionValve.invoke(CachedConnectionValve.java:158) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [:6.0.0.20100429-M3]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:872) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:653) [:6.0.0.20100429-M3]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:951) [:6.0.0.20100429-M3]
+	at java.lang.Thread.run(Thread.java:619) [:1.6.0_20]
+Caused by: java.io.FileNotFoundException: /localhost/admin-console/plugins/jopr-jboss-as-5-plugin-3.0.0.B04.jar (No such file or directory)
+	at java.io.FileInputStream.open(Native Method) [:1.6.0_20]
+	at java.io.FileInputStream.<init>(FileInputStream.java:106) [:1.6.0_20]
+	at org.rhq.core.util.MessageDigestGenerator.getDigest(MessageDigestGenerator.java:207) [:3.0.0.B04]
+	at org.rhq.core.util.MessageDigestGenerator.getDigestString(MessageDigestGenerator.java:226) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.getMd5(PluginTransformer.java:98) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:71) [:3.0.0.B04]
+	... 93 more
+
+21:23:53,877 ERROR [org.rhq.core.pc.plugin.PluginManager] Plugin [JBossCache3] at [jndi:/localhost/admin-console/plugins/jopr-jboss-cache-v3-plugin-3.0.0.B04.jar] could not be loaded and will therefore not be deployed.: org.rhq.core.clientapi.descriptor.PluginTransformException: Failed to create plugin.
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:77) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager$1.execute(PluginManager.java:184) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.loadPlugin(PluginManager.java:339) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.initialize(PluginManager.java:156) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.startContainerService(PluginContainer.java:372) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.initialize(PluginContainer.java:245) [:3.0.0.B04]
+	at org.jboss.on.embedded.ui.BootstrapAction.initPluginContainer(BootstrapAction.java:155) [:1.4.0.Beta3]
+	at org.jboss.on.embedded.ui.BootstrapAction.init(BootstrapAction.java:105) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInvocationContext.proceed(RootInvocationContext.java:31) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.transaction.RollbackInterceptor.aroundInvoke(RollbackInterceptor.java:28) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.BijectionInterceptor.aroundInvoke(BijectionInterceptor.java:77) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.MethodContextInterceptor.aroundInvoke(MethodContextInterceptor.java:44) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInterceptor.invoke(RootInterceptor.java:107) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.interceptInvocation(JavaBeanInterceptor.java:166) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.invoke(JavaBeanInterceptor.java:102) [:2.1.0.SP1]
+	at org.jboss.on.embedded.ui.BootstrapAction_$$_javassist_0.init(BootstrapAction_$$_javassist_0.java) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.util.Reflections.invokeAndWrap(Reflections.java:138) [:2.1.0.SP1]
+	at org.jboss.seam.Component.callComponentMethod(Component.java:2201) [:2.1.0.SP1]
+	at org.jboss.seam.core.Events.raiseEvent(Events.java:85) [:2.1.0.SP1]
+	at org.jboss.seam.security.Identity.login(Identity.java:265) [:2.1.0.SP1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:329) [:1.0_02.CR2]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:274) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.getValue(AstMethodSuffix.java:59) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.invoke(AstMethodSuffix.java:65) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstValue.invoke(AstValue.java:96) [:1.0_02.CR2]
+	at org.jboss.el.MethodExpressionImpl.invoke(MethodExpressionImpl.java:276) [:1.0_02.CR2]
+	at com.sun.facelets.el.TagMethodExpression.invoke(TagMethodExpression.java:68) [:1.1.15.B1]
+	at javax.faces.component.MethodBindingMethodExpressionAdapter.invoke(MethodBindingMethodExpressionAdapter.java:88) [:2.0.2-FCS]
+	at com.sun.faces.application.ActionListenerImpl.processAction(ActionListenerImpl.java:102) [:2.0.2-FCS]
+	at javax.faces.component.UICommand.broadcast(UICommand.java:315) [:2.0.2-FCS]
+	at org.ajax4jsf.component.AjaxViewRoot.processEvents(AjaxViewRoot.java:329) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.broadcastEventsForPhase(AjaxViewRoot.java:304) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processPhase(AjaxViewRoot.java:261) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processApplication(AjaxViewRoot.java:474) [:3.3.2.GA]
+	at com.sun.faces.lifecycle.InvokeApplicationPhase.execute(InvokeApplicationPhase.java:82) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.Phase.doPhase(Phase.java:101) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.LifecycleImpl.execute(LifecycleImpl.java:118) [:2.0.2-FCS]
+	at javax.faces.webapp.FacesServlet.service(FacesServlet.java:312) [:2.0.2-FCS]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:336) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:83) [:2.1.0.SP1]
+	at org.jboss.seam.web.IdentityFilter.doFilter(IdentityFilter.java:38) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.MultipartFilter.doFilter(MultipartFilter.java:90) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.ExceptionFilter.doFilter(ExceptionFilter.java:64) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.RedirectFilter.doFilter(RedirectFilter.java:45) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.ajax4jsf.webapp.BaseXMLFilter.doXmlFilter(BaseXMLFilter.java:206) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.handleRequest(BaseFilter.java:290) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.processUploadsAndHandleRequest(BaseFilter.java:388) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.doFilter(BaseFilter.java:515) [:3.3.3.Final]
+	at org.jboss.seam.web.Ajax4jsfFilter.doFilter(Ajax4jsfFilter.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.LoggingFilter.doFilter(LoggingFilter.java:58) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter.doFilter(SeamFilter.java:158) [:2.1.0.SP1]
+	at org.jboss.on.embedded.LazyStartupFilter.doFilter(LazyStartupFilter.java:87) [:1.4.0.Beta3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:274) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:293) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityAssociationValve.invoke(SecurityAssociationValve.java:183) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.JaccContextValve.invoke(JaccContextValve.java:95) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.process(SecurityContextEstablishmentValve.java:126) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.invoke(SecurityContextEstablishmentValve.java:70) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127) [:6.0.0.20100429-M3]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.service.jca.CachedConnectionValve.invoke(CachedConnectionValve.java:158) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [:6.0.0.20100429-M3]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:872) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:653) [:6.0.0.20100429-M3]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:951) [:6.0.0.20100429-M3]
+	at java.lang.Thread.run(Thread.java:619) [:1.6.0_20]
+Caused by: java.io.FileNotFoundException: /localhost/admin-console/plugins/jopr-jboss-cache-v3-plugin-3.0.0.B04.jar (No such file or directory)
+	at java.io.FileInputStream.open(Native Method) [:1.6.0_20]
+	at java.io.FileInputStream.<init>(FileInputStream.java:106) [:1.6.0_20]
+	at org.rhq.core.util.MessageDigestGenerator.getDigest(MessageDigestGenerator.java:207) [:3.0.0.B04]
+	at org.rhq.core.util.MessageDigestGenerator.getDigestString(MessageDigestGenerator.java:226) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.getMd5(PluginTransformer.java:98) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:71) [:3.0.0.B04]
+	... 93 more
+
+21:23:53,944 INFO  [org.rhq.core.clientapi.agent.metadata.PluginMetadataParser] There is no resource type named [JBossAS Server] from a plugin named [JBossAS]. This is probably because that plugin is missing. Resource Type [JMS Manager] will not have that missing type as a possible parent.
+21:23:53,944 ERROR [org.rhq.core.pc.plugin.PluginManager] Plugin [HornetQ] at [jndi:/localhost/admin-console/plugins/hornetq-jopr-plugin-1.0.0.BETA1.jar] could not be loaded and will therefore not be deployed.: org.rhq.core.clientapi.descriptor.PluginTransformException: Failed to create plugin.
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:77) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager$1.execute(PluginManager.java:184) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.loadPlugin(PluginManager.java:339) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.initialize(PluginManager.java:156) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.startContainerService(PluginContainer.java:372) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.initialize(PluginContainer.java:245) [:3.0.0.B04]
+	at org.jboss.on.embedded.ui.BootstrapAction.initPluginContainer(BootstrapAction.java:155) [:1.4.0.Beta3]
+	at org.jboss.on.embedded.ui.BootstrapAction.init(BootstrapAction.java:105) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInvocationContext.proceed(RootInvocationContext.java:31) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.transaction.RollbackInterceptor.aroundInvoke(RollbackInterceptor.java:28) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.BijectionInterceptor.aroundInvoke(BijectionInterceptor.java:77) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.MethodContextInterceptor.aroundInvoke(MethodContextInterceptor.java:44) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInterceptor.invoke(RootInterceptor.java:107) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.interceptInvocation(JavaBeanInterceptor.java:166) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.invoke(JavaBeanInterceptor.java:102) [:2.1.0.SP1]
+	at org.jboss.on.embedded.ui.BootstrapAction_$$_javassist_0.init(BootstrapAction_$$_javassist_0.java) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.util.Reflections.invokeAndWrap(Reflections.java:138) [:2.1.0.SP1]
+	at org.jboss.seam.Component.callComponentMethod(Component.java:2201) [:2.1.0.SP1]
+	at org.jboss.seam.core.Events.raiseEvent(Events.java:85) [:2.1.0.SP1]
+	at org.jboss.seam.security.Identity.login(Identity.java:265) [:2.1.0.SP1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:329) [:1.0_02.CR2]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:274) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.getValue(AstMethodSuffix.java:59) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.invoke(AstMethodSuffix.java:65) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstValue.invoke(AstValue.java:96) [:1.0_02.CR2]
+	at org.jboss.el.MethodExpressionImpl.invoke(MethodExpressionImpl.java:276) [:1.0_02.CR2]
+	at com.sun.facelets.el.TagMethodExpression.invoke(TagMethodExpression.java:68) [:1.1.15.B1]
+	at javax.faces.component.MethodBindingMethodExpressionAdapter.invoke(MethodBindingMethodExpressionAdapter.java:88) [:2.0.2-FCS]
+	at com.sun.faces.application.ActionListenerImpl.processAction(ActionListenerImpl.java:102) [:2.0.2-FCS]
+	at javax.faces.component.UICommand.broadcast(UICommand.java:315) [:2.0.2-FCS]
+	at org.ajax4jsf.component.AjaxViewRoot.processEvents(AjaxViewRoot.java:329) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.broadcastEventsForPhase(AjaxViewRoot.java:304) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processPhase(AjaxViewRoot.java:261) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processApplication(AjaxViewRoot.java:474) [:3.3.2.GA]
+	at com.sun.faces.lifecycle.InvokeApplicationPhase.execute(InvokeApplicationPhase.java:82) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.Phase.doPhase(Phase.java:101) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.LifecycleImpl.execute(LifecycleImpl.java:118) [:2.0.2-FCS]
+	at javax.faces.webapp.FacesServlet.service(FacesServlet.java:312) [:2.0.2-FCS]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:336) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:83) [:2.1.0.SP1]
+	at org.jboss.seam.web.IdentityFilter.doFilter(IdentityFilter.java:38) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.MultipartFilter.doFilter(MultipartFilter.java:90) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.ExceptionFilter.doFilter(ExceptionFilter.java:64) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.RedirectFilter.doFilter(RedirectFilter.java:45) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.ajax4jsf.webapp.BaseXMLFilter.doXmlFilter(BaseXMLFilter.java:206) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.handleRequest(BaseFilter.java:290) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.processUploadsAndHandleRequest(BaseFilter.java:388) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.doFilter(BaseFilter.java:515) [:3.3.3.Final]
+	at org.jboss.seam.web.Ajax4jsfFilter.doFilter(Ajax4jsfFilter.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.LoggingFilter.doFilter(LoggingFilter.java:58) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter.doFilter(SeamFilter.java:158) [:2.1.0.SP1]
+	at org.jboss.on.embedded.LazyStartupFilter.doFilter(LazyStartupFilter.java:87) [:1.4.0.Beta3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:274) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:293) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityAssociationValve.invoke(SecurityAssociationValve.java:183) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.JaccContextValve.invoke(JaccContextValve.java:95) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.process(SecurityContextEstablishmentValve.java:126) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.invoke(SecurityContextEstablishmentValve.java:70) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127) [:6.0.0.20100429-M3]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.service.jca.CachedConnectionValve.invoke(CachedConnectionValve.java:158) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [:6.0.0.20100429-M3]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:872) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:653) [:6.0.0.20100429-M3]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:951) [:6.0.0.20100429-M3]
+	at java.lang.Thread.run(Thread.java:619) [:1.6.0_20]
+Caused by: java.io.FileNotFoundException: /localhost/admin-console/plugins/hornetq-jopr-plugin-1.0.0.BETA1.jar (No such file or directory)
+	at java.io.FileInputStream.open(Native Method) [:1.6.0_20]
+	at java.io.FileInputStream.<init>(FileInputStream.java:106) [:1.6.0_20]
+	at org.rhq.core.util.MessageDigestGenerator.getDigest(MessageDigestGenerator.java:207) [:3.0.0.B04]
+	at org.rhq.core.util.MessageDigestGenerator.getDigestString(MessageDigestGenerator.java:226) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.getMd5(PluginTransformer.java:98) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:71) [:3.0.0.B04]
+	... 93 more
+
+21:23:54,000 INFO  [org.rhq.core.clientapi.agent.metadata.PluginMetadataParser] There is no resource type named [JBossAS Server] from a plugin named [JBossAS]. This is probably because that plugin is missing. Resource Type [Hibernate Statistics] will not have that missing type as a possible parent.
+21:23:54,000 ERROR [org.rhq.core.pc.plugin.PluginManager] Plugin [Hibernate] at [jndi:/localhost/admin-console/plugins/jopr-hibernate-plugin-3.0.0.B04.jar] could not be loaded and will therefore not be deployed.: org.rhq.core.clientapi.descriptor.PluginTransformException: Failed to create plugin.
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:77) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager$1.execute(PluginManager.java:184) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.loadPlugin(PluginManager.java:339) [:3.0.0.B04]
+	at org.rhq.core.pc.plugin.PluginManager.initialize(PluginManager.java:156) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.startContainerService(PluginContainer.java:372) [:3.0.0.B04]
+	at org.rhq.core.pc.PluginContainer.initialize(PluginContainer.java:245) [:3.0.0.B04]
+	at org.jboss.on.embedded.ui.BootstrapAction.initPluginContainer(BootstrapAction.java:155) [:1.4.0.Beta3]
+	at org.jboss.on.embedded.ui.BootstrapAction.init(BootstrapAction.java:105) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInvocationContext.proceed(RootInvocationContext.java:31) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.transaction.RollbackInterceptor.aroundInvoke(RollbackInterceptor.java:28) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.BijectionInterceptor.aroundInvoke(BijectionInterceptor.java:77) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.core.MethodContextInterceptor.aroundInvoke(MethodContextInterceptor.java:44) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.SeamInvocationContext.proceed(SeamInvocationContext.java:68) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.RootInterceptor.invoke(RootInterceptor.java:107) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.interceptInvocation(JavaBeanInterceptor.java:166) [:2.1.0.SP1]
+	at org.jboss.seam.intercept.JavaBeanInterceptor.invoke(JavaBeanInterceptor.java:102) [:2.1.0.SP1]
+	at org.jboss.on.embedded.ui.BootstrapAction_$$_javassist_0.init(BootstrapAction_$$_javassist_0.java) [:1.4.0.Beta3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.seam.util.Reflections.invoke(Reflections.java:22) [:2.1.0.SP1]
+	at org.jboss.seam.util.Reflections.invokeAndWrap(Reflections.java:138) [:2.1.0.SP1]
+	at org.jboss.seam.Component.callComponentMethod(Component.java:2201) [:2.1.0.SP1]
+	at org.jboss.seam.core.Events.raiseEvent(Events.java:85) [:2.1.0.SP1]
+	at org.jboss.seam.security.Identity.login(Identity.java:265) [:2.1.0.SP1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [:1.6.0_20]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [:1.6.0_20]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [:1.6.0_20]
+	at java.lang.reflect.Method.invoke(Method.java:597) [:1.6.0_20]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:329) [:1.0_02.CR2]
+	at org.jboss.el.util.ReflectionUtil.invokeMethod(ReflectionUtil.java:274) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.getValue(AstMethodSuffix.java:59) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstMethodSuffix.invoke(AstMethodSuffix.java:65) [:1.0_02.CR2]
+	at org.jboss.el.parser.AstValue.invoke(AstValue.java:96) [:1.0_02.CR2]
+	at org.jboss.el.MethodExpressionImpl.invoke(MethodExpressionImpl.java:276) [:1.0_02.CR2]
+	at com.sun.facelets.el.TagMethodExpression.invoke(TagMethodExpression.java:68) [:1.1.15.B1]
+	at javax.faces.component.MethodBindingMethodExpressionAdapter.invoke(MethodBindingMethodExpressionAdapter.java:88) [:2.0.2-FCS]
+	at com.sun.faces.application.ActionListenerImpl.processAction(ActionListenerImpl.java:102) [:2.0.2-FCS]
+	at javax.faces.component.UICommand.broadcast(UICommand.java:315) [:2.0.2-FCS]
+	at org.ajax4jsf.component.AjaxViewRoot.processEvents(AjaxViewRoot.java:329) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.broadcastEventsForPhase(AjaxViewRoot.java:304) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processPhase(AjaxViewRoot.java:261) [:3.3.2.GA]
+	at org.ajax4jsf.component.AjaxViewRoot.processApplication(AjaxViewRoot.java:474) [:3.3.2.GA]
+	at com.sun.faces.lifecycle.InvokeApplicationPhase.execute(InvokeApplicationPhase.java:82) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.Phase.doPhase(Phase.java:101) [:2.0.2-FCS]
+	at com.sun.faces.lifecycle.LifecycleImpl.execute(LifecycleImpl.java:118) [:2.0.2-FCS]
+	at javax.faces.webapp.FacesServlet.service(FacesServlet.java:312) [:2.0.2-FCS]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:336) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:83) [:2.1.0.SP1]
+	at org.jboss.seam.web.IdentityFilter.doFilter(IdentityFilter.java:38) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.MultipartFilter.doFilter(MultipartFilter.java:90) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.ExceptionFilter.doFilter(ExceptionFilter.java:64) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.RedirectFilter.doFilter(RedirectFilter.java:45) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.ajax4jsf.webapp.BaseXMLFilter.doXmlFilter(BaseXMLFilter.java:206) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.handleRequest(BaseFilter.java:290) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.processUploadsAndHandleRequest(BaseFilter.java:388) [:3.3.3.Final]
+	at org.ajax4jsf.webapp.BaseFilter.doFilter(BaseFilter.java:515) [:3.3.3.Final]
+	at org.jboss.seam.web.Ajax4jsfFilter.doFilter(Ajax4jsfFilter.java:56) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.web.LoggingFilter.doFilter(LoggingFilter.java:58) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter$FilterChainImpl.doFilter(SeamFilter.java:69) [:2.1.0.SP1]
+	at org.jboss.seam.servlet.SeamFilter.doFilter(SeamFilter.java:158) [:2.1.0.SP1]
+	at org.jboss.on.embedded.LazyStartupFilter.doFilter(LazyStartupFilter.java:87) [:1.4.0.Beta3]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:274) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:242) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:293) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityAssociationValve.invoke(SecurityAssociationValve.java:183) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.JaccContextValve.invoke(JaccContextValve.java:95) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.process(SecurityContextEstablishmentValve.java:126) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.invoke(SecurityContextEstablishmentValve.java:70) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127) [:6.0.0.20100429-M3]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [:6.0.0.20100429-M3]
+	at org.jboss.web.tomcat.service.jca.CachedConnectionValve.invoke(CachedConnectionValve.java:158) [:6.0.0.20100429-M3]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [:6.0.0.20100429-M3]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:872) [:6.0.0.20100429-M3]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:653) [:6.0.0.20100429-M3]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:951) [:6.0.0.20100429-M3]
+	at java.lang.Thread.run(Thread.java:619) [:1.6.0_20]
+Caused by: java.io.FileNotFoundException: /localhost/admin-console/plugins/jopr-hibernate-plugin-3.0.0.B04.jar (No such file or directory)
+	at java.io.FileInputStream.open(Native Method) [:1.6.0_20]
+	at java.io.FileInputStream.<init>(FileInputStream.java:106) [:1.6.0_20]
+	at org.rhq.core.util.MessageDigestGenerator.getDigest(MessageDigestGenerator.java:207) [:3.0.0.B04]
+	at org.rhq.core.util.MessageDigestGenerator.getDigestString(MessageDigestGenerator.java:226) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.getMd5(PluginTransformer.java:98) [:3.0.0.B04]
+	at org.rhq.core.clientapi.descriptor.PluginTransformer.toPlugin(PluginTransformer.java:71) [:3.0.0.B04]
+	... 93 more
+
+21:23:54,010 INFO  [org.rhq.core.pc.inventory.InventoryManager] Initializing Inventory Manager...
+21:23:54,012 WARN  [org.rhq.core.system.SystemInfoFactory] System info API not accessible on this platform (native shared library not found in java.library.path).
+21:23:54,043 INFO  [org.rhq.core.pc.inventory.InventoryManager] Detected new Platform [Resource[id=-2, type=Linux, key=desktop, name=desktop, parent=<null>, version=Linux 2.6.32-22-generic]] - adding to local inventory...
+21:23:54,054 INFO  [org.rhq.plugins.platform.LinuxPlatformComponent] Internal yum server is disabled.
+21:23:54,054 INFO  [org.rhq.core.pc.inventory.InventoryManager] Inventory Manager initialized.
+21:23:54,057 INFO  [org.rhq.core.pc.inventory.ResourceFactoryManager] Initializing
+21:23:54,057 INFO  [org.rhq.core.pc.content.ContentManager] Initializing Content Manager...
+21:23:54,058 INFO  [org.rhq.core.pc.content.ContentManager] Content Manager initialized...
+21:23:54,059 INFO  [org.rhq.core.pc.PluginContainer] Plugin Container initialized.
+21:23:54,060 INFO  [org.jboss.on.embedded.manager.pc.PluginContainerResourceManager] Discovering Resources...
+21:23:54,061 INFO  [org.rhq.core.pc.inventory.AutoDiscoveryExecutor] Executing server discovery scan...
+21:23:54,104 WARN  [org.rhq.plugins.jmx.JMXDiscoveryComponent] Unable to complete base jmx server discovery (enable DEBUG for stack): java.lang.UnsupportedOperationException: No native library available - Cannot get the process table information without native support
+21:23:55,520 INFO  [org.rhq.core.pc.inventory.InventoryManager] Detected new Server [Resource[id=-3, type=JBossAS Server, key=/home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default, name=JBoss AS 6 (default), parent=<null>, version=6.0.0.20100429-M3]] - adding to local inventory...
+21:23:55,564 INFO  [org.mc4j.ems.impl.jmx.connection.DConnection] Querying MBeanServer for all MBeans
+21:23:55,565 INFO  [org.mc4j.ems.impl.jmx.connection.DConnection] Found 346 MBeans, starting load
+21:23:55,584 INFO  [org.rhq.plugins.jbossas5.ApplicationServerComponent] Successfully obtained a JMX connection to -n/a-
+21:23:55,593 INFO  [org.rhq.core.pc.inventory.AutoDiscoveryExecutor] Found 0 servers.
+21:23:55,593 INFO  [org.rhq.core.pc.inventory.RuntimeDiscoveryExecutor] Running runtime discovery scan rooted at [platform]
+21:23:55,654 INFO  [org.rhq.core.pc.inventory.InventoryManager] Detected new Server [Resource[id=-4, type=JBoss AS JVM, key=JVM, name=JBoss AS JVM, parent=<null>, version=1.6.0_20]] - adding to local inventory...
+21:23:55,656 INFO  [org.rhq.plugins.jmx.JMXServerComponent] Starting connection to JMX Server JVM
+21:23:55,664 INFO  [org.mc4j.ems.impl.jmx.connection.DConnection] Querying MBeanServer for all MBeans
+21:23:55,665 INFO  [org.mc4j.ems.impl.jmx.connection.DConnection] Found 346 MBeans, starting load
+21:23:55,989 INFO  [org.rhq.core.pc.inventory.RuntimeDiscoveryExecutor] Scanned [0] servers and found [0] total descendant Resources.
+21:23:56,015 INFO  [org.rhq.core.pc.inventory.RuntimeDiscoveryExecutor] Running runtime discovery scan rooted at [platform]
+21:23:56,096 INFO  [org.rhq.core.pc.inventory.RuntimeDiscoveryExecutor] Scanned [0] servers and found [0] total descendant Resources.
+21:24:01,037 INFO  [org.hibernate.validator.Version] Hibernate Validator 3.1.0.GA
+21:24:01,046 INFO  [org.hibernate.annotations.common.Version] Hibernate Commons Annotations 3.2.0-SNAPSHOT
+^C21:24:49,127 INFO  [STDOUT] Posting Shutdown Request to the server...
+21:24:49,127 INFO  [org.jboss.bootstrap.impl.base.server.AbstractServer] Stopping: JBossAS [6.0.0.20100429-M3 "Neo"]
+21:24:49,128 INFO  [org.apache.coyote.http11.Http11Protocol] Suspension de Coyote HTTP/1.1 sur http-127.0.0.1-8080
+21:24:49,136 INFO  [org.apache.coyote.http11.Http11Protocol] Arrêt de Coyote HTTP/1.1 sur http-127.0.0.1-8080
+21:24:49,149 INFO  [org.apache.coyote.ajp.AjpProtocol] Pausing Coyote AJP/1.3 on ajp-127.0.0.1-8009
+21:24:49,150 INFO  [org.apache.coyote.ajp.AjpProtocol] Stopping Coyote AJP/1.3 on ajp-127.0.0.1-8009
+21:24:49,186 INFO  [service] Restored bootstrap log handlers
+21:24:49,204 INFO  [TomcatDeployment] undeploy, ctxPath=/
+21:24:49,286 INFO  [ConnectionFactoryBindingService] Unbound ConnectionManager 'jboss.jca:service=ConnectionFactoryBinding,name=JmsXA' from JNDI name 'java:JmsXA'
+21:24:49,317 INFO  [ConnectionFactoryBindingService] Unbound ConnectionManager 'jboss.jca:service=DataSourceBinding,name=DefaultDS' from JNDI name 'java:DefaultDS'
+21:24:49,481 INFO  [HypersonicDatabase] Database standalone closed clean
+21:24:49,483 INFO  [QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutting down.
+21:24:49,484 INFO  [QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED paused.
+21:24:49,491 INFO  [QuartzScheduler] Scheduler DefaultQuartzScheduler_$_NON_CLUSTERED shutdown complete.
+21:24:49,499 INFO  [HornetQResourceAdapter] HornetQ resource adapter stopped
+21:24:49,519 INFO  [TomcatDeployment] undeploy, ctxPath=/admin-console
+21:24:49,530 INFO  [BootstrapAction] Shutting down Administration Console...
+21:24:49,530 INFO  [PluginContainer] Plugin container is being shutdown...
+21:24:49,531 INFO  [ContentManager] Shutting down Content Manager...
+21:24:49,578 WARN  [PluginClassLoader] Failed to purge embedded jars directory. Cause: java.io.IOException: Failed to delete file or directory: /home/nicoulaj/Bureau/jboss-6.0.0.20100429-M3/server/default/tmp/embjopr/jopr-jboss-as-5-plugin-3.0.0.B04.jar7313151242955553825.classloader
+21:24:49,579 INFO  [PluginContainer] Plugin container is now shutdown.
+21:24:49,841 INFO  [TomcatDeployment] undeploy, ctxPath=/invoker
+21:24:50,016 INFO  [HornetQServerImpl] HornetQ Server version 2.1.0.BETA3 (Hungry Hornet, 117) stopped
+21:24:50,062 INFO  [MailService] Mail service 'java:/Mail' removed from JNDI
+21:24:50,066 INFO  [JMXConnector] JMXConnector stopped
+21:24:55,809 INFO  [AbstractServer] Stopped: JBossAS [6.0.0.20100429-M3 "Neo"] in 6s:683ms
