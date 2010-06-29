@@ -1,0 +1,80 @@
+#compdef colorex
+# --------------------------------------------------------------------------------------------------
+# Licensing
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Description
+#   Zsh auto-completion script for the colorex command.
+# --------------------------------------------------------------------------------------------------
+
+_colorex() {
+  local -a arguments
+  local state line cmds
+
+  arguments=(
+    '(- *)'{-h,--help}'[print program usage]'
+    '(- *)--version[print program version]'
+    '*'{-v,--verbose}'[verbose mode]'
+    '(-h --help --version)'{-f,--config}'[colorex config file]:config:->config'
+    '(-h --help --version)'{-r+,--red}'[display pattern in red]'
+    '(-h --help --version)'{-g+,--green}'[display pattern in green]'
+    '(-h --help --version)'{-y+,--yellow}'[display pattern in yellow]'
+    '(-h --help --version)'{-b+,--blue}'[display pattern in blue]'
+    '(-h --help --version)'{-m+,--magenta}'[display pattern in magenta]'
+    '(-h --help --version)'{-c+,--cyan}'[display pattern in cyan]'
+    '(-h --help --version)--start-red[toggle foreground color to red at pattern]'
+    '(-h --help --version)--start-green[toggle foreground color to green at pattern]'
+    '(-h --help --version)--start-yellow[toggle foreground color to yellow at pattern]'
+    '(-h --help --version)--start-blue[toggle foreground color to blue at pattern]'
+    '(-h --help --version)--start-magenta[toggle foreground color to magenta at pattern]'
+    '(-h --help --version)--start-cyan[toggle foreground color to cyan at pattern]'
+    '(-h --help --version)--reset-color[reset foreground color at pattern]'
+    '(-h --help --version)'{-R+,--bred}'[display pattern in red background]'
+    '(-h --help --version)'{-G+,--bgreen}'[display pattern in green background]'
+    '(-h --help --version)'{-Y+,--byellow}'[display pattern in yellow background]'
+    '(-h --help --version)'{-B+,--bblue}'[display pattern in blue background]'
+    '(-h --help --version)'{-M+,--bmagenta}'[display pattern in magenta background]'
+    '(-h --help --version)'{-C+,--bcyan}'[display pattern in cyan background]'
+    '(-h --help --version)--start-bred[toggle background color to red at pattern]'
+    '(-h --help --version)--start-bgreen[toggle background color to green at pattern]'
+    '(-h --help --version)--start-byellow[toggle background color to yellow at pattern]'
+    '(-h --help --version)--start-bblue[toggle background color to blue at pattern]'
+    '(-h --help --version)--start-bmagenta[toggle background color to magenta at pattern]'
+    '(-h --help --version)--start-bcyan[toggle background color to cyan at pattern]'
+    '(-h --help --version)--reset-bcolor[reset background color at pattern]'
+    '(-h --help --version)--bold[display pattern in bold]'
+    '(-h --help --version)--faint[display pattern with decreased intensity]'
+    '(-h --help --version)--start-bold[toggle bold on at pattern]'
+    '(-h --help --version)--start-faint[toggle faint on at pattern]'
+    '(-h --help --version)--reset-intensity[reset text intensity at pattern]'
+    '(-h --help --version)--italic[display pattern in italic]'
+    '(-h --help --version)--underline[display pattern underlined]'
+    '(-h --help --version)--underline-double[display pattern double underlined]'
+    '(-h --help --version)--blink[display pattern blinking]'
+    '(-h --help --version)--blink-rapid[display pattern blinking]'
+    '(-h --help --version)--negative[display pattern swapping foreground and background]'
+    '(-h --help --version)--hide[hide pattern]'
+  )
+  _arguments -S $arguments
+
+  case "$state" in
+    config)
+      local -a dirs
+      dirs=( $(pwd) ~/.colorex /usr/share/colorex/configs )
+      _wanted configs expl config _path_files -W dirs -g '*.cfg' && ret=0
+    ;;
+  esac
+}
+
+_colorex "$@"
