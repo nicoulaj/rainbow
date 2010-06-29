@@ -11,6 +11,7 @@ This is a fork of [Linibou's colorex](http://www.linibou.com/colorex/).
 Colorex colors parts of files or STDIN using words or regexps, for example:
 
     tail -f some-log-file | colorex --red='^\[ERROR\].*' --yellow='^\[WARN\].*'
+
     ping www.google.com | colorex --config ping
 
 
