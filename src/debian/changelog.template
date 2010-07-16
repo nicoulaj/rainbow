@@ -1,6 +1,7 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
-  *
+  * Fixed Bash and Zsh completion scripts deployed to wrong path.
+  * Added a config for Maven 3.
 
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Wed, 30 Jun 2010 00:25:12 +0200
 
