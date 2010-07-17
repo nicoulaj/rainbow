@@ -1,5 +1,5 @@
 colorex /usr/bin
 VERSION /usr/share/colorex
 configs /usr/share/colorex
-completion/bash/colorex /etc/bash_completion.d
-completion/zsh/_colorex /usr/share/zsh/functions/Completion/Unix
+completion/bash/* /etc/bash_completion.d
+completion/zsh/* /usr/share/zsh/functions/Completion/Unix
