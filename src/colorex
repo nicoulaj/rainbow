@@ -362,43 +362,27 @@ def main():
             process_config(config)
 
     try:
-        # If files passed to the command lines, process each one of them, line by line.
-        if args:
-            for file in args:
-                logger.debug("Opening file '%s'.", file)
+        pipe_read, pipe_write = os.pipe()
+        if os.fork():
+            os.close(pipe_write)
+            pipe_fd_handle = os.fdopen(pipe_read)
+            while True:
                 try:
-                    file_handle = open(file, 'r')
-                    logger.info("Processing file '%s'.", file)
-                    try:
-                        for line in file_handle:
-                            print apply_filters(line)
-                    except Exception,info:
-                        logger.error("Error while processing file %s.", file)
-                        logger.error(str(info))
-                    finally:
-                        file_handle.close()
-                except Exception,info:
-                    logger.error("Could not read file %s.", file)
-                    logger.error(str(info))
+                    line = pipe_fd_handle.readline()
+                    if not line:
+                        os._exit(os.EX_OK)
+                    print apply_filters(line[:-1])
+                except KeyboardInterrupt:
+                    pass
+            return 0
+        os.close(pipe_read)
+        os.dup2(pipe_write, sys.stdout.fileno())
 
-        # Else process STDIN.
-        else:
-            logger.info("No arguments given, using STDIN as input.")
-            try:
-                while True:
-                    print apply_filters(raw_input())
-            except KeyboardInterrupt:
-                # Let a chance to the interrupted process to finish.
-                while True:
-                    print apply_filters(raw_input())
-
-    # Exit on keyboard interrupt and end of file.
-    except (EOFError, KeyboardInterrupt):
-        return 0
+        os.execvp(args[0],args)
 
     # Raise an error for any other exception.
     except Exception, info:
-        logger.fatal("%s", info)
+        logger.error("%s", info)
         return 1
 
 
