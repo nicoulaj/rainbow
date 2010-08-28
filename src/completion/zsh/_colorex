@@ -26,6 +26,7 @@ _colorex() {
     '(- *)'{-h,--help}'[print program usage]'
     '(- *)--version[print program version]'
     '*'{-v,--verbose}'[verbose mode]'
+    '(-h --help --version)'{--disable-stderr-filtering}'[disable STDERR filtering]'
     '(-h --help --version)'{-f,--config}'[colorex config file]:config:->config'
     '(-h --help --version)'{-r+,--red}'[display pattern in red]'
     '(-h --help --version)'{-g+,--green}'[display pattern in green]'

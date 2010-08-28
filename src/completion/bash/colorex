@@ -25,7 +25,7 @@ _colorex()
 
   cur=${COMP_WORDS[COMP_CWORD]}
   if [ $COMP_CWORD -eq 1 ]; then
-    COMPREPLY=( $( compgen -W "--version -h --help -v -f -r -g -y -b -m -c -R -G -Y -B -M -C --verbose --config --red --green --yellow --blue --magenta --cyan --start-red --start-green --start-yellow --start-blue --start-magenta --start-cyan --reset-color --bred --bgreen --byellow --bblue --bmagenta --bcyan --start-bcyan --start-bred --start-bgreen --start-byellow --start-bblue --start-bmagenta --reset-bcolor --bold --faint --start-bold --start-faint --reset-intensity --italic --underline --underline-double --blink --blink-rapid --negative --hide" -- $cur ) )
+    COMPREPLY=( $( compgen -W "--version -h --help --disable-stderr-filtering -v -f -r -g -y -b -m -c -R -G -Y -B -M -C --verbose --config --red --green --yellow --blue --magenta --cyan --start-red --start-green --start-yellow --start-blue --start-magenta --start-cyan --reset-color --bred --bgreen --byellow --bblue --bmagenta --bcyan --start-bcyan --start-bred --start-bgreen --start-byellow --start-bblue --start-bmagenta --reset-bcolor --bold --faint --start-bold --start-faint --reset-intensity --italic --underline --underline-double --blink --blink-rapid --negative --hide" -- $cur ) )
   else
     first=${COMP_WORDS[1]}
     case "$first" in
@@ -45,7 +45,7 @@ _colorex()
                         $(compgen -W "`ls $COLOREX_CONFIGS_HOME 2> /dev/null | grep ".cfg" | sed 's/\(.*\)\.cfg/\1/'`" $cur) )
             ;;
           *)
-            COMPREPLY=( $( compgen -W "-v -f -r -g -y -b -m -c -R -G -Y -B -M -C --verbose --config --red --green --yellow --blue --magenta --cyan --start-red --start-green --start-yellow --start-blue --start-magenta --start-cyan --reset-color --bred --bgreen --byellow --bblue --bmagenta --bcyan --start-bcyan --start-bred --start-bgreen --start-byellow --start-bblue --start-bmagenta --reset-bcolor --bold --faint --start-bold --start-faint --reset-intensity --italic --underline --underline-double --blink --blink-rapid --negative --hide" -- $cur ) )
+            COMPREPLY=( $( compgen -W "-v -f -r -g -y -b -m -c -R -G -Y -B -M -C --disable-stderr-filtering --verbose --config --red --green --yellow --blue --magenta --cyan --start-red --start-green --start-yellow --start-blue --start-magenta --start-cyan --reset-color --bred --bgreen --byellow --bblue --bmagenta --bcyan --start-bcyan --start-bred --start-bgreen --start-byellow --start-bblue --start-bmagenta --reset-bcolor --bold --faint --start-bold --start-faint --reset-intensity --italic --underline --underline-double --blink --blink-rapid --negative --hide" -- $cur ) )
             ;;
         esac
         ;;
