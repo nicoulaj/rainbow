@@ -278,7 +278,7 @@ def process_config(file,options):
         # Process imports
         if configParser.has_option('general', 'imports'):
             for config_import in [v.strip() for v in configParser.get('general', 'imports').split(',')]:
-                process_config(config_import)
+                process_config(config_import,options)
 
         # Process options
         if configParser.has_option('general', 'enable-stderr-filtering'):
@@ -383,45 +383,56 @@ def main():
             else:
                 logger.error("Could not locate the config '%s'.", config)
 
-    # If no pattern defined after parsing options and options, lookup a default config from the target command name.
-    if len(patterns) == 0:
-        logger.debug("No pattern defined, looking for a default config for '%s'." % args[0])
-        config_file = locate_config(args[0])
-        if config_file:
-            logger.info("No pattern defined, the config '%s' will be loaded." % config_file)
-            process_config(config_file,options)
-        else:
-            logger.debug("Could not locate a default config for '%s'.", args[0])
-
     try:
-        # Create a pipe.
-        pipe_read, pipe_write = os.pipe()
 
-        # Fork colorex execution in a child process and execute the target command in the parent process.
-        pid = os.fork()
+        if args:
 
-        # In the child process, apply filters on each line of the pipe output.
-        if pid == 0:
-            os.close(pipe_write)
-            pipe_fd_handle = os.fdopen(pipe_read)
-            while True:
-                try:
-                    line = pipe_fd_handle.readline()
-                    if line:
-                        print apply_filters(line[:-1])
-                    else:
-                        break
-                except KeyboardInterrupt:
-                    pass
-            os._exit(os.EX_OK)
+            # If no pattern defined after parsing options and configs, lookup a default config from the target command name.
+            if len(patterns) == 0:
+                logger.debug("No pattern defined, looking for a default config for '%s'." % args[0])
+                config_file = locate_config(args[0])
+                if config_file:
+                    logger.info("No pattern defined, the config '%s' will be loaded." % config_file)
+                    process_config(config_file,options)
+                else:
+                    logger.debug("Could not locate a default config for '%s'.", args[0])
 
-        # In the parent process, connect the pipe and execute the target command.
+            # Create a pipe.
+            pipe_read, pipe_write = os.pipe()
+
+            # Fork colorex execution in a child process and execute the target command in the parent process.
+            pid = os.fork()
+
+            # In the child process, apply filters on each line of the pipe output.
+            if pid == 0:
+                os.close(pipe_write)
+                pipe_fd_handle = os.fdopen(pipe_read)
+                while True:
+                    try:
+                        line = pipe_fd_handle.readline()
+                        if line:
+                            print apply_filters(line[:-1])
+                        else:
+                            break
+                    except KeyboardInterrupt:
+                        pass
+                os._exit(os.EX_OK)
+
+            # In the parent process, connect the pipe and execute the target command.
+            else:
+                os.close(pipe_read)
+                os.dup2(pipe_write, sys.stdout.fileno())
+                if options.enable_stderr_filtering == True:
+                    os.dup2(pipe_write, sys.stderr.fileno())
+                os.execvp(args[0],args)
+
         else:
-            os.close(pipe_read)
-            os.dup2(pipe_write, sys.stdout.fileno())
-            if options.enable_stderr_filtering == True:
-                os.dup2(pipe_write, sys.stderr.fileno())
-            os.execvp(args[0],args)
+            logger.info("No arguments given, using STDIN as input.")
+            try:
+                while True:
+                    print apply_filters(raw_input())
+            except (EOFError, KeyboardInterrupt):
+                return 0
 
     # Raise an error for any other exception.
     except Exception, info:
