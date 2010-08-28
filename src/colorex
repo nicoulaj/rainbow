@@ -363,22 +363,24 @@ def main():
 
     try:
         pipe_read, pipe_write = os.pipe()
-        if os.fork():
+        p = os.fork()
+        if p == 0:
             os.close(pipe_write)
             pipe_fd_handle = os.fdopen(pipe_read)
             while True:
                 try:
                     line = pipe_fd_handle.readline()
                     if not line:
-                        os._exit(os.EX_OK)
+                        break
                     print apply_filters(line[:-1])
                 except KeyboardInterrupt:
                     pass
-            return 0
-        os.close(pipe_read)
-        os.dup2(pipe_write, sys.stdout.fileno())
+            os._exit(os.EX_OK)
+        else:
+            os.close(pipe_read)
+            os.dup2(pipe_write, sys.stdout.fileno())
 
-        os.execvp(args[0],args)
+            os.execvp(args[0],args)
 
     # Raise an error for any other exception.
     except Exception, info:
