@@ -362,9 +362,14 @@ def main():
             process_config(config)
 
     try:
+        # Create a pipe.
         pipe_read, pipe_write = os.pipe()
-        p = os.fork()
-        if p == 0:
+
+        # Fork colorex execution in a child process and execute the target command in the parent process.
+        pid = os.fork()
+
+        # In the child process, apply filters on each line of the pipe output.
+        if pid == 0:
             os.close(pipe_write)
             pipe_fd_handle = os.fdopen(pipe_read)
             while True:
@@ -376,10 +381,11 @@ def main():
                 except KeyboardInterrupt:
                     pass
             os._exit(os.EX_OK)
+
+        # In the parent process, connect the pipe and execute the target command.
         else:
             os.close(pipe_read)
             os.dup2(pipe_write, sys.stdout.fileno())
-
             os.execvp(args[0],args)
 
     # Raise an error for any other exception.
