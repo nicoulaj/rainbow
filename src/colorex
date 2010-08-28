@@ -177,7 +177,7 @@ def register_pattern_with_filter(pattern,filter_name):
 
     logger.debug("Binding pattern '%s' with filter '%s'.", pattern, filter_name)
 
-    # If this is new pattern, create a new entry with the corresponding compiled regex.    
+    # If this is new pattern, create a new entry with the corresponding compiled regex.
     if pattern not in patterns:
         patterns[pattern] = { 'pattern_start': '',
                               'pattern_end': '',
@@ -226,7 +226,7 @@ def handle_command_line_verbosity_option(option, opt, value, parser):
     logger.setLevel(logger.level - 10)
 
 
-def process_config(config):
+def process_config(config,options):
     """
     Try to locate a config, and then register every pattern <-> filter association defined within it.
 
@@ -238,6 +238,8 @@ def process_config(config):
         - C{L{COLOREX_CONFIGS_HOME}/config}
         - C{L{COLOREX_CONFIGS_HOME}/config.cfg}
     @type config: string
+    @param options
+    @type options: string
     @rtype: void
     """
 
@@ -266,12 +268,19 @@ def process_config(config):
     configParser = ConfigParser.ConfigParser()
     configParser.read(config_file)
 
-    # Process config imports
+    # Process general section
     if configParser.has_section('general'):
-        for config_import in [v.strip() for v in configParser.get('general', 'imports').split(',')]:
-            process_config(config_import)
 
-    # Register patterns defined in the config.
+        # Process imports
+        if configParser.has_option('general', 'imports'):
+            for config_import in [v.strip() for v in configParser.get('general', 'imports').split(',')]:
+                process_config(config_import)
+
+        # Process options
+        if configParser.has_option('general', 'enable-stderr-filtering'):
+            options.enable_stderr_filtering = configParser.get('general', 'enable-stderr-filtering')
+
+    # Process filters section
     if configParser.has_section('filters'):
         for filter in configParser.options("filters"):
             if filter in FILTERS:
@@ -333,6 +342,10 @@ def main():
                             action="callback",
                             callback=handle_command_line_verbosity_option,
                             help="Turn on verbose mode. This option can be called several times to increase the verbosity level.")
+    optionParser.add_option("--disable-stderr-filtering",
+                            action="store_false", dest="enable_stderr_filtering",
+                            default=True,
+                            help="Disable STDERR filtering, which can have unexpected effects on commands directly using tty.")
 
     # Walk through filter groups and register each filter as a command line option.
     for filter_group in FILTER_GROUPS:
@@ -359,12 +372,11 @@ def main():
     # If configs passed, process them.
     if options.config:
         for config in options.config:
-            process_config(config)
+            process_config(config,options)
 
     try:
         # Create a pipe.
         pipe_read, pipe_write = os.pipe()
-        pipe_err_read, pipe_err_write = os.pipe()
 
         # Fork colorex execution in a child process and execute the target command in the parent process.
         pid = os.fork()
@@ -372,20 +384,14 @@ def main():
         # In the child process, apply filters on each line of the pipe output.
         if pid == 0:
             os.close(pipe_write)
-            os.close(pipe_err_write)
             pipe_fd_handle = os.fdopen(pipe_read)
-            pipe_err_fd_handle = os.fdopen(pipe_err_read)
             while True:
                 try:
                     line = pipe_fd_handle.readline()
                     if line:
                         print apply_filters(line[:-1])
                     else:
-                        err_line = pipe_err_fd_handle.readline()
-                        if err_line:
-                            print apply_filters(err_line[:-1])
-                        else:
-                            break
+                        break
                 except KeyboardInterrupt:
                     pass
             os._exit(os.EX_OK)
@@ -393,9 +399,9 @@ def main():
         # In the parent process, connect the pipe and execute the target command.
         else:
             os.close(pipe_read)
-            os.close(pipe_err_read)
             os.dup2(pipe_write, sys.stdout.fileno())
-            os.dup2(pipe_err_write, sys.stderr.fileno())
+            if options.enable_stderr_filtering == True:
+                os.dup2(pipe_write, sys.stderr.fileno())
             os.execvp(args[0],args)
 
     # Raise an error for any other exception.
