@@ -2,17 +2,28 @@
 
 
 ## Description
-**Colorize files or STDIN using patterns.**
+**Colorize commands output or STDIN using patterns.**
 
 This is a fork of [Linibou's colorex](http://www.linibou.com/colorex/).
 
 
 ## Features
-Colorex colors parts of files or STDIN using words or regexps, for example:
+Colorex colors parts of commands output or STDIN using words or regexps, for example:
 
-    tail -f some-log-file | colorex --red='^\[ERROR\].*' --yellow='^\[WARN\].*'
+* Colorize the 'diff' command output using the provided config:
+    <pre><code>colorex diff file1 file2</code></pre>
 
-    ping www.google.com | colorex --config ping
+
+* Colorize the 'ping' command output using the provided config:
+    <pre><code>colorex ping www.google.com</code></pre>
+
+
+* Ping Google with IP addresses colorized in red:
+    <pre><code>colorex --red '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com</code></pre>
+
+
+* Pipe content to colorex instead of providing a command:
+    <pre><code>tail -f some-log-file | colorex --red='^\[ERROR\].\*' --yellow='^\[WARN\].*'</code></pre>
 
 
 ## Installing
