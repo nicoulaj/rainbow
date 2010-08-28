@@ -14,4 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-cat raw-logs/jboss*.log | ../src/colorex $@ --config ../src/configs/jboss.cfg
+../src/colorex $@ --config ../src/configs/jboss.cfg -- cat raw-logs/jboss*.log

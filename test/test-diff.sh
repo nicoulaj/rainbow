@@ -14,4 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-cat raw-logs/*.diff | ../src/colorex $@ --config ../src/configs/diff.cfg
+../src/colorex $@ --config ../src/configs/diff.cfg -- cat raw-logs/*.diff

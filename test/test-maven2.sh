@@ -14,4 +14,4 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-cat raw-logs/maven2*.log | ../src/colorex $@ --config ../src/configs/maven2.cfg
+../src/colorex $@ --config ../src/configs/maven2.cfg -- cat raw-logs/maven2*.log
