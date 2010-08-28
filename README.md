@@ -23,7 +23,7 @@ Colorex colors parts of commands output or STDIN using words or regexps, for exa
 
 
 * Pipe content to colorex instead of providing a command:
-    <pre><code>tail -f some-log-file | colorex --red='^[ERROR].\*' --yellow='^[WARN].\*'</code></pre>
+    <pre><code>tail -f some-log-file | colorex --red='\^\[ERROR\].\*' --yellow='\^\[WARN\].\*'</code></pre>
 
 
 ## Installing
