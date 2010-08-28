@@ -1,6 +1,11 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
-  * 
+  * Commands can now passed as arguments of colorex instead of piping them.
+      - This allows not break interactive commands anymore.
+      - This allows to handle both STDOUT and STDERR by default.
+      - The way colorex is called is much easier: just precede the command with
+        colorex.
+  * Configs are automatically looked up if they are named after a command name.
 
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sat, 28 Aug 2010 13:26:29 +0200
 
