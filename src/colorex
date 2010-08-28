@@ -225,10 +225,9 @@ def handle_command_line_verbosity_option(option, opt, value, parser):
     # Decrease the logger level.
     logger.setLevel(logger.level - 10)
 
-
-def process_config(config,options):
+def locate_config(config):
     """
-    Try to locate a config, and then register every pattern <-> filter association defined within it.
+    Try to locate a config and return the corresponding file path.
 
     @param config: the config file to look for. The function will look for (in the following order):
         - C{config}
@@ -238,35 +237,40 @@ def process_config(config,options):
         - C{L{COLOREX_CONFIGS_HOME}/config}
         - C{L{COLOREX_CONFIGS_HOME}/config.cfg}
     @type config: string
+    @rtype: string
+    """
+
+    logger.debug("Trying to locate config '%s'.", config)
+
+    # Try to locate the config.
+    for dir in [os.path.curdir, USER_CONFIGS_HOME, COLOREX_CONFIGS_HOME]:
+        if os.path.isfile(os.path.join(dir,config)):
+            return  os.path.join(dir,config)
+        elif os.path.isfile(os.path.join(dir,config + ".cfg")):
+            return  os.path.join(dir,config + ".cfg")
+
+def process_config(file,options):
+    """
+    Load a config file and register the imports, patterns and options it defines.
+
+    @param file: the config file to look for. The function will look for (in the following order):
+        - C{config}
+        - C{config.cfg}
+        - C{L{USER_CONFIGS_HOME}/config}
+        - C{L{USER_CONFIGS_HOME}/config.cfg}
+        - C{L{COLOREX_CONFIGS_HOME}/config}
+        - C{L{COLOREX_CONFIGS_HOME}/config.cfg}
+    @type file: string
     @param options
     @type options: string
     @rtype: void
     """
 
-    logger.debug("Processing config '%s'.", config)
-
-    # Try to locate the config.
-    if os.path.isfile(config):
-        config_file = config
-    elif os.path.isfile(config + '.cfg'):
-        config_file = config + '.cfg'
-    elif os.path.isfile(os.path.join(USER_CONFIGS_HOME,config)):
-        config_file = os.path.join(USER_CONFIGS_HOME,config)
-    elif os.path.isfile(os.path.join(USER_CONFIGS_HOME,config + '.cfg')):
-        config_file = os.path.join(USER_CONFIGS_HOME,config + '.cfg')
-    elif os.path.isfile(os.path.join(COLOREX_CONFIGS_HOME,config)):
-        config_file = os.path.join(COLOREX_CONFIGS_HOME,config)
-    elif os.path.isfile(os.path.join(COLOREX_CONFIGS_HOME,config + '.cfg')):
-        config_file = os.path.join(COLOREX_CONFIGS_HOME,config + '.cfg')
-    else:
-        logger.error("Could not locate the config '%s'.", config)
-        return 1
-
-    logger.debug("Config '%s' located at '%s'.", config, config_file)
+    logger.debug("Parsing the config '%s'.", file)
 
     # Parse the configuration file
     configParser = ConfigParser.ConfigParser()
-    configParser.read(config_file)
+    configParser.read(file)
 
     # Process general section
     if configParser.has_section('general'):
@@ -288,7 +292,7 @@ def process_config(config,options):
             else:
                 logger.warning("Unknown filter '%s'.", filter)
 
-    logger.info("Loaded config '%s'.", config)
+    logger.info("Loaded config '%s'.", file)
 
 
 def apply_filters(line):
@@ -372,7 +376,22 @@ def main():
     # If configs passed, process them.
     if options.config:
         for config in options.config:
-            process_config(config,options)
+            config_file = locate_config(config)
+            if config_file:
+                logger.debug("Config '%s' located at '%s'.", config, config_file)
+                process_config(config_file,options)
+            else:
+                logger.error("Could not locate the config '%s'.", config)
+
+    # If no pattern defined after parsing options and options, lookup a default config from the target command name.
+    if len(patterns) == 0:
+        logger.debug("No pattern defined, looking for a default config for '%s'." % args[0])
+        config_file = locate_config(args[0])
+        if config_file:
+            logger.info("No pattern defined, the config '%s' will be loaded." % config_file)
+            process_config(config_file,options)
+        else:
+            logger.debug("Could not locate a default config for '%s'.", args[0])
 
     try:
         # Create a pipe.
