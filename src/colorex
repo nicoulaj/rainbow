@@ -50,15 +50,15 @@ The location of the file containing the script version number.
 @type: string
 """
 
-USAGE = "%prog [options] [file...] "
+USAGE = "%prog [options] -- command [args...] "
 """
 A string showing the script usage syntax.
 
 @type: string
 """
 
-DESCRIPTION = """Display files or STDIN with colors and formatting for matched patterns. If you don't specify
-files, STDIN is used. For more information, see colorex man page (man colorex)."""
+DESCRIPTION = """Colorize commands output using patterns. If you don't specify a command, STDIN is used.
+For more information, see colorex man page (man colorex)."""
 """
 A string describing the script.
 

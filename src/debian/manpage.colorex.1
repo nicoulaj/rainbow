@@ -2,26 +2,25 @@
 
 
 .SH NAME
-colorex \- Colorize files using patterns.
+colorex \- Colorize commands output using patterns.
 
 
 .SH SYNOPSIS
 .B colorex
-[options] [files...]
+[options...] -- command [args...]
 
 some-command |
 .B colorex
-[options]
+[options...]
 
 
 .SH DESCRIPTION
-Display files colored matching words or regular expressions. If you
-don't specify files, STDIN is used.
+Display commands output colored matching words or regular expressions. If you don't specify a command, STDIN is used.
 
 
 .SH OPTIONS
-These programs follow the usual GNU command line syntax, with long
-options starting with two dashes (`-'). A summary of options is included below.
+These programs follow the usual GNU command line syntax, with long options starting with two dashes (`-'). A summary of
+options is included below.
 
 .PP
 .B
@@ -45,7 +44,13 @@ Common options
 .TP
 .B
     \-f CONFIG, \-\-config CONFIG
-    Load a config file defining patterns. Go to /usr/share/colorex/configs for examples. The option can be called several times.
+    Load a config file defining patterns. Go to /usr/share/colorex/configs for examples. The option can be called
+    several times.
+
+.TP
+.B
+    \-\-disable\-stderr\-filtering
+    Disable STDERR filtering, which can have unexpected effects on commands directly using tty (such as top).
 
 .PP
 .B
@@ -258,12 +263,34 @@ Other formattings
     hide HIDE pattern
 
 
+.SH EXAMPLES
+
+.TP
+Colorize the 'diff' command output using the provided config:
+colorex diff file1 file2
+
+.TP
+Colorize the 'ping' command output using the provided config:
+colorex ping www.google.com
+
+.TP
+Ping Google with IP addresses colorized in red:
+colorex \-\-red '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}' \-\- ping www.google.com
+
+.TP
+Pipe content to colorex instead of providing a command:
+tail -f my-file.log | colorex \-\-config my-config
+
+.PP
+If the target command attributes are ambiguous with colorex ones, make sure to separate them with '\-\-' as the examples
+show.
+
 .SH CONFIGS
 .TP
-The \-f or \-\- config allows to load patterns defined in a configuration file, for example:
+The \-f or \-\-config option allows to load patterns defined in a configuration file, for example:
 colorex \-\-config MY_CONFIG
 .PP
-With this command , colorex will look for a config at the following places, in the following order:
+colorex will look for the config at the following places, in the following order:
   * MY_CONFIG
   * MY_CONFIG.cfg
   * ~/.colorex/MY_CONFIG
@@ -272,22 +299,8 @@ With this command , colorex will look for a config at the following places, in t
   * /usr/share/colorex/configs/MY_CONFIG.cfg
 
 colorex comes bundled with several configs, for example for the ping, top and diff commands, for Tomcat/JBoss logs, etc.
-These configs are located at /usr/share/colorex/configs and can serve as examples for you own ones.
-
-
-.SH EXAMPLES
-
-.TP
-Ping Google with IP addresses colorized in red:
-ping www.google.com | colorex --red '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}'
-
-.TP
-Colorize the 'ping' command output using the provided ping config:
-tail -f my-file.log | colorex \-\-config ping
-
-.PP
-Regular expressions are interpreted, so if you want to match a '*' escape
-it with a backslash.
+These configs are located at /usr/share/colorex/configs and can serve as examples. You can override the default configs
+with your own ones by placing them in ~/.colorex.
 
 
 .SH BUGS
