@@ -14,4 +14,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-../src/colorex $@ --config ../src/configs/ping.cfg -- ping www.google.com
+# Once with a invalid host
+../src/colorex $@ --config ../src/configs/ping.cfg -- ping www.google.notexist
+
+# Once with a valid one
+../src/colorex $@ --config ../src/configs/ping.cfg -- ping -c 2 www.google.com
