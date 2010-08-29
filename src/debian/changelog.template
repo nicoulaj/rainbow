@@ -1,5 +1,11 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
+  * Fixed config imports broken.
+
+ -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 29 Aug 2010 12:51:15 +0200
+
+colorex (PACKAGE_VERSION) DISTRIB; urgency=low
+
   * Commands can now passed as arguments of colorex instead of piping them.
       - This allows not break interactive commands anymore.
       - This allows to handle both STDOUT and STDERR by default.

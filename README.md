@@ -10,20 +10,36 @@ This is a fork of [Linibou's colorex](http://www.linibou.com/colorex/).
 ## Features
 Colorex colors parts of commands output or STDIN using words or regexps, for example:
 
+
+* Ping Google with IP addresses colorized in red:
+
+    `colorex --red '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com`
+
+
+Patterns can be defined in config files. Colorex automatically loads the config file if it is named after the command name.
+Colorex comes bundled with [several configs](http://github.com/nicoulaj/colorex/tree/master/src/configs) for common commands:
+
+
 * Colorize the 'diff' command output using the provided config:
-    <pre><code>colorex diff file1 file2</code></pre>
+
+    `colorex diff file1 file2`
 
 
 * Colorize the 'ping' command output using the provided config:
-    <pre><code>colorex ping www.google.com</code></pre>
+
+    `colorex ping www.google.com`
 
 
-* Ping Google with IP addresses colorized in red:
-    <pre><code>colorex --red '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com</code></pre>
+* Start JBoss application server with colorized logs:
+
+    `colorex --config=jboss -- jboss/bin/run.sh run`
 
 
-* Pipe content to colorex instead of providing a command:
-    <pre><code>tail -f some-log-file | colorex --red='\[ERROR\].\*' --yellow='\[WARN\].\*'</code></pre>
+Colorex can also read from STDIN instead of providing a command:
+
+* Pipe content to colorex:
+
+    `tail -f some-log-file | colorex --red='\[ERROR\].\*' --yellow='\[WARN\].\*'`
 
 
 ## Installing
