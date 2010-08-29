@@ -407,8 +407,16 @@ def main():
             # Fork colorex execution in a child process and execute the target command in the parent process.
             pid = os.fork()
 
-            # In the child process, apply filters on each line of the pipe output.
+            # In the child process, connect the pipe and execute the target command.
             if pid == 0:
+                os.close(pipe_read)
+                os.dup2(pipe_write, sys.stdout.fileno())
+                if options.enable_stderr_filtering == True:
+                    os.dup2(pipe_write, sys.stderr.fileno())
+                os.execvp(args[0],args)
+
+            # In the parent process, apply filters on each line of the pipe output.
+            else:
                 os.close(pipe_write)
                 pipe_fd_handle = os.fdopen(pipe_read)
                 while True:
@@ -421,14 +429,6 @@ def main():
                     except KeyboardInterrupt:
                         pass
                 os._exit(os.EX_OK)
-
-            # In the parent process, connect the pipe and execute the target command.
-            else:
-                os.close(pipe_read)
-                os.dup2(pipe_write, sys.stdout.fileno())
-                if options.enable_stderr_filtering == True:
-                    os.dup2(pipe_write, sys.stderr.fileno())
-                os.execvp(args[0],args)
 
         else:
             logger.info("No arguments given, using STDIN as input.")
