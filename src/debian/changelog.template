@@ -1,10 +1,18 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
+  * Added example configs for df, env, ifconfig, md5sum and host.
+  * Fixed Bash completion script completing with filenames instead of commands.
+  * Fixed colorex giving back focus before having finished printing lines.
+
+ -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 29 Aug 2010 20:16:05 +0200
+
+colorex (2.1.1) DISTRIB; urgency=low
+
   * Fixed config imports broken.
 
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 29 Aug 2010 12:51:15 +0200
 
-colorex (PACKAGE_VERSION) DISTRIB; urgency=low
+colorex (2.1) DISTRIB; urgency=low
 
   * Commands can now passed as arguments of colorex instead of piping them.
       - This allows not break interactive commands anymore.
