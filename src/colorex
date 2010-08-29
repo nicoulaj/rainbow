@@ -278,7 +278,11 @@ def process_config(file,options):
         # Process imports
         if configParser.has_option('general', 'imports'):
             for config_import in [v.strip() for v in configParser.get('general', 'imports').split(',')]:
-                process_config(config_import,options)
+                config_file = locate_config(config_import)
+                if config_file:
+                    process_config(config_file,options)
+                else:
+                    logger.error("Could not locate the config '%s'.", config_import)
 
         # Process options
         if configParser.has_option('general', 'enable-stderr-filtering'):
