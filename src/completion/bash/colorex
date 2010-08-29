@@ -53,4 +53,4 @@ _colorex()
   fi
 }
 
-complete -o filenames -F _colorex colorex
+complete -A command -F _colorex colorex
