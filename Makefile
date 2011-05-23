@@ -48,7 +48,7 @@ signed-src-pkg: prepare-changelog
 	@(cd ${SOURCE_DIR} && debuild -S -i -I)
 
 release-for-distrib: clean signed-deb signed-src-pkg
-	@dput ppa:julien-nicoulaud/colorex ${PKG_NAME}_*_source.changes
+	@dput ppa:colorex/ppa ${PKG_NAME}_*_source.changes
 
 release:
 	@$(MAKE) release-for-distrib DISTRIB=jaunty
