@@ -55,6 +55,8 @@ release:
 	@$(MAKE) release-for-distrib DISTRIB=karmic
 	@$(MAKE) release-for-distrib DISTRIB=lucid
 	@$(MAKE) release-for-distrib DISTRIB=maverick
+	@$(MAKE) release-for-distrib DISTRIB=natty
+	@$(MAKE) release-for-distrib DISTRIB=oneiric
 
 doc: clean
 	@epydoc --config epydoc.cfg
