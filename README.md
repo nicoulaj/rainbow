@@ -17,7 +17,7 @@ Colorex colors parts of commands output or STDIN using words or regexps, for exa
 
 
 Patterns can be defined in config files. Colorex automatically loads the config file if it is named after the command name.
-Colorex comes bundled with [several configs](http://github.com/nicoulaj/colorex/tree/master/src/configs) for common commands:
+Colorex comes bundled with [several configs](http://bazaar.launchpad.net/~colorex/colorex/trunk/files/head:/src/configs) for common commands:
 
 
 * Colorize the 'diff' command output using the provided config:
@@ -46,15 +46,15 @@ Colorex can also read from STDIN instead of providing a command:
 
 ### Using the PPA
 colorex is available as a Debian package in a
-[Launchpad.net PPA](https://launchpad.net/~julien-nicoulaud/+archive/colorex).
+[Launchpad.net PPA](https://launchpad.net/~colorex/+archive/ppa).
 To install on Ubuntu 9.10+, just run the following commands:
-    sudo add-apt-repository ppa:julien-nicoulaud/colorex
+    sudo add-apt-repository ppa:colorex/ppa
     sudo apt-get update
     sudo apt-get install colorex
 
 ### Building from sources
 You can build the .deb package from the sources:
-    git clone git://github.com/nicoulaj/colorex.git
+    bzr branch lp:colorex
     cd colorex
     make
 
