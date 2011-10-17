@@ -1,5 +1,11 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
+  * Improve Maven 2 and 3 confs.
+
+ -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 17 Oct 2011 20:16:05 +0200
+
+colorex (2.1.2) DISTRIB; urgency=low
+
   * Added example configs for df, env, ifconfig, md5sum and host.
   * Fixed Bash completion script completing with filenames instead of commands.
   * Fixed colorex giving back focus before having finished printing lines.

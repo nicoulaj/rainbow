@@ -51,8 +51,6 @@ release-for-distrib: clean signed-deb signed-src-pkg
 	@dput ppa:colorex/ppa ${PKG_NAME}_*_source.changes
 
 release:
-	@$(MAKE) release-for-distrib DISTRIB=jaunty
-	@$(MAKE) release-for-distrib DISTRIB=karmic
 	@$(MAKE) release-for-distrib DISTRIB=lucid
 	@$(MAKE) release-for-distrib DISTRIB=maverick
 	@$(MAKE) release-for-distrib DISTRIB=natty
