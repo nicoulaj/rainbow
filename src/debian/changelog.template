@@ -1,5 +1,11 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
+  * 
+
+ -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 17 Oct 2011 20:16:05 +0200
+
+colorex (2.1.3) DISTRIB; urgency=low
+
   * Improve Maven 2 and 3 confs.
 
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 17 Oct 2011 20:16:05 +0200
