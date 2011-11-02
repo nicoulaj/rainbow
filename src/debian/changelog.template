@@ -1,6 +1,7 @@
 colorex (PACKAGE_VERSION) DISTRIB; urgency=low
 
   * Moved to Bitbucket.
+  * Improved Zsh completion.
 
  -- Julien Nicoulaud <julien.nicoulaud@gmail.com>  Sun, 17 Oct 2011 20:16:05 +0200
 

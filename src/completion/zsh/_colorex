@@ -18,64 +18,54 @@
 #   Zsh auto-completion script for the colorex command.
 # --------------------------------------------------------------------------------------------------
 
-_colorex() {
-  local -a arguments
-  local state line cmds
 
-  arguments=(
-    '(- *)'{-h,--help}'[print program usage]'
-    '(- *)--version[print program version]'
-    '*'{-v,--verbose}'[verbose mode]'
-    '(-h --help --version)--disable-stderr-filtering[disable STDERR filtering]'
-    '(-h --help --version)'{-f,--config}'[colorex config file]:config:->config'
-    '(-h --help --version)'{-r+,--red}'[display pattern in red]'
-    '(-h --help --version)'{-g+,--green}'[display pattern in green]'
-    '(-h --help --version)'{-y+,--yellow}'[display pattern in yellow]'
-    '(-h --help --version)'{-b+,--blue}'[display pattern in blue]'
-    '(-h --help --version)'{-m+,--magenta}'[display pattern in magenta]'
-    '(-h --help --version)'{-c+,--cyan}'[display pattern in cyan]'
-    '(-h --help --version)--start-red[toggle foreground color to red at pattern]'
-    '(-h --help --version)--start-green[toggle foreground color to green at pattern]'
-    '(-h --help --version)--start-yellow[toggle foreground color to yellow at pattern]'
-    '(-h --help --version)--start-blue[toggle foreground color to blue at pattern]'
-    '(-h --help --version)--start-magenta[toggle foreground color to magenta at pattern]'
-    '(-h --help --version)--start-cyan[toggle foreground color to cyan at pattern]'
-    '(-h --help --version)--reset-color[reset foreground color at pattern]'
-    '(-h --help --version)'{-R+,--bred}'[display pattern in red background]'
-    '(-h --help --version)'{-G+,--bgreen}'[display pattern in green background]'
-    '(-h --help --version)'{-Y+,--byellow}'[display pattern in yellow background]'
-    '(-h --help --version)'{-B+,--bblue}'[display pattern in blue background]'
-    '(-h --help --version)'{-M+,--bmagenta}'[display pattern in magenta background]'
-    '(-h --help --version)'{-C+,--bcyan}'[display pattern in cyan background]'
-    '(-h --help --version)--start-bred[toggle background color to red at pattern]'
-    '(-h --help --version)--start-bgreen[toggle background color to green at pattern]'
-    '(-h --help --version)--start-byellow[toggle background color to yellow at pattern]'
-    '(-h --help --version)--start-bblue[toggle background color to blue at pattern]'
-    '(-h --help --version)--start-bmagenta[toggle background color to magenta at pattern]'
-    '(-h --help --version)--start-bcyan[toggle background color to cyan at pattern]'
-    '(-h --help --version)--reset-bcolor[reset background color at pattern]'
-    '(-h --help --version)--bold[display pattern in bold]'
-    '(-h --help --version)--faint[display pattern with decreased intensity]'
-    '(-h --help --version)--start-bold[toggle bold on at pattern]'
-    '(-h --help --version)--start-faint[toggle faint on at pattern]'
-    '(-h --help --version)--reset-intensity[reset text intensity at pattern]'
-    '(-h --help --version)--italic[display pattern in italic]'
-    '(-h --help --version)--underline[display pattern underlined]'
-    '(-h --help --version)--underline-double[display pattern double underlined]'
-    '(-h --help --version)--blink[display pattern blinking]'
-    '(-h --help --version)--blink-rapid[display pattern blinking]'
-    '(-h --help --version)--negative[display pattern swapping foreground and background]'
-    '(-h --help --version)--hide[hide pattern]'
-  )
-  _arguments -S $arguments
+typeset -A opt_args
+local context state line curcontext="$curcontext"
 
-  case "$state" in
-    config)
-      local -a dirs
-      dirs=( $(pwd) ~/.colorex /usr/share/colorex/configs )
-      _wanted configs expl config _path_files -W dirs -g '*.cfg' && ret=0
-    ;;
-  esac
-}
+_arguments \
+  '(- 1 *)'{-h,--help}'[print program usage]' \
+  '(- 1 *)--version[print program version]' \
+  '*'{-v,--verbose}'[verbose mode]' \
+  '--disable-stderr-filtering[disable STDERR filtering]' \
+  {-f,--config}'[colorex config file]:colorex config:_files -W "( $(pwd) ~/.colorex /usr/share/colorex/configs )" -g "*.cfg(\:r\:t)"' \
+  {-r+,--red}'[display pattern in red]' \
+  {-g+,--green}'[display pattern in green]' \
+  {-y+,--yellow}'[display pattern in yellow]' \
+  {-b+,--blue}'[display pattern in blue]' \
+  {-m+,--magenta}'[display pattern in magenta]' \
+  {-c+,--cyan}'[display pattern in cyan]' \
+  '--start-red[toggle foreground color to red at pattern]' \
+  '--start-green[toggle foreground color to green at pattern]' \
+  '--start-yellow[toggle foreground color to yellow at pattern]' \
+  '--start-blue[toggle foreground color to blue at pattern]' \
+  '--start-magenta[toggle foreground color to magenta at pattern]' \
+  '--start-cyan[toggle foreground color to cyan at pattern]' \
+  '--reset-color[reset foreground color at pattern]' \
+  {-R+,--bred}'[display pattern in red background]' \
+  {-G+,--bgreen}'[display pattern in green background]' \
+  {-Y+,--byellow}'[display pattern in yellow background]' \
+  {-B+,--bblue}'[display pattern in blue background]' \
+  {-M+,--bmagenta}'[display pattern in magenta background]' \
+  {-C+,--bcyan}'[display pattern in cyan background]' \
+  '--start-bred[toggle background color to red at pattern]' \
+  '--start-bgreen[toggle background color to green at pattern]' \
+  '--start-byellow[toggle background color to yellow at pattern]' \
+  '--start-bblue[toggle background color to blue at pattern]' \
+  '--start-bmagenta[toggle background color to magenta at pattern]' \
+  '--start-bcyan[toggle background color to cyan at pattern]' \
+  '--reset-bcolor[reset background color at pattern]' \
+  '--bold[display pattern in bold]' \
+  '--faint[display pattern with decreased intensity]' \
+  '--start-bold[toggle bold on at pattern]' \
+  '--start-faint[toggle faint on at pattern]' \
+  '--reset-intensity[reset text intensity at pattern]' \
+  '--italic[display pattern in italic]' \
+  '--underline[display pattern underlined]' \
+  '--underline-double[display pattern double underlined]' \
+  '--blink[display pattern blinking]' \
+  '--blink-rapid[display pattern blinking]' \
+  '--negative[display pattern swapping foreground and background]' \
+  '--hide[hide pattern]'
 
-_colorex "$@"
+# -*- mode: zsh; sh-indentation: 2; indent-tabs-mode: nil; sh-basic-offset: 2; -*-
+# vim: ft=zsh sw=2 ts=2 et
