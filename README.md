@@ -2,64 +2,72 @@
 
 
 ## Description
+
 **Colorize commands output or STDIN using patterns.**
 
-This is a fork of [Linibou's colorex](http://www.linibou.com/colorex/).
+This is a fork of [Linibou's colorex](http://bitbucket.org/linibou/colorex).
 
 
 ## Features
-Colorex colors parts of commands output or STDIN using words or regexps, for example:
 
+Colorex colors parts of commands output or STDIN using words or regexps.
+Just prepend `colorex` with patterns<=>colors associations to your command,
+for example:
 
-* Ping Google with IP addresses colorized in red:
+* Tail some log file with line containing *ERROR* in red:
 
-    `colorex --red '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com`
+    `colorex --red '.*ERROR.*' -- tail -f /var/log/my.log`
 
+* Ping Google with IP addresses colorized in yellow:
 
-Patterns can be defined in config files. Colorex automatically loads the config file if it is named after the command name.
-Colorex comes bundled with [several configs](http://bazaar.launchpad.net/~colorex/colorex/trunk/files/head:/src/configs) for common commands:
+    `colorex --yellow '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com`
 
+Colorex can also read from STDIN instead of providing a command:
+
+    `tail -f /var/log/my.log | colorex --red '.*ERROR.*'`
+
+Colorex can read patterns<=>colors associations from config files, which
+is the most common way to use it. It automatically uses the config file
+if there is one named after the command name. Colorex comes bundled with
+[several configs](http://bitbucket.org/nicoulaj/colorex/src/1a5e13e44088/src/configs)
+for common commands:
 
 * Colorize the 'diff' command output using the provided config:
 
     `colorex diff file1 file2`
 
 
-* Colorize the 'ping' command output using the provided config:
-
-    `colorex ping www.google.com`
-
-
 * Start JBoss application server with colorized logs:
 
     `colorex --config=jboss -- jboss/bin/run.sh run`
 
-
-Colorex can also read from STDIN instead of providing a command:
-
-* Pipe content to colorex:
-
-    `tail -f some-log-file | colorex --red='\[ERROR\].\*' --yellow='\[WARN\].\*'`
+See `man colorex` for details on how using config files and writing your own ones.
 
 
 ## Installing
 
-### Using the PPA
+### Debian/Ubuntu
 colorex is available as a Debian package in a
 [Launchpad.net PPA](https://launchpad.net/~colorex/+archive/ppa).
-To install on Ubuntu 9.10+, just run the following commands:
+To install on Ubuntu, just run the following commands:
+
     sudo add-apt-repository ppa:colorex/ppa
     sudo apt-get update
     sudo apt-get install colorex
 
+### ArchLinux
+colorex is available in [AUR](TODO).
+
 ### Building from sources
 You can build the .deb package from the sources:
-    bzr branch lp:colorex
+
+    git clone git@bitbucket.org:nicoulaj/colorex.git
     cd colorex
     make
 
 ## Getting started
 After installing the package, call the help or read the man page to get started:
+
     man colorex
     colorex --help
 

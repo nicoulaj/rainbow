@@ -1,24 +1,3 @@
-# ──────────────────────────────────────────────────────────────────────────────────────────────────
-# Licensing
-#   This program is free software: you can redistribute it and/or modify it under the terms of the
-#   GNU General Public License as published by the Free Software Foundation, either version 3
-#   of the License, or (at your option) any later version.
-#   This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
-#   even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#   GNU General Public License for more details.
-#   You should have received a copy of the GNU General Public License along with this program.
-#   If not, see <http://www.gnu.org/licenses/>.
-#
-# Usage
-#   Run 'make' to build the Debian package.
-#
-# Prerequisites
-#   The following packages must be installed:
-#     * debhelper
-#     * devscripts
-#     * make
-# ──────────────────────────────────────────────────────────────────────────────────────────────────
-
 SHELL=/bin/bash
 PKG_NAME=colorex
 DISTRIB=`lsb_release -sc`
@@ -55,9 +34,6 @@ release:
 	@$(MAKE) release-for-distrib DISTRIB=maverick
 	@$(MAKE) release-for-distrib DISTRIB=natty
 	@$(MAKE) release-for-distrib DISTRIB=oneiric
-
-doc: clean
-	@epydoc --config epydoc.cfg
 
 clean:
 	@rm -vf ${OUTPUT_DIR}/*.{dsc,deb,tar.gz,changes,build,dsc,upload}
