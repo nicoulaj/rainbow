@@ -56,7 +56,7 @@ Coming soon.
 Arch Linux
 ~~~~~~~~~
 
-rainbow is available AUR: `rainbow <https://aur.archlinux.org/packages.php?ID=54146>`_/rainbow-git <https://aur.archlinux.org/packages.php?ID=54147>`_.
+rainbow is available AUR: `rainbow <https://aur.archlinux.org/packages.php?ID=54146>`_/`rainbow-git <https://aur.archlinux.org/packages.php?ID=54147>`_.
 
 Building from sources
 ~~~~~~~~~~~~~~~~~~~~~
