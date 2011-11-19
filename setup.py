@@ -2,16 +2,13 @@
 import os, glob
 from distutils.core import setup
 
-def read(fname):
-    return open(os.path.join(os.path.dirname(__file__), fname)).read()
-
 setup(
     name = "rainbow",
-    version = "2.4.1",
+    version = "2.5.0",
     author = "Julien Nicoulaud",
     author_email = "julien.nicoulaud@gmail.com",
     description = ("Colorize commands output or STDIN using patterns."),
-    long_description=read('README.rst'),
+    long_description=open(os.path.join(os.path.dirname(__file__), 'README.rst')).read(),
     license = "GPLv3",
     url = "https://github.com/nicoulaj/rainbow",
     keywords = "color colorize colorizer pattern",

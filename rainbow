@@ -22,7 +22,7 @@ from optparse import OptionParser, OptionGroup
 # Constants & variables
 # ----------------------------------------------------------------------
 
-RAINBOW_VERSION = '2.4.1'
+RAINBOW_VERSION = '2.5.0'
 """
 The script version number.
 
