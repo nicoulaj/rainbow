@@ -1,5 +1,5 @@
 SHELL=/bin/bash
-PKG_NAME=colorex
+PKG_NAME=rainbow
 DISTRIB=`lsb_release -sc`
 VERSION=`cat ${SOURCE_DIR}/VERSION`
 SOURCE_DIR=src
@@ -27,7 +27,7 @@ signed-src-pkg: prepare-changelog
 	@(cd ${SOURCE_DIR} && debuild -S -i -I)
 
 release-for-distrib: clean signed-deb signed-src-pkg
-	@dput ppa:colorex/ppa ${PKG_NAME}_*_source.changes
+	@dput ppa:rainbow/ppa ${PKG_NAME}_*_source.changes
 
 release:
 	@$(MAKE) release-for-distrib DISTRIB=lucid
@@ -42,5 +42,5 @@ clean:
 	         ${SOURCE_DIR}/debian/${PKG_NAME} \
 	         ${SOURCE_DIR}/debian/changelog \
 	         ${SOURCE_DIR}/debian/files \
-	         ${SOURCE_DIR}/colorexc \
+	         ${SOURCE_DIR}/rainbowc \
 	         ${DOC_DIR}

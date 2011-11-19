@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# --------------------------------------------------------------------------------------------------
+# Licensing
+#   This program is free software: you can redistribute it and/or modify
+#   it under the terms of the GNU General Public License as published by
+#   the Free Software Foundation, either version 3 of the License, or
+#   (at your option) any later version.
+#
+#   This program is distributed in the hope that it will be useful,
+#   but WITHOUT ANY WARRANTY; without even the implied warranty of
+#   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#   GNU General Public License for more details.
+#
+#   You should have received a copy of the GNU General Public License
+#   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Description
+#   Bash auto-completion script for the rainbow command.
+# --------------------------------------------------------------------------------------------------
+
+_rainbow()
+{
+  local RAINBOW_CONFIGS_HOME=/usr/share/rainbow/configs
+  local USER_CONFIGS_HOME=~/.rainbow
+
+  cur=${COMP_WORDS[COMP_CWORD]}
+  if [ $COMP_CWORD -eq 1 ]; then
+    COMPREPLY=( $( compgen -W "--version -h --help --disable-stderr-filtering -v -f -r -g -y -b -m -c -R -G -Y -B -M -C --verbose --config --red --green --yellow --blue --magenta --cyan --start-red --start-green --start-yellow --start-blue --start-magenta --start-cyan --reset-color --bred --bgreen --byellow --bblue --bmagenta --bcyan --start-bcyan --start-bred --start-bgreen --start-byellow --start-bblue --start-bmagenta --reset-bcolor --bold --faint --start-bold --start-faint --reset-intensity --italic --underline --underline-double --blink --blink-rapid --negative --hide" -- $cur ) )
+  else
+    first=${COMP_WORDS[1]}
+    case "$first" in
+      --version|-h|--help)
+        COMPREPLY=()
+        ;;
+      *)
+        prev=${COMP_WORDS[COMP_CWORD-1]}
+        case "$prev" in
+          -r|-g|-y|-b|-m|-c|-R|-G|-Y|-B|-M|-C|--red|--green|--yellow|--blue|--magenta|--cyan|--start-red|--start-green|--start-yellow|--start-blue|--start-magenta|--start-cyan|--reset-color|--bred|--bgreen|--byellow|--bblue|--bmagenta|--bcyan|--start-bcyan|--start-bred|--start-bgreen|--start-byellow|--start-bblue|--start-bmagenta|--reset-bcolor|--bold|--faint|--start-bold|--start-faint|--reset-intensity|--italic|--underline|--underline-double|--blink|--blink-rapid|--negative|--hide)
+            COMPREPLY=()
+            ;;
+          -f|--config)
+            COMPREPLY=( $(compgen -f -X "!*.cfg" $cur ) \
+                        $(compgen -d $cur ) \
+                        $(compgen -W "`ls $USER_CONFIGS_HOME 2> /dev/null | grep ".cfg" | sed 's/\(.*\)\.cfg/\1/'`" $cur) \
+                        $(compgen -W "`ls $RAINBOW_CONFIGS_HOME 2> /dev/null | grep ".cfg" | sed 's/\(.*\)\.cfg/\1/'`" $cur) )
+            ;;
+          *)
+            COMPREPLY=( $( compgen -W "-v -f -r -g -y -b -m -c -R -G -Y -B -M -C --disable-stderr-filtering --verbose --config --red --green --yellow --blue --magenta --cyan --start-red --start-green --start-yellow --start-blue --start-magenta --start-cyan --reset-color --bred --bgreen --byellow --bblue --bmagenta --bcyan --start-bcyan --start-bred --start-bgreen --start-byellow --start-bblue --start-bmagenta --reset-bcolor --bold --faint --start-bold --start-faint --reset-intensity --italic --underline --underline-double --blink --blink-rapid --negative --hide" -- $cur ) )
+            ;;
+        esac
+        ;;
+    esac
+  fi
+}
+
+complete -A command -F _rainbow rainbow
