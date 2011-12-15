@@ -1,62 +1,65 @@
 Rainbow
 =======
 
-Description
------------
+**Easily colorize logs or commands output using patterns.**
+::
 
-**Colorize commands output or STDIN using patterns.**
+  rainbow [ --COLOR=PATTERN ... | --conf CONF ] COMMAND
 
-This is a fork of `Linibou's colorex <http://bitbucket.org/linibou/colorex>`_.
 
-Features
+Examples
 --------
 
-Rainbow colors parts of commands output or STDIN using words or regexps.
-Just prepend ``rainbow`` with patterns<=>colors associations to your
+Using patterns
+~~~~~~~~~~~~~~
+Just prepend ``rainbow`` with ``COLOR=PATTERN`` associations to your
 command, for example:
 
--  Tail some log file with lines containing *ERROR* in red:
+-  Tail some log file with lines containing ``ERROR`` in red:
+   ::
 
-   ``rainbow --red '.*ERROR.*' -- tail -f /var/log/my.log``
+     rainbow --red='.*ERROR.*' -- tail -f /var/log/my.log
 
 -  Ping Google with IP addresses colorized in yellow:
+   ::
 
-   ``rainbow --yellow '\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com``
+     rainbow --yellow='\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com
 
 -  Rainbow can also read from STDIN instead of providing a command:
+   ::
 
-   ``tail -f /var/log/my.log | rainbow --red '.*ERROR.*'``
+     tail -f /var/log/my.log | rainbow --red='.*ERROR.*'
 
-Rainbow can read patterns<=>colors associations from config files, which
+Using confs
+~~~~~~~~~~~
+
+Rainbow can read ``COLOR=PATTERN`` associations from config files, which
 is the most common way to use it. It automatically uses the config file
-if there is one named after the command name. Rainbow comes bundled with
-`several
-configs <https://github.com/nicoulaj/rainbow/blob/master/configs>`_
-for common commands:
+if there is one named after the command name in ``~/.rainbow``, or a builtin one:
 
--  Colorize the 'diff' command output using the provided config:
+-  Colorize the ``diff`` command output using the builtin config:
+   ::
 
-   ``rainbow diff file1 file2``
+     rainbow diff file1 file2
 
 -  Start JBoss application server with colorized logs:
+   ::
 
-   ``rainbow --config=jboss -- jboss/bin/run.sh run``
+     rainbow --config=jboss -- jboss/bin/run.sh run
 
-See ``man rainbow`` for details on how using config files and writing
-your own ones.
+The syntax for writing configs is very simple. See the
+`builtin configs <https://github.com/nicoulaj/rainbow/blob/master/configs>`_
+for examples.
 
-Installing
-----------
 
-Debian / Ubuntu based distributions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Installation
+------------
 
-Coming soon.
+Using packages
+~~~~~~~~~~~~~~
 
-Arch Linux
-~~~~~~~~~
-
-rainbow is available AUR: `rainbow <https://aur.archlinux.org/packages.php?ID=54146>`_/`rainbow-git <https://aur.archlinux.org/packages.php?ID=54147>`_.
+- Ubuntu/Debian based distributions: coming soon.
+- Arch Linux : `AUR/rainbow <https://aur.archlinux.org/packages.php?ID=54146>`_ / `AUR/rainbow-git <https://aur.archlinux.org/packages.php?ID=54147>`_.
 
 Building from sources
 ~~~~~~~~~~~~~~~~~~~~~
@@ -69,18 +72,11 @@ You can build from sources this way:
     cd rainbow
     sudo python setup.py install
 
-Getting started
----------------
-
-After installing the package, call the help to get started:
-
-::
-
-    rainbow --help
 
 License
 -------
 
-This project is released under the terms of the `GNU General Public
-License <http://www.gnu.org/licenses/gpl.html>`_. See COPYING for
+This project is a fork of `Linibou's colorex <http://bitbucket.org/linibou/colorex>`_.
+It is is released under the terms of the `GNU General Public
+License <http://www.gnu.org/licenses/gpl.html>`_. See ``COPYING`` for
 details.
