@@ -1,4 +1,10 @@
+# Python distutils build artifacts
 build/
 dist/
 MANIFEST
 
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
