@@ -14,7 +14,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import sys, re, os, logging, configparser
+from __future__ import print_function
+import sys, re, os, logging
+
+if sys.version_info < (3,):
+	import ConfigParser as configparser
+else:
+	import configparser
+
 from optparse import OptionParser, OptionGroup
 
 
@@ -426,8 +433,9 @@ def main():
         else:
             logger.info("No arguments given, using STDIN as input.")
             try:
-                while True:
-                    print(apply_filters(input()))
+
+                for line in sys.stdin:
+                    print(apply_filters(line))
             except (EOFError, KeyboardInterrupt):
                 return 0
 
