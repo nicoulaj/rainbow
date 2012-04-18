@@ -311,11 +311,11 @@ def apply_filters(line):
 
     # Look for each pattern registered.
     for (pattern,pattern_filter) in list(patterns.items()):
+        def replace(match):
+            return pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end']
 
         # Apply filter for each match.
-        for match in pattern_filter['regex'].finditer(line):
-            line = line.replace(match.group(),pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end'])
-
+        line = re.sub(pattern_filter['regex'], replace, line)
     return line.rstrip()
 
 
@@ -433,7 +433,6 @@ def main():
         else:
             logger.info("No arguments given, using STDIN as input.")
             try:
-
                 for line in sys.stdin:
                     print(apply_filters(line))
             except (EOFError, KeyboardInterrupt):
