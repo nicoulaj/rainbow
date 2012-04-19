@@ -445,8 +445,10 @@ def main():
             try:
                 for line in sys.stdin:
                     print(apply_filters(line))
-            except (EOFError, KeyboardInterrupt):
+            except EOFError:
                 return 0
+            except KeyboardInterrupt:
+                return 1
 
     # Raise an error for any other exception.
     except Exception as exc:
