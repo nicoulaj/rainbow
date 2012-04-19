@@ -304,6 +304,11 @@ def process_config(file,options):
 
 
 def populate_replacement_functions(patterns):
+    # We allow multiple instances of the same filter in a single regex
+    # by ignoring number suffix on a group name, e.g "(?P<red>..) (?P<red2>...)"
+    number_suffix = re.compile('\d+$')
+    def strip_number_suffix(s): return re.sub(number_suffix, '', s)
+
     for pattern_filter in patterns.values():
         regex = pattern_filter['regex']
         if not regex.groupindex:
@@ -312,21 +317,25 @@ def populate_replacement_functions(patterns):
                 logger.debug("got match %r, applying filter %s" % (match.group(), pattern_filter))
                 return pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end']
         else:
-            unknown_group_names = set(regex.groupindex.keys()).difference(FILTERS.keys())
+            group_names = set(map(strip_number_suffix, regex.groupindex.keys()))
+            unknown_group_names = group_names.difference(FILTERS.keys())
             assert len(unknown_group_names) == 0, "Unknown group names: " + ", " .join(sorted(unknown_group_names))
-            def replace(match, pattern_filter=pattern_filter):
+            def replace(match, pattern_filter=pattern_filter, group_names=group_names):
+                logger.debug("got match for groups: %s" % (", ".join(sorted(pattern_filter['regex'].groupindex.keys()))))
                 insertions = defaultdict(lambda: '')
                 for group, val in sorted(match.groupdict().items(), key=lambda pair: pattern_filter['regex'].groupindex[pair[0]]):
                     if val is None:
+                        logger.debug("no match for group %s" % (group,))
                         continue
+                    filter = strip_number_suffix(group)
                     offset = match.start()
                     start, end = [pos - offset for pos in match.span(group)]
-                    logger.debug("got match %r, applying filter %s at (%s,%s)" % (val, group, start, end))
+                    logger.debug("got match %r, applying filter %s at (%s,%s)" % (val, filter, start, end))
                     # start after & finish before existing insertions:
-                    insertions[start] += FILTERS[group]['filter_start']
-                    insertions[end] = FILTERS[group]['filter_end'] + insertions[end]
+                    insertions[start] += FILTERS[filter]['filter_start']
+                    insertions[end] = FILTERS[filter]['filter_end'] + insertions[end]
                 # use a list of chars, so that insertions don't throw off indexes for later insertions
-                output = list(match.group(0))
+                output = list(match.group())
                 for (idx, insertion) in sorted(insertions.items(), key=lambda x: x[0]):
                     try:
                         output[idx] = insertion + output[idx]
