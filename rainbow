@@ -432,35 +432,12 @@ def main():
                 else:
                     logger.debug("Could not locate a default config for '%s'.", args[0])
 
-            # Create a pipe.
-            pipe_read, pipe_write = os.pipe()
-
-            # Fork rainbow execution in a child process and execute the target command in the parent process.
-            pid = os.fork()
-
-            # In the child process, connect the pipe and execute the target command.
-            if pid == 0:
-                os.close(pipe_read)
-                os.dup2(pipe_write, sys.stdout.fileno())
-                if options.enable_stderr_filtering == True:
-                    os.dup2(pipe_write, sys.stderr.fileno())
-                os.execvp(args[0],args)
-
-            # In the parent process, apply filters on each line of the pipe output.
-            else:
-                populate_replacement_functions(patterns)
-                os.close(pipe_write)
-                pipe_fd_handle = os.fdopen(pipe_read)
-                while True:
-                    try:
-                        line = pipe_fd_handle.readline()
-                        if line:
-                            print(apply_filters(line[:-1]))
-                        else:
-                            break
-                    except KeyboardInterrupt:
-                        pass
-                os._exit(os.EX_OK)
+            import subprocess
+            stderr = subprocess.STDOUT if options.enable_stderr_filtering else None
+            proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=stderr)
+            for line in proc.stdout:
+                print(apply_filters(line[:-1]))
+            return proc.wait()
 
         else:
             logger.info("No arguments given, using STDIN as input.")
