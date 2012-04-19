@@ -3,7 +3,7 @@
 <interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" uri="http://gfxmonk.net/dist/0install/rainbow.xml">
 	<name>rainbow</name>
 	<summary>colorize console text</summary>
-	<publish xmlns="http://gfxmonk.net/dist/0install" mode="featured|third-party|package|0tools|ignore"/>
+	<publish xmlns="http://gfxmonk.net/dist/0install" mode="third-party"/>
 	<description>
 Rainbow
 =======
@@ -173,6 +173,10 @@ sudo python setup.py install
 		<implementation id="sha1new=f547afb462db85026023b5347f2e226312e6593e" released="2012-04-18" version="2.5.0-post1">
 			<manifest-digest sha256="2679514e099e719da49b2f0be148d00af5112df212e3b23aaee8aeda47b54bc2"/>
 			<archive href="http://gfxmonk.net/dist/0install/rainbow/rainbow-2.5.0-post1.tgz" size="8337"/>
+		</implementation>
+		<implementation id="sha1new=681da951ccab02158f202f45ba033bf0a9aa93a9" released="2012-04-19" version="2.5.0-post2">
+			<manifest-digest sha256="281566df3b155b93ec0bcb7f016db3feb693eb4678656ff6e1ab5b98f397fc89"/>
+			<archive href="http://gfxmonk.net/dist/0install/rainbow/rainbow-2.5.0-post2.tgz" size="8424"/>
 		</implementation>
 	</group>
 </interface>

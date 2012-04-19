@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name = "rainbow",
-    version = "2.5.0-post1",
+    version = "2.5.0-post2",
     author = "Julien Nicoulaud",
     author_email = "julien.nicoulaud@gmail.com",
     description = ("Colorize commands output or STDIN using patterns."),
