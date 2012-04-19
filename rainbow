@@ -309,6 +309,7 @@ def populate_replacement_functions(patterns):
         if not regex.groupindex:
             # normal highlighting
             def replace(match, pattern_filter=pattern_filter):
+                logger.debug("got match %r, applying filter %s" % (match.group(), pattern_filter))
                 return pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end']
         else:
             unknown_group_names = set(regex.groupindex.keys()).difference(FILTERS.keys())
@@ -318,7 +319,9 @@ def populate_replacement_functions(patterns):
                 for group, val in sorted(match.groupdict().items(), key=lambda pair: pattern_filter['regex'].groupindex[pair[0]]):
                     if val is None:
                         continue
-                    start, end = match.span(group)
+                    offset = match.start()
+                    start, end = [pos - offset for pos in match.span(group)]
+                    logger.debug("got match %r, applying filter %s at (%s,%s)" % (val, group, start, end))
                     # start after & finish before existing insertions:
                     insertions[start] += FILTERS[group]['filter_start']
                     insertions[end] = FILTERS[group]['filter_end'] + insertions[end]
@@ -329,6 +332,7 @@ def populate_replacement_functions(patterns):
                         output[idx] = insertion + output[idx]
                     except IndexError:
                         output.insert(idx, insertion)
+                logger.debug(repr(output))
                 return ''.join(output)
 
         pattern_filter['replace'] = replace
