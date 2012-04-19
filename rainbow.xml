@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type='text/xsl' href='interface.xsl'?>
+<interface xmlns="http://zero-install.sourceforge.net/2004/injector/interface" uri="http://gfxmonk.net/dist/0install/rainbow.xml">
+	<name>rainbow</name>
+	<summary>colorize console text</summary>
+	<publish xmlns="http://gfxmonk.net/dist/0install" mode="third-party"/>
+	<description>
+Rainbow
+=======
+
+**Easily colorize logs or commands output using patterns.**
+::
+
+  rainbow [ --COLOR=PATTERN ... | --conf CONF ] COMMAND
+
+
+Examples
+--------
+
+Using patterns
+~~~~~~~~~~~~~~
+Just prepend ``rainbow`` with ``COLOR=PATTERN`` associations to your
+command, for example:
+
+-  Tail some log file with lines containing ``ERROR`` in red:
+   ::
+
+     rainbow --red='.*ERROR.*' -- tail -f /var/log/my.log
+
+-  Ping Google with IP addresses colorized in yellow:
+   ::
+
+     rainbow --yellow='\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com
+
+-  Rainbow can also read from STDIN instead of providing a command:
+   ::
+
+     tail -f /var/log/my.log | rainbow --red='.*ERROR.*'
+
+Using confs
+~~~~~~~~~~~
+
+Rainbow can read ``COLOR=PATTERN`` associations from config files, which
+is the most common way to use it. It automatically uses the config file
+if there is one named after the command name in ``~/.rainbow``, or a builtin one:
+
+-  Colorize the ``diff`` command output using the builtin config:
+   ::
+
+     rainbow diff file1 file2
+
+-  Start JBoss application server with colorized logs:
+   ::
+
+     rainbow --config=jboss -- jboss/bin/run.sh run
+
+The syntax for writing configs is very simple. See the
+`builtin configs &lt;https://github.com/nicoulaj/rainbow/blob/master/configs&gt;`_
+for examples.
+
+
+Installation
+------------
+
+Using packages
+~~~~~~~~~~~~~~
+
+- Ubuntu/Debian based distributions: coming soon.
+- Arch Linux : `AUR/rainbow &lt;https://aur.archlinux.org/packages.php?ID=54146&gt;`_ / `AUR/rainbow-git &lt;https://aur.archlinux.org/packages.php?ID=54147&gt;`_.
+
+Building from sources
+~~~~~~~~~~~~~~~~~~~~~
+
+You can build from sources this way:
+
+::
+
+    git clone git://github.com/nicoulaj/rainbow.git
+    cd rainbow
+    sudo python setup.py install
+
+
+License
+-------
+
+This project is a fork of `Linibou's colorex &lt;http://bitbucket.org/linibou/colorex&gt;`_.
+It is is released under the terms of the `GNU General Public
+License &lt;http://www.gnu.org/licenses/gpl.html&gt;`_. See ``COPYING`` for
+details.
+	</description>
+	<homepage>___</homepage>
+	<package-implementation distributions="Debian|RPM" package="___"/>
+	<rich-description xmlns="http://gfxmonk.net/dist/0install">
+		<div xmlns="http://www.w3.org/1999/xhtml">
+			<h1 id="rainbow">Rainbow</h1>
+			<p>
+				<strong>Easily colorize logs or commands output using patterns.</strong>
+			</p>
+			<pre>
+				<code>rainbow [ --COLOR=PATTERN ... | --conf CONF ] COMMAND
+</code>
+			</pre>
+			<h2 id="examples">Examples</h2>
+			<h3 id="using-patterns">Using patterns</h3>
+			<p>Just prepend <code>rainbow</code> with <code>COLOR=PATTERN</code> associations to your command, for example:</p>
+			<ul>
+				<li>
+					<p>Tail some log file with lines containing <code>ERROR</code> in red:</p>
+					<pre>
+						<code>rainbow --red='.*ERROR.*' -- tail -f /var/log/my.log
+</code>
+					</pre>
+				</li>
+				<li>
+					<p>Ping Google with IP addresses colorized in yellow:</p>
+					<pre>
+						<code>rainbow --yellow='\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com
+</code>
+					</pre>
+				</li>
+				<li>
+					<p>Rainbow can also read from STDIN instead of providing a command:</p>
+					<pre>
+						<code>tail -f /var/log/my.log | rainbow --red='.*ERROR.*'
+</code>
+					</pre>
+				</li>
+			</ul>
+			<h3 id="using-confs">Using confs</h3>
+			<p>Rainbow can read <code>COLOR=PATTERN</code> associations from config files, which is the most common way to use it. It automatically uses the config file if there is one named after the command name in <code>~/.rainbow</code>, or a builtin one:</p>
+			<ul>
+				<li>
+					<p>Colorize the <code>diff</code> command output using the builtin config:</p>
+					<pre>
+						<code>rainbow diff file1 file2
+</code>
+					</pre>
+				</li>
+				<li>
+					<p>Start JBoss application server with colorized logs:</p>
+					<pre>
+						<code>rainbow --config=jboss -- jboss/bin/run.sh run
+</code>
+					</pre>
+				</li>
+			</ul>
+			<p>The syntax for writing configs is very simple. See the <a href="https://github.com/nicoulaj/rainbow/blob/master/configs">builtin configs</a> for examples.</p>
+			<h2 id="installation">Installation</h2>
+			<h3 id="using-packages">Using packages</h3>
+			<ul>
+				<li>Ubuntu/Debian based distributions: coming soon.</li>
+				<li>Arch Linux : <a href="https://aur.archlinux.org/packages.php?ID=54146">AUR/rainbow</a> / <a href="https://aur.archlinux.org/packages.php?ID=54147">AUR/rainbow-git</a>.</li>
+			</ul>
+			<h3 id="building-from-sources">Building from sources</h3>
+			<p>You can build from sources this way:</p>
+			<pre>
+				<code>git clone git://github.com/nicoulaj/rainbow.git
+cd rainbow
+sudo python setup.py install
+</code>
+			</pre>
+			<h2 id="license">License</h2>
+			<p>This project is a fork of <a href="http://bitbucket.org/linibou/colorex">Linibou's colorex</a>. It is is released under the terms of the <a href="http://www.gnu.org/licenses/gpl.html">GNU General Public License</a>. See <code>COPYING</code> for details.</p>
+		</div>
+	</rich-description>
+	<group main="rainbow">
+		<command name="run" path="rainbow">
+			<runner interface="http://repo.roscidus.com/python/python"/>
+		</command>
+		<requires interface="http://repo.roscidus.com/python/python"/>
+		<environment insert="" mode="prepend" name="PATH"/>
+		<environment insert="configs" mode="replace" name="RAINBOW_CONFIGS"/>
+		<implementation id="sha1new=f547afb462db85026023b5347f2e226312e6593e" released="2012-04-18" version="2.5.0-post1">
+			<manifest-digest sha256="2679514e099e719da49b2f0be148d00af5112df212e3b23aaee8aeda47b54bc2"/>
+			<archive href="http://gfxmonk.net/dist/0install/rainbow/rainbow-2.5.0-post1.tgz" size="8337"/>
+		</implementation>
+		<implementation id="sha1new=681da951ccab02158f202f45ba033bf0a9aa93a9" released="2012-04-19" version="2.5.0-post2">
+			<manifest-digest sha256="281566df3b155b93ec0bcb7f016db3feb693eb4678656ff6e1ab5b98f397fc89"/>
+			<archive href="http://gfxmonk.net/dist/0install/rainbow/rainbow-2.5.0-post2.tgz" size="8424"/>
+		</implementation>
+	</group>
+</interface>

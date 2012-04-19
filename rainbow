@@ -14,8 +14,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import sys, re, os, logging, configparser
+from __future__ import print_function
+import sys, re, os, logging
+from collections import defaultdict
+import subprocess
 from optparse import OptionParser, OptionGroup
+
+if sys.version_info < (3,):
+	import ConfigParser as configparser
+else:
+	import configparser
+
 
 
 # ----------------------------------------------------------------------
@@ -29,7 +38,7 @@ The script version number.
 @type: string
 """
 
-RAINBOW_CONFIGS_HOME = os.path.join(os.sep,'usr','share','rainbow','configs')
+RAINBOW_CONFIGS_HOME = os.environ.get('RAINBOW_CONFIGS', None) or os.path.join(os.sep,'usr','share','rainbow','configs')
 """
 The location where rainbow configs are stored.
 
@@ -96,7 +105,8 @@ FILTERS = {
   'blink':              {                      'help': 'display BLINK pattern blinking',                               'filter_start': chr(27)+'[5m',  'filter_end': chr(27)+'[25m' },
   'blink-rapid':        {                      'help': 'display BLINK pattern blinking',                               'filter_start': chr(27)+'[6m',  'filter_end': chr(27)+'[25m' },
   'negative':           {                      'help': 'display NEGATIVE pattern swapping foreground and background',  'filter_start': chr(27)+'[7m',  'filter_end': chr(27)+'[27m' },
-  'hide':               {                      'help': 'hide HIDE pattern',                                            'filter_start': chr(27)+'[8m',  'filter_end': chr(27)+'[28m' }
+  'hide':               {                      'help': 'hide HIDE pattern',                                            'filter_start': chr(27)+'[8m',  'filter_end': chr(27)+'[28m' },
+  'match':              {                      'help': 'no effect (used for multiple named group matching, e.g "(?P<red>TEXT)")', 'filter_start': '',  'filter_end': ''             }
  }
 """
 A dictionary of the filters available in the scripts.
@@ -118,7 +128,7 @@ FILTER_GROUPS = [
     'filters': [ 'bold', 'faint', 'start-bold', 'start-faint', 'reset-intensity' ] },
   { 'name': 'Other formattings',
     'help': 'Use these options to associate patterns to text formattings. Some of the filters may not work on all terminals.',
-    'filters': [ 'italic', 'underline', 'underline-double', 'blink', 'blink-rapid', 'negative', 'hide' ] }
+    'filters': [ 'italic', 'underline', 'underline-double', 'blink', 'blink-rapid', 'negative', 'hide', 'match' ] }
  ]
 """
 A dictionary defining groups of filters.
@@ -262,7 +272,7 @@ def process_config(file,options):
     logger.debug("Parsing the config '%s'.", file)
 
     # Parse the configuration file
-    configParser = configparser.ConfigParser()
+    configParser = configparser.RawConfigParser()
     configParser.read(file)
 
     # Process general section
@@ -283,13 +293,58 @@ def process_config(file,options):
 
     # Process filters section
     if configParser.has_section('filters'):
-        for filter in configParser.options("filters"):
+        for filter, pattern in configParser.items("filters"):
             if filter in FILTERS:
-                register_pattern_with_filter(configParser.get("filters",filter),filter)
+                for pattern in pattern.splitlines():
+                    register_pattern_with_filter(pattern,filter)
             else:
                 logger.warning("Unknown filter '%s'.", filter)
 
     logger.info("Loaded config '%s'.", file)
+
+
+def populate_replacement_functions(patterns):
+    # We allow multiple instances of the same filter in a single regex
+    # by ignoring number suffix on a group name, e.g "(?P<red>..) (?P<red2>...)"
+    number_suffix = re.compile('\d+$')
+    def strip_number_suffix(s): return re.sub(number_suffix, '', s)
+
+    for pattern_filter in patterns.values():
+        regex = pattern_filter['regex']
+        if not regex.groupindex:
+            # normal highlighting
+            def replace(match, pattern_filter=pattern_filter):
+                logger.debug("got match %r, applying filter %s" % (match.group(), pattern_filter))
+                return pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end']
+        else:
+            group_names = set(map(strip_number_suffix, regex.groupindex.keys()))
+            unknown_group_names = group_names.difference(FILTERS.keys())
+            assert len(unknown_group_names) == 0, "Unknown group names: " + ", " .join(sorted(unknown_group_names))
+            def replace(match, pattern_filter=pattern_filter, group_names=group_names):
+                logger.debug("got match for groups: %s" % (", ".join(sorted(pattern_filter['regex'].groupindex.keys()))))
+                insertions = defaultdict(lambda: '')
+                for group, val in sorted(match.groupdict().items(), key=lambda pair: pattern_filter['regex'].groupindex[pair[0]]):
+                    if val is None:
+                        logger.debug("no match for group %s" % (group,))
+                        continue
+                    filter = strip_number_suffix(group)
+                    offset = match.start()
+                    start, end = [pos - offset for pos in match.span(group)]
+                    logger.debug("got match %r, applying filter %s at (%s,%s)" % (val, filter, start, end))
+                    # start after & finish before existing insertions:
+                    insertions[start] += FILTERS[filter]['filter_start']
+                    insertions[end] = FILTERS[filter]['filter_end'] + insertions[end]
+                # use a list of chars, so that insertions don't throw off indexes for later insertions
+                output = list(match.group())
+                for (idx, insertion) in sorted(insertions.items(), key=lambda x: x[0]):
+                    try:
+                        output[idx] = insertion + output[idx]
+                    except IndexError:
+                        output.insert(idx, insertion)
+                logger.debug(repr(output))
+                return ''.join(output)
+
+        pattern_filter['replace'] = replace
 
 
 def apply_filters(line):
@@ -303,13 +358,11 @@ def apply_filters(line):
     """
 
     # Look for each pattern registered.
-    for (pattern,pattern_filter) in list(patterns.items()):
+    for pattern_filter in patterns.values():
 
         # Apply filter for each match.
-        for match in pattern_filter['regex'].finditer(line):
-            line = line.replace(match.group(),pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end'])
-
-    return line.rstrip()
+        line = re.sub(pattern_filter['regex'], pattern_filter['replace'], line)
+    return line
 
 
 def main():
@@ -394,42 +447,23 @@ def main():
                 else:
                     logger.debug("Could not locate a default config for '%s'.", args[0])
 
-            # Create a pipe.
-            pipe_read, pipe_write = os.pipe()
-
-            # Fork rainbow execution in a child process and execute the target command in the parent process.
-            pid = os.fork()
-
-            # In the child process, connect the pipe and execute the target command.
-            if pid == 0:
-                os.close(pipe_read)
-                os.dup2(pipe_write, sys.stdout.fileno())
-                if options.enable_stderr_filtering == True:
-                    os.dup2(pipe_write, sys.stderr.fileno())
-                os.execvp(args[0],args)
-
-            # In the parent process, apply filters on each line of the pipe output.
-            else:
-                os.close(pipe_write)
-                pipe_fd_handle = os.fdopen(pipe_read)
-                while True:
-                    try:
-                        line = pipe_fd_handle.readline()
-                        if line:
-                            print(apply_filters(line[:-1]))
-                        else:
-                            break
-                    except KeyboardInterrupt:
-                        pass
-                os._exit(os.EX_OK)
+            populate_replacement_functions(patterns)
+            stderr = subprocess.STDOUT if options.enable_stderr_filtering else None
+            proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=stderr)
+            for line in proc.stdout:
+                print(apply_filters(line.rstrip('\r\n')))
+            return proc.wait()
 
         else:
             logger.info("No arguments given, using STDIN as input.")
+            populate_replacement_functions(patterns)
             try:
-                while True:
-                    print(apply_filters(input()))
-            except (EOFError, KeyboardInterrupt):
+                for line in sys.stdin:
+                    print(apply_filters(line.strip('\r\n')))
+            except EOFError:
                 return 0
+    except KeyboardInterrupt:
+        return 1
 
     # Raise an error for any other exception.
     except Exception as exc:
