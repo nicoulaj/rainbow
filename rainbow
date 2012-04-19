@@ -272,7 +272,7 @@ def process_config(file,options):
     logger.debug("Parsing the config '%s'.", file)
 
     # Parse the configuration file
-    configParser = configparser.ConfigParser()
+    configParser = configparser.RawConfigParser()
     configParser.read(file)
 
     # Process general section
@@ -293,9 +293,10 @@ def process_config(file,options):
 
     # Process filters section
     if configParser.has_section('filters'):
-        for filter in configParser.options("filters"):
+        for filter, pattern in configParser.items("filters"):
             if filter in FILTERS:
-                register_pattern_with_filter(configParser.get("filters",filter),filter)
+                for pattern in pattern.splitlines():
+                    register_pattern_with_filter(pattern,filter)
             else:
                 logger.warning("Unknown filter '%s'.", filter)
 
