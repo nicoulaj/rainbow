@@ -423,8 +423,10 @@ def main():
             try:
                 while True:
                     print(apply_filters(input_()))
-            except (EOFError, KeyboardInterrupt):
+            except EOFError:
                 return 0
+            except KeyboardInterrupt:
+                return 1
             finally:
                 reset_all()
 
