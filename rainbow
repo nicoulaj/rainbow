@@ -17,13 +17,14 @@
 from __future__ import print_function
 import sys, re, os, logging
 from collections import defaultdict
+import subprocess
+from optparse import OptionParser, OptionGroup
 
 if sys.version_info < (3,):
 	import ConfigParser as configparser
 else:
 	import configparser
 
-from optparse import OptionParser, OptionGroup
 
 
 # ----------------------------------------------------------------------
@@ -347,7 +348,7 @@ def apply_filters(line):
 
         # Apply filter for each match.
         line = re.sub(pattern_filter['regex'], pattern_filter['replace'], line)
-    return line.rstrip()
+    return line
 
 
 def main():
@@ -432,11 +433,11 @@ def main():
                 else:
                     logger.debug("Could not locate a default config for '%s'.", args[0])
 
-            import subprocess
+            populate_replacement_functions(patterns)
             stderr = subprocess.STDOUT if options.enable_stderr_filtering else None
             proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=stderr)
             for line in proc.stdout:
-                print(apply_filters(line[:-1]))
+                print(apply_filters(line.rstrip('\r\n')))
             return proc.wait()
 
         else:
@@ -444,7 +445,7 @@ def main():
             populate_replacement_functions(patterns)
             try:
                 for line in sys.stdin:
-                    print(apply_filters(line))
+                    print(apply_filters(line.strip('\r\n')))
             except EOFError:
                 return 0
             except KeyboardInterrupt:
