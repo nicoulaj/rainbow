@@ -14,8 +14,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import sys, re, os, logging, configparser
+import sys, re, os, logging
 from optparse import OptionParser, OptionGroup
+try:
+    import configparser
+except:
+    import ConfigParser as configparser
 
 
 # ----------------------------------------------------------------------
