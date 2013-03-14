@@ -310,8 +310,7 @@ def apply_filters(line):
     for (pattern,pattern_filter) in list(patterns.items()):
 
         # Apply filter for each match.
-        for match in pattern_filter['regex'].finditer(line):
-            line = line.replace(match.group(),pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end'])
+        line = pattern_filter['regex'].sub(pattern_filter['pattern_start'] + r'\g<0>' + pattern_filter['pattern_end'], line)
 
     return line.rstrip()
 
