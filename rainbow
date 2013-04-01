@@ -442,9 +442,11 @@ def main():
 
         else:
             logger.info("No arguments given, using STDIN as input.")
+            # Support both Python 2 and 3.
+            input_ = raw_input if sys.version_info[0] < 3 else input
             try:
                 while True:
-                    print(apply_filters(raw_input()))
+                    print(apply_filters(input_()))
             except (EOFError, KeyboardInterrupt):
                 return 0
             finally:

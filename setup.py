@@ -1,6 +1,7 @@
 #!/usr/bin/env python
-import os, glob
 from distutils.core import setup
+import glob
+import os
 
 setup(
     name = "rainbow",
@@ -24,6 +25,8 @@ setup(
         "Intended Audience :: System Administrators",
         "Natural Language :: English",
         "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
         "License :: OSI Approved :: GNU General Public License (GPL)",
     ],
     scripts=['rainbow'],
@@ -31,5 +34,5 @@ setup(
       ('/usr/share/rainbow/configs', glob.glob('configs/*')),
       ('/etc/bash_completion.d', ['completion/bash/rainbow']),
       ('/usr/share/zsh/site-functions', ['completion/zsh/_rainbow'])
-    ]
+    ],
 )
