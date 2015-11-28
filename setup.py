@@ -28,8 +28,8 @@ setup(
     ],
     scripts=['rainbow'],
     data_files=[
-      ('/usr/share/rainbow/configs', glob.glob('configs/*')),
-      ('/etc/bash_completion.d', ['completion/bash/rainbow']),
-      ('/usr/share/zsh/site-functions', ['completion/zsh/_rainbow'])
+      ('/usr/local/share/rainbow/configs', glob.glob('configs/*')),
+      ('/usr/local/etc/bash_completion.d', ['completion/bash/rainbow']),
+      ('/usr/local/share/zsh/site-functions', ['completion/zsh/_rainbow'])
     ]
 )
