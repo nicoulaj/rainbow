@@ -33,7 +33,7 @@ The script version number.
 @type: string
 """
 
-RAINBOW_CONFIGS_HOME = os.path.join(os.sep,'usr','share','rainbow','configs')
+RAINBOW_CONFIGS_HOME = os.path.join(os.sep,'usr','local','share','rainbow','configs')
 """
 The location where rainbow configs are stored.
 
