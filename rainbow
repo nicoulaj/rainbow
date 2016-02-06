@@ -310,10 +310,20 @@ def apply_filters(line):
     for (pattern,pattern_filter) in list(patterns.items()):
 
         # Apply filter for each match.
-        for match in pattern_filter['regex'].finditer(line):
-            line = line.replace(match.group(),pattern_filter['pattern_start'] + match.group() + pattern_filter['pattern_end'])
+        line = pattern_filter['regex'].sub(pattern_filter['pattern_start'] + r'\g<0>' + pattern_filter['pattern_end'], line)
 
     return line.rstrip()
+
+
+def reset_all():
+    """
+    Reset color, background color, intensity.
+    """
+
+    sys.stdout.write(chr(27)+'[39m')
+    sys.stdout.write(chr(27)+'[49m')
+    sys.stdout.write(chr(27)+'[22m')
+    sys.stdout.flush()
 
 
 def main():
@@ -416,24 +426,31 @@ def main():
             else:
                 os.close(pipe_write)
                 pipe_fd_handle = os.fdopen(pipe_read)
-                while True:
-                    try:
-                        line = pipe_fd_handle.readline()
-                        if line:
-                            print(apply_filters(line[:-1]))
-                        else:
-                            break
-                    except KeyboardInterrupt:
-                        pass
+                try:
+                    while True:
+                        try:
+                            line = pipe_fd_handle.readline()
+                            if line:
+                                print(apply_filters(line[:-1]))
+                            else:
+                                break
+                        except KeyboardInterrupt:
+                            pass
+                finally:
+                    reset_all()
                 os._exit(os.EX_OK)
 
         else:
             logger.info("No arguments given, using STDIN as input.")
+            # Support both Python 2 and 3.
+            input_ = raw_input if sys.version_info[0] < 3 else input
             try:
                 while True:
-                    print(apply_filters(input()))
+                    print(apply_filters(input_()))
             except (EOFError, KeyboardInterrupt):
                 return 0
+            finally:
+                reset_all()
 
     # Raise an error for any other exception.
     except Exception as exc:
