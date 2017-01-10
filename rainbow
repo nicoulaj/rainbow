@@ -449,7 +449,7 @@ def main():
 
     # Raise an error for any other exception.
     except Exception as exc:
-        logger.error("%s", exc)
+        logger.exception(exc)
         return 1
 
 
