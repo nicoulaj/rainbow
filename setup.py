@@ -5,7 +5,7 @@ import os
 
 setup(
     name = "rainbow",
-    version = "2.5.0",
+    version = "2.6.0",
     author = "Julien Nicoulaud",
     author_email = "julien.nicoulaud@gmail.com",
     description = ("Colorize commands output or STDIN using patterns."),

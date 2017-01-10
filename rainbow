@@ -26,7 +26,7 @@ except:
 # Constants & variables
 # ----------------------------------------------------------------------
 
-RAINBOW_VERSION = '2.5.0'
+RAINBOW_VERSION = '2.6.0'
 """
 The script version number.
 
@@ -188,7 +188,7 @@ def register_pattern_with_filter(pattern,filter_name):
 def handle_command_line_pattern_option(option, opt, value, parser):
     """
     Handle a command line option defining a pattern/filter association.
-    
+
     @param option: the Option instance calling the callback.
     @type option: Option
     @param opt: the option string seen on the command-line.
