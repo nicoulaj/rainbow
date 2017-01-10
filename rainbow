@@ -222,6 +222,19 @@ def handle_command_line_verbosity_option(option, opt, value, parser):
     # Decrease the logger level.
     logger.setLevel(logger.level - 10)
 
+
+def locate_command_config(args):
+    """
+    Try to locate a config from command line arguments and return the corresponding file path.
+
+    @param args: the command line args
+    @type command: string
+    @rtype: string
+    """
+
+    return locate_config(os.path.basename(args[0]))
+
+
 def locate_config(config):
     """
     Try to locate a config and return the corresponding file path.
@@ -245,6 +258,7 @@ def locate_config(config):
             return  os.path.join(dir,config)
         elif os.path.isfile(os.path.join(dir,config + ".cfg")):
             return  os.path.join(dir,config + ".cfg")
+
 
 def process_config(file,options):
     """
@@ -401,7 +415,7 @@ def main():
             # If no pattern defined after parsing options and configs, lookup a default config from the target command name.
             if len(patterns) == 0:
                 logger.debug("No pattern defined, looking for a default config for '%s'." % args[0])
-                config_file = locate_config(args[0])
+                config_file = locate_command_config(args)
                 if config_file:
                     logger.info("No pattern defined, the config '%s' will be loaded." % config_file)
                     process_config(config_file,options)
