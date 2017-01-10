@@ -412,8 +412,11 @@ def main():
             import subprocess
             stderr = subprocess.STDOUT if options.enable_stderr_filtering else None
             proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=stderr)
-            for line in proc.stdout:
-                print(apply_filters(line[:-1]))
+            try:
+              for line in proc.stdout:
+                  print(apply_filters(line[:-1]))
+            except KeyboardInterrupt:
+                return 1
             return proc.wait()
 
         else:
