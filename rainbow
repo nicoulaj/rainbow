@@ -427,8 +427,8 @@ def main():
             stderr = subprocess.STDOUT if options.enable_stderr_filtering else None
             proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=stderr)
             try:
-              for line in proc.stdout:
-                  print(apply_filters(line[:-1]))
+                for line in iter(proc.stdout.readline, ''):
+                    print(apply_filters(line[:-1].decode()))
             except KeyboardInterrupt:
                 return 1
             return proc.wait()
