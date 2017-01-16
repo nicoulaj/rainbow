@@ -29,3 +29,5 @@ MANIFEST
 .idea/
 *.ipr
 *.iws
+.coverage
+htmlcov/
