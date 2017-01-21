@@ -31,16 +31,6 @@ class Filter:
     def __str__(self):
         return self.name
 
-    def __repr__(self):
-        return 'Filter(' \
-               'name=%s,' \
-               'help=%s,' \
-               'short_option=%s,' \
-               'long_option=%s,' \
-               'before=%s,' \
-               'after=%s' \
-               ')' % (self.name, self.help, self.short_option, self.long_option, self.before, self.after)
-
 
 class FilterGroup:
     def __init__(self, name, help, filters):
@@ -50,13 +40,6 @@ class FilterGroup:
 
     def __str__(self):
         return self.name
-
-    def __repr__(self):
-        return 'FilterGroup(' \
-               'name=%s,' \
-               'help=%s,' \
-               'filters=%s' \
-               ')' % (self.name, self.help, self.filters)
 
 
 FILTER_GROUPS = [
@@ -324,16 +307,16 @@ FILTER_GROUPS = [
                    after=ANSI_UNDERLINE),
             Filter(name='underline-double',
                    long_option='underline-double',
-                   help='print pattern underlined',
+                   help='print pattern double underlined',
                    before=ANSI_UNDERLINE_DOUBLE,
                    after=ANSI_RESET_UNDERLINE),
             Filter(name='underline-double-before',
                    long_option='underline-double-before',
-                   help='toggle underline on beginning of pattern',
+                   help='toggle double underline on beginning of pattern',
                    before=ANSI_UNDERLINE_DOUBLE),
             Filter(name='underline-double-after',
                    long_option='underline-double-after',
-                   help='toggle underline on end of pattern',
+                   help='toggle double underline on end of pattern',
                    after=ANSI_UNDERLINE_DOUBLE),
             Filter(name='underline-reset-before',
                    long_option='underline-reset-before',
@@ -396,7 +379,7 @@ FILTER_GROUPS = [
                    before=ANSI_RESET_NEGATIVE),
             Filter(name='negative-reset-after',
                    long_option='negative-reset-after',
-                   help='reset italic on end of pattern',
+                   help='reset negative on end of pattern',
                    after=ANSI_RESET_NEGATIVE),
             Filter(name='hide',
                    long_option='hide',
