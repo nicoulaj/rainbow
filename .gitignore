@@ -30,4 +30,4 @@ MANIFEST
 *.ipr
 *.iws
 .coverage
-htmlcov/
+out/
