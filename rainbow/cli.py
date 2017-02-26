@@ -98,7 +98,7 @@ class CommandLineParser:
         return remaining_args, stdout_transformer, stderr_transformer
 
     def handle_config_option(self, option, opt, value, parser):
-        config_file = self.loader.find_config_file_by_name(value)
+        config_file = self.loader.resolve_config_file(value)
 
         if config_file:
             self.loader.load_config_file(config_file, self.stdout_builder, self.stderr_builder, self.error_handler)

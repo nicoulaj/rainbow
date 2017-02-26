@@ -16,8 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from os.path import basename, isfile, join
-
+from os.path import basename, isfile, join, dirname
 from . import LOGGER
 from .filter import FILTERS_BY_NAME, FILTERS_BY_SHORT_OPTION, FILTERS_BY_LONG_OPTION
 
@@ -37,7 +36,7 @@ class ConfigLoader:
 
         config_name = self.find_config_name_from_command_line(command_line_args)
         if config_name:
-            config_file = self.find_config_file_by_name(config_name)
+            config_file = self.resolve_config_file(config_name)
             if config_file:
                 self.load_config_file(config_file, stdout_builder, stderr_builder, error_handler)
 
@@ -55,25 +54,45 @@ class ConfigLoader:
 
         return basename(command_line_args[0])
 
-    def find_config_file_by_name(self, config_name):
+    def resolve_config_file(self, config, working_directory=None):
 
-        LOGGER.debug('Trying to find config "%s"', config_name)
+        LOGGER.debug('Trying to find config "%s"', config)
 
-        if isfile(config_name):
-            return config_name
+        if isfile(config):
+            return config
+
+        if working_directory:
+            config_file = self.resolve_config_file_in_directory(config, working_directory)
+            if config_file:
+                return config_file
 
         for directory in self.paths:
-            config_file = join(directory, config_name + ".cfg")
-            if isfile(config_file):
-                return config_name
+            config_file = self.resolve_config_file_in_directory(config, directory)
+            if config_file:
+                return config_file
+
+    @staticmethod
+    def resolve_config_file_in_directory(config, directory):
+
+        config_file = join(directory, config)
+        if isfile(config_file):
+            return config_file
+
+        config_file = join(directory, config + ".cfg")
+        if isfile(config_file):
+            return config_file
 
     def load_config_file(self, config_file, stdout_builder, stderr_builder, error_handler=lambda error: None):
 
         LOGGER.debug('Loading the config file "%s"', config_file)
 
         config_parser = configparser.ConfigParser()
-        if not config_parser.read(config_file):
-            error_handler('Could not open config file "%s"' % config_file)
+        try:
+            if not config_parser.read(config_file):
+                error_handler('Could not open config file "%s"' % config_file)
+                return
+        except configparser.DuplicateSectionError as e:
+            error_handler('Duplicate section "%s" in "%s"' % (e.section, config_file))
             return
 
         enable_stderr_filtering = True
@@ -92,21 +111,18 @@ class ConfigLoader:
                                 if not config_import:
                                     error_handler('Empty import in config "%s"' % config_file)
                                 else:
-                                    config_import_stripped = config_import.strip()
-                                    config_import_file = self.find_config_file_by_name(config_import_stripped)
+                                    config_import_file = self.resolve_config_file(config_import,
+                                                                                  dirname(config_file))
                                     if config_import_file:
                                         self.load_config_file(config_import_file, stdout_builder, stderr_builder)
                                     else:
                                         error_handler('Failed to resolve import of "%s" in config "%s"'
-                                                      % (config_import_stripped, config_file))
+                                                      % (config_import, config_file))
 
                     elif key == 'enable-stderr-filtering':
-                        lowercase_value = value.lower()
-                        if lowercase_value in ['true', 'on', 'yes', 'y', '1']:
-                            enable_stderr_filtering = True
-                        elif lowercase_value in ['false', 'off', 'no', 'n', '0']:
-                            enable_stderr_filtering = False
-                        else:
+                        try:
+                            enable_stderr_filtering = config_parser.getboolean(section, 'enable-stderr-filtering')
+                        except ValueError as e:
                             error_handler('Invalid value "%s" for key "%s" in config "%s"' % (value, key, config_file))
 
                     else:
@@ -116,22 +132,23 @@ class ConfigLoader:
 
                 for filter_name, pattern_lines in config_parser.items(section):
 
+                    resolved_filter = \
+                        FILTERS_BY_NAME.get(filter_name) or \
+                        FILTERS_BY_LONG_OPTION.get(filter_name) or \
+                        FILTERS_BY_SHORT_OPTION.get(filter_name)
+
+                    if not resolved_filter:
+                        error_handler('Unknown filter "%s" in config "%s"' % (filter_name, config_file))
+                        continue
+
                     if not pattern_lines:
                         error_handler('Empty pattern for "%s" in config "%s"' % (filter_name, config_file))
+                        continue
 
-                    else:
-                        resolved_filter = \
-                            FILTERS_BY_NAME.get(filter_name) or \
-                            FILTERS_BY_LONG_OPTION.get(filter_name) or \
-                            FILTERS_BY_SHORT_OPTION.get(filter_name)
-
-                        if resolved_filter:
-                            for pattern in pattern_lines.splitlines():
-                                stdout_builder.add_mapping(pattern, resolved_filter)
-                                if enable_stderr_filtering:
-                                    stderr_builder.add_mapping(pattern, resolved_filter)
-                        else:
-                            error_handler('Unknown filter "%s" in config "%s"' % (filter_name, config_file))
+                    for pattern in pattern_lines.splitlines():
+                        stdout_builder.add_mapping(pattern, resolved_filter)
+                        if enable_stderr_filtering:
+                            stderr_builder.add_mapping(pattern, resolved_filter)
 
             else:
                 error_handler('Invalid section "%s" in config "%s"' % (section, config_file))
