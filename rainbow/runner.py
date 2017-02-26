@@ -36,8 +36,7 @@ class CommandLineRunner(Runner):
         self.stderr_transformer = stderr_transformer
 
     def run(self):
-        p = subprocess.Popen(args=self.args,
-                             stdout=subprocess.PIPE)
+        p = subprocess.Popen(args=self.args, stdout=subprocess.PIPE)
         try:
             for line in iter(p.stdout.readline, b''):
                 print(self.stdout_transformer.transform(line[:-1].decode()))
@@ -52,7 +51,7 @@ class STDINRunner(Runner):
         self.transformer = transformer
 
     def run(self):
-        input_ = raw_input if sys.version_info[0] < 3 else input
+        input_ = raw_input if sys.version_info[0] < 3 else input  # noqa: F821
         try:
             while True:
                 print(self.transformer.transform(input_()))

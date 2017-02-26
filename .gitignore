@@ -29,5 +29,5 @@ MANIFEST
 .idea/
 *.ipr
 *.iws
-.coverage
+.coverage*
 out/

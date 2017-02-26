@@ -120,9 +120,10 @@ class ConfigLoader:
                         error_handler('Empty pattern for "%s" in config "%s"' % (filter_name, config_file))
 
                     else:
-                        resolved_filter = FILTERS_BY_NAME.get(filter_name) or \
-                                          FILTERS_BY_LONG_OPTION.get(filter_name) or \
-                                          FILTERS_BY_SHORT_OPTION.get(filter_name)
+                        resolved_filter = \
+                            FILTERS_BY_NAME.get(filter_name) or \
+                            FILTERS_BY_LONG_OPTION.get(filter_name) or \
+                            FILTERS_BY_SHORT_OPTION.get(filter_name)
 
                         if resolved_filter:
                             for pattern in pattern_lines.splitlines():
