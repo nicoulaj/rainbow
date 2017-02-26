@@ -18,6 +18,8 @@
 #   Bash auto-completion script for the rainbow command.
 # --------------------------------------------------------------------------------------------------
 
+# TODO bash completion out of date
+
 _rainbow()
 {
   local RAINBOW_CONFIGS_HOME=/usr/share/rainbow/configs

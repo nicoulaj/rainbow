@@ -18,6 +18,7 @@
 #   Zsh auto-completion script for the rainbow command.
 # --------------------------------------------------------------------------------------------------
 
+# TODO zsh completion out of date
 
 typeset -A opt_args
 local context state line curcontext="$curcontext"
