@@ -16,22 +16,24 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import pytest
 import re
+
+import pytest
+
 from .test_utils import *
 
 
-@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=filter_group_label)
+@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=str)
 def test_filter_group_has_name(filter_group):
     assert filter_group.name is not None
 
 
-@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=filter_group_label)
+@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=str)
 def test_filter_group_has_help(filter_group):
     assert filter_group.help is not None
 
 
-@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=filter_group_label)
+@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=str)
 def test_filter_group_has_filters(filter_group):
     assert filter_group.filters
 
@@ -61,22 +63,22 @@ def test_filter_group_has_unique_list_of_filters(filter_group_filters):
     assert FILTER_GROUPS_FILTERS.count(filter_group_filters) == 1
 
 
-@pytest.mark.parametrize("filter", FILTERS, ids=filter_label)
+@pytest.mark.parametrize("filter", FILTERS, ids=str)
 def test_filter_has_name(filter):
     assert filter.name
 
 
-@pytest.mark.parametrize("filter", FILTERS, ids=filter_label)
+@pytest.mark.parametrize("filter", FILTERS, ids=str)
 def test_filter_has_help(filter):
     assert filter.help
 
 
-@pytest.mark.parametrize("filter", FILTERS, ids=filter_label)
+@pytest.mark.parametrize("filter", FILTERS, ids=str)
 def test_filter_has_long_option(filter):
     assert filter.long_option
 
 
-@pytest.mark.parametrize("filter", FILTERS, ids=filter_label)
+@pytest.mark.parametrize("filter", FILTERS, ids=str)
 def test_filter_has_before_or_after(filter):
     assert filter.before or filter.after
 
@@ -103,12 +105,12 @@ def test_filter_help_syntax(filter_help):
 
 @pytest.mark.parametrize("filter_short_option", FILTERS_SHORT_OPTIONS)
 def test_filter_has_a_unique_short_option(filter_short_option):
-    assert FILTERS_SHORT_OPTIONS.count(filter_short_option) == 1
+    assert filter_short_option is None or FILTERS_SHORT_OPTIONS.count(filter_short_option) == 1
 
 
 @pytest.mark.parametrize("filter_short_option", FILTERS_SHORT_OPTIONS)
 def test_filter_short_option_syntax(filter_short_option):
-    assert bool(re.compile(r'[a-z]').match(filter_short_option))
+    assert filter_short_option is None or bool(re.compile(r'[a-z]').match(filter_short_option))
 
 
 @pytest.mark.parametrize("filter_long_option", FILTERS_LONG_OPTIONS)

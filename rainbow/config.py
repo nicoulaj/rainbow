@@ -19,56 +19,120 @@
 from os.path import basename, isfile, join
 
 from . import LOGGER
-from .filter import FILTERS_BY_NAME, FILTERS_BY_LONG_OPTION
+from .filter import FILTERS_BY_NAME, FILTERS_BY_SHORT_OPTION, FILTERS_BY_LONG_OPTION
+
+try:
+    import configparser
+except ImportError:
+    import ConfigParser as configparser
 
 
 class ConfigLoader:
     def __init__(self, paths=None):
         self.paths = paths or []
 
-    def load_config_from_command_line(self, command_line_args, settings, colorizer):
+    def load_config_from_command_line(self, command_line_args, stdout_builder, stderr_builder,
+                                      error_handler=lambda error: None):
         LOGGER.debug('Trying to load config from command line "%s".', command_line_args)
-        return self.load_config_by_name(basename(command_line_args[0]), settings, colorizer)
 
-    def load_config_by_name(self, name, settings, colorizer):
+        config_name = self.find_config_name_from_command_line(command_line_args)
+        if config_name:
+            config_file = self.find_config_file_by_name(config_name)
+            if config_file:
+                self.load_config_file(config_file, stdout_builder, stderr_builder, error_handler)
 
-        LOGGER.debug('Trying to load config "%s".', name)
+    @staticmethod
+    def find_config_name_from_command_line(command_line_args):
+
+        if not command_line_args:
+            return
+
+        # TODO detect precommands like 'sudo','builtin', 'command', 'exec', 'nocorrect', 'noglob', 'pkexec'
+        # => skip to first non option argument
+
+        # TODO level 2: detect command wrappers like 'su', 'bash -c', etc
+        # => skip to first non option argument
+
+        return basename(command_line_args[0])
+
+    def find_config_file_by_name(self, config_name):
+
+        LOGGER.debug('Trying to find config "%s"', config_name)
+
+        if isfile(config_name):
+            return config_name
 
         for directory in self.paths:
-            config_file = join(directory, name + ".cfg")
+            config_file = join(directory, config_name + ".cfg")
             if isfile(config_file):
-                return self.load_config_file(config_file, settings, colorizer)
+                return config_name
 
-        LOGGER.error('Could not locate the config "%s".', name)
-        return False
+    def load_config_file(self, config_file, stdout_builder, stderr_builder, error_handler=lambda error: None):
 
-    def load_config_file(self, config_file, settings, colorizer):
+        LOGGER.debug('Loading the config file "%s"', config_file)
 
-        LOGGER.debug('Loading the config file "%s."', config_file)
+        config_parser = configparser.ConfigParser()
+        if not config_parser.read(config_file):
+            error_handler('Could not open config file "%s"' % config_file)
+            return
 
-        result = True
+        enable_stderr_filtering = True
 
-        config_parser = configparser.RawConfigParser()
-        config_parser.read(config_file)
+        for section in config_parser.sections():
 
-        if config_parser.has_section('general'):
+            if section == 'general':
 
-            if config_parser.has_option('general', 'imports'):
-                for config_import in [v.strip() for v in config_parser.get('general', 'imports').split(',')]:
-                    result &= self.load_config_by_name(config_import, settings, colorizer)
+                for key, value in config_parser.items(section):
 
-            if config_parser.has_option('general', 'enable-stderr-filtering'):
-                settings.enable_stderr_filtering = config_parser.get('general', 'enable-stderr-filtering')
+                    if key == 'imports':
+                        if not value:
+                            error_handler('Empty imports section in config "%s"' % config_file)
+                        else:
+                            for config_import in [v.strip() for v in value.split(',')]:
+                                if not config_import:
+                                    error_handler('Empty import in config "%s"' % config_file)
+                                else:
+                                    config_import_stripped = config_import.strip()
+                                    config_import_file = self.find_config_file_by_name(config_import_stripped)
+                                    if config_import_file:
+                                        self.load_config_file(config_import_file, stdout_builder, stderr_builder)
+                                    else:
+                                        error_handler('Failed to resolve import of "%s" in config "%s"'
+                                                      % (config_import_stripped, config_file))
 
-        if config_parser.has_section('filters'):
-            for filter_name, pattern_lines in config_parser.items('filters'):
+                    elif key == 'enable-stderr-filtering':
+                        lowercase_value = value.lower()
+                        if lowercase_value in ['true', 'on', 'yes', 'y', '1']:
+                            enable_stderr_filtering = True
+                        elif lowercase_value in ['false', 'off', 'no', 'n', '0']:
+                            enable_stderr_filtering = False
+                        else:
+                            error_handler('Invalid value "%s" for key "%s" in config "%s"' % (value, key, config_file))
 
-                resolved_filter = FILTERS_BY_NAME[filter_name] or FILTERS_BY_LONG_OPTION[filter_name]
-                if resolved_filter:
-                    for pattern in pattern_lines.splitlines():
-                        colorizer.register_pattern_with_filter(pattern, resolved_filter)
-                else:
-                    LOGGER.warning('Unknown filter "%s."', filter_name)
+                    else:
+                        error_handler('Invalid key "%s" in general section of config "%s"' % (key, config_file))
 
-        LOGGER.info('Loaded config "%s."', config_file)
-        return result
+            elif section == 'filters':
+
+                for filter_name, pattern_lines in config_parser.items(section):
+
+                    if not pattern_lines:
+                        error_handler('Empty pattern for "%s" in config "%s"' % (filter_name, config_file))
+
+                    else:
+                        resolved_filter = FILTERS_BY_NAME.get(filter_name) or \
+                                          FILTERS_BY_LONG_OPTION.get(filter_name) or \
+                                          FILTERS_BY_SHORT_OPTION.get(filter_name)
+
+                        if resolved_filter:
+                            for pattern in pattern_lines.splitlines():
+                                stdout_builder.add_mapping(pattern, resolved_filter)
+                                if enable_stderr_filtering:
+                                    stderr_builder.add_mapping(pattern, resolved_filter)
+                        else:
+                            error_handler('Unknown filter "%s" in config "%s"' % (filter_name, config_file))
+
+            else:
+                error_handler('Invalid section "%s" in config "%s"' % (section, config_file))
+
+        LOGGER.info('Loaded config "%s"', config_file)

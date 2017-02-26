@@ -16,12 +16,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import rainbow.__main__ as main
+from rainbow.__main__ import main as rainbow
+from rainbow.ansi import *
 
 
 def test_exit_code_0():
-    assert main.main(['true']) == 0
+    assert rainbow(['true']) == 0
 
 
 def test_exit_code_1():
-    assert main.main(['false']) == 1
+    assert rainbow(['false']) == 1
+
+
+def test_empty_output(capsys):
+    rainbow(['true'])
+    out, err = capsys.readouterr()
+    assert out == ANSI_RESET_ALL
+    assert err == ANSI_RESET_ALL

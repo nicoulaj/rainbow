@@ -29,52 +29,33 @@ class Runner:
 
 
 class CommandLineRunner(Runner):
-    def __init__(self, args, stdout_colorizer, stderr_colorizer):
+    def __init__(self, args, stdout_transformer, stderr_transformer):
         Runner.__init__(self)
         self.args = args
-        self.stdout_colorizer = stdout_colorizer
-        self.stderr_colorizer = stderr_colorizer
+        self.stdout_transformer = stdout_transformer
+        self.stderr_transformer = stderr_transformer
 
     def run(self):
         p = subprocess.Popen(args=self.args,
-                             stdout=subprocess.PIPE,
-                             stderr=subprocess.PIPE)
+                             stdout=subprocess.PIPE)
         try:
             for line in iter(p.stdout.readline, b''):
-                print(self.stdout_colorizer.colorize(line[:-1].decode()))
-
-                # TODO
-                # stdout = p.stdout
-                # stderr = p.stderr
-                # stdout_fileno = stdout.fileno()
-                # stderr_fileno = stderr.fileno()
-                # while True:
-                #    for fd in select.select([stdout_fileno, stderr_fileno], [], [])[0]:
-                #        if fd == stdout_fileno:
-                #            colorizer = self.stdout_colorizer
-                #            line = stdout.readline()
-                #        else:
-                #            colorizer = self.stderr_colorizer
-                #            line = stderr.readline()
-                #        print(colorizer.colorize(line[:-1].decode()))
-                #    if p.poll() is not None:
-                #        break
-
+                print(self.stdout_transformer.transform(line[:-1].decode()))
         except KeyboardInterrupt:
             return 1
         return p.wait()
 
 
 class STDINRunner(Runner):
-    def __init__(self, colorizer):
+    def __init__(self, transformer):
         Runner.__init__(self)
-        self.colorizer = colorizer
+        self.transformer = transformer
 
     def run(self):
         input_ = raw_input if sys.version_info[0] < 3 else input
         try:
             while True:
-                print(self.colorizer.colorize(input_()))
+                print(self.transformer.transform(input_()))
         except EOFError:
             return 0
         except KeyboardInterrupt:

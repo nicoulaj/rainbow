@@ -33,17 +33,17 @@ def main(args=None):
 
     try:
 
-        (command, settings, colorizer) = CommandLineParser([os.path.curdir,
-                                                            USER_CONFIGS_HOME,
-                                                            RAINBOW_CONFIGS_HOME]).parse(args)
+        (command, stdout_transformer, stderr_transformer) = CommandLineParser([os.path.curdir,
+                                                                               USER_CONFIGS_HOME,
+                                                                               RAINBOW_CONFIGS_HOME]).parse(args)
 
         if command:
             LOGGER.info("Will run command '%s'." % command)
-            runner = CommandLineRunner(command, colorizer, colorizer if settings.enable_stderr_filtering else None)
+            runner = CommandLineRunner(command, stdout_transformer, stderr_transformer)
 
         else:
             LOGGER.info("No arguments given, using STDIN as input.")
-            runner = STDINRunner(colorizer)
+            runner = STDINRunner(stdout_transformer)
 
         return runner.run()
 
@@ -52,7 +52,9 @@ def main(args=None):
         return 1
     finally:
         sys.stdout.write(ANSI_RESET_ALL)
+        sys.stderr.write(ANSI_RESET_ALL)
         sys.stdout.flush()
+        sys.stderr.flush()
 
 
 if __name__ == "__main__":

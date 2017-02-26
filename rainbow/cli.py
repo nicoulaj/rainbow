@@ -19,27 +19,22 @@
 from optparse import OptionParser, OptionGroup
 
 from . import *
-from .colorizer import RegexColorizer
 from .config import ConfigLoader
 from .filter import FILTER_GROUPS, FILTERS_BY_LONG_OPTION
-from .settings import Settings
-
-try:
-    import configparser
-except ImportError:
-    import ConfigParser as configparser
+from .transformer import TransformerBuilder, IdentityTransformer
 
 
 class CommandLineParser:
-    def __init__(self, paths=None):
+    def __init__(self, paths=None, error_handler=lambda error: None):
         self.loader = ConfigLoader(paths)
-        self.settings = None
-        self.colorizer = None
+        self.stdout_builder = None
+        self.stderr_builder = None
+        self.error_handler = error_handler
 
     def parse(self, args):
 
-        self.colorizer = RegexColorizer()
-        self.settings = Settings()
+        self.stdout_builder = TransformerBuilder()
+        self.stderr_builder = TransformerBuilder()
 
         parser = OptionParser(usage='%prog [options] -- command [args...] ',
                               version='%prog ' + RAINBOW_VERSION,
@@ -91,18 +86,34 @@ class CommandLineParser:
 
         (values, remaining_args) = parser.parse_args(args=args)
 
-        if remaining_args and not self.colorizer:
-            self.loader.load_config_from_command_line(remaining_args, self.settings, self.colorizer)
+        if remaining_args and not self.stdout_builder.transformers:
+            self.loader.load_config_from_command_line(remaining_args,
+                                                      self.stdout_builder,
+                                                      self.stderr_builder,
+                                                      self.error_handler)
 
-        self.settings.enable_stderr_filtering = not values.enable_stderr_filtering
+        stdout_transformer = self.stdout_builder.build()
+        stderr_transformer = self.stderr_builder.build() if values.enable_stderr_filtering else IdentityTransformer
 
-        return remaining_args, self.settings, self.colorizer
+        return remaining_args, stdout_transformer, stderr_transformer
 
     def handle_config_option(self, option, opt, value, parser):
-        self.loader.load_config_by_name(value, self.settings, self.colorizer)
+        config_file = self.loader.find_config_file_by_name(value)
+
+        if config_file:
+            self.loader.load_config_file(config_file, self.stdout_builder, self.stderr_builder, self.error_handler)
+        else:
+            parser.error('Could not find config "%s"', value)
 
     def handle_pattern_option(self, option, opt, value, parser):
-        self.colorizer.register_pattern_with_filter(value, FILTERS_BY_LONG_OPTION[option.get_opt_string()[2:]])
+        filter_name = option.get_opt_string()[2:]
+        filter = FILTERS_BY_LONG_OPTION[filter_name]
+
+        if not filter:
+            parser.error('Could not find filter "%s"', filter_name)
+
+        self.stdout_builder.add_mapping(value, filter)
+        self.stderr_builder.add_mapping(value, filter)
 
     @staticmethod
     def handle_verbosity_option(option, opt, value, parser):

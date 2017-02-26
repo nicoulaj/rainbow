@@ -18,7 +18,6 @@
 
 from rainbow.filter import FILTER_GROUPS
 
-
 FILTER_GROUPS_NAMES = [g.name for g in FILTER_GROUPS]
 FILTER_GROUPS_HELPS = [g.help for g in FILTER_GROUPS]
 FILTER_GROUPS_FILTERS = [g.filters for g in FILTER_GROUPS]
@@ -26,13 +25,5 @@ FILTER_GROUPS_FILTERS = [g.filters for g in FILTER_GROUPS]
 FILTERS = [f for g in FILTER_GROUPS for f in g.filters]
 FILTERS_NAMES = [f.name for g in FILTER_GROUPS for f in g.filters]
 FILTERS_HELPS = [f.help for g in FILTER_GROUPS for f in g.filters]
-FILTERS_SHORT_OPTIONS = [f.short_option for g in FILTER_GROUPS for f in g.filters if f.short_option is not None]
+FILTERS_SHORT_OPTIONS = [f.short_option for g in FILTER_GROUPS for f in g.filters]
 FILTERS_LONG_OPTIONS = [f.long_option for g in FILTER_GROUPS for f in g.filters]
-
-
-def filter_group_label(filter_group):
-    return filter_group.__str__()
-
-
-def filter_label(filter):
-    return filter.__str__()
