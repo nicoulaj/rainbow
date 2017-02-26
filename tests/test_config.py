@@ -21,8 +21,10 @@ import sys
 
 from rainbow.ansi import *
 from rainbow.config import *
-from rainbow.transformer import TransformerBuilder, IdentityTransformer, InsertBeforeAndAfterRegexTransformer, \
-    ListTransformer
+from rainbow.transformer import TransformerBuilder
+from rainbow.transformer import IdentityTransformer
+from rainbow.transformer import InsertBeforeAndAfterRegexTransformer
+from rainbow.transformer import ListTransformer
 
 
 def load_config_file(config_file):
@@ -154,7 +156,7 @@ def test_load_config_file_009_two_times_same_filter():
 
 
 # TODO Support of filters in global section not implemented
-@pytest.mark.skip(reason="Not implemented")
+@pytest.mark.skip(reason="Support of filters in global section not implemented")
 def test_load_config_file_010_filter_in_global_section():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config009.cfg')
     assert not errors

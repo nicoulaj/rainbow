@@ -15,3 +15,125 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
+
+import re
+
+from rainbow.ansi import *
+from rainbow.filter import FILTERS_BY_NAME
+from rainbow.transformer import IdentityTransformer
+from rainbow.transformer import InsertAfterRegexTransformer
+from rainbow.transformer import InsertBeforeAndAfterRegexTransformer
+from rainbow.transformer import InsertBeforeRegexTransformer
+from rainbow.transformer import ListTransformer
+from rainbow.transformer import TransformerBuilder
+
+
+def test_transformer001_identity():
+    assert IdentityTransformer().transform("test") == "test"
+
+
+def test_transformer002_before_whole_line_matches():
+    assert InsertBeforeRegexTransformer(re.compile("test"), "BEFORE").transform("test") == "BEFOREtest"
+
+
+def test_transformer003_after_whole_line_matches():
+    assert InsertAfterRegexTransformer(re.compile("test"), "AFTER").transform("test") == "testAFTER"
+
+
+def test_transformer004_before_and_after_whole_line_matches():
+    assert InsertBeforeAndAfterRegexTransformer(re.compile("test"), "BEFORE", "AFTER").transform(
+        "test") == "BEFOREtestAFTER"
+
+
+def test_transformer005_before_partial_line_matches():
+    assert InsertBeforeRegexTransformer(re.compile("test"), "BEFORE").transform("aaatestaaa") == "aaaBEFOREtestaaa"
+
+
+def test_transformer006_after_partial_line_matches():
+    assert InsertAfterRegexTransformer(re.compile("test"), "AFTER").transform("aaatestaaa") == "aaatestAFTERaaa"
+
+
+def test_transformer007_before_and_after_partial_line_matches():
+    assert InsertBeforeAndAfterRegexTransformer(re.compile("test"), "BEFORE", "AFTER").transform(
+        "aaatestaaa") == "aaaBEFOREtestAFTERaaa"
+
+
+def test_transformer008_before_several_matches():
+    assert InsertBeforeRegexTransformer(re.compile("test"), "BEFORE").transform(
+        "AAAtestBBBtestCCC") == "AAABEFOREtestBBBBEFOREtestCCC"
+
+
+def test_transformer009_after_several_matches():
+    assert InsertAfterRegexTransformer(re.compile("test"), "AFTER").transform(
+        "AAAtestBBBtestCCC") == "AAAtestAFTERBBBtestAFTERCCC"
+
+
+def test_transformer010_before_and_after_several_matches():
+    assert InsertBeforeAndAfterRegexTransformer(re.compile("test"), "BEFORE", "AFTER").transform(
+        "AAAtestBBBtestCCC") == "AAABEFOREtestAFTERBBBBEFOREtestAFTERCCC"
+
+
+def test_transformer011_before_only_match_whole_line():
+    assert InsertBeforeRegexTransformer(re.compile("^test$"), "BEFORE").transform(
+        "testA") == "testA"
+
+
+def test_transformer012_after_only_match_whole_line():
+    assert InsertAfterRegexTransformer(re.compile("^test$"), "AFTER").transform(
+        "testA") == "testA"
+
+
+def test_transformer013_before_and_after_only_match_whole_line():
+    assert InsertBeforeAndAfterRegexTransformer(re.compile("^test$"), "BEFORE", "AFTER").transform(
+        "testA") == "testA"
+
+
+def test_transformer014_list_transformer():
+    assert ListTransformer([
+        InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
+        InsertAfterRegexTransformer(re.compile("test"), "AFTER")
+    ]).transform("test") == "BEFOREtestAFTER"
+
+
+def test_transformer015_transformer_builder():
+    builder = TransformerBuilder()
+    builder.add_mapping("test1", FILTERS_BY_NAME['foreground-red'])
+    builder.add_mapping("test2", FILTERS_BY_NAME['background-green-before'])
+    builder.add_mapping("test3", FILTERS_BY_NAME['foreground-yellow-after'])
+    transformer = builder.build()
+    assert isinstance(transformer, ListTransformer)
+    assert isinstance(transformer.transformers[0], InsertBeforeAndAfterRegexTransformer)
+    assert transformer.transformers[0].regex.pattern == 'test1'
+    assert transformer.transformers[0].before == ANSI_FOREGROUND_RED
+    assert transformer.transformers[0].after == ANSI_FOREGROUND_RESET
+    assert isinstance(transformer.transformers[1], InsertBeforeRegexTransformer)
+    assert transformer.transformers[1].regex.pattern == 'test2'
+    assert transformer.transformers[1].before == ANSI_BACKGROUND_GREEN
+    assert isinstance(transformer.transformers[2], InsertAfterRegexTransformer)
+    assert transformer.transformers[2].regex.pattern == 'test3'
+    assert transformer.transformers[2].after == ANSI_FOREGROUND_YELLOW
+
+
+def test_transformer016_list_str():
+    assert ListTransformer([
+        InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
+        InsertAfterRegexTransformer(re.compile("test"), "AFTER")
+    ]).__str__() == 'insert "BEFORE" before "test"\ninsert "AFTER" after "test"'
+
+
+def test_transformer017_identity_str():
+    assert IdentityTransformer().__str__() == 'identity'
+
+
+def test_transformer018_before_str():
+    assert InsertBeforeRegexTransformer(re.compile("test"), "BEFORE").__str__() == 'insert "BEFORE" before "test"'
+
+
+def test_transformer019_after_str():
+    assert InsertAfterRegexTransformer(re.compile("test"), "AFTER").__str__() == 'insert "AFTER" after "test"'
+
+
+def test_transformer020_before_str():
+    assert InsertBeforeAndAfterRegexTransformer(re.compile("test"),
+                                                "BEFORE",
+                                                "AFTER").__str__() == 'insert "BEFORE" before and "AFTER" after "test"'

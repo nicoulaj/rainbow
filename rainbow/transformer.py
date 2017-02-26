@@ -43,7 +43,7 @@ class InsertBeforeRegexTransformer(IdentityTransformer):
         return self.regex.sub(self.before + r'\g<0>', line)
 
     def __str__(self):
-        return 'insert "%s" before "%s"' % (self.before, self.regex)
+        return 'insert "%s" before "%s"' % (self.before, self.regex.pattern)
 
 
 class InsertAfterRegexTransformer(IdentityTransformer):
@@ -56,7 +56,7 @@ class InsertAfterRegexTransformer(IdentityTransformer):
         return self.regex.sub(r'\g<0>' + self.after, line)
 
     def __str__(self):
-        return 'insert "%s" after "%s"' % (self.after, self.regex)
+        return 'insert "%s" after "%s"' % (self.after, self.regex.pattern)
 
 
 class InsertBeforeAndAfterRegexTransformer(IdentityTransformer):
@@ -67,10 +67,10 @@ class InsertBeforeAndAfterRegexTransformer(IdentityTransformer):
         self.after = after
 
     def transform(self, line):
-        return self.regex.sub(self.after + r'\g<0>' + self.before, line)
+        return self.regex.sub(self.before + r'\g<0>' + self.after, line)
 
     def __str__(self):
-        return 'insert "%s" before and "%s" after "%s"' % (self.before, self.after, self.regex)
+        return 'insert "%s" before and "%s" after "%s"' % (self.before, self.after, self.regex.pattern)
 
 
 class ListTransformer(IdentityTransformer):
@@ -84,7 +84,7 @@ class ListTransformer(IdentityTransformer):
         return line
 
     def __str__(self):
-        return os.linesep.join(self.transformers)
+        return os.linesep.join([transformer.__str__() for transformer in self.transformers])
 
 
 class TransformerBuilder:

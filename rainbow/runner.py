@@ -35,6 +35,7 @@ class CommandLineRunner(Runner):
         self.stdout_transformer = stdout_transformer
         self.stderr_transformer = stderr_transformer
 
+    # TODO stderr handling not implemented
     def run(self):
         p = subprocess.Popen(args=self.args, stdout=subprocess.PIPE)
         try:
