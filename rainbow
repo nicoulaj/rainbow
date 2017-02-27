@@ -438,7 +438,15 @@ def main():
                             pass
                 finally:
                     reset_all()
-                os._exit(os.EX_OK)
+                    exec_result = os.wait()
+                    # assert pid == exec_result[0]
+                    exit_status = int(exec_result[1] / 256)
+                    killing_signal = int(exec_result[1] % 256)
+                    # behave exactly like if the child process was invoked directly
+                    if killing_signal != 0:
+                        os.kill(os.getpid(), killing_signal)
+                    else:
+                        return exit_status
 
         else:
             logger.info("No arguments given, using STDIN as input.")
