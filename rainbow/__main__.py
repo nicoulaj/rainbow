@@ -21,7 +21,7 @@ import sys
 from . import *
 from .ansi import ANSI_RESET_ALL
 from .cli import CommandLineParser
-from .runner import CommandLineRunner, STDINRunner
+from .runner import CommandRunner, STDINRunner
 
 
 def main(args=None):
@@ -39,7 +39,7 @@ def main(args=None):
 
         if command:
             LOGGER.info("Will run command '%s'." % command)
-            runner = CommandLineRunner(command, stdout_transformer, stderr_transformer)
+            runner = CommandRunner(command, stdout_transformer, stderr_transformer)
 
         else:
             LOGGER.info("No arguments given, using STDIN as input.")
@@ -55,7 +55,3 @@ def main(args=None):
         sys.stderr.write(ANSI_RESET_ALL)
         sys.stdout.flush()
         sys.stderr.flush()
-
-
-if __name__ == "__main__":
-    sys.exit(main())

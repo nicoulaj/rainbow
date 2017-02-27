@@ -18,19 +18,14 @@
 
 import subprocess
 import sys
+import os
+import signal
+
+from .transformer import IdentityTransformer
 
 
-class Runner:
-    def __init__(self):
-        pass
-
-    def run(self):
-        raise NotImplementedError()
-
-
-class CommandLineRunner(Runner):
-    def __init__(self, args, stdout_transformer, stderr_transformer):
-        Runner.__init__(self)
+class CommandRunner():
+    def __init__(self, args, stdout_transformer=IdentityTransformer(), stderr_transformer=IdentityTransformer()):
         self.args = args
         self.stdout_transformer = stdout_transformer
         self.stderr_transformer = stderr_transformer
@@ -42,21 +37,22 @@ class CommandLineRunner(Runner):
             for line in iter(p.stdout.readline, b''):
                 print(self.stdout_transformer.transform(line[:-1].decode()))
         except KeyboardInterrupt:
-            return 1
+            os.kill(p.pid, signal.SIGINT)
         return p.wait()
 
 
-class STDINRunner(Runner):
-    def __init__(self, transformer):
-        Runner.__init__(self)
+class STDINRunner():
+    def __init__(self,
+                 transformer=IdentityTransformer(),
+                 input_=raw_input if sys.version_info[0] < 3 else input):  # noqa: F821
         self.transformer = transformer
+        self.input_ = input_
 
     def run(self):
-        input_ = raw_input if sys.version_info[0] < 3 else input  # noqa: F821
         try:
             while True:
-                print(self.transformer.transform(input_()))
-        except EOFError:
-            return 0
+                print(self.transformer.transform(self.input_()))
         except KeyboardInterrupt:
             return 1
+        except EOFError:
+            return 0

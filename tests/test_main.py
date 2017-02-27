@@ -16,20 +16,34 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import sys
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
 from rainbow.__main__ import main as rainbow
 from rainbow.ansi import *
 
 
-def test_exit_code_0():
+def test_001_true(capsys):
     assert rainbow(['true']) == 0
-
-
-def test_exit_code_1():
-    assert rainbow(['false']) == 1
-
-
-def test_empty_output(capsys):
-    rainbow(['true'])
     out, err = capsys.readouterr()
     assert out == ANSI_RESET_ALL
+    assert err == ANSI_RESET_ALL
+
+
+def test_002_false(capsys):
+    assert rainbow(['false']) == 1
+    out, err = capsys.readouterr()
+    assert out == ANSI_RESET_ALL
+    assert err == ANSI_RESET_ALL
+
+
+def test_003_read_from_stdin(capsys):
+    sys.stdin = StringIO("line")
+    assert rainbow([]) == 0
+    out, err = capsys.readouterr()
+    assert out == "line\n" + ANSI_RESET_ALL
     assert err == ANSI_RESET_ALL
