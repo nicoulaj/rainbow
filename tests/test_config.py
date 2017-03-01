@@ -40,45 +40,45 @@ def load_config_file(config_file):
     return stdout_builder.build(), stderr_builder.build(), errors
 
 
-def test_find_config_name_from_command_line_001_empty_args():
+def test_find_config_name_from_command_line_empty_args():
     assert not ConfigLoader.find_config_name_from_command_line([])
 
 
-def test_find_config_name_from_command_line_002_one_arg():
+def test_find_config_name_from_command_line_one_arg():
     assert ConfigLoader.find_config_name_from_command_line(['foo']) == 'foo'
 
 
-def test_find_config_name_from_command_line_003_several_args():
+def test_find_config_name_from_command_line_several_args():
     assert ConfigLoader.find_config_name_from_command_line(['foo', 'bar', 'bar']) == 'foo'
 
 
-def test_load_config_file_001_file_does_not_exist():
+def test_load_config_file_file_does_not_exist():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('does_not_exist.cfg')
     assert errors == ['Could not open config file "does_not_exist.cfg"']
 
 
-def test_load_config_file_002_empty_config():
+def test_load_config_file_empty_config():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config001.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_003_empty_filters_section():
+def test_load_config_file_empty_filters_section():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config002.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_004_empty_general_section():
+def test_load_config_file_empty_general_section():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config003.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_005_empty_filters_and_general_sections():
+def test_load_config_file_empty_filters_and_general_sections():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config004.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
@@ -87,14 +87,14 @@ def test_load_config_file_005_empty_filters_and_general_sections():
 
 # TODO Duplicate sections handling not implemented on Python 2
 @pytest.mark.skipif(condition=sys.version_info[0] < 3, reason="Python 2 does not detect duplicate sections")
-def test_load_config_file_006_two_empty_filters_sections():
+def test_load_config_file_two_empty_filters_sections():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config005.cfg')
     assert errors == ['Duplicate section "filters" in "tests/configs/config005.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_007_one_filter():
+def test_load_config_file_one_filter():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config006.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -107,7 +107,7 @@ def test_load_config_file_007_one_filter():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_008_two_different_filters():
+def test_load_config_file_two_different_filters():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config007.cfg')
     assert not errors
     assert isinstance(stdout_transformer, ListTransformer)
@@ -132,7 +132,7 @@ def test_load_config_file_008_two_different_filters():
 
 # TODO Duplicate key support not implemented
 @pytest.mark.skip(reason="Duplicate key support not implemented")
-def test_load_config_file_009_two_times_same_filter():
+def test_load_config_file_two_times_same_filter():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config008.cfg')
     assert not errors
     assert isinstance(stdout_transformer, ListTransformer)
@@ -157,14 +157,14 @@ def test_load_config_file_009_two_times_same_filter():
 
 # TODO Support of filters in global section not implemented
 @pytest.mark.skip(reason="Support of filters in global section not implemented")
-def test_load_config_file_010_filter_in_global_section():
+def test_load_config_file_filter_in_global_section():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config009.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_011_one_filter_and_stderr_setting_enabled():
+def test_load_config_file_one_filter_and_stderr_setting_enabled():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config010.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -177,7 +177,7 @@ def test_load_config_file_011_one_filter_and_stderr_setting_enabled():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_012_one_filter_and_stderr_setting_enabled():
+def test_load_config_file_one_filter_and_stderr_setting_enabled_uppercase():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config011.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -190,7 +190,7 @@ def test_load_config_file_012_one_filter_and_stderr_setting_enabled():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_013_one_filter_and_stderr_setting_disabled():
+def test_load_config_file_one_filter_and_stderr_setting_disabled():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config012.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -200,7 +200,7 @@ def test_load_config_file_013_one_filter_and_stderr_setting_disabled():
     assert stdout_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_014_one_filter_and_stderr_setting_disabled():
+def test_load_config_file_one_filter_and_stderr_setting_disabled_uppercase():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config013.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -210,7 +210,7 @@ def test_load_config_file_014_one_filter_and_stderr_setting_disabled():
     assert stdout_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_015_one_filter_uppercase():
+def test_load_config_file_one_filter_uppercase():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config014.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -223,7 +223,7 @@ def test_load_config_file_015_one_filter_uppercase():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_016_one_filter_extra_spaces_before_regex():
+def test_load_config_file_one_filter_extra_spaces_before_regex():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config015.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -236,21 +236,21 @@ def test_load_config_file_016_one_filter_extra_spaces_before_regex():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_017_unknown_filter():
+def test_load_config_file_unknown_filter():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config016.cfg')
     assert errors == ['Unknown filter "foo" in config "tests/configs/config016.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_018_unresolved_import():
+def test_load_config_file_unresolved_import():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config017.cfg')
     assert errors == ['Failed to resolve import of "foo" in config "tests/configs/config017.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_019_unresolved_import_and_valid_filter():
+def test_load_config_file_unresolved_import_and_valid_filter():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config018.cfg')
     assert errors == ['Failed to resolve import of "foo" in config "tests/configs/config018.cfg"']
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -263,7 +263,7 @@ def test_load_config_file_019_unresolved_import_and_valid_filter():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_020_relative_import_without_extension():
+def test_load_config_file_relative_import_without_extension():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config019.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -276,7 +276,7 @@ def test_load_config_file_020_relative_import_without_extension():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_021_relative_import_with_extension():
+def test_load_config_file_relative_import_with_extension():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config020.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -289,14 +289,14 @@ def test_load_config_file_021_relative_import_with_extension():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_022_invalid_key_in_general_section():
+def test_load_config_file_invalid_key_in_general_section():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config021.cfg')
     assert errors == ['Invalid key "foo" in general section of config "tests/configs/config021.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_023_two_times_same_filter_once_in_config_once_in_import():
+def test_load_config_file_two_times_same_filter_once_in_config_once_in_import():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config022.cfg')
     assert not errors
     assert isinstance(stdout_transformer, ListTransformer)
@@ -319,7 +319,7 @@ def test_load_config_file_023_two_times_same_filter_once_in_config_once_in_impor
     assert stderr_transformer.transformers[1].after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_024_multiple_relative_imports_without_extension():
+def test_load_config_file_multiple_relative_imports_without_extension():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config023.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -332,7 +332,7 @@ def test_load_config_file_024_multiple_relative_imports_without_extension():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_025_filter_using_filter_name():
+def test_load_config_file_filter_using_filter_name():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config024.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -345,42 +345,42 @@ def test_load_config_file_025_filter_using_filter_name():
     assert stderr_transformer.after == ANSI_FOREGROUND_RESET
 
 
-def test_load_config_file_026_filter_with_empty_pattern():
+def test_load_config_file_filter_with_empty_pattern():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config025.cfg')
     assert errors == ['Empty pattern for "red" in config "tests/configs/config025.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_027_empty_imports_section():
+def test_load_config_file_empty_imports_section():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config026.cfg')
     assert errors == ['Empty imports section in config "tests/configs/config026.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_028_multiple_imports_with_empty_one():
+def test_load_config_file_multiple_imports_with_empty_one():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config027.cfg')
     assert errors == ['Empty import in config "tests/configs/config027.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_029_invalid_section():
+def test_load_config_file_invalid_section():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config028.cfg')
     assert errors == ['Invalid section "foo" in config "tests/configs/config028.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_030_invalid_stderr_filtering_value():
+def test_load_config_file_invalid_stderr_filtering_value():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config029.cfg')
     assert errors == ['Invalid value "foo" for key "enable-stderr-filtering" in config "tests/configs/config029.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-def test_load_config_file_031_one_filter_and_stderr_setting_disabled():
+def test_load_config_file_one_filter_and_stderr_setting_disabled():
     (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config030.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
