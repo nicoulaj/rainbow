@@ -16,15 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import subprocess
-import sys
 import os
 import signal
+import subprocess
+import sys
 
+from .ansi import ANSI_RESET_ALL
 from .transformer import IdentityTransformer
 
 
-class CommandRunner():
+class CommandRunner:
     def __init__(self, args, stdout_transformer=IdentityTransformer(), stderr_transformer=IdentityTransformer()):
         self.args = args
         self.stdout_transformer = stdout_transformer
@@ -38,10 +39,15 @@ class CommandRunner():
                 print(self.stdout_transformer.transform(line[:-1].decode()))
         except KeyboardInterrupt:
             os.kill(p.pid, signal.SIGINT)
+        finally:
+            sys.stdout.write(ANSI_RESET_ALL)
+            sys.stderr.write(ANSI_RESET_ALL)
+            sys.stdout.flush()
+            sys.stderr.flush()
         return p.wait()
 
 
-class STDINRunner():
+class STDINRunner:
     def __init__(self,
                  transformer=IdentityTransformer(),
                  input_=raw_input if sys.version_info[0] < 3 else input):  # noqa: F821
@@ -56,3 +62,6 @@ class STDINRunner():
             return 1
         except EOFError:
             return 0
+        finally:
+            sys.stdout.write(ANSI_RESET_ALL)
+            sys.stdout.flush()

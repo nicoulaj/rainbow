@@ -19,7 +19,6 @@
 import sys
 
 from . import *
-from .ansi import ANSI_RESET_ALL
 from .cli import CommandLineParser
 from .runner import CommandRunner, STDINRunner
 
@@ -50,8 +49,3 @@ def main(args=None):
     except Exception as e:
         LOGGER.exception(e)
         return 1
-    finally:
-        sys.stdout.write(ANSI_RESET_ALL)
-        sys.stderr.write(ANSI_RESET_ALL)
-        sys.stdout.flush()
-        sys.stderr.flush()

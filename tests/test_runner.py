@@ -18,22 +18,108 @@
 
 import os
 import signal
+import sys
 from threading import Timer
 from time import sleep
 
 import pytest
 
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
+
+from rainbow.ansi import *
 from rainbow.runner import CommandRunner
 from rainbow.runner import STDINRunner
+from rainbow.transformer import ReplaceTransformer
+
+
+def test_command_line_runner_true(capsys):
+    assert CommandRunner(['true']).run() == 0
+    out, err = capsys.readouterr()
+    assert out == ANSI_RESET_ALL
+    assert err == ANSI_RESET_ALL
+
+
+def test_command_line_runner_false(capsys):
+    assert CommandRunner(['false']).run() == 1
+    out, err = capsys.readouterr()
+    assert out == ANSI_RESET_ALL
+    assert err == ANSI_RESET_ALL
+
+
+def test_command_line_runner_identity(capsys):
+    assert CommandRunner(['/bin/bash', '-c', 'echo "stdout"; echo "stderr" >&2']).run() == 0
+    out, err = capsys.readouterr()
+    assert out == 'stdout\n' + ANSI_RESET_ALL
+    assert err == 'stderr\n' + ANSI_RESET_ALL
+
+
+def test_command_line_runner_stdout_transformer(capsys):
+    assert CommandRunner(
+        args=['/bin/bash', '-c', 'echo "message"; echo "message" >&2'],
+        stdout_transformer=ReplaceTransformer('message', 'REPLACED',)
+    ).run() == 0
+    out, err = capsys.readouterr()
+    assert out == 'REPLACED\n' + ANSI_RESET_ALL
+    assert err == 'message\n' + ANSI_RESET_ALL
+
+
+def test_command_line_runner_stderr_transformer(capsys):
+    assert CommandRunner(
+        args=['/bin/bash', '-c', 'echo "message"; echo "message" >&2'],
+        stderr_transformer=ReplaceTransformer('message', 'REPLACED',)
+    ).run() == 0
+    out, err = capsys.readouterr()
+    assert out == 'message\n' + ANSI_RESET_ALL
+    assert err == 'REPLACED\n' + ANSI_RESET_ALL
+
+
+def test_command_line_runner_stdout_and_stderr_transformers(capsys):
+    assert CommandRunner(
+        args=['/bin/bash', '-c', 'echo "stdout"; echo "stderr" >&2'],
+        stdout_transformer=ReplaceTransformer('stdout', 'STDOUT_REPLACED'),
+        stderr_transformer=ReplaceTransformer('stderr', 'STDERR_REPLACED')
+    ).run() == 0
+    out, err = capsys.readouterr()
+    assert out == 'STDOUT_REPLACED\n' + ANSI_RESET_ALL
+    assert err == 'STDERR_REPLACED\n' + ANSI_RESET_ALL
 
 
 @pytest.mark.timeout(5)
-def test_005_command_line_runner_interrupted():
+def test_command_line_runner_interrupted():
     Timer(0.5, os.kill, [os.getpid(), signal.SIGINT]).start()
     assert CommandRunner(['sleep', '100']).run() == -2
 
 
+def test_stdin_runner_empty(capsys):
+    assert STDINRunner().run() == 0
+    out, err = capsys.readouterr()
+    assert out == ANSI_RESET_ALL
+    assert err == ''
+
+
+def test_stdin_runner_one_line(capsys):
+    sys.stdin = StringIO("line")
+    assert STDINRunner().run() == 0
+    out, err = capsys.readouterr()
+    assert out == "line\n" + ANSI_RESET_ALL
+    assert err == ''
+
+
+def test_stdin_runner_several_lines(capsys):
+    sys.stdin = StringIO("line1\nline2")
+    assert STDINRunner().run() == 0
+    out, err = capsys.readouterr()
+    assert out == "line1\nline2\n" + ANSI_RESET_ALL
+    assert err == ''
+
+
 @pytest.mark.timeout(5)
-def test_006_stdin_runner_interrupted():
+def test_stdin_runner_interrupted(capsys):
     Timer(0.5, os.kill, [os.getpid(), signal.SIGINT]).start()
     assert STDINRunner(input_=lambda: sleep(100)).run() == 1
+    out, err = capsys.readouterr()
+    assert out == ANSI_RESET_ALL
+    assert err == ''

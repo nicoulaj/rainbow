@@ -27,23 +27,23 @@ from rainbow.__main__ import main as rainbow
 from rainbow.ansi import *
 
 
-def test_001_true(capsys):
+def test_true(capsys):
     assert rainbow(['true']) == 0
     out, err = capsys.readouterr()
     assert out == ANSI_RESET_ALL
     assert err == ANSI_RESET_ALL
 
 
-def test_002_false(capsys):
+def test_false(capsys):
     assert rainbow(['false']) == 1
     out, err = capsys.readouterr()
     assert out == ANSI_RESET_ALL
     assert err == ANSI_RESET_ALL
 
 
-def test_003_read_from_stdin(capsys):
+def test_read_from_stdin(capsys):
     sys.stdin = StringIO("line")
     assert rainbow([]) == 0
     out, err = capsys.readouterr()
     assert out == "line\n" + ANSI_RESET_ALL
-    assert err == ANSI_RESET_ALL
+    assert err == ''
