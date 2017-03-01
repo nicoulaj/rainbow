@@ -33,6 +33,32 @@ class IdentityTransformer:
         return 'identity'
 
 
+class ReplaceTransformer(IdentityTransformer):
+    def __init__(self, value, replacement):
+        IdentityTransformer.__init__(self)
+        self.value = value
+        self.replacement = replacement
+
+    def transform(self, line):
+        return line.replace(self.value, self.replacement)
+
+    def __str__(self):
+        return 'replace "%s" with "%s"' % (self.value, self.replacement)
+
+
+class ReplaceRegexTransformer(IdentityTransformer):
+    def __init__(self, regex, replacement):
+        IdentityTransformer.__init__(self)
+        self.regex = regex
+        self.replacement = replacement
+
+    def transform(self, line):
+        return self.regex.sub(self.replacement, line)
+
+    def __str__(self):
+        return 'replace "%s" with "%s"' % (self.regex.pattern, self.replacement)
+
+
 class InsertBeforeRegexTransformer(IdentityTransformer):
     def __init__(self, regex, before):
         IdentityTransformer.__init__(self)
