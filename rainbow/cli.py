@@ -18,7 +18,7 @@
 
 from optparse import OptionParser, OptionGroup
 
-from . import *
+from . import LOGGER, VERSION
 from .config import ConfigLoader
 from .filter import FILTER_GROUPS, FILTERS_BY_LONG_OPTION
 from .transformer import TransformerBuilder, IdentityTransformer
@@ -37,7 +37,7 @@ class CommandLineParser:
         self.stderr_builder = TransformerBuilder()
 
         parser = OptionParser(usage='%prog [options] -- command [args...] ',
-                              version='%prog ' + RAINBOW_VERSION,
+                              version='%prog ' + VERSION,
                               description='Colorize commands output using patterns.')
         parser.formatter.max_help_position = 50
         parser.formatter.width = 150
@@ -48,8 +48,7 @@ class CommandLineParser:
             action='callback',
             callback=self.handle_config_option,
             type='string',
-            help='Load a config file defining patterns. Go to %s for examples. '
-                 'The option can be called several times.' % RAINBOW_CONFIGS_HOME
+            help='Load a config file defining patterns. The option can be called several times.'
         )
         parser.add_option(
             '-v',

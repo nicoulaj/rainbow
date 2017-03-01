@@ -21,7 +21,14 @@ import os
 
 LOGGER = logging.getLogger("RAINBOW")
 
-RAINBOW_VERSION = '2.6.0'
+VERSION = '2.6.0'
 
-RAINBOW_CONFIGS_HOME = os.environ.get('RAINBOW_CONFIGS', os.path.join(os.sep, 'usr', 'share', 'rainbow', 'configs'))
-USER_CONFIGS_HOME = os.path.expanduser('~/.rainbow')
+# TODO Builtin configs should be bundled in the package instead
+# TODO Allow user to override path ?
+DEFAULT_PATH = [
+    os.environ.get('RAINBOW_CONFIGS'),
+    os.path.curdir,
+    os.path.expanduser('~/.rainbow'),
+    os.path.join(os.sep, 'etc', 'rainbow'),
+    os.path.join(os.sep, 'usr', 'share', 'rainbow', 'configs')
+]

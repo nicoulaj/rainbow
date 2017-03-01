@@ -26,3 +26,6 @@ trim_trailing_whitespace = true
 [*.py]
 indent_style = space
 indent_size = 4
+
+[tox.ini]
+indent_size = 1

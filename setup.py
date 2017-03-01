@@ -22,11 +22,11 @@ import os
 
 from setuptools import setup, find_packages
 
-from rainbow import RAINBOW_VERSION
+from rainbow import VERSION
 
 setup(
     name='rainbow',
-    version=RAINBOW_VERSION,
+    version=VERSION,
     author='Julien Nicoulaud',
     author_email='julien.nicoulaud@gmail.com',
     description='Colorize commands output or STDIN using patterns.',

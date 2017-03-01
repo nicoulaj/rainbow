@@ -20,7 +20,8 @@ import re
 
 import pytest
 
-from .test_utils import *
+from .test_utils import FILTERS, FILTERS_NAMES, FILTERS_HELPS, FILTERS_SHORT_OPTIONS, FILTERS_LONG_OPTIONS, \
+    FILTER_GROUPS_NAMES, FILTER_GROUPS, FILTER_GROUPS_HELPS, FILTER_GROUPS_FILTERS
 
 
 @pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=str)

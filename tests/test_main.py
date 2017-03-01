@@ -24,26 +24,26 @@ except ImportError:
     from io import StringIO
 
 from rainbow.__main__ import main as rainbow
-from rainbow.ansi import *
+from rainbow import ansi
 
 
 def test_true(capsys):
     assert rainbow(['true']) == 0
     out, err = capsys.readouterr()
-    assert out == ANSI_RESET_ALL
-    assert err == ANSI_RESET_ALL
+    assert out == ansi.ANSI_RESET_ALL
+    assert err == ansi.ANSI_RESET_ALL
 
 
 def test_false(capsys):
     assert rainbow(['false']) == 1
     out, err = capsys.readouterr()
-    assert out == ANSI_RESET_ALL
-    assert err == ANSI_RESET_ALL
+    assert out == ansi.ANSI_RESET_ALL
+    assert err == ansi.ANSI_RESET_ALL
 
 
 def test_read_from_stdin(capsys):
     sys.stdin = StringIO("line")
     assert rainbow([]) == 0
     out, err = capsys.readouterr()
-    assert out == "line\n" + ANSI_RESET_ALL
+    assert out == "line\n" + ansi.ANSI_RESET_ALL
     assert err == ''

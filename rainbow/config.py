@@ -17,6 +17,7 @@
 # ----------------------------------------------------------------------
 
 from os.path import basename, isfile, join, dirname
+
 from . import LOGGER
 from .filter import FILTERS_BY_NAME, FILTERS_BY_SHORT_OPTION, FILTERS_BY_LONG_OPTION
 
@@ -67,9 +68,10 @@ class ConfigLoader:
                 return config_file
 
         for directory in self.paths:
-            config_file = self.resolve_config_file_in_directory(config, directory)
-            if config_file:
-                return config_file
+            if directory:
+                config_file = self.resolve_config_file_in_directory(config, directory)
+                if config_file:
+                    return config_file
 
     @staticmethod
     def resolve_config_file_in_directory(config, directory):

@@ -18,7 +18,7 @@
 
 import re
 
-from rainbow.ansi import *
+from rainbow import ansi
 from rainbow.filter import FILTERS_BY_NAME
 from rainbow.transformer import IdentityTransformer
 from rainbow.transformer import InsertAfterRegexTransformer
@@ -35,27 +35,27 @@ def test_identity():
 
 
 def test_replace_not_matching():
-    assert ReplaceTransformer('a','b').transform("test") == "test"
+    assert ReplaceTransformer('a', 'b').transform("test") == "test"
 
 
 def test_replace_matching():
-    assert ReplaceTransformer('test','b').transform("test") == "b"
+    assert ReplaceTransformer('test', 'b').transform("test") == "b"
 
 
 def test_replace_multiples_matches():
-    assert ReplaceTransformer('test','b').transform("testtesttest") == "bbb"
+    assert ReplaceTransformer('test', 'b').transform("testtesttest") == "bbb"
 
 
 def test_replace_regex_not_matching():
-    assert ReplaceRegexTransformer(re.compile('a'),'b').transform("test") == "test"
+    assert ReplaceRegexTransformer(re.compile('a'), 'b').transform("test") == "test"
 
 
 def test_replace_regex_matching():
-    assert ReplaceRegexTransformer(re.compile('test'),'b').transform("test") == "b"
+    assert ReplaceRegexTransformer(re.compile('test'), 'b').transform("test") == "b"
 
 
 def test_replace_regex_multiples_matches():
-    assert ReplaceRegexTransformer(re.compile('test'),'b').transform("testtesttest") == "bbb"
+    assert ReplaceRegexTransformer(re.compile('test'), 'b').transform("testtesttest") == "bbb"
 
 
 def test_before_whole_line_matches():
@@ -130,14 +130,14 @@ def test_transformer_builder():
     assert isinstance(transformer, ListTransformer)
     assert isinstance(transformer.transformers[0], InsertBeforeAndAfterRegexTransformer)
     assert transformer.transformers[0].regex.pattern == 'test1'
-    assert transformer.transformers[0].before == ANSI_FOREGROUND_RED
-    assert transformer.transformers[0].after == ANSI_FOREGROUND_RESET
+    assert transformer.transformers[0].before == ansi.ANSI_FOREGROUND_RED
+    assert transformer.transformers[0].after == ansi.ANSI_FOREGROUND_RESET
     assert isinstance(transformer.transformers[1], InsertBeforeRegexTransformer)
     assert transformer.transformers[1].regex.pattern == 'test2'
-    assert transformer.transformers[1].before == ANSI_BACKGROUND_GREEN
+    assert transformer.transformers[1].before == ansi.ANSI_BACKGROUND_GREEN
     assert isinstance(transformer.transformers[2], InsertAfterRegexTransformer)
     assert transformer.transformers[2].regex.pattern == 'test3'
-    assert transformer.transformers[2].after == ANSI_FOREGROUND_YELLOW
+    assert transformer.transformers[2].after == ansi.ANSI_FOREGROUND_YELLOW
 
 
 def test_transformer_list_str():

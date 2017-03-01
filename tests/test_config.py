@@ -16,15 +16,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import pytest
 import sys
 
-from rainbow.ansi import *
-from rainbow.config import *
-from rainbow.transformer import TransformerBuilder
+import pytest
+
+from rainbow import ansi
+from rainbow.config import ConfigLoader
 from rainbow.transformer import IdentityTransformer
 from rainbow.transformer import InsertBeforeAndAfterRegexTransformer
 from rainbow.transformer import ListTransformer
+from rainbow.transformer import TransformerBuilder
 
 
 def load_config_file(config_file):
@@ -38,6 +39,14 @@ def load_config_file(config_file):
                                     lambda error: errors.append(error))
 
     return stdout_builder.build(), stderr_builder.build(), errors
+
+
+def test_resolve_config_file_empty_path():
+    assert not ConfigLoader([]).resolve_config_file("myconfig")
+
+
+def test_resolve_config_file_none_in_path():
+    assert not ConfigLoader([None]).resolve_config_file("myconfig")
 
 
 def test_find_config_name_from_command_line_empty_args():
@@ -101,10 +110,10 @@ def test_load_config_file_one_filter():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_two_different_filters():
@@ -116,18 +125,18 @@ def test_load_config_file_two_different_filters():
     assert isinstance(stdout_transformer.transformers[0], InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.transformers[0].regex.pattern == 'ERROR'
     assert stderr_transformer.transformers[0].regex.pattern == 'ERROR'
-    assert stdout_transformer.transformers[0].before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.transformers[0].before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.transformers[0].after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.transformers[0].after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.transformers[0].before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.transformers[0].before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.transformers[0].after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.transformers[0].after == ansi.ANSI_FOREGROUND_RESET
     assert isinstance(stdout_transformer.transformers[1], InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stdout_transformer.transformers[1], InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.transformers[1].regex.pattern == 'WARN'
     assert stderr_transformer.transformers[1].regex.pattern == 'WARN'
-    assert stdout_transformer.transformers[1].before == ANSI_FOREGROUND_YELLOW
-    assert stderr_transformer.transformers[1].before == ANSI_FOREGROUND_YELLOW
-    assert stdout_transformer.transformers[1].after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.transformers[1].after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.transformers[1].before == ansi.ANSI_FOREGROUND_YELLOW
+    assert stderr_transformer.transformers[1].before == ansi.ANSI_FOREGROUND_YELLOW
+    assert stdout_transformer.transformers[1].after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.transformers[1].after == ansi.ANSI_FOREGROUND_RESET
 
 
 # TODO Duplicate key support not implemented
@@ -141,18 +150,18 @@ def test_load_config_file_two_times_same_filter():
     assert isinstance(stdout_transformer.transformers[0], InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.transformers[0].regex.pattern == 'ERROR'
     assert stderr_transformer.transformers[0].regex.pattern == 'ERROR'
-    assert stdout_transformer.transformers[0].before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.transformers[0].before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.transformers[0].after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.transformers[0].after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.transformers[0].before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.transformers[0].before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.transformers[0].after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.transformers[0].after == ansi.ANSI_FOREGROUND_RESET
     assert isinstance(stdout_transformer.transformers[1], InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stdout_transformer.transformers[1], InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.transformers[1].regex.pattern == 'WARN'
     assert stderr_transformer.transformers[1].regex.pattern == 'WARN'
-    assert stdout_transformer.transformers[1].before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.transformers[1].before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.transformers[1].after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.transformers[1].after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.transformers[1].before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.transformers[1].before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.transformers[1].after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.transformers[1].after == ansi.ANSI_FOREGROUND_RESET
 
 
 # TODO Support of filters in global section not implemented
@@ -171,10 +180,10 @@ def test_load_config_file_one_filter_and_stderr_setting_enabled():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_one_filter_and_stderr_setting_enabled_uppercase():
@@ -184,10 +193,10 @@ def test_load_config_file_one_filter_and_stderr_setting_enabled_uppercase():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_one_filter_and_stderr_setting_disabled():
@@ -196,8 +205,8 @@ def test_load_config_file_one_filter_and_stderr_setting_disabled():
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_one_filter_and_stderr_setting_disabled_uppercase():
@@ -206,8 +215,18 @@ def test_load_config_file_one_filter_and_stderr_setting_disabled_uppercase():
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+
+
+def test_load_config_file_one_filter_and_stderr_setting_disabled_with_no():
+    (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config030.cfg')
+    assert not errors
+    assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
+    assert isinstance(stderr_transformer, IdentityTransformer)
+    assert stdout_transformer.regex.pattern == 'ERROR'
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_one_filter_uppercase():
@@ -217,10 +236,10 @@ def test_load_config_file_one_filter_uppercase():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_one_filter_extra_spaces_before_regex():
@@ -230,10 +249,10 @@ def test_load_config_file_one_filter_extra_spaces_before_regex():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_unknown_filter():
@@ -257,10 +276,10 @@ def test_load_config_file_unresolved_import_and_valid_filter():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_relative_import_without_extension():
@@ -270,10 +289,10 @@ def test_load_config_file_relative_import_without_extension():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_relative_import_with_extension():
@@ -283,10 +302,10 @@ def test_load_config_file_relative_import_with_extension():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_invalid_key_in_general_section():
@@ -305,18 +324,18 @@ def test_load_config_file_two_times_same_filter_once_in_config_once_in_import():
     assert isinstance(stdout_transformer.transformers[0], InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.transformers[0].regex.pattern == 'ERROR'
     assert stderr_transformer.transformers[0].regex.pattern == 'ERROR'
-    assert stdout_transformer.transformers[0].before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.transformers[0].before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.transformers[0].after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.transformers[0].after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.transformers[0].before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.transformers[0].before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.transformers[0].after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.transformers[0].after == ansi.ANSI_FOREGROUND_RESET
     assert isinstance(stdout_transformer.transformers[1], InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stdout_transformer.transformers[1], InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.transformers[1].regex.pattern == 'WARNING'
     assert stderr_transformer.transformers[1].regex.pattern == 'WARNING'
-    assert stdout_transformer.transformers[1].before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.transformers[1].before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.transformers[1].after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.transformers[1].after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.transformers[1].before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.transformers[1].before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.transformers[1].after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.transformers[1].after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_multiple_relative_imports_without_extension():
@@ -326,10 +345,10 @@ def test_load_config_file_multiple_relative_imports_without_extension():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_filter_using_filter_name():
@@ -339,10 +358,10 @@ def test_load_config_file_filter_using_filter_name():
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
     assert stdout_transformer.regex.pattern == 'ERROR'
     assert stderr_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stderr_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET
-    assert stderr_transformer.after == ANSI_FOREGROUND_RESET
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
 
 
 def test_load_config_file_filter_with_empty_pattern():
@@ -378,13 +397,3 @@ def test_load_config_file_invalid_stderr_filtering_value():
     assert errors == ['Invalid value "foo" for key "enable-stderr-filtering" in config "tests/configs/config029.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
-
-
-def test_load_config_file_one_filter_and_stderr_setting_disabled():
-    (stdout_transformer, stderr_transformer, errors) = load_config_file('tests/configs/config030.cfg')
-    assert not errors
-    assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
-    assert isinstance(stderr_transformer, IdentityTransformer)
-    assert stdout_transformer.regex.pattern == 'ERROR'
-    assert stdout_transformer.before == ANSI_FOREGROUND_RED
-    assert stdout_transformer.after == ANSI_FOREGROUND_RESET

@@ -16,9 +16,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import sys
-
-from . import *
+import logging
+from . import LOGGER, DEFAULT_PATH
 from .cli import CommandLineParser
 from .runner import CommandRunner, STDINRunner
 
@@ -31,18 +30,15 @@ def main(args=None):
     LOGGER.setLevel(logging.WARNING)
 
     try:
-
-        (command, stdout_transformer, stderr_transformer) = CommandLineParser([os.path.curdir,
-                                                                               USER_CONFIGS_HOME,
-                                                                               RAINBOW_CONFIGS_HOME]).parse(args)
+        (command, stdout, stderr) = CommandLineParser(DEFAULT_PATH).parse(args)
 
         if command:
             LOGGER.info("Will run command '%s'." % command)
-            runner = CommandRunner(command, stdout_transformer, stderr_transformer)
+            runner = CommandRunner(command, stdout, stderr)
 
         else:
             LOGGER.info("No arguments given, using STDIN as input.")
-            runner = STDINRunner(stdout_transformer)
+            runner = STDINRunner(stdout)
 
         return runner.run()
 
