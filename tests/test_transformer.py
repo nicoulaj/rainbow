@@ -140,13 +140,6 @@ def test_transformer_builder():
     assert transformer.transformers[2].after == ansi.ANSI_FOREGROUND_YELLOW
 
 
-def test_transformer_list_str():
-    assert ListTransformer([
-        InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
-        InsertAfterRegexTransformer(re.compile("test"), "AFTER")
-    ]).__str__() == 'insert "BEFORE" before "test"\ninsert "AFTER" after "test"'
-
-
 def test_transformer_identity_str():
     assert IdentityTransformer().__str__() == 'identity'
 
@@ -168,6 +161,86 @@ def test_transformer_after_str():
 
 
 def test_transformer_before_and_after_str():
-    assert InsertBeforeAndAfterRegexTransformer(re.compile("test"),
-                                                "BEFORE",
+    assert InsertBeforeAndAfterRegexTransformer(re.compile("test"), "BEFORE",
                                                 "AFTER").__str__() == 'insert "BEFORE" before and "AFTER" after "test"'
+
+
+def test_transformer_list_str():
+    assert ListTransformer([
+        InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
+        InsertAfterRegexTransformer(re.compile("test"), "AFTER")
+    ]).__str__() == 'insert "BEFORE" before "test"\ninsert "AFTER" after "test"'
+
+
+def test_transformer_identity_eq():
+    assert IdentityTransformer() == IdentityTransformer()
+
+
+def test_transformer_replace_eq():
+    assert ReplaceTransformer("test", "REPLACEMENT") == ReplaceTransformer("test", "REPLACEMENT")
+
+
+def test_transformer_replace_regex_eq():
+    assert ReplaceRegexTransformer(re.compile("test"), "REPLACEMENT") == ReplaceRegexTransformer(re.compile("test"),
+                                                                                                 "REPLACEMENT")
+
+
+def test_transformer_before_eq():
+    assert InsertBeforeRegexTransformer(re.compile("test"), "BEFORE") == InsertBeforeRegexTransformer(
+        re.compile("test"), "BEFORE")
+
+
+def test_transformer_after_eq():
+    assert InsertAfterRegexTransformer(re.compile("test"), "AFTER") == InsertAfterRegexTransformer(re.compile("test"),
+                                                                                                   "AFTER")
+
+
+def test_transformer_before_and_after_eq():
+    assert InsertBeforeAndAfterRegexTransformer(re.compile("test"), "BEFORE",
+                                                "AFTER") == InsertBeforeAndAfterRegexTransformer(re.compile("test"),
+                                                                                                 "BEFORE", "AFTER")
+
+
+def test_transformer_list_eq():
+    assert ListTransformer([
+        InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
+        InsertAfterRegexTransformer(re.compile("test"), "AFTER")
+    ]) == ListTransformer([
+        InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
+        InsertAfterRegexTransformer(re.compile("test"), "AFTER")
+    ])
+
+
+def test_transformer_replace_not_eq():
+    assert ReplaceTransformer("test", "REPLACEMENT") != ReplaceTransformer("test", "REPLACEMENT2")
+
+
+def test_transformer_replace_regex_not_eq():
+    assert ReplaceRegexTransformer(re.compile("test"), "REPLACEMENT") != ReplaceRegexTransformer(re.compile("test"),
+                                                                                                 "REPLACEMENT2")
+
+
+def test_transformer_before_not_eq():
+    assert InsertBeforeRegexTransformer(re.compile("test"), "BEFORE") != InsertBeforeRegexTransformer(
+        re.compile("test"), "BEFORE2")
+
+
+def test_transformer_after_not_eq():
+    assert InsertAfterRegexTransformer(re.compile("test"), "AFTER") != InsertAfterRegexTransformer(re.compile("test"),
+                                                                                                   "AFTER2")
+
+
+def test_transformer_before_and_after_not_eq():
+    assert InsertBeforeAndAfterRegexTransformer(re.compile("test"), "BEFORE",
+                                                "AFTER") != InsertBeforeAndAfterRegexTransformer(re.compile("test"),
+                                                                                                 "BEFORE", "AFTER2")
+
+
+def test_transformer_list_not_eq():
+    assert ListTransformer([
+        InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
+        InsertAfterRegexTransformer(re.compile("test"), "AFTER")
+    ]) != ListTransformer([
+        InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
+        InsertAfterRegexTransformer(re.compile("test"), "AFTER2")
+    ])

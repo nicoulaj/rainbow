@@ -32,6 +32,9 @@ class IdentityTransformer:
     def __str__(self):
         return 'identity'
 
+    def __eq__(self, other):
+        return isinstance(other, self.__class__)
+
 
 class ReplaceTransformer(IdentityTransformer):
     def __init__(self, value, replacement):
@@ -44,6 +47,9 @@ class ReplaceTransformer(IdentityTransformer):
 
     def __str__(self):
         return 'replace "%s" with "%s"' % (self.value, self.replacement)
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and (self.value, self.replacement) == (other.value, other.replacement)
 
 
 class ReplaceRegexTransformer(IdentityTransformer):
@@ -58,6 +64,9 @@ class ReplaceRegexTransformer(IdentityTransformer):
     def __str__(self):
         return 'replace "%s" with "%s"' % (self.regex.pattern, self.replacement)
 
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and (self.regex, self.replacement) == (other.regex, other.replacement)
+
 
 class InsertBeforeRegexTransformer(IdentityTransformer):
     def __init__(self, regex, before):
@@ -71,6 +80,9 @@ class InsertBeforeRegexTransformer(IdentityTransformer):
     def __str__(self):
         return 'insert "%s" before "%s"' % (self.before, self.regex.pattern)
 
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and (self.regex, self.before) == (other.regex, other.before)
+
 
 class InsertAfterRegexTransformer(IdentityTransformer):
     def __init__(self, regex, after):
@@ -83,6 +95,9 @@ class InsertAfterRegexTransformer(IdentityTransformer):
 
     def __str__(self):
         return 'insert "%s" after "%s"' % (self.after, self.regex.pattern)
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and (self.regex, self.after) == (other.regex, other.after)
 
 
 class InsertBeforeAndAfterRegexTransformer(IdentityTransformer):
@@ -98,6 +113,10 @@ class InsertBeforeAndAfterRegexTransformer(IdentityTransformer):
     def __str__(self):
         return 'insert "%s" before and "%s" after "%s"' % (self.before, self.after, self.regex.pattern)
 
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and (self.regex, self.before, self.after) == \
+                                                     (other.regex, other.before, other.after)
+
 
 class ListTransformer(IdentityTransformer):
     def __init__(self, transformers):
@@ -111,6 +130,9 @@ class ListTransformer(IdentityTransformer):
 
     def __str__(self):
         return os.linesep.join([transformer.__str__() for transformer in self.transformers])
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.transformers == other.transformers
 
 
 class TransformerBuilder:

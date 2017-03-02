@@ -31,6 +31,8 @@ FILTERS_NAMES = [f.name for g in FILTER_GROUPS for f in g.filters]
 FILTERS_HELPS = [f.help for g in FILTER_GROUPS for f in g.filters]
 FILTERS_SHORT_OPTIONS = [f.short_option for g in FILTER_GROUPS for f in g.filters]
 FILTERS_LONG_OPTIONS = [f.long_option for g in FILTER_GROUPS for f in g.filters]
+FILTERS_WITH_SHORT_OPTION = [f for g in FILTER_GROUPS for f in g.filters if f.short_option]
+FILTERS_WITH_LONG_OPTION = [f for g in FILTER_GROUPS for f in g.filters if f.long_option]
 
 
 def all_stdin_types(contents=''):

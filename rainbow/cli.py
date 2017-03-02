@@ -97,20 +97,11 @@ class CommandLineParser:
         return remaining_args, stdout_transformer, stderr_transformer
 
     def handle_config_option(self, option, opt, value, parser):
-        config_file = self.loader.resolve_config_file(value)
-
-        if config_file:
-            self.loader.load_config_file(config_file, self.stdout_builder, self.stderr_builder, self.error_handler)
-        else:
-            parser.error('Could not find config "%s"', value)
+        self.loader.resolve_and_load_config(value, self.stdout_builder, self.stderr_builder, self.error_handler)
 
     def handle_pattern_option(self, option, opt, value, parser):
         filter_name = option.get_opt_string()[2:]
         filter = FILTERS_BY_LONG_OPTION[filter_name]
-
-        if not filter:
-            parser.error('Could not find filter "%s"', filter_name)
-
         self.stdout_builder.add_mapping(value, filter)
         self.stderr_builder.add_mapping(value, filter)
 

@@ -32,7 +32,10 @@ class ConfigLoader:
     def __init__(self, paths=None):
         self.paths = paths or []
 
-    def load_config_from_command_line(self, command_line_args, stdout_builder, stderr_builder,
+    def load_config_from_command_line(self,
+                                      command_line_args,
+                                      stdout_builder,
+                                      stderr_builder,
                                       error_handler=lambda error: None):
         LOGGER.debug('Trying to load config from command line "%s".', command_line_args)
 
@@ -55,6 +58,17 @@ class ConfigLoader:
         # => skip to first non option argument
 
         return basename(command_line_args[0])
+
+    def resolve_and_load_config(self,
+                                config,
+                                stdout_builder,
+                                stderr_builder,
+                                error_handler=lambda error: None):
+        config_file = self.resolve_config_file(config)
+        if config_file:
+            self.load_config_file(config_file, stdout_builder, stderr_builder, error_handler)
+        else:
+            error_handler('Could not resolve config "%s"' % config)
 
     def resolve_config_file(self, config, working_directory=None):
 
