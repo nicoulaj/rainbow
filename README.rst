@@ -1,5 +1,14 @@
-Rainbow .. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=develop:target: https://travis-ci.org/nicoulaj/rainbow
+Rainbow
 =======
+
+.. image:: https://img.shields.io/github/tag/nicoulaj/rainbow.svg
+ :target: https://github.com/nicoulaj/rainbow/releases
+
+.. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=develop
+ :target: https://travis-ci.org/nicoulaj/rainbow
+
+.. image:: https://codecov.io/gh/nicoulaj/rainbow/branch/develop/graph/badge.svg
+ :target: https://codecov.io/gh/nicoulaj/rainbow
 
 **Easily colorize logs or commands output using patterns.**
 ::
