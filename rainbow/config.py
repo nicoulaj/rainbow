@@ -93,7 +93,7 @@ class ConfigLoader:
             if not config_parser.read(config_file):
                 error_handler('Could not open config file "%s"' % config_file)
                 return
-        except configparser.DuplicateSectionError as e:
+        except configparser.DuplicateSectionError as e:  # no cover (inconsistent between Python 2 and 3)
             error_handler('Duplicate section "%s" in "%s"' % (e.section, config_file))
             return
 

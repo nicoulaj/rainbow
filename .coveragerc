@@ -1,0 +1,5 @@
+[report]
+exclude_lines =
+    no cover
+    if __name__  == .__main__.:
+    def __repr__

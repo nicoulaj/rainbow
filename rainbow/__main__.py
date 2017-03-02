@@ -17,6 +17,7 @@
 # ----------------------------------------------------------------------
 
 import logging
+
 from . import LOGGER, DEFAULT_PATH
 from .cli import CommandLineParser
 from .runner import CommandRunner, STDINRunner
@@ -42,6 +43,6 @@ def main(args=None):
 
         return runner.run()
 
-    except Exception as e:
+    except Exception as e:  # no cover
         LOGGER.exception(e)
         return 1
