@@ -1,4 +1,4 @@
-Rainbow
+Rainbow .. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=develop:target: https://travis-ci.org/nicoulaj/rainbow
 =======
 
 **Easily colorize logs or commands output using patterns.**
