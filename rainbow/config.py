@@ -24,7 +24,7 @@ from .filter import FILTERS_BY_NAME, FILTERS_BY_SHORT_OPTION, FILTERS_BY_LONG_OP
 
 try:
     import configparser
-except ImportError:
+except ImportError:  # no cover
     import ConfigParser as configparser
 
 

@@ -69,7 +69,7 @@ def test_unresolvable_config_file_long_option():
 def test_config_file_by_relative_path_short_option():
     (command, stdout_transformer, stderr_transformer, errors) = parse(['-f', 'tests/configs/config006.cfg'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile('ERROR'), FILTERS_BY_NAME['foreground-red'])
+    transformer = TransformerBuilder.make_transformer(re.compile(u'ERROR'), FILTERS_BY_NAME['foreground-red'])
     assert stdout_transformer == transformer
     assert stderr_transformer == transformer
 
@@ -77,7 +77,7 @@ def test_config_file_by_relative_path_short_option():
 def test_config_file_by_relative_path_without_extension_short_option():
     (command, stdout_transformer, stderr_transformer, errors) = parse(['-f', 'tests/configs/config006'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile('ERROR'), FILTERS_BY_NAME['foreground-red'])
+    transformer = TransformerBuilder.make_transformer(re.compile(u'ERROR'), FILTERS_BY_NAME['foreground-red'])
     assert stdout_transformer == transformer
     assert stderr_transformer == transformer
 
@@ -85,7 +85,7 @@ def test_config_file_by_relative_path_without_extension_short_option():
 def test_config_file_by_relative_path_long_option():
     (command, stdout_transformer, stderr_transformer, errors) = parse(['--config', 'tests/configs/config006.cfg'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile('ERROR'), FILTERS_BY_NAME['foreground-red'])
+    transformer = TransformerBuilder.make_transformer(re.compile(u'ERROR'), FILTERS_BY_NAME['foreground-red'])
     assert stdout_transformer == transformer
     assert stderr_transformer == transformer
 
@@ -93,7 +93,7 @@ def test_config_file_by_relative_path_long_option():
 def test_config_file_by_relative_path_without_extension_long_option():
     (command, stdout_transformer, stderr_transformer, errors) = parse(['--config', 'tests/configs/config006'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile('ERROR'), FILTERS_BY_NAME['foreground-red'])
+    transformer = TransformerBuilder.make_transformer(re.compile(u'ERROR'), FILTERS_BY_NAME['foreground-red'])
     assert stdout_transformer == transformer
     assert stderr_transformer == transformer
 
