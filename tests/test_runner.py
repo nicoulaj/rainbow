@@ -111,6 +111,37 @@ def test_command_line_runner_bufferized_output(capsys, stdin):
         assert err == ansi.ANSI_RESET_ALL
 
 
+
+@pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
+def test_command_line_runner_bufferized_partial_lines(capsys, stdin):
+    with stdin:
+        assert CommandRunner(
+            [sys.executable, '-c', dedent(r'''
+                import sys
+                sys.stdout.write('std')
+                sys.stdout.flush()
+                sys.stdout.write('out1\nstdout2\n')
+            ''')]
+        ).run() == 0
+        out, err = capsys.readouterr()
+        assert out == 'stdout1\nstdout2\n' + ansi.ANSI_RESET_ALL
+        assert err == ansi.ANSI_RESET_ALL
+
+
+@pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
+def test_command_line_runner_unflushed_output(capsys, stdin):
+    with stdin:
+        assert CommandRunner(
+            [sys.executable, '-c', dedent(r'''
+                import sys
+                sys.stdout.write('message')
+            ''')]
+        ).run() == 0
+        out, err = capsys.readouterr()
+        assert out == 'message\n' + ansi.ANSI_RESET_ALL
+        assert err == ansi.ANSI_RESET_ALL
+
+
 @pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", all_stdin_types('line\n'), ids=str)
 def test_command_line_runner_cat_stdin(capsys, stdin):
