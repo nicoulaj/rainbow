@@ -66,6 +66,15 @@ def test_command_line_runner_identity(capsys, stdin):
 
 
 @pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
+def test_command_line_runner_identity_bash(capsys, stdin):
+    with stdin:
+        assert CommandRunner(['/bin/bash', '-c', 'echo "stdout"; echo "stderr" >&2']).run() == 0
+        out, err = capsys.readouterr()
+        assert out == 'stdout\n' + ansi.ANSI_RESET_ALL
+        assert err == 'stderr\n' + ansi.ANSI_RESET_ALL
+
+
+@pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
 def test_command_line_runner_identity_mixed_stdin_and_err(capsys, stdin):
     with stdin:
         assert CommandRunner(
@@ -85,12 +94,21 @@ def test_command_line_runner_identity_mixed_stdin_and_err(capsys, stdin):
 
 
 @pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
-def test_command_line_runner_identity_bash(capsys, stdin):
+def test_command_line_runner_bufferized_output(capsys, stdin):
     with stdin:
-        assert CommandRunner(['/bin/bash', '-c', 'echo "stdout"; echo "stderr" >&2']).run() == 0
+        assert CommandRunner(
+            [sys.executable, '-c', dedent(r'''
+                import sys, time
+                sys.stdout.write('stdout1\n')
+                time.sleep(0.5)
+                sys.stdout.write('stdout2\nstdout3\n')
+                time.sleep(0.5)
+                sys.stdout.write('stdout4\n')
+            ''')]
+        ).run() == 0
         out, err = capsys.readouterr()
-        assert out == 'stdout\n' + ansi.ANSI_RESET_ALL
-        assert err == 'stderr\n' + ansi.ANSI_RESET_ALL
+        assert out == 'stdout1\nstdout2\nstdout3\nstdout4\n' + ansi.ANSI_RESET_ALL
+        assert err == ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.timeout(2)

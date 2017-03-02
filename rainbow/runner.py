@@ -56,11 +56,15 @@ class CommandRunner:
                     if data:
                         buffers[fd] += data.decode()
                         lines = buffers[fd].splitlines()
-                        if len(lines) > 1:
+                        if len(lines) > 0:
                             for line in lines[:-1]:
                                 readable.write(transformer.transform(line) + '\n')
+                            if buffers[fd][-1] == '\n':
+                                readable.write(transformer.transform(lines[-1]) + '\n')
+                                buffers[fd] = ''
+                            else:
+                                buffers[fd] = lines[-1]
                             readable.flush()
-                            buffers[fd] = lines[-1]
                     else:
                         for line in buffers[fd].splitlines():
                             readable.write(transformer.transform(line) + '\n')
