@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import os
 from os.path import basename, isfile, join, dirname
 
 from . import LOGGER
@@ -59,28 +60,37 @@ class ConfigLoader:
 
         LOGGER.debug('Trying to find config "%s"', config)
 
-        if isfile(config):
-            return config
+        config_file = self.resolve_config_file_in_directory(os.getcwd(), config)
+        if config_file:
+            return config_file
 
         if working_directory:
-            config_file = self.resolve_config_file_in_directory(config, working_directory)
+            config_file = self.resolve_config_file_in_directory(working_directory, config)
             if config_file:
                 return config_file
 
         for directory in self.paths:
             if directory:
-                config_file = self.resolve_config_file_in_directory(config, directory)
+                config_file = self.resolve_config_file_in_directory(directory, config)
                 if config_file:
                     return config_file
 
     @staticmethod
-    def resolve_config_file_in_directory(config, directory):
+    def resolve_config_file_in_directory(directory, config):
+
+        config_file = config
+        if isfile(config_file):
+            return config_file
+
+        config_file = config + '.cfg'
+        if isfile(config_file):
+            return config + '.cfg'
 
         config_file = join(directory, config)
         if isfile(config_file):
             return config_file
 
-        config_file = join(directory, config + ".cfg")
+        config_file = join(directory, config + '.cfg')
         if isfile(config_file):
             return config_file
 

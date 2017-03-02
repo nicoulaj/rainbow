@@ -41,12 +41,33 @@ def load_config_file(config_file):
     return stdout_builder.build(), stderr_builder.build(), errors
 
 
+def load_config_file_from_command_line(args):
+    stdout_builder = TransformerBuilder()
+    stderr_builder = TransformerBuilder()
+    errors = []
+
+    ConfigLoader(['tests/configs']).load_config_from_command_line(args,
+                                                                  stdout_builder,
+                                                                  stderr_builder,
+                                                                  lambda error: errors.append(error))
+
+    return stdout_builder.build(), stderr_builder.build(), errors
+
+
 def test_resolve_config_file_empty_path():
-    assert not ConfigLoader([]).resolve_config_file("myconfig")
+    assert not ConfigLoader([]).resolve_config_file("does_not_exist")
 
 
 def test_resolve_config_file_none_in_path():
-    assert not ConfigLoader([None]).resolve_config_file("myconfig")
+    assert not ConfigLoader([None]).resolve_config_file("does_not_exist")
+
+
+def test_resolve_config_file_path_without_extension():
+    assert ConfigLoader().resolve_config_file("tests/configs/config001") == "tests/configs/config001.cfg"
+
+
+def test_resolve_config_file_path():
+    assert ConfigLoader().resolve_config_file("tests/configs/config001.cfg") == "tests/configs/config001.cfg"
 
 
 def test_find_config_name_from_command_line_empty_args():
@@ -397,3 +418,16 @@ def test_load_config_file_invalid_stderr_filtering_value():
     assert errors == ['Invalid value "foo" for key "enable-stderr-filtering" in config "tests/configs/config029.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
+
+
+def test_load_config_file_from_command_line_one_filter():
+    (stdout_transformer, stderr_transformer, errors) = load_config_file_from_command_line(['config006', '--help'])
+    assert not errors
+    assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
+    assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
+    assert stdout_transformer.regex.pattern == 'ERROR'
+    assert stderr_transformer.regex.pattern == 'ERROR'
+    assert stdout_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stderr_transformer.before == ansi.ANSI_FOREGROUND_RED
+    assert stdout_transformer.after == ansi.ANSI_FOREGROUND_RESET
+    assert stderr_transformer.after == ansi.ANSI_FOREGROUND_RESET
