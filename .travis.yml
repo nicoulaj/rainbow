@@ -13,14 +13,15 @@ python:
   - "pypy"
   - "pypy3"
 
-install: pip install tox-travis
+install: pip install tox-travis scrutinizer-ocular
 
 script:
  - tox
  - tox -e lint
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash) -e TOX_ENV
+  - bash <(curl -s https://codecov.io/bash)
+  - ocular --data-file ".coverage" --config-file ".coveragerc"
 
 deploy:
   provider: pypi
