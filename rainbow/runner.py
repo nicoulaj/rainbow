@@ -46,7 +46,7 @@ class CommandRunner:
             while readables:
                 for fd in select(readables, [], [])[0]:
                     try:
-                        data = os.read(fd, 1024)
+                        data = os.read(fd, 64)
                     except OSError as e:
                         if e.errno != errno.EIO:
                             raise  # no cover
