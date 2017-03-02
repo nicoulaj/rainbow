@@ -1,0 +1,5 @@
+pytest
+coverage
+pytest-cov
+pytest-html
+pytest-timeout
