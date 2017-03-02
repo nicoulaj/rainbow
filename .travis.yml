@@ -1,0 +1,32 @@
+sudo: false
+
+language: python
+
+python:
+  - "2.7"
+  - "3.4"
+  - "2.7"
+  - "3.3"
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "pypy"
+  - "pypy3"
+  - "lint"
+
+install: pip install tox-travis
+
+script: tox
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash) -e TOX_ENV
+
+deploy:
+  provider: pypi
+  distributions: sdist bdist_wheel
+  user: nicoulaj
+  password:
+    secure: "PH03sct2gKSxhfefRCNVYUqHGi5gPxBfMBe4ZIdNXR6WbfoLn/tOv1MkIasptABMHkhuSJ+Rr7o4GfsCXUmSuOPdMx9xsFhWyA/HBAeHRJpg4auDPUNIxGn89YJNVsWipJhL9vxjEXhuI1ySzaPR2KQ7wgYa6rfT9yGn34aQUBA="
+  on:
+    tags: true
+    python: 3.6
