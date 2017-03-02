@@ -30,4 +30,5 @@ MANIFEST
 *.ipr
 *.iws
 .coverage
+.coverage.*
 out/
