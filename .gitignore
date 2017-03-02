@@ -19,6 +19,8 @@
 *.pyc
 *.pyo
 *.pyd
+*$py.class
+__pycache__/
 build/
 dist/
 MANIFEST
