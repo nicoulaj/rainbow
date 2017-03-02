@@ -17,10 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import glob
 import os
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 from rainbow import VERSION
 
@@ -51,13 +50,9 @@ setup(
         'Programming Language :: Python :: 3',
         'License :: OSI Approved :: GNU General Public License (GPL)'
     ],
-    packages=find_packages(exclude=['tests']),
+    packages=['rainbow'],
+    include_package_data=True,
     entry_points={
         'console_scripts': ['rainbow = rainbow.__main__:main']
-    },
-    data_files=[
-        ('share/rainbow/configs', glob.glob('configs/*')),
-        ('/etc/bash_completion.d', ['completion/bash/rainbow']),
-        ('share/zsh/site-functions', ['completion/zsh/_rainbow'])
-    ],
+    }
 )

@@ -30,5 +30,5 @@ DEFAULT_PATH = [
     os.path.curdir,
     os.path.expanduser('~/.rainbow'),
     os.path.join(os.sep, 'etc', 'rainbow'),
-    os.path.join(os.sep, 'usr', 'share', 'rainbow', 'configs')
+    os.path.join(os.sep, os.path.dirname(__file__), 'configs')
 ]
