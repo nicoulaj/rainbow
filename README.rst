@@ -77,7 +77,7 @@ Using packages
  Debian / Ubuntu                               `rainbow repository <https://software.opensuse.org/download.html?project=home%3Anicoulaj%3Arainbow&package=rainbow>`_
  Fedora / CentOS / RHEL / Scientific Linux     `rainbow repository <https://software.opensuse.org/download.html?project=home%3Anicoulaj%3Arainbow&package=rainbow>`_
  OpenSUSE / SLE                                `rainbow repository <https://software.opensuse.org/download.html?project=home%3Anicoulaj%3Arainbow&package=rainbow>`_
- Arch Linux                                    `AUR/rainbow <https://aur.archlinux.org/packages.php?ID=54146>`_ / `AUR/rainbow-git <https://aur.archlinux.org/packages.php?ID=54147>`_
+ Arch Linux                                    `AUR/rainbow <https://aur.archlinux.org/packages/rainbow>`_ / `AUR/rainbow-git <https://aur.archlinux.org/packages/rainbow-git>`_
  `pip` / `easy_install`                        `PyPI: rainbow <https://pypi.python.org/pypi/rainbow>`_
 ============================================  ============================================
 
