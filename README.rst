@@ -10,6 +10,10 @@ Rainbow
 .. image:: https://codecov.io/gh/nicoulaj/rainbow/branch/develop/graph/badge.svg
  :target: https://codecov.io/gh/nicoulaj/rainbow
 
+.. image:: https://scrutinizer-ci.com/g/nicoulaj/rainbow/badges/quality-score.png?b=develop
+ :target: https://scrutinizer-ci.com/g/nicoulaj/rainbow/?branch=develop
+
+
 **Easily colorize logs or commands output using patterns.**
 ::
 
