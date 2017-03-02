@@ -16,34 +16,35 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import sys
+import pytest
 
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
-
-from rainbow.__main__ import main as rainbow
 from rainbow import ansi
+from rainbow.__main__ import main as rainbow
+from .test_utils import all_stdin_types
 
 
-def test_true(capsys):
-    assert rainbow(['true']) == 0
-    out, err = capsys.readouterr()
-    assert out == ansi.ANSI_RESET_ALL
-    assert err == ansi.ANSI_RESET_ALL
+@pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
+def test_true(capsys, stdin):
+    with stdin:
+        assert rainbow(['true']) == 0
+        out, err = capsys.readouterr()
+        assert out == ansi.ANSI_RESET_ALL
+        assert err == ansi.ANSI_RESET_ALL
 
 
-def test_false(capsys):
-    assert rainbow(['false']) == 1
-    out, err = capsys.readouterr()
-    assert out == ansi.ANSI_RESET_ALL
-    assert err == ansi.ANSI_RESET_ALL
+@pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
+def test_false(capsys, stdin):
+    with stdin:
+        assert rainbow(['false']) == 1
+        out, err = capsys.readouterr()
+        assert out == ansi.ANSI_RESET_ALL
+        assert err == ansi.ANSI_RESET_ALL
 
 
-def test_read_from_stdin(capsys):
-    sys.stdin = StringIO("line")
-    assert rainbow([]) == 0
-    out, err = capsys.readouterr()
-    assert out == "line\n" + ansi.ANSI_RESET_ALL
-    assert err == ''
+@pytest.mark.parametrize("stdin", all_stdin_types('line\n'), ids=str)
+def test_read_from_stdin(capsys, stdin):
+    with stdin:
+        assert rainbow([]) == 0
+        out, err = capsys.readouterr()
+        assert out == "line\n" + ansi.ANSI_RESET_ALL
+        assert err == ''

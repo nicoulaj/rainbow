@@ -16,10 +16,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import errno
 import os
+import pty
 import signal
 import subprocess
 import sys
+from select import select
 
 from .ansi import ANSI_RESET_ALL
 from .transformer import IdentityTransformer
@@ -31,19 +34,43 @@ class CommandRunner:
         self.stdout_transformer = stdout_transformer
         self.stderr_transformer = stderr_transformer
 
-    # TODO stderr handling not implemented
     def run(self):
-        p = subprocess.Popen(args=self.args, stdout=subprocess.PIPE)
+        masters, slaves = zip(pty.openpty(), pty.openpty())
+        p = subprocess.Popen(args=self.args, stdin=sys.stdin, stdout=slaves[0], stderr=slaves[1])
         try:
-            for line in iter(p.stdout.readline, b''):
-                print(self.stdout_transformer.transform(line[:-1].decode()))
+            for fd in slaves:
+                os.close(fd)
+            readables = {masters[0]: sys.stdout, masters[1]: sys.stderr}
+            buffers = {masters[0]: '', masters[1]: ''}
+            transformers = {masters[0]: self.stdout_transformer, masters[1]: self.stderr_transformer}
+            while readables:
+                for fd in select(readables, [], [])[0]:
+                    try:
+                        data = os.read(fd, 1024)
+                    except OSError as e:
+                        if e.errno != errno.EIO:
+                            raise  # no cover
+                        data = None
+                    readable = readables[fd]
+                    transformer = transformers[fd]
+                    if data:
+                        buffers[fd] += data.decode()
+                        lines = buffers[fd].splitlines()
+                        if len(lines) > 1:
+                            for line in lines[:-1]:
+                                readable.write(transformer.transform(line) + '\n')
+                            readable.flush()
+                            buffers[fd] = lines[-1]
+                    else:
+                        for line in buffers[fd].splitlines():
+                            readable.write(transformer.transform(line) + '\n')
+                        readable.write(ANSI_RESET_ALL)
+                        readable.flush()
+                        del readables[fd]
+            for fd in masters:
+                os.close(fd)
         except KeyboardInterrupt:
             os.kill(p.pid, signal.SIGINT)
-        finally:
-            sys.stdout.write(ANSI_RESET_ALL)
-            sys.stderr.write(ANSI_RESET_ALL)
-            sys.stdout.flush()
-            sys.stderr.flush()
         return p.wait()
 
 
