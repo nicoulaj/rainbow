@@ -37,3 +37,5 @@ deploy:
 
 notifications:
   email: false
+  webhooks:
+    urls: https://webhooks.gitter.im/e/3d9dabdef1a3d8b2ae8d
