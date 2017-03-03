@@ -4,14 +4,14 @@ Rainbow
 .. image:: https://img.shields.io/github/tag/nicoulaj/rainbow.svg
  :target: https://github.com/nicoulaj/rainbow/releases
 
-.. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=develop
+.. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=master
  :target: https://travis-ci.org/nicoulaj/rainbow
 
-.. image:: https://codecov.io/gh/nicoulaj/rainbow/branch/develop/graph/badge.svg
+.. image:: https://codecov.io/gh/nicoulaj/rainbow/branch/master/graph/badge.svg
  :target: https://codecov.io/gh/nicoulaj/rainbow
 
-.. image:: https://scrutinizer-ci.com/g/nicoulaj/rainbow/badges/quality-score.png?b=develop
- :target: https://scrutinizer-ci.com/g/nicoulaj/rainbow/?branch=develop
+.. image:: https://scrutinizer-ci.com/g/nicoulaj/rainbow/badges/quality-score.png?b=master
+ :target: https://scrutinizer-ci.com/g/nicoulaj/rainbow/?branch=master
 
 
 **Easily colorize logs or commands output using patterns.**
