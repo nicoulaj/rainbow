@@ -111,7 +111,6 @@ def test_command_line_runner_bufferized_output(capsys, stdin):
         assert err == ansi.ANSI_RESET_ALL
 
 
-
 @pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
 def test_command_line_runner_bufferized_partial_lines(capsys, stdin):
     with stdin:
