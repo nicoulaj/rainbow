@@ -4,6 +4,9 @@ Rainbow
 .. image:: https://img.shields.io/github/tag/nicoulaj/rainbow.svg
  :target: https://github.com/nicoulaj/rainbow/releases
 
+.. image:: https://img.shields.io/pypi/pyversions/rainbow.svg
+ :target: https://pypi.python.org/pypi/rainbow
+
 .. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=master
  :target: https://travis-ci.org/nicoulaj/rainbow
 
