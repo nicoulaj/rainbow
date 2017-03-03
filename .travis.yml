@@ -39,3 +39,7 @@ notifications:
   email: false
   webhooks:
     urls: https://webhooks.gitter.im/e/3d9dabdef1a3d8b2ae8d
+
+addons:
+    code_climate:
+        repo_token: bbb89d45db24dbc49fc3f63a70050f3864ed607131c35bb1797c7ecdec1fc9b1
