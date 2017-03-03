@@ -2,6 +2,8 @@ sudo: false
 
 language: python
 
+cache: pip
+
 python:
   - "2.6"
   - "2.7"
@@ -15,7 +17,7 @@ python:
   - "pypy"
   - "pypy3"
 
-install: pip install tox-travis scrutinizer-ocular
+install: pip install tox-travis scrutinizer-ocular codeclimate-test-reporter
 
 script:
  - tox
@@ -24,6 +26,7 @@ script:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - ocular --data-file ".coverage" --config-file ".coveragerc"
+  - codeclimate-test-reporter
 
 deploy:
   provider: pypi
