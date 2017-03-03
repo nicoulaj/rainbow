@@ -2,20 +2,28 @@ Rainbow
 =======
 
 .. image:: https://img.shields.io/github/tag/nicoulaj/rainbow.svg
- :target: https://github.com/nicoulaj/rainbow/releases
+   :target: https://github.com/nicoulaj/rainbow/releases
+   :alt: last release
 
 .. image:: https://img.shields.io/pypi/pyversions/rainbow.svg
- :target: https://pypi.python.org/pypi/rainbow
+   :target: https://pypi.python.org/pypi/rainbow
+   :alt: pypi package
 
 .. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=master
- :target: https://travis-ci.org/nicoulaj/rainbow
+   :target: https://travis-ci.org/nicoulaj/rainbow
+   :alt: continuous integration
 
 .. image:: https://codecov.io/gh/nicoulaj/rainbow/branch/master/graph/badge.svg
- :target: https://codecov.io/gh/nicoulaj/rainbow
+   :target: https://codecov.io/gh/nicoulaj/rainbow
+   :alt: test coverage
 
 .. image:: https://scrutinizer-ci.com/g/nicoulaj/rainbow/badges/quality-score.png?b=master
- :target: https://scrutinizer-ci.com/g/nicoulaj/rainbow/?branch=master
+   :target: https://scrutinizer-ci.com/g/nicoulaj/rainbow/?branch=master
+   :alt: scrutinizer-ci.com score
 
+.. image:: https://landscape.io/github/nicoulaj/rainbow/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/nicoulaj/rainbow/master
+   :alt: landscape.io score
 
 **Easily colorize logs or commands output using patterns.**
 ::
