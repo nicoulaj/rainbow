@@ -51,12 +51,6 @@ class ConfigLoader:
         if not command_line_args:
             return
 
-        # TODO detect precommands like 'sudo','builtin', 'command', 'exec', 'nocorrect', 'noglob', 'pkexec'
-        # => skip to first non option argument
-
-        # TODO level 2: detect command wrappers like 'su', 'bash -c', etc
-        # => skip to first non option argument
-
         return basename(command_line_args[0])
 
     def resolve_and_load_config(self,

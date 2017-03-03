@@ -23,8 +23,6 @@ LOGGER = logging.getLogger("RAINBOW")
 
 VERSION = '2.6.0'
 
-# TODO Builtin configs should be bundled in the package instead
-# TODO Allow user to override path ?
 DEFAULT_PATH = [
     os.environ.get('RAINBOW_CONFIGS'),
     os.path.curdir,

@@ -138,8 +138,7 @@ def test_load_config_file_empty_filters_and_general_sections():
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
-# TODO Duplicate sections handling not implemented on Python 2
-@pytest.mark.skipif(condition=sys.version_info[0] < 3, reason="Python 2 does not detect duplicate sections")
+@pytest.mark.skipif(condition=sys.version_info[0] < 3, reason="Issue #2: Python 2 does not detect duplicate sections")
 def test_load_config_file_two_empty_filters_sections():
     (stdout_transformer, stderr_transformer, errors) = load('tests/configs/config005.cfg')
     assert errors == ['Duplicate section "filters" in "tests/configs/config005.cfg"']
@@ -183,8 +182,7 @@ def test_load_config_file_two_different_filters():
     assert stderr_transformer.transformers[1].after == ansi.ANSI_FOREGROUND_RESET
 
 
-# TODO Duplicate key support not implemented
-@pytest.mark.skip(reason="Duplicate key support not implemented")
+@pytest.mark.skip(reason="Issue #2: Duplicate key support not implemented")
 def test_load_config_file_two_times_same_filter():
     (stdout_transformer, stderr_transformer, errors) = load('tests/configs/config008.cfg')
     assert not errors
@@ -208,8 +206,7 @@ def test_load_config_file_two_times_same_filter():
     assert stderr_transformer.transformers[1].after == ansi.ANSI_FOREGROUND_RESET
 
 
-# TODO Support of filters in global section not implemented
-@pytest.mark.skip(reason="Support of filters in global section not implemented")
+@pytest.mark.skip(reason="Issue #2: Support of filters in global section not implemented")
 def test_load_config_file_filter_in_global_section():
     (stdout_transformer, stderr_transformer, errors) = load('tests/configs/config009.cfg')
     assert not errors
