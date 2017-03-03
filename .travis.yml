@@ -19,7 +19,7 @@ install: pip install tox-travis scrutinizer-ocular
 
 script:
  - tox
- - "[[ $TRAVIS_PYTHON_VERSION == '2.6']] || tox -e lint"
+ - '[[ $TRAVIS_PYTHON_VERSION == 2.6 ]] || tox -e lint'
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
