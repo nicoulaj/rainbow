@@ -17,10 +17,12 @@
 # ----------------------------------------------------------------------
 
 import logging
+import sys
 
 from . import LOGGER, DEFAULT_PATH
 from .cli import CommandLineParser
 from .runner import CommandRunner, STDINRunner
+from .transformer import IdentityTransformer
 
 
 def main(args=None):
@@ -32,6 +34,11 @@ def main(args=None):
 
     try:
         (command, stdout, stderr) = CommandLineParser(DEFAULT_PATH).parse(args)
+
+        if not sys.stdout.isatty():
+            stdout = IdentityTransformer()
+        if not sys.stderr.isatty():
+            stderr = IdentityTransformer()
 
         if command:
             LOGGER.info("Will run command '%s'." % command)
