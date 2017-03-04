@@ -35,7 +35,9 @@ python:
   - "pypy"
   - "pypy3"
 
-install: pip install tox-travis scrutinizer-ocular codeclimate-test-reporter
+install:
+ - pip install -r requirements-dev.txt
+ - pip install tox-travis scrutinizer-ocular codeclimate-test-reporter
 
 script:
  - tox
