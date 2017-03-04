@@ -21,6 +21,8 @@ import os
 
 from setuptools import setup
 
+import fastentrypoints  # noqa: F401
+
 from rainbow import VERSION
 
 setup(
