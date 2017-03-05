@@ -19,32 +19,46 @@
 import pytest
 
 from rainbow import ansi
-from rainbow.__main__ import main as rainbow
-from .test_utils import all_stdin_types
+from rainbow.__main__ import main
+from .test_utils import stdin_empty_all_variants, stdin_from_string_all_variants, stdin_from_file_all_variants
 
 
-@pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
+@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
 def test_true(capsys, stdin):
     with stdin:
-        assert rainbow(['true']) == 0
+        assert main(['true']) == 0
         out, err = capsys.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
-@pytest.mark.parametrize("stdin", all_stdin_types(), ids=str)
+@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
 def test_false(capsys, stdin):
     with stdin:
-        assert rainbow(['false']) == 1
+        assert main(['false']) == 1
         out, err = capsys.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
-@pytest.mark.parametrize("stdin", all_stdin_types('line\n'), ids=str)
+@pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line\n'), ids=str)
 def test_read_from_stdin(capsys, stdin):
     with stdin:
-        assert rainbow([]) == 0
+        assert main([]) == 0
         out, err = capsys.readouterr()
         assert out == "line\n" + ansi.ANSI_RESET_ALL
         assert err == ''
+
+
+@pytest.mark.skip(reason="Issue #17: encoding is not properly managed")
+@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
+def test_malformed_utf8_from_command(stdin):
+    with stdin:
+        assert main(['cat', 'tests/resources/UTF-8-test.txt']) == 0
+
+
+@pytest.mark.skip(reason="Issue #17: encoding errors not catched when reading from stdin")
+@pytest.mark.parametrize("stdin", stdin_from_file_all_variants('tests/resources/UTF-8-test.txt'), ids=str)
+def test_malformed_utf8_from_stdin(stdin):
+    with stdin:
+        assert main([]) == 0
