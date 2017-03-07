@@ -31,7 +31,6 @@ FILTER_GROUPS_NAMES = [g.name for g in FILTER_GROUPS]
 FILTER_GROUPS_HELPS = [g.help for g in FILTER_GROUPS]
 FILTER_GROUPS_FILTERS = [g.filters for g in FILTER_GROUPS]
 
-FILTERS = [f for g in FILTER_GROUPS for f in g.filters]
 FILTERS_NAMES = [f.name for g in FILTER_GROUPS for f in g.filters]
 FILTERS_HELPS = [f.help for g in FILTER_GROUPS for f in g.filters]
 FILTERS_SHORT_OPTIONS = [f.short_option for g in FILTER_GROUPS for f in g.filters]

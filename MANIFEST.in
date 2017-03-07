@@ -17,6 +17,5 @@
 # ----------------------------------------------------------------------
 
 include README.rst
-include rainbow/configs/*.cfg
-include rainbow/completion/bash/rainbow
-include rainbow/completion/zsh/_rainbow
+include rainbow/configs/*
+include rainbow/templates/*

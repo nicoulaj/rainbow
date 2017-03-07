@@ -1,3 +1,4 @@
+#compdef rainbow
 # ----------------------------------------------------------------------
 # rainbow, a command line colorizer
 # Copyright (C) 2011-2017 Julien Nicoulaud <julien.nicoulaud@gmail.com>
@@ -16,18 +17,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-# Build time requirements
-fastentrypoints==0.7
-Jinja2==2.9.5
+typeset -A opt_args
+local context state line curcontext="$curcontext"
 
-# Test requirements
-pytest==3.0.6
-coverage==4.3.4
-pytest-cov==2.4.0
-pytest-html==1.14.1
-pytest-timeout==1.2.0
-pytest-flake8==0.8.1
-pytest-pep8==1.0.6
-pytest-benchmark==3.1.0a1
-pygal==2.3.1
-pygaljs==1.0.1
+_arguments \
+{%- for filter in filters %}
+  {%- if filter.short_option %}
+  '*'{-{{ filter.short_option }}+,--{{ filter.long_option }}}'[{{ filter.help }}]' \
+  {%- else %}
+  '*--{{ filter.long_option }}[{{ filter.help }}]' \
+  {%- endif %}
+{%- endfor %}
+  '(- 1 *)'{-h,--help}'[print program usage]' \
+  '(- 1 *)--version[print program version]' \
+  '*'{-v,--verbose}'[verbose mode]' \
+  '--disable-stderr-filtering[disable STDERR filtering]' \
+  {-f,--config}'[rainbow config file]:rainbow config:_files -W "( $(pwd) ~/.rainbow /usr/share/rainbow/configs )" -g "*.cfg(\:r\:t)"' # 32: Need to use the real paths here

@@ -406,6 +406,7 @@ FILTER_GROUPS = [
     )
 ]
 
+FILTERS = [f for g in FILTER_GROUPS for f in g.filters]
 FILTERS_BY_NAME = dict((filter.name, filter) for group in FILTER_GROUPS for filter in group.filters)
 FILTERS_BY_SHORT_OPTION = dict((filter.short_option, filter) for group in FILTER_GROUPS for filter in group.filters)
 FILTERS_BY_LONG_OPTION = dict((filter.long_option, filter) for group in FILTER_GROUPS for filter in group.filters)

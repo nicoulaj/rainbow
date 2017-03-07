@@ -20,10 +20,18 @@
 import os
 
 from setuptools import setup
+from distutils.command.build import build
 
-import fastentrypoints  # noqa: F401
-
+from rainbow.completion import GenerateCompletion
 from rainbow import VERSION
+
+
+class BuildRainbow(build):
+    def run(self):
+        self.run_command("build_completion_bash")
+        self.run_command("build_completion_zsh")
+        build.run(self)
+
 
 setup(
     name='rainbow',
@@ -62,7 +70,16 @@ setup(
     ],
     packages=['rainbow'],
     include_package_data=True,
+    data_files=[
+        ('/etc/bash_completion.d', ['build/completion/rainbow']),
+        ('/usr/share/zsh/site-functions', ['build/completion/_rainbow'])
+    ],
     entry_points={
         'console_scripts': ['rainbow = rainbow.__main__:main']
+    },
+    cmdclass={
+        'build': BuildRainbow,
+        'build_completion_bash': GenerateCompletion,
+        'build_completion_zsh': GenerateCompletion
     }
 )
