@@ -16,20 +16,21 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import logging
 import os
-import sys
+from rainbow import DEFAULT_PATH
+from rainbow.command.print_path import PrintPathCommand
 
-LOGGER = logging.getLogger('rainbow')
 
-VERSION = '2.6.0'
+def test_empty_path(capsys):
+    assert PrintPathCommand().run() == 0
+    out, err = capsys.readouterr()
+    assert out == ''
+    assert err == ''
 
-DEFAULT_PATH = [
-    os.environ.get('RAINBOW_CONFIGS'),
-    os.path.expanduser('~/.rainbow'),
-    os.path.join(os.sep, 'etc', 'rainbow'),
-    os.path.join(os.sep, os.path.dirname(__file__), 'configs')
-]
 
-ENABLE_STDOUT = bool(os.environ.get('RAINBOW_ENABLE_STDOUT', sys.stdout.isatty()))
-ENABLE_STDERR = bool(os.environ.get('RAINBOW_ENABLE_STDERR', sys.stderr.isatty()))
+def test_default_path(capsys):
+    assert PrintPathCommand(DEFAULT_PATH).run() == 0
+    out, err = capsys.readouterr()
+    assert os.path.expanduser('~/.rainbow') in out
+    assert os.path.join(os.sep, 'etc', 'rainbow') in out
+    assert os.path.join(os.sep, 'rainbow', 'configs') in out

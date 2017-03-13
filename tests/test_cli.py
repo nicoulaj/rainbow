@@ -17,92 +17,303 @@
 # ----------------------------------------------------------------------
 
 import re
+import sys
 
 import pytest
 
-from rainbow import LOGGER
+from rainbow import LOGGER, DEFAULT_PATH
 from rainbow.cli import CommandLineParser
 from rainbow.filter import FILTERS_BY_NAME
-from rainbow.transformer import TransformerBuilder
+from rainbow.transformer import TransformerBuilder, IdentityTransformer
+from rainbow.command.stdin import STDINCommand
+from rainbow.command.execute import ExecuteCommand
+from rainbow.command.print_path import PrintPathCommand
+from rainbow.command.print_config_names import PrintConfigNamesCommand
 from .test_utils import FILTERS_WITH_SHORT_OPTION, FILTERS_WITH_LONG_OPTION
 
 
 def parse(args):
     errors = []
 
-    (command, stdout, stderr) = CommandLineParser(
+    command = CommandLineParser(
         paths=None,
         error_handler=lambda error: errors.append(error)
-    ).parse(args)
+    ).parse_args(args)
 
-    return command, stdout, stderr, errors
+    return command, errors
+
+
+def test_empty_args():
+    (command, errors) = parse([])
+    assert not errors
+    assert isinstance(command, STDINCommand)
+    assert command.transformer == IdentityTransformer()
 
 
 @pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
 def test_filter_short_option(filter):
-    (command, stdout_transformer, stderr_transformer, errors) = parse(['-' + filter.short_option, 'test'])
+    (command, errors) = parse(['-' + filter.short_option, 'test'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
-    assert stdout_transformer == transformer
-    assert stderr_transformer == transformer
+    assert isinstance(command, STDINCommand)
+    assert command.transformer == TransformerBuilder.make_transformer(re.compile('test'), filter)
 
 
 @pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
 def test_filter_long_option(filter):
-    (command, stdout_transformer, stderr_transformer, errors) = parse(['--' + filter.long_option, 'test'])
+    (command, errors) = parse(['--' + filter.long_option, 'test'])
     assert not errors
+    assert isinstance(command, STDINCommand)
+    assert command.transformer == TransformerBuilder.make_transformer(re.compile('test'), filter)
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
+def test_filter_short_option_without_value(filter):
+    (command, errors) = parse(['-' + filter.short_option])
+    if sys.version_info[0] < 3:
+        assert errors == ['%s option requires an argument' % ('-' + filter.short_option)]
+    else:
+        assert errors == ['%s option requires 1 argument' % ('-' + filter.short_option)]
+    assert not command
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
+def test_filter_long_option_without_value(filter):
+    (command, errors) = parse(['--' + filter.long_option])
+    if sys.version_info[0] < 3:
+        assert errors == ['%s option requires an argument' % ('--' + filter.long_option)]
+    else:
+        assert errors == ['%s option requires 1 argument' % ('--' + filter.long_option)]
+    assert not command
+
+
+def test_command():
+    (command, errors) = parse(['true'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+def test_command_remaining_args_separator():
+    (command, errors) = parse(['--', 'true'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+def test_command_with_option():
+    (command, errors) = parse(['true', '--option'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true', '--option']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+def test_command_with_option_remaining_args_separator():
+    (command, errors) = parse(['--', 'true', '--option'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true', '--option']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+def test_command_that_looks_like_a_short_option():
+    (command, errors) = parse(['-a'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['-a']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+def test_command_that_looks_like_a_short_option_remaining_args_separator():
+    (command, errors) = parse(['--', '-a'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['-a']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+def test_command_that_looks_like_a_long_option():
+    (command, errors) = parse(['--true'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['--true']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+def test_command_that_looks_like_a_long_option_remaining_args_separator():
+    (command, errors) = parse(['--', '--true'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['--true']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
+def test_command_with_long_option_filter(filter):
+    (command, errors) = parse(['--' + filter.long_option, 'test', 'true'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true']
     transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
-    assert stdout_transformer == transformer
-    assert stderr_transformer == transformer
+    assert command.stdout_transformer == transformer
+    assert command.stderr_transformer == transformer
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
+def test_command_with_short_option_filter(filter):
+    (command, errors) = parse(['-' + filter.short_option, 'test', 'true'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true']
+    transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
+    assert command.stdout_transformer == transformer
+    assert command.stderr_transformer == transformer
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
+def test_command_remaining_args_separator_with_long_option_filter(filter):
+    (command, errors) = parse(['--' + filter.long_option, 'test', '--', 'true'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true']
+    transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
+    assert command.stdout_transformer == transformer
+    assert command.stderr_transformer == transformer
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
+def test_command_remaining_args_separator_with_short_option_filter(filter):
+    (command, errors) = parse(['-' + filter.short_option, 'test', '--', 'true'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true']
+    transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
+    assert command.stdout_transformer == transformer
+    assert command.stderr_transformer == transformer
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
+def test_command_with_option_with_long_option_filter(filter):
+    (command, errors) = parse(['--' + filter.long_option, 'test', 'true', '--option'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true', '--option']
+    transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
+    assert command.stdout_transformer == transformer
+    assert command.stderr_transformer == transformer
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
+def test_command_with_option_with_short_option_filter(filter):
+    (command, errors) = parse(['-' + filter.short_option, 'test', 'true', '--option'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true', '--option']
+    transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
+    assert command.stdout_transformer == transformer
+    assert command.stderr_transformer == transformer
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
+def test_command_with_option_remaining_args_separator_with_long_option_filter(filter):
+    (command, errors) = parse(['--' + filter.long_option, 'test', '--', 'true', '--option'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true', '--option']
+    transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
+    assert command.stdout_transformer == transformer
+    assert command.stderr_transformer == transformer
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
+def test_command_with_option_remaining_args_separator_with_short_option_filter(filter):
+    (command, errors) = parse(['-' + filter.short_option, 'test', '--', 'true', '--option'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true', '--option']
+    transformer = TransformerBuilder.make_transformer(re.compile('test'), filter)
+    assert command.stdout_transformer == transformer
+    assert command.stderr_transformer == transformer
+
+
+def test_command_with_same_option_as_rainbow():
+    (command, errors) = parse(['command', '--red', 'test'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['command', '--red', 'test']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
+
+
+def test_command_with_same_option_as_rainbow_remaining_args_separator():
+    (command, errors) = parse(['command', '--red', 'test'])
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['command', '--red', 'test']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
 
 
 def test_unresolvable_config_file_short_option():
-    (command, stdout_transformer, stderr_transformer, errors) = parse(['-f', 'does_not_exist'])
+    (command, errors) = parse(['-f', 'does_not_exist'])
     assert errors == ['Could not resolve config "does_not_exist"']
+    assert isinstance(command, STDINCommand)
 
 
 def test_unresolvable_config_file_long_option():
-    (command, stdout_transformer, stderr_transformer, errors) = parse(['--config', 'does_not_exist'])
+    (command, errors) = parse(['--config', 'does_not_exist'])
     assert errors == ['Could not resolve config "does_not_exist"']
+    assert isinstance(command, STDINCommand)
 
 
 def test_config_file_by_relative_path_short_option():
-    (command, stdout_transformer, stderr_transformer, errors) = parse(['-f', 'tests/configs/config006.cfg'])
+    (command, errors) = parse(['-f', 'tests/configs/config006.cfg'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile(u'ERROR'), FILTERS_BY_NAME['foreground-red'])
-    assert stdout_transformer == transformer
-    assert stderr_transformer == transformer
+    assert isinstance(command, STDINCommand)
+    assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),
+                                                                      FILTERS_BY_NAME['foreground-red'])
 
 
 def test_config_file_by_relative_path_without_extension_short_option():
-    (command, stdout_transformer, stderr_transformer, errors) = parse(['-f', 'tests/configs/config006'])
+    (command, errors) = parse(['-f', 'tests/configs/config006'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile(u'ERROR'), FILTERS_BY_NAME['foreground-red'])
-    assert stdout_transformer == transformer
-    assert stderr_transformer == transformer
+    assert isinstance(command, STDINCommand)
+    assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),
+                                                                      FILTERS_BY_NAME['foreground-red'])
 
 
 def test_config_file_by_relative_path_long_option():
-    (command, stdout_transformer, stderr_transformer, errors) = parse(['--config', 'tests/configs/config006.cfg'])
+    (command, errors) = parse(['--config', 'tests/configs/config006.cfg'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile(u'ERROR'), FILTERS_BY_NAME['foreground-red'])
-    assert stdout_transformer == transformer
-    assert stderr_transformer == transformer
+    assert isinstance(command, STDINCommand)
+    assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),
+                                                                      FILTERS_BY_NAME['foreground-red'])
 
 
 def test_config_file_by_relative_path_without_extension_long_option():
-    (command, stdout_transformer, stderr_transformer, errors) = parse(['--config', 'tests/configs/config006'])
+    (command, errors) = parse(['--config', 'tests/configs/config006'])
     assert not errors
-    transformer = TransformerBuilder.make_transformer(re.compile(u'ERROR'), FILTERS_BY_NAME['foreground-red'])
-    assert stdout_transformer == transformer
-    assert stderr_transformer == transformer
+    assert isinstance(command, STDINCommand)
+    assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),
+                                                                      FILTERS_BY_NAME['foreground-red'])
 
 
 def test_verbose_short_option():
     level = LOGGER.level
     try:
-        (command, stdout_transformer, stderr_transformer, errors) = parse(['-v'])
+        (command, errors) = parse(['-v'])
         assert not errors
+        assert isinstance(command, STDINCommand)
         assert LOGGER.level == level - 10
     finally:
         LOGGER.setLevel(level)
@@ -111,8 +322,9 @@ def test_verbose_short_option():
 def test_verbose_long_option():
     level = LOGGER.level
     try:
-        (command, stdout_transformer, stderr_transformer, errors) = parse(['--verbose'])
+        (command, errors) = parse(['--verbose'])
         assert not errors
+        assert isinstance(command, STDINCommand)
         assert LOGGER.level == level - 10
     finally:
         LOGGER.setLevel(level)
@@ -121,8 +333,9 @@ def test_verbose_long_option():
 def test_verbose_twice_short_option():
     level = LOGGER.level
     try:
-        (command, stdout_transformer, stderr_transformer, errors) = parse(['-vv'])
+        (command, errors) = parse(['-vv'])
         assert not errors
+        assert isinstance(command, STDINCommand)
         assert LOGGER.level == level - 20
     finally:
         LOGGER.setLevel(level)
@@ -131,8 +344,37 @@ def test_verbose_twice_short_option():
 def test_verbose_twice_long_option():
     level = LOGGER.level
     try:
-        (command, stdout_transformer, stderr_transformer, errors) = parse(['--verbose', '--verbose'])
+        (command, errors) = parse(['--verbose', '--verbose'])
         assert not errors
+        assert isinstance(command, STDINCommand)
         assert LOGGER.level == level - 20
     finally:
         LOGGER.setLevel(level)
+
+
+def test_print_path():
+    (command, errors) = parse(['--print-path'])
+    assert not errors
+    assert isinstance(command, PrintPathCommand)
+    assert command.paths == DEFAULT_PATH
+
+
+def test_print_path_with_extra_args():
+    (command, errors) = parse(['--print-path', 'foo'])
+    assert not errors
+    assert isinstance(command, PrintPathCommand)
+    assert command.paths == DEFAULT_PATH
+
+
+def test_print_config_names():
+    (command, errors) = parse(['--print-config-names'])
+    assert not errors
+    assert isinstance(command, PrintConfigNamesCommand)
+    assert command.paths == DEFAULT_PATH
+
+
+def test_print_config_names_with_extra_args():
+    (command, errors) = parse(['--print-config-names', 'foo'])
+    assert not errors
+    assert isinstance(command, PrintConfigNamesCommand)
+    assert command.paths == DEFAULT_PATH

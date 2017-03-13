@@ -16,57 +16,66 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from optparse import OptionParser, OptionGroup
+import sys
+from optparse import OptionParser, OptionGroup, BadOptionError, AmbiguousOptionError
 
-from . import LOGGER, VERSION
+from . import LOGGER, VERSION, DEFAULT_PATH
 from .config import ConfigLoader
 from .filter import FILTER_GROUPS, FILTERS_BY_LONG_OPTION
 from .transformer import TransformerBuilder, IdentityTransformer
+from .command.stdin import STDINCommand
+from .command.execute import ExecuteCommand
+from .command.print_path import PrintPathCommand
+from .command.print_config_names import PrintConfigNamesCommand
 
 
-class CommandLineParser:
-    def __init__(self, paths=None, error_handler=lambda error: None):
-        self.loader = ConfigLoader(paths)
-        self.stdout_builder = None
-        self.stderr_builder = None
-        self.error_handler = error_handler
-
-    def parse(self, args):
-
-        self.stdout_builder = TransformerBuilder()
-        self.stderr_builder = TransformerBuilder()
-
-        parser = OptionParser(usage='%prog [options] -- command [args...] ',
+class CommandLineParser(OptionParser):
+    def __init__(self,
+                 paths=None,
+                 stdout_builder=None,
+                 stderr_builder=None,
+                 error_handler=lambda error: None):
+        OptionParser.__init__(self, usage='%prog [options] -- command [args...] ',
                               version='%prog ' + VERSION,
-                              description='Colorize commands output using patterns.')
-        parser.formatter.max_help_position = 50
-        parser.formatter.width = 150
-
-        parser.add_option(
-            '-f',
-            '--config',
-            action='callback',
-            callback=self.handle_config_option,
-            type='string',
-            help='Load a config file defining patterns. The option can be called several times.'
-        )
-        parser.add_option(
-            '-v',
-            '--verbose',
-            action='callback',
-            callback=self.handle_verbosity_option,
-            help='Turn on verbose mode. This option can be called several times to increase the verbosity level.'
-        )
-        parser.add_option(
-            '--disable-stderr-filtering',
-            action='store_false',
-            dest='enable_stderr_filtering',
-            default=True,
-            help='Disable STDERR filtering, which can have unexpected effects on commands directly using tty.'
-        )
+                              description='Colorize command output using patterns.')
+        self.disable_interspersed_args()
+        self.formatter.max_help_position = 50
+        self.formatter.width = 150
+        self.command = None
+        self.config_loader = ConfigLoader(paths)
+        self.stdout_builder = stdout_builder or TransformerBuilder()
+        self.stderr_builder = stderr_builder or TransformerBuilder()
+        self.error_handler = error_handler
+        self.add_option('-f',
+                        '--config',
+                        action='callback',
+                        callback=self.handle_config_option,
+                        type='string',
+                        help='Load a config file defining patterns. '
+                             'This option can be called several times.')
+        self.add_option('-v',
+                        '--verbose',
+                        action='callback',
+                        callback=self.handle_verbosity_option,
+                        help='Turn on verbose mode. '
+                             'This option can be called several times to increase the verbosity level.')
+        self.add_option('--print-path',
+                        action='callback',
+                        callback=self.handle_print_path_option,
+                        help='Print config paths.')
+        self.add_option('--print-config-names',
+                        action='callback',
+                        callback=self.handle_print_config_names_option,
+                        help='Print config names.')
+        self.add_option('--disable-stderr-filtering',
+                        action='store_false',
+                        dest='enable_stderr_filtering',
+                        default=True,
+                        help='Disable STDERR filtering, which can have unexpected effects on command directly '
+                             'using tty.')
 
         for group in FILTER_GROUPS:
-            option_group = OptionGroup(parser, group.name, group.help)
+            option_group = OptionGroup(self, group.name, group.help)
             for f in group.filters:
                 if f.short_option:
                     option_group.add_option('-' + f.short_option,
@@ -81,23 +90,50 @@ class CommandLineParser:
                                             callback=self.handle_pattern_option,
                                             type='string',
                                             help=f.help)
-            parser.add_option_group(option_group)
+            self.add_option_group(option_group)
 
-        (values, remaining_args) = parser.parse_args(args=args)
+    def parse_args(self, args=None, values=None):
 
-        if remaining_args and not self.stdout_builder.transformers:
-            self.loader.load_config_from_command_line(remaining_args,
-                                                      self.stdout_builder,
-                                                      self.stderr_builder,
-                                                      self.error_handler)
+        try:
+            (values, remaining_args) = OptionParser.parse_args(self, args=args)
+        except SystemExit:
+            return self.command
 
-        stdout_transformer = self.stdout_builder.build()
-        stderr_transformer = self.stderr_builder.build() if values.enable_stderr_filtering else IdentityTransformer
+        if remaining_args:
 
-        return remaining_args, stdout_transformer, stderr_transformer
+            if not self.stdout_builder.transformers:
+                self.config_loader.load_config_from_command_line(remaining_args,
+                                                                 self.stdout_builder,
+                                                                 self.stderr_builder,
+                                                                 self.error_handler)
+
+            stdout_transformer = self.stdout_builder.build()
+            stderr_transformer = self.stderr_builder.build() if values.enable_stderr_filtering else IdentityTransformer
+
+            return ExecuteCommand(remaining_args, stdout_transformer, stderr_transformer)
+
+        return STDINCommand(self.stdout_builder.build())
+
+    def _process_args(self, largs, rargs, values):
+        while rargs:
+            remaining = len(rargs)
+            try:
+                OptionParser._process_args(self, largs, rargs, values)
+                if remaining == len(rargs):
+                    break
+            except (BadOptionError, AmbiguousOptionError) as e:
+                largs.append(e.opt_str)
+
+    def exit(self, status=0, msg=None):
+        if msg:
+            self.error_handler(msg)
+        sys.exit(status)
+
+    def error(self, msg):
+        self.exit(1, msg)
 
     def handle_config_option(self, option, opt, value, parser):
-        self.loader.resolve_and_load_config(value, self.stdout_builder, self.stderr_builder, self.error_handler)
+        self.config_loader.resolve_and_load_config(value, self.stdout_builder, self.stderr_builder, self.error_handler)
 
     def handle_pattern_option(self, option, opt, value, parser):
         filter_name = option.get_opt_string()[2:]
@@ -108,3 +144,11 @@ class CommandLineParser:
     @staticmethod
     def handle_verbosity_option(option, opt, value, parser):
         LOGGER.setLevel(LOGGER.level - 10)
+
+    def handle_print_path_option(self, option, opt, value, parser):
+        self.command = PrintPathCommand(DEFAULT_PATH)
+        parser.exit(0)
+
+    def handle_print_config_names_option(self, option, opt, value, parser):
+        self.command = PrintConfigNamesCommand(DEFAULT_PATH)
+        parser.exit(0)

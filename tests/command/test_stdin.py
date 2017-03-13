@@ -16,53 +16,61 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import os
+import signal
+from threading import Timer
+from time import sleep
+
 import pytest
 
-import rainbow
 from rainbow import ansi
-from .test_utils import run_rainbow, stdin_empty_all_variants, stdin_from_string_all_variants, \
-    stdin_from_file_all_variants
-
-rainbow.ENABLE_ANSI_STDOUT = True
-rainbow.ENABLE_ANSI_STDERR = True
+from rainbow.command.stdin import STDINCommand
+from tests.test_utils import stdin_empty_all_variants, stdin_from_string_all_variants, stdin_from_file_all_variants
 
 
+@pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_true(capfd, stdin):
+def test_empty(capsys, stdin):
     with stdin:
-        assert run_rainbow(['true']) == 0
-        out, err = capfd.readouterr()
+        assert STDINCommand().run() == 0
+        out, err = capsys.readouterr()
         assert out == ansi.ANSI_RESET_ALL
-        assert err == ansi.ANSI_RESET_ALL
+        assert err == ''
 
 
-@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_false(capfd, stdin):
-    with stdin:
-        assert run_rainbow(['false']) == 1
-        out, err = capfd.readouterr()
-        assert out == ansi.ANSI_RESET_ALL
-        assert err == ansi.ANSI_RESET_ALL
-
-
+@pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line\n'), ids=str)
-def test_read_from_stdin(capfd, stdin):
+def test_one_line(capsys, stdin):
     with stdin:
-        assert run_rainbow([]) == 0
-        out, err = capfd.readouterr()
-        assert out == "line\n" + ansi.ANSI_RESET_ALL
+        assert STDINCommand().run() == 0
+        out, err = capsys.readouterr()
+        assert out == 'line\n' + ansi.ANSI_RESET_ALL
+        assert err == ''
+
+
+@pytest.mark.timeout(2)
+@pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line1\nline2\n'), ids=str)
+def test_several_lines(capsys, stdin):
+    with stdin:
+        assert STDINCommand().run() == 0
+        out, err = capsys.readouterr()
+        assert out == 'line1\nline2\n' + ansi.ANSI_RESET_ALL
+        assert err == ''
+
+
+@pytest.mark.timeout(5)
+@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
+def test_interrupted(capsys, stdin):
+    with stdin:
+        Timer(1.0, os.kill, [os.getpid(), signal.SIGINT]).start()
+        assert STDINCommand(input_=lambda: sleep(100)).run() == 1
+        out, err = capsys.readouterr()
+        assert out == ansi.ANSI_RESET_ALL
         assert err == ''
 
 
 @pytest.mark.skip(reason="Issue #17: encoding is not properly managed")
-@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_malformed_utf8_from_command(stdin):
-    with stdin:
-        assert run_rainbow(['cat', 'tests/resources/UTF-8-test.txt']) == 0
-
-
-@pytest.mark.skip(reason="Issue #17: encoding is not properly managed")
 @pytest.mark.parametrize("stdin", stdin_from_file_all_variants('tests/resources/UTF-8-test.txt'), ids=str)
-def test_malformed_utf8_from_stdin(stdin):
+def test_malformed_utf8(stdin):
     with stdin:
-        assert run_rainbow([]) == 0
+        assert STDINCommand().run() == 0

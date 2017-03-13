@@ -16,40 +16,56 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import logging
 import sys
+import logging
+from logging import Formatter
 
+import rainbow
 from . import LOGGER, DEFAULT_PATH
 from .cli import CommandLineParser
-from .runner import CommandRunner, STDINRunner
-from .transformer import IdentityTransformer
+from .transformer import DummyTransformerBuilder
 
 
 def main(args=None):
-    logger_console_handler = logging.StreamHandler()
-    logger_formatter = logging.Formatter("[%(name)s|%(levelname)s] %(message)s")
-    logger_console_handler.setFormatter(logger_formatter)
-    LOGGER.addHandler(logger_console_handler)
-    LOGGER.setLevel(logging.WARNING)
-
+    logger_console_handler = logging.StreamHandler(sys.stderr)
     try:
-        (command, stdout, stderr) = CommandLineParser(DEFAULT_PATH).parse(args)
+        logger_console_handler.setFormatter(Formatter("%(levelname)s %(message)s"))
+        logging.addLevelName(logging.CRITICAL, 'rainbow error:')
+        logging.addLevelName(logging.FATAL, 'rainbow error:')
+        logging.addLevelName(logging.ERROR, 'rainbow error:')
+        logging.addLevelName(logging.WARNING, 'rainbow warning:')
+        logging.addLevelName(logging.INFO, 'rainbow:')
+        logging.addLevelName(logging.DEBUG, 'rainbow:')
+        logging.addLevelName(logging.NOTSET, 'rainbow:')
+        LOGGER.addHandler(logger_console_handler)
+        LOGGER.setLevel(logging.WARNING)
 
-        if not sys.stdout.isatty():
-            stdout = IdentityTransformer()
-        if not sys.stderr.isatty():
-            stderr = IdentityTransformer()
+        errors = []
+
+        parser = CommandLineParser(
+            paths=DEFAULT_PATH,
+            stdout_builder=None if rainbow.ENABLE_STDOUT else DummyTransformerBuilder(),
+            stderr_builder=None if rainbow.ENABLE_STDERR else DummyTransformerBuilder(),
+            error_handler=lambda error: errors.append(error)
+        )
+
+        command = parser.parse_args(args)
 
         if command:
-            LOGGER.info("Will run command '%s'." % command)
-            runner = CommandRunner(command, stdout, stderr)
+            for message in errors:
+                LOGGER.warning(message)
+            return command.run()
 
         else:
-            LOGGER.info("No arguments given, using STDIN as input.")
-            runner = STDINRunner(stdout)
+            for message in errors:
+                LOGGER.error(message)
+            LOGGER.setLevel(logging.INFO)
+            LOGGER.info(parser.get_usage())
+            return 1
 
-        return runner.run()
-
-    except Exception as e:  # no cover
+    except Exception as e:
         LOGGER.exception(e)
         return 1
+    finally:
+        LOGGER.removeHandler(logger_console_handler)
+        LOGGER.setLevel(logging.INFO)

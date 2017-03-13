@@ -19,7 +19,7 @@
 
 import os
 
-from setuptools import setup
+from setuptools import setup, find_packages
 from distutils.command.build import build
 
 from rainbow.completion import GenerateCompletion
@@ -68,7 +68,7 @@ setup(
         'Programming Language :: Python :: Implementation :: PyPy',
         'License :: OSI Approved :: GNU General Public License (GPL)'
     ],
-    packages=['rainbow'],
+    packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     data_files=[
         ('/etc/bash_completion.d', ['build/completion/rainbow']),

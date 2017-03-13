@@ -27,6 +27,7 @@ from rainbow.transformer import InsertBeforeRegexTransformer
 from rainbow.transformer import ListTransformer
 from rainbow.transformer import ReplaceRegexTransformer
 from rainbow.transformer import ReplaceTransformer
+from rainbow.transformer import DummyTransformerBuilder
 from rainbow.transformer import TransformerBuilder
 
 
@@ -119,6 +120,14 @@ def test_list_transformer():
         InsertBeforeRegexTransformer(re.compile("test"), "BEFORE"),
         InsertAfterRegexTransformer(re.compile("test"), "AFTER")
     ]).transform("test") == "BEFOREtestAFTER"
+
+
+def test_dummy_transformer_builder():
+    builder = DummyTransformerBuilder()
+    builder.add_mapping("test1", FILTERS_BY_NAME['foreground-red'])
+    builder.add_mapping("test2", FILTERS_BY_NAME['background-green-before'])
+    builder.add_mapping("test3", FILTERS_BY_NAME['foreground-yellow-after'])
+    assert isinstance(builder.build(), IdentityTransformer)
 
 
 def test_transformer_builder():

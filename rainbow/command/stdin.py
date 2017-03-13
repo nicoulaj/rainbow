@@ -16,20 +16,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import logging
-import os
+
 import sys
 
-LOGGER = logging.getLogger('rainbow')
+from rainbow.ansi import ANSI_RESET_ALL
+from rainbow.transformer import IdentityTransformer
 
-VERSION = '2.6.0'
 
-DEFAULT_PATH = [
-    os.environ.get('RAINBOW_CONFIGS'),
-    os.path.expanduser('~/.rainbow'),
-    os.path.join(os.sep, 'etc', 'rainbow'),
-    os.path.join(os.sep, os.path.dirname(__file__), 'configs')
-]
+class STDINCommand:
+    def __init__(self,
+                 transformer=IdentityTransformer(),
+                 input_=raw_input if sys.version_info[0] < 3 else input):  # noqa: F821
+        self.transformer = transformer
+        self.input_ = input_
 
-ENABLE_STDOUT = bool(os.environ.get('RAINBOW_ENABLE_STDOUT', sys.stdout.isatty()))
-ENABLE_STDERR = bool(os.environ.get('RAINBOW_ENABLE_STDERR', sys.stderr.isatty()))
+    def run(self):
+        try:
+            while True:
+                print(self.transformer.transform(self.input_()))
+        except KeyboardInterrupt:
+            return 1
+        except EOFError:
+            return 0
+        finally:
+            sys.stdout.write(ANSI_RESET_ALL)
+            sys.stdout.flush()

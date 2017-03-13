@@ -47,10 +47,16 @@ RAINBOW_EXECUTABLE = os.path.join(os.path.dirname(PYTHON_EXECUTABLE), 'rainbow')
 
 
 def run(command, pipe=True):
-    return subprocess.call(args=command,
-                           stdin=sys.stdin if pipe else None,
-                           stdout=sys.stdout if pipe else None,
-                           stderr=sys.stderr if pipe else None)
+    return subprocess.call(
+        args=command,
+        stdin=sys.stdin if pipe else None,
+        stdout=sys.stdout if pipe else None,
+        stderr=sys.stderr if pipe else None,
+        env=dict(os.environ, **{
+            'RAINBOW_ENABLE_STDOUT': str(True),
+            'RAINBOW_ENABLE_STDERR': str(True)
+        })
+    )
 
 
 def run_python(script, pipe=True):

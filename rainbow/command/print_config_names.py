@@ -16,20 +16,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import logging
 import os
-import sys
 
-LOGGER = logging.getLogger('rainbow')
 
-VERSION = '2.6.0'
+class PrintConfigNamesCommand:
+    def __init__(self, paths=None):
+        self.paths = paths or []
 
-DEFAULT_PATH = [
-    os.environ.get('RAINBOW_CONFIGS'),
-    os.path.expanduser('~/.rainbow'),
-    os.path.join(os.sep, 'etc', 'rainbow'),
-    os.path.join(os.sep, os.path.dirname(__file__), 'configs')
-]
-
-ENABLE_STDOUT = bool(os.environ.get('RAINBOW_ENABLE_STDOUT', sys.stdout.isatty()))
-ENABLE_STDERR = bool(os.environ.get('RAINBOW_ENABLE_STDERR', sys.stderr.isatty()))
+    def run(self):
+        for path in self.paths:
+            if path and os.path.isdir(path):
+                for file in os.listdir(path):
+                    if os.path.isfile(os.path.join(path, file)):
+                        print(os.path.splitext(file)[0])
+        return 0

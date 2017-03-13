@@ -16,20 +16,32 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import logging
-import os
-import sys
+from rainbow import DEFAULT_PATH
+from rainbow.command.print_config_names import PrintConfigNamesCommand
 
-LOGGER = logging.getLogger('rainbow')
 
-VERSION = '2.6.0'
+def test_empty_path(capsys):
+    assert PrintConfigNamesCommand().run() == 0
+    out, err = capsys.readouterr()
+    assert out == ''
+    assert err == ''
 
-DEFAULT_PATH = [
-    os.environ.get('RAINBOW_CONFIGS'),
-    os.path.expanduser('~/.rainbow'),
-    os.path.join(os.sep, 'etc', 'rainbow'),
-    os.path.join(os.sep, os.path.dirname(__file__), 'configs')
-]
 
-ENABLE_STDOUT = bool(os.environ.get('RAINBOW_ENABLE_STDOUT', sys.stdout.isatty()))
-ENABLE_STDERR = bool(os.environ.get('RAINBOW_ENABLE_STDERR', sys.stderr.isatty()))
+def test_default_path(capsys):
+    assert PrintConfigNamesCommand(DEFAULT_PATH).run() == 0
+    out, err = capsys.readouterr()
+    assert 'diff\n' in out
+    assert 'ping' in out
+    assert 'md5sum' in out
+    assert 'jonas' in out
+    assert 'jboss' in out
+    assert 'env' in out
+    assert 'top' in out
+    assert 'java-stack-trace' in out
+    assert 'host' in out
+    assert 'ifconfig' in out
+    assert 'traceroute' in out
+    assert 'df' in out
+    assert 'mvn' in out
+    assert 'tomcat' in out
+    assert err == ''

@@ -135,7 +135,16 @@ class ListTransformer(IdentityTransformer):
         return isinstance(other, self.__class__) and self.transformers == other.transformers
 
 
-class TransformerBuilder:
+class DummyTransformerBuilder:
+
+    def add_mapping(self, pattern, filter):
+        pass
+
+    def build(self):
+        return IdentityTransformer()
+
+
+class TransformerBuilder(DummyTransformerBuilder):
     def __init__(self):
         self.transformers = []
 

@@ -17,10 +17,16 @@
 # ----------------------------------------------------------------------
 
 import pytest
+import sys
 
+import rainbow
 from rainbow import ansi
 from rainbow.__main__ import main
-from .test_utils import stdin_empty_all_variants, stdin_from_string_all_variants, stdin_from_file_all_variants
+from .test_utils import stdin_empty_all_variants, stdin_from_string_all_variants, stdin_from_file_all_variants, \
+    FILTERS_WITH_LONG_OPTION
+
+rainbow.ENABLE_STDOUT = True
+rainbow.ENABLE_STDERR = True
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
@@ -39,6 +45,38 @@ def test_false(capsys, stdin):
         out, err = capsys.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
+
+
+@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
+def test_warning(capsys, stdin):
+    with stdin:
+        assert main(['--config', 'does-not-exist', 'true']) == 0
+        out, err = capsys.readouterr()
+        assert out == ansi.ANSI_RESET_ALL
+        assert err == 'rainbow warning: Could not resolve config "does-not-exist"\n' + ansi.ANSI_RESET_ALL
+
+
+@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
+@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
+def test_error(capsys, stdin, filter):
+    with stdin:
+        assert main(['--' + filter.long_option]) == 1
+        out, err = capsys.readouterr()
+        assert out == ''
+        if sys.version_info[0] < 3:
+            assert 'rainbow error: %s option requires an argument\nrainbow: Usage: ' % (
+                '--' + filter.long_option) in err
+        else:
+            assert 'rainbow error: %s option requires 1 argument\nrainbow: Usage: ' % ('--' + filter.long_option) in err
+
+
+@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
+def test_stacktrace(capsys, stdin):
+    with stdin:
+        assert main(['--does-not-exist']) == 1
+        out, err = capsys.readouterr()
+        assert out == ''
+        assert 'No such file or directory' in err
 
 
 @pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line\n'), ids=str)

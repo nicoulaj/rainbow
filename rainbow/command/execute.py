@@ -24,11 +24,11 @@ import subprocess
 import sys
 from select import select
 
-from .ansi import ANSI_RESET_ALL
-from .transformer import IdentityTransformer
+from rainbow.ansi import ANSI_RESET_ALL
+from rainbow.transformer import IdentityTransformer
 
 
-class CommandRunner:
+class ExecuteCommand:
     def __init__(self, args, stdout_transformer=IdentityTransformer(), stderr_transformer=IdentityTransformer()):
         self.args = args
         self.stdout_transformer = stdout_transformer
@@ -76,23 +76,3 @@ class CommandRunner:
         except KeyboardInterrupt:
             os.kill(p.pid, signal.SIGINT)
         return p.wait()
-
-
-class STDINRunner:
-    def __init__(self,
-                 transformer=IdentityTransformer(),
-                 input_=raw_input if sys.version_info[0] < 3 else input):  # noqa: F821
-        self.transformer = transformer
-        self.input_ = input_
-
-    def run(self):
-        try:
-            while True:
-                print(self.transformer.transform(self.input_()))
-        except KeyboardInterrupt:
-            return 1
-        except EOFError:
-            return 0
-        finally:
-            sys.stdout.write(ANSI_RESET_ALL)
-            sys.stdout.flush()
