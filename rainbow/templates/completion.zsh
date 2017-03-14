@@ -17,19 +17,49 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-typeset -A opt_args
-local context state line curcontext="$curcontext"
+_rainbow() {
+  typeset -A opt_args
+  local context state line curcontext="$curcontext"
 
-_arguments \
+  _arguments \
 {%- for filter in filters %}
   {%- if filter.short_option %}
-  '*'{-{{ filter.short_option }}+,--{{ filter.long_option }}}'[{{ filter.help }}]' \
+    '*'{-{{ filter.short_option }}+,--{{ filter.long_option }}=}'[{{ filter.help }}]:pattern:_rainbow_patterns' \
   {%- else %}
-  '*--{{ filter.long_option }}[{{ filter.help }}]' \
+    '*--{{ filter.long_option }}=[{{ filter.help }}]:pattern:_rainbow_patterns' \
   {%- endif %}
 {%- endfor %}
-  '(- 1 *)'{-h,--help}'[print program usage]' \
-  '(- 1 *)--version[print program version]' \
-  '*'{-v,--verbose}'[verbose mode]' \
-  '--disable-stderr-filtering[disable STDERR filtering]' \
-  {-f,--config}'[rainbow config file]:rainbow config:_files -W "( $(pwd) ~/.rainbow /usr/share/rainbow/configs )" -g "*.cfg(\:r\:t)"' # 32: Need to use the real paths here
+    '(- 1 *)'{-h,--help}'[print program usage]' \
+    '(- 1 *)--version[print program version]' \
+    '(- 1 *)--print-path[print config paths]' \
+    '(- 1 *)--print-config-names[print config names]' \
+    '*'{-v,--verbose}'[verbose mode]' \
+    '--disable-stderr-filtering[disable STDERR filtering]' \
+    '*'{-f,--config=}'[rainbow config file]:rainbow config:_rainbow_configs'
+}
+
+(( $+functions[_rainbow_patterns] )) ||
+_rainbow_patterns() {
+  _message -e pattern "pattern"
+}
+
+(( $+functions[_rainbow_configs] )) ||
+_rainbow_configs() {
+  _alternative \
+    'config-names:config name:_rainbow_config_names' \
+    'config-files:config file:_rainbow_config_files'
+}
+
+(( $+functions[_rainbow_config_names] )) ||
+_rainbow_config_names() {
+  local rainbow_config_names
+  rainbow_config_names=( "${(f)$(_call_program configs rainbow --print-config-names 2>/dev/null)}" )
+  _describe -t 'rainbow config names' 'rainbow config name' rainbow_config_names
+}
+
+(( $+functions[_rainbow_config_files] )) ||
+_rainbow_config_files() {
+  _files -g "*.cfg"
+}
+
+_rainbow "$@"
