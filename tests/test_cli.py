@@ -17,18 +17,17 @@
 # ----------------------------------------------------------------------
 
 import re
-import sys
 
 import pytest
 
 from rainbow import LOGGER, DEFAULT_PATH
 from rainbow.cli import CommandLineParser
+from rainbow.command.execute import ExecuteCommand
+from rainbow.command.print_config_names import PrintConfigNamesCommand
+from rainbow.command.print_path import PrintPathCommand
+from rainbow.command.stdin import STDINCommand
 from rainbow.filter import FILTERS_BY_NAME
 from rainbow.transformer import TransformerBuilder, IdentityTransformer
-from rainbow.command.stdin import STDINCommand
-from rainbow.command.execute import ExecuteCommand
-from rainbow.command.print_path import PrintPathCommand
-from rainbow.command.print_config_names import PrintConfigNamesCommand
 from .test_utils import FILTERS_WITH_SHORT_OPTION, FILTERS_WITH_LONG_OPTION
 
 
@@ -69,20 +68,16 @@ def test_filter_long_option(filter):
 @pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
 def test_filter_short_option_without_value(filter):
     (command, errors) = parse(['-' + filter.short_option])
-    if sys.version_info[0] < 3:
-        assert errors == ['%s option requires an argument' % ('-' + filter.short_option)]
-    else:
-        assert errors == ['%s option requires 1 argument' % ('-' + filter.short_option)]
+    assert len(errors) == 1
+    assert re.match(r'%s option requires (an|1) argument' % ('-' + filter.short_option), errors[0])
     assert not command
 
 
 @pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
 def test_filter_long_option_without_value(filter):
     (command, errors) = parse(['--' + filter.long_option])
-    if sys.version_info[0] < 3:
-        assert errors == ['%s option requires an argument' % ('--' + filter.long_option)]
-    else:
-        assert errors == ['%s option requires 1 argument' % ('--' + filter.long_option)]
+    assert len(errors) == 1
+    assert re.match(r'%s option requires (an|1) argument' % ('--' + filter.long_option), errors[0])
     assert not command
 
 

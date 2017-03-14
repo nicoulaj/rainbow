@@ -16,8 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import re
+
 import pytest
-import sys
 
 import rainbow
 from rainbow import ansi
@@ -63,11 +64,10 @@ def test_error(capsys, stdin, filter):
         assert main(['--' + filter.long_option]) == 1
         out, err = capsys.readouterr()
         assert out == ''
-        if sys.version_info[0] < 3:
-            assert 'rainbow error: %s option requires an argument\nrainbow: Usage: ' % (
-                '--' + filter.long_option) in err
-        else:
-            assert 'rainbow error: %s option requires 1 argument\nrainbow: Usage: ' % ('--' + filter.long_option) in err
+        assert re.match(
+            r'.*rainbow error: %s option requires (an|1) argument\nrainbow: Usage: .*' % ('--' + filter.long_option),
+            err
+        )
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
