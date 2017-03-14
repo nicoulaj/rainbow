@@ -22,10 +22,6 @@ language: python
 
 cache: pip
 
-os:
-  - linux
-  - osx
-
 python:
   - "2.6"
   - "2.7"
