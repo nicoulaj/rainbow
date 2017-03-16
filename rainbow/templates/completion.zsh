@@ -35,7 +35,9 @@ _rainbow() {
     '(- 1 *)--print-config-names[print config names]' \
     '*'{-v,--verbose}'[verbose mode]' \
     '--disable-stderr-filtering[disable STDERR filtering]' \
-    '*'{-f,--config=}'[rainbow config file]:rainbow config:_rainbow_configs'
+    '*'{-f,--config=}'[rainbow config file]:rainbow config:_rainbow_configs' \
+      '(-):command name: _command_names -e' \
+      '*::arguments:_normal' && ret=0
 }
 
 (( $+functions[_rainbow_patterns] )) ||
