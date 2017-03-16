@@ -34,16 +34,15 @@ class GenerateManPage(Command):
         ('output=', 'O', 'output file')
     ]
 
-    def __init__(self, dist):
-        Command.__init__(self, dist)
-        self.shell = None
+    def __init__(self, dist, **kwargs):
         self.output = None
+        Command.__init__(self, dist, **kwargs)
 
     def initialize_options(self):
         pass
 
     def finalize_options(self):
-        if self.output is None:
+        if self.output is None:  # no cover
             raise DistutilsOptionError('"output" option is required')
 
     def run(self):
@@ -51,7 +50,7 @@ class GenerateManPage(Command):
 
         directory = os.path.dirname(self.output)
         if not os.path.exists(directory):
-            os.makedirs(directory)
+            os.makedirs(directory)  # no cover
 
         Environment(loader=PackageLoader('rainbow', 'templates')) \
             .get_template('rainbow.man') \
