@@ -31,18 +31,18 @@ class GenerateCompletion(Command):
         ('output=', 'O', 'output file')
     ]
 
-    def __init__(self, dist):
-        Command.__init__(self, dist)
+    def __init__(self, dist, **kwargs):
         self.shell = None
         self.output = None
+        Command.__init__(self, dist, **kwargs)
 
     def initialize_options(self):
         pass
 
     def finalize_options(self):
-        if self.shell is None:
+        if self.shell is None:  # no cover
             raise DistutilsOptionError('"shell" option is required')
-        if self.output is None:
+        if self.output is None:  # no cover
             raise DistutilsOptionError('"output" option is required')
 
     def run(self):
@@ -50,7 +50,7 @@ class GenerateCompletion(Command):
 
         directory = os.path.dirname(self.output)
         if not os.path.exists(directory):
-            os.makedirs(directory)
+            os.makedirs(directory)  # no cover
 
         Environment(loader=PackageLoader('rainbow', 'templates')) \
             .get_template('completion.%s' % self.shell) \
