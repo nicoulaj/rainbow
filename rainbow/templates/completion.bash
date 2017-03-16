@@ -19,38 +19,51 @@
 
 _rainbow()
 {
-  local RAINBOW_CONFIGS_HOME=/usr/share/rainbow/configs
-  local USER_CONFIGS_HOME=~/.rainbow
-
-  cur=${COMP_WORDS[COMP_CWORD]}
-  if [ $COMP_CWORD -eq 1 ]; then
-    COMPREPLY=( $( compgen -W "--version -h --help --disable-stderr-filtering --verbose --config -{{ filters|selectattr('short_option')|join(' -', attribute='short_option') }} --{{ filters|join(' --', attribute='long_option') }}" -- $cur ) )
-  else
-    first=${COMP_WORDS[1]}
-    case "$first" in
-      --version|-h|--help)
-        COMPREPLY=()
+  local offset=0 i
+  for (( i=1; i <= COMP_CWORD; i++ )); do
+    case ${COMP_WORDS[$i]} in
+      --version|-h|--help|--disable-stderr-filtering|--verbose|-f|--config|-{{ filters|selectattr('short_option')|join('|-', attribute='short_option') }}|--{{ filters|join('|--', attribute='long_option') }})
+        i=$((i+1))
+        continue
         ;;
-      *)
-        prev=${COMP_WORDS[COMP_CWORD-1]}
-        case "$prev" in
-          -{{ filters|selectattr('short_option')|join('|-', attribute='short_option') }}|--{{ filters|join('|--', attribute='long_option') }})
-            COMPREPLY=()
-            ;;
-          -f|--config)
-            # 32: Need to use the real paths here
-            COMPREPLY=( $(compgen -f -X "!*.cfg" $cur ) \
-                        $(compgen -d $cur ) \
-                        $(compgen -W "`ls $USER_CONFIGS_HOME 2> /dev/null | grep ".cfg" | sed 's/\(.*\)\.cfg/\1/'`" $cur) \
-                        $(compgen -W "`ls $RAINBOW_CONFIGS_HOME 2> /dev/null | grep ".cfg" | sed 's/\(.*\)\.cfg/\1/'`" $cur) )
-            ;;
-          *)
-            COMPREPLY=( $( compgen -W "--disable-stderr-filtering --verbose --config -{{ filters|selectattr('short_option')|join(' -', attribute='short_option') }} --{{ filters|join(' --', attribute='long_option') }}" -- $cur ) )
-            ;;
-        esac
+      -*)
+        continue
         ;;
     esac
+    offset=$i
+    break
+  done
+  if [[ $offset -gt 0 ]]; then
+    _command_offset $offset
+  else
+  cur=${COMP_WORDS[COMP_CWORD]}
+    if [ $COMP_CWORD -eq 1 ]; then
+    COMPREPLY=( $( compgen -W "--version -h --help --print-path --print-config-names --disable-stderr-filtering --verbose -f --config -{{ filters|selectattr('short_option')|join(' -', attribute='short_option') }} --{{ filters|join(' --', attribute='long_option') }}" -- $cur ) )
+    else
+      first=${COMP_WORDS[1]}
+      case "$first" in
+        --version|-h|--help|--print-path|--print-config-names)
+          COMPREPLY=()
+          ;;
+        *)
+          prev=${COMP_WORDS[COMP_CWORD-1]}
+          case "$prev" in
+            -{{ filters|selectattr('short_option')|join('|-', attribute='short_option') }}|--{{ filters|join('|--', attribute='long_option') }})
+              COMPREPLY=()
+              ;;
+            -f|--config)
+              COMPREPLY=( $(rainbow --print-config-names) \
+                          $(compgen -d $cur ) \
+                          $(compgen -f -X "!*.cfg" $cur ) )
+              ;;
+            *)
+              COMPREPLY=( $( compgen -W "--disable-stderr-filtering --verbose -f --config -{{ filters|selectattr('short_option')|join(' -', attribute='short_option') }} --{{ filters|join(' --', attribute='long_option') }}" -- $cur ) )
+              ;;
+          esac
+          ;;
+      esac
+    fi
   fi
 }
 
-complete -A command -F _rainbow rainbow
+complete -F _rainbow rainbow
