@@ -1,0 +1,127 @@
+.TH RAINBOW 1 "May 23, 2010"
+
+
+.SH NAME
+rainbow \- Colorize commands output using patterns.
+
+
+.SH SYNOPSIS
+.B rainbow
+[rainbow options...] command [command args...]
+
+command [command args...] |
+.B rainbow
+[rainbow options...]
+
+
+.SH DESCRIPTION
+Display commands output colored matching words or regular expressions. If you don't specify a command, STDIN is used.
+
+
+.SH OPTIONS
+These programs follow the usual GNU command line syntax, with long options starting with two dashes (`-'). A summary of
+options is included below.
+
+.PP
+.B
+Common options
+
+.TP
+.B
+    \-v, \-\-version
+    show program's version number and exit.
+
+.TP
+.B
+    \-h, \-\-help
+    show help message and exit.
+
+.TP
+.B
+    \-\-print-path
+    Print config paths and exit.
+
+.TP
+.B
+    \-\-print-config-names
+    Print config names and exit.
+
+.TP
+.B
+    \-f CONFIG, \-\-config CONFIG
+    Load a config file defining patterns. Go to /usr/share/rainbow/configs for examples. The option can be called
+    several times.
+
+.TP
+.B
+    \-\-disable\-stderr\-filtering
+    Disable STDERR filtering, which can have unexpected effects on commands directly using tty (such as top).
+
+
+{%- for filter_group in filter_groups %}
+.PP
+.B
+{{ filter_group.name }}
+\- {{ filter_group.help }}
+  {%- for filter in filter_group.filters %}
+
+.TP
+.B
+    {%- if filter.short_option %}
+    \-{{ filter.short_option }}, \-\-{{ filter.long_option }} PATTERN
+    {{ filter.help }}
+    {%- else %}
+    \-\-{{ filter.long_option }} PATTERN
+    {{ filter.help }}
+    {%- endif %}
+  {%- endfor %}
+{%- endfor %}
+
+
+.SH EXAMPLES
+
+.TP
+Colorize the 'diff' command output using the builtin config:
+rainbow diff file1 file2
+
+.TP
+Colorize the 'ping' command output using the builtin config:
+rainbow ping www.google.com
+
+.TP
+Ping Google with IP addresses colorized in red:
+rainbow \-\-red '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}' ping www.google.com
+
+.TP
+Pipe content to rainbow instead of providing a command:
+tail -f my-file.log | rainbow \-\-config my-config
+
+
+.SH CONFIGS
+.TP
+The \-f or \-\-config option allows to load patterns defined in a configuration file, for example:
+rainbow \-\-config MY_CONFIG
+.PP
+rainbow will look for the config at the following places, in the following order:
+  * $RAINBOW_CONFIGS/MY_CONFIG
+  * $RAINBOW_CONFIGS/MY_CONFIG.cfg
+  * ~/.rainbow/MY_CONFIG
+  * ~/.rainbow/MY_CONFIG.cfg
+  * /etc/rainbow/MY_CONFIG
+  * /etc/rainbow/MY_CONFIG.cfg
+  * <rainbow builtin configs>/MY_CONFIG
+  * <rainbow builtin configs>/usr/share/rainbow/configs/MY_CONFIG.cfg
+
+rainbow comes bundled with several configs, for example for the ping, top and diff commands, for Tomcat/JBoss logs, etc.
+You can override the default configs with your own ones by placing them in $RAINBOW_CONFIGS, ~/.rainbow or /etc/rainbow.
+
+
+.SH BUGS
+Please report bugs to https://github.com/nicoulaj/rainbow/issues.
+
+
+.SH AUTHOR
+.PP
+This manual page was written by Julien Nicoulaud <julien.nicoulaud@gmail.com>,
+for the rainbow project (https://github.com/nicoulaj/rainbow), and may be used
+by others.

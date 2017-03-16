@@ -23,6 +23,7 @@ from setuptools import setup, find_packages
 from distutils.command.build import build
 
 from rainbow.completion import GenerateCompletion
+from rainbow.manpage import GenerateManPage
 from rainbow import VERSION
 
 
@@ -30,6 +31,7 @@ class BuildRainbow(build):
     def run(self):
         self.run_command("build_completion_bash")
         self.run_command("build_completion_zsh")
+        self.run_command("build_man_page")
         build.run(self)
 
 
@@ -72,7 +74,8 @@ setup(
     include_package_data=True,
     data_files=[
         ('/etc/bash_completion.d', ['build/completion/rainbow']),
-        ('/usr/share/zsh/site-functions', ['build/completion/_rainbow'])
+        ('/usr/share/zsh/site-functions', ['build/completion/_rainbow']),
+        ('/usr/share/man/man1', ['build/man/rainbow.gz'])
     ],
     entry_points={
         'console_scripts': ['rainbow = rainbow.__main__:main']
@@ -80,6 +83,7 @@ setup(
     cmdclass={
         'build': BuildRainbow,
         'build_completion_bash': GenerateCompletion,
-        'build_completion_zsh': GenerateCompletion
+        'build_completion_zsh': GenerateCompletion,
+        'build_man_page': GenerateManPage
     }
 )
