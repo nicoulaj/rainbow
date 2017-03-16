@@ -75,7 +75,7 @@ setup(
     data_files=[
         ('/etc/bash_completion.d', ['build/completion/rainbow']),
         ('/usr/share/zsh/site-functions', ['build/completion/_rainbow']),
-        ('/usr/share/man/man1', ['build/man/rainbow.gz'])
+        ('/usr/share/man/man1', ['build/man/rainbow.1.gz'])
     ],
     entry_points={
         'console_scripts': ['rainbow = rainbow.__main__:main']
