@@ -25,6 +25,10 @@ Rainbow
    :target: https://landscape.io/github/nicoulaj/rainbow/master
    :alt: landscape.io score
 
+.. image:: https://codeclimate.com/github/nicoulaj/rainbow/badges/gpa.svg
+   :target: https://codeclimate.com/github/nicoulaj/rainbow
+   :alt: codeclimate.com score
+
 .. image:: https://badges.gitter.im/nicoulaj/rainbow.svg
    :target: https://gitter.im/nicoulaj/rainbow
    :alt: gitter chat
