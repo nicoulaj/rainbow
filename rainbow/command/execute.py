@@ -28,7 +28,7 @@ from rainbow.ansi import ANSI_RESET_ALL
 from rainbow.transformer import IdentityTransformer
 
 
-class ExecuteCommand:
+class ExecuteCommand(object):
     def __init__(self, args, stdout_transformer=IdentityTransformer(), stderr_transformer=IdentityTransformer()):
         self.args = args
         self.stdout_transformer = stdout_transformer

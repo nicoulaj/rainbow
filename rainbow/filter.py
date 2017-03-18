@@ -19,7 +19,7 @@
 from . import ansi
 
 
-class Filter:
+class Filter(object):
     def __init__(self, name, help, short_option=None, long_option=None, before=None, after=None):
         self.name = name
         self.help = help
@@ -32,7 +32,7 @@ class Filter:
         return self.name
 
 
-class FilterGroup:
+class FilterGroup(object):
     def __init__(self, name, help, filters):
         self.name = name
         self.help = help

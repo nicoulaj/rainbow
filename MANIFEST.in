@@ -17,5 +17,8 @@
 # ----------------------------------------------------------------------
 
 include README.rst
+include COPYING
+include requirements-*.txt
 include rainbow/configs/*
 include rainbow/templates/*
+include rainbow/scripts/*

@@ -19,7 +19,7 @@
 import os
 
 
-class PrintPathCommand:
+class PrintPathCommand(object):
     def __init__(self, paths=None):
         self.paths = paths or []
 

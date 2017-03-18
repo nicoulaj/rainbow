@@ -36,7 +36,7 @@ python:
   - "pypy3"
 
 install:
- - pip install -r requirements-dev.txt
+ - pip install -r requirements-build.txt -r requirements-test.txt
  - pip install tox-travis scrutinizer-ocular codeclimate-test-reporter
 
 script:

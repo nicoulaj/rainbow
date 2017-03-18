@@ -22,7 +22,7 @@ import re
 from . import LOGGER
 
 
-class IdentityTransformer:
+class IdentityTransformer(object):
     def __init__(self):
         pass
 
@@ -135,7 +135,7 @@ class ListTransformer(IdentityTransformer):
         return isinstance(other, self.__class__) and self.transformers == other.transformers
 
 
-class DummyTransformerBuilder:
+class DummyTransformerBuilder(object):
 
     def add_mapping(self, pattern, filter):
         pass

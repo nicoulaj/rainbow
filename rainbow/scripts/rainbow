@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # ----------------------------------------------------------------------
 # rainbow, a command line colorizer
 # Copyright (C) 2011-2017 Julien Nicoulaud <julien.nicoulaud@gmail.com>
@@ -16,17 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import os
+import re
+import sys
 
+from rainbow.__main__ import main
 
-class PrintConfigNamesCommand(object):
-    def __init__(self, paths=None):
-        self.paths = paths or []
-
-    def run(self):
-        for path in self.paths:
-            if path and os.path.isdir(path):
-                for file in os.listdir(path):
-                    if os.path.isfile(os.path.join(path, file)):
-                        print(os.path.splitext(file)[0])
-        return 0
+sys.exit(main())

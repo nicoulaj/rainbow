@@ -23,7 +23,7 @@ from rainbow.ansi import ANSI_RESET_ALL
 from rainbow.transformer import IdentityTransformer
 
 
-class STDINCommand:
+class STDINCommand(object):
     def __init__(self,
                  transformer=IdentityTransformer(),
                  input_=raw_input if sys.version_info[0] < 3 else input):  # noqa: F821

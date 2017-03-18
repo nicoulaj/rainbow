@@ -28,7 +28,7 @@ except ImportError:  # no cover
     import ConfigParser as configparser
 
 
-class ConfigLoader:
+class ConfigLoader(object):
     def __init__(self, paths=None):
         self.paths = paths or []
 
