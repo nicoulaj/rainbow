@@ -1,7 +1,7 @@
 #compdef rainbow
 # ----------------------------------------------------------------------
-# rainbow, a command line colorizer
-# Copyright (C) 2011-2017 Julien Nicoulaud <julien.nicoulaud@gmail.com>
+# rainbow, a terminal colorizer - https://github.com/nicoulaj/rainbow
+# copyright (c) 2010-2017 rainbow contributors
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
