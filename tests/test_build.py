@@ -22,8 +22,7 @@ from distutils.dist import Distribution
 import pytest
 
 from rainbow.build import GenerateCompletion, GenerateManPage
-from rainbow.filter import FILTERS
-from .test_utils import FILTER_GROUPS, FILTERS_WITH_SHORT_OPTION, FILTERS_WITH_LONG_OPTION
+from rainbow.filter import FILTERS, FILTER_GROUPS
 
 COMPLETION_SHELLS = ['bash', 'zsh']
 
@@ -36,17 +35,12 @@ def generate_completion(request, shell):
 
 
 @pytest.mark.parametrize("shell", COMPLETION_SHELLS)
-@pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
-def test_completion_filter_short_option_included(request, shell, filter):
+def test_completion_filter_included(request, shell):
     completion = generate_completion(request, shell)
-    assert '-' + filter.short_option in completion
-
-
-@pytest.mark.parametrize("shell", COMPLETION_SHELLS)
-@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
-def test_completion_filter_long_option_included(request, shell, filter):
-    completion = generate_completion(request, shell)
-    assert '--' + filter.long_option in completion
+    for filter in FILTERS:
+        if filter.short_option:
+            assert '-' + filter.short_option in completion
+        assert '--' + filter.long_option in completion
 
 
 @pytest.mark.parametrize("shell", COMPLETION_SHELLS)
@@ -62,34 +56,20 @@ def generate_man_page(request):
     return open(path).read()
 
 
-@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=str)
-def test_manpage_filter_group_name_included(request, filter_group):
+def test_manpage_filter_group_included(request):
     man_page = generate_man_page(request)
-    assert filter_group.name in man_page
+    for filter_group in FILTER_GROUPS:
+        assert filter_group.name in man_page
+        assert filter_group.help in man_page
 
 
-@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=str)
-def test_manpage_filter_group_help_included(request, filter_group):
+def test_manpage_filter_included(request):
     man_page = generate_man_page(request)
-    assert filter_group.help in man_page
-
-
-@pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
-def test_manpage_filter_short_option_included(request, filter):
-    man_page = generate_man_page(request)
-    assert '\-' + filter.short_option in man_page
-
-
-@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
-def test_manpage_filter_long_option_included(request, filter):
-    man_page = generate_man_page(request)
-    assert '\-\-' + filter.long_option in man_page
-
-
-@pytest.mark.parametrize("filter", FILTERS, ids=str)
-def test_manpage_filter_help_included(request, filter):
-    man_page = generate_man_page(request)
-    assert filter.help in man_page
+    for filter in FILTERS:
+        if filter.short_option:
+            assert '\-' + filter.short_option in man_page
+        assert '\-\-' + filter.long_option in man_page
+        assert filter.help in man_page
 
 
 def test_manpage_ends_with_new_line(request):

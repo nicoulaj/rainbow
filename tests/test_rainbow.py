@@ -20,9 +20,9 @@ import pytest
 
 import rainbow
 from rainbow import ansi, VERSION
-from rainbow.filter import FILTERS
+from rainbow.filter import FILTERS, FILTER_GROUPS
 from .test_utils import run_rainbow, stdin_empty_all_variants, stdin_from_string_all_variants, \
-    stdin_from_file_all_variants, FILTER_GROUPS, FILTERS_WITH_SHORT_OPTION, FILTERS_WITH_LONG_OPTION
+    stdin_from_file_all_variants
 
 rainbow.ENABLE_ANSI_STDOUT = True
 rainbow.ENABLE_ANSI_STDERR = True
@@ -79,50 +79,24 @@ def test_version(capfd, stdin):
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=str)
-def test_help_filter_group_name_included(capfd, stdin, filter_group):
+def test_help_filter_group(capfd, stdin):
     with stdin:
         assert run_rainbow(['--help']) == 0
         out, err = capfd.readouterr()
-        assert filter_group.name in out
-        assert err == ''
+        for filter_group in FILTER_GROUPS:
+            assert filter_group.name in out
+            assert filter_group.help in out
+            assert err == ''
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-@pytest.mark.parametrize("filter_group", FILTER_GROUPS, ids=str)
-def test_help_filter_group_help_included(capfd, stdin, filter_group):
+def test_help_filter_included(capfd, stdin):
     with stdin:
         assert run_rainbow(['--help']) == 0
         out, err = capfd.readouterr()
-        assert filter_group.name in out
-        assert err == ''
-
-
-@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-@pytest.mark.parametrize("filter", FILTERS_WITH_SHORT_OPTION, ids=str)
-def test_help_filter_short_option_included(capfd, stdin, filter):
-    with stdin:
-        assert run_rainbow(['--help']) == 0
-        out, err = capfd.readouterr()
-        assert '-' + filter.short_option in out
-        assert err == ''
-
-
-@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-@pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
-def test_help_filter_long_option_included(capfd, stdin, filter):
-    with stdin:
-        assert run_rainbow(['--help']) == 0
-        out, err = capfd.readouterr()
-        assert '--' + filter.long_option in out
-        assert err == ''
-
-
-@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-@pytest.mark.parametrize("filter", FILTERS, ids=str)
-def test_help_filter_help_included(capfd, stdin, filter):
-    with stdin:
-        assert run_rainbow(['--help']) == 0
-        out, err = capfd.readouterr()
-        assert filter.help in out
-        assert err == ''
+        for filter in FILTERS:
+            if filter.short_option:
+                assert '-' + filter.short_option in out
+            assert '--' + filter.long_option in out
+            assert filter.help in out
+            assert err == ''
