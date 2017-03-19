@@ -147,10 +147,9 @@ class GenerateManPage(Command):
 
 def makeparentdirs(path):
     directory = os.path.dirname(path)
-    if not os.path.exists(directory):
+    if not os.path.exists(directory):  # no cover
         try:
-            os.makedirs(directory)  # no cover
-        except OSError, e:
-            # be happy if someone already created the path
+            os.makedirs(directory)
+        except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
