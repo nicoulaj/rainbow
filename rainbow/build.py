@@ -26,7 +26,7 @@ from distutils.core import Command
 from distutils.dir_util import remove_tree
 from distutils.errors import DistutilsOptionError
 
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, FileSystemLoader
 
 from .filter import FILTERS
 from .filter import FILTER_GROUPS
@@ -99,7 +99,7 @@ class GenerateCompletion(Command):
         if not os.path.exists(directory):
             os.makedirs(directory)  # no cover
 
-        Environment(loader=PackageLoader('rainbow', 'templates')) \
+        Environment(loader=FileSystemLoader('templates')) \
             .get_template('completion.%s' % self.shell) \
             .stream(filters=FILTERS) \
             .dump(self.output)
@@ -130,7 +130,7 @@ class GenerateManPage(Command):
         if not os.path.exists(directory):
             os.makedirs(directory)  # no cover
 
-        Environment(loader=PackageLoader('rainbow', 'templates')) \
+        Environment(loader=FileSystemLoader('templates')) \
             .get_template('rainbow.man') \
             .stream(filter_groups=FILTER_GROUPS) \
             .dump(self.output)

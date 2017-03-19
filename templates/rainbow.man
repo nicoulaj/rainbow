@@ -125,3 +125,4 @@ Please report bugs to https://github.com/nicoulaj/rainbow/issues.
 This manual page was written by Julien Nicoulaud <julien.nicoulaud@gmail.com>,
 for the rainbow project (https://github.com/nicoulaj/rainbow), and may be used
 by others.
+

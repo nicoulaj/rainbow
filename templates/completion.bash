@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 # ----------------------------------------------------------------------
 # rainbow, a terminal colorizer - https://github.com/nicoulaj/rainbow
 # copyright (c) 2010-2017 rainbow contributors
@@ -67,3 +66,4 @@ _rainbow()
 }
 
 complete -F _rainbow rainbow
+

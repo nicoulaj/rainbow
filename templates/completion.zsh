@@ -65,3 +65,4 @@ _rainbow_config_files() {
 }
 
 _rainbow "$@"
+

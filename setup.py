@@ -65,7 +65,7 @@ setup(
         ('/usr/share/zsh/site-functions', ['build/completion/_rainbow']),
         ('/usr/share/man/man1', ['build/man/rainbow.1.gz'])
     ],
-    scripts=['rainbow/scripts/rainbow'],
+    scripts=['scripts/rainbow'],
     cmdclass={
         'clean': Clean,
         'build': Build,

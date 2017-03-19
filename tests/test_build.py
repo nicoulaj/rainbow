@@ -49,6 +49,12 @@ def test_completion_filter_long_option_included(request, shell, filter):
     assert '--' + filter.long_option in completion
 
 
+@pytest.mark.parametrize("shell", COMPLETION_SHELLS)
+def test_completion_ends_with_new_line(request, shell):
+    completion = generate_completion(request, shell)
+    assert completion[-1] == '\n'
+
+
 def generate_man_page(request):
     path = 'build/tests-workspace/manpage_' + request.node.name
     command = GenerateManPage(Distribution(), output=path)
@@ -84,3 +90,8 @@ def test_manpage_filter_long_option_included(request, filter):
 def test_manpage_filter_help_included(request, filter):
     man_page = generate_man_page(request)
     assert filter.help in man_page
+
+
+def test_manpage_ends_with_new_line(request):
+    man_page = generate_man_page(request)
+    assert man_page[-1] == '\n'
