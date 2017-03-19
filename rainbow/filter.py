@@ -402,6 +402,19 @@ FILTER_GROUPS = [
                    long_option='hide-reset-after',
                    help='reset hiding on end of pattern',
                    after=ansi.ANSI_RESET_HIDE),
+            Filter(name='reset-all',
+                   long_option='reset-all',
+                   help='reset all colors',
+                   before=ansi.ANSI_RESET_ALL,
+                   after=ansi.ANSI_RESET_ALL),
+            Filter(name='reset-all-before',
+                   long_option='reset-all-before',
+                   help='reset all colors on beginning of pattern',
+                   before=ansi.ANSI_RESET_ALL),
+            Filter(name='reset-all-after',
+                   long_option='reset-all-after',
+                   help='reset all colors on end of pattern',
+                   after=ansi.ANSI_RESET_ALL),
         ]
     )
 ]
