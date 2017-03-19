@@ -27,6 +27,7 @@ from .command.stdin import STDINCommand
 from .command.execute import ExecuteCommand
 from .command.print_path import PrintPathCommand
 from .command.print_config_names import PrintConfigNamesCommand
+from .command.noop import NoOpCommand
 
 
 class CommandLineParser(OptionParser):
@@ -152,3 +153,11 @@ class CommandLineParser(OptionParser):
     def handle_print_config_names_option(self, option, opt, value, parser):
         self.command = PrintConfigNamesCommand(DEFAULT_PATH)
         parser.exit(0)
+
+    def print_help(self, file=None):
+        self.command = NoOpCommand()
+        return OptionParser.print_help(self, file)
+
+    def print_version(self, file=None):
+        self.command = NoOpCommand()
+        return OptionParser.print_version(self, file)

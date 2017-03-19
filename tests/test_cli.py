@@ -23,6 +23,7 @@ import pytest
 from rainbow import LOGGER, DEFAULT_PATH
 from rainbow.cli import CommandLineParser
 from rainbow.command.execute import ExecuteCommand
+from rainbow.command.noop import NoOpCommand
 from rainbow.command.print_config_names import PrintConfigNamesCommand
 from rainbow.command.print_path import PrintPathCommand
 from rainbow.command.stdin import STDINCommand
@@ -373,3 +374,17 @@ def test_print_config_names_with_extra_args():
     assert not errors
     assert isinstance(command, PrintConfigNamesCommand)
     assert command.paths == DEFAULT_PATH
+
+
+def test_version():
+    (command, errors) = parse(['--version', 'foo'])
+    assert not errors
+    assert isinstance(command, NoOpCommand)
+    assert command.exit_code == 0
+
+
+def test_help():
+    (command, errors) = parse(['--help', 'foo'])
+    assert not errors
+    assert isinstance(command, NoOpCommand)
+    assert command.exit_code == 0
