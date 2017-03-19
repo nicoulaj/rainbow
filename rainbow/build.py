@@ -16,6 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import errno
 import gzip
 import os
 import shutil
@@ -95,9 +96,7 @@ class GenerateCompletion(Command):
     def run(self):
         self.announce('generating %s completion -> %s' % (self.shell, self.output))
 
-        directory = os.path.dirname(self.output)
-        if not os.path.exists(directory):
-            os.makedirs(directory)  # no cover
+        makeparentdirs(self.output)
 
         Environment(loader=FileSystemLoader('templates')) \
             .get_template('completion.%s' % self.shell) \
@@ -126,9 +125,7 @@ class GenerateManPage(Command):
     def run(self):
         self.announce('generating man page -> %s' % self.output)
 
-        directory = os.path.dirname(self.output)
-        if not os.path.exists(directory):
-            os.makedirs(directory)  # no cover
+        makeparentdirs(self.output)
 
         Environment(loader=FileSystemLoader('templates')) \
             .get_template('rainbow.man') \
@@ -146,3 +143,14 @@ class GenerateManPage(Command):
                 file_in.close()
             if file_out:
                 file_out.close()
+
+
+def makeparentdirs(path):
+    directory = os.path.dirname(path)
+    if not os.path.exists(directory):
+        try:
+            os.makedirs(directory)  # no cover
+        except OSError, e:
+            # be happy if someone already created the path
+            if e.errno != errno.EEXIST:
+                raise

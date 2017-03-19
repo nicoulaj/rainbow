@@ -18,6 +18,7 @@
 
 pytest==3.0.7
 coverage==4.3.4
+pytest-xdist==1.15.0
 pytest-cov==2.4.0
 pytest-html==1.14.2
 pytest-timeout==1.2.0
