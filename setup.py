@@ -20,20 +20,9 @@
 import os
 
 from setuptools import setup, find_packages
-from distutils.command.build import build
 
-from rainbow.completion import GenerateCompletion
-from rainbow.manpage import GenerateManPage
 from rainbow import VERSION
-
-
-class BuildRainbow(build):
-    def run(self):
-        self.run_command("build_completion_bash")
-        self.run_command("build_completion_zsh")
-        self.run_command("build_man_page")
-        build.run(self)
-
+from rainbow.build import Clean, Build, GenerateCompletion, GenerateManPage
 
 setup(
     name='rainbow',
@@ -79,7 +68,8 @@ setup(
     ],
     scripts=['rainbow/scripts/rainbow'],
     cmdclass={
-        'build': BuildRainbow,
+        'clean': Clean,
+        'build': Build,
         'build_completion_bash': GenerateCompletion,
         'build_completion_zsh': GenerateCompletion,
         'build_man_page': GenerateManPage
