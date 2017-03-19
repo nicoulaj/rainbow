@@ -38,7 +38,6 @@ setup(
         'Development Status :: 5 - Production/Stable',
         'Environment :: Console',
         'Operating System :: MacOS :: MacOS X',
-        'Operating System :: Microsoft :: Windows',
         'Operating System :: POSIX',
         'Topic :: System',
         'Topic :: Utilities',
