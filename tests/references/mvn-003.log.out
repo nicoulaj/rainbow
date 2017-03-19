@@ -1,0 +1,96 @@
+[FOREGROUND_GREEN][INFO] Scanning for projects[FOREGROUND_RESET]...
+[INFO]                                                                         
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[BOLD][INFO] Building Hotspot compile command annotations 1.2.2-SNAPSHOT[RESET_INTENSITY]
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[INFO] 
+[FAINT][INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Deleting /home/nicoulaj/workspace/compile-command-annotations/target
+[INFO] 
+[FAINT][INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce-maven-version) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] 
+[FAINT][INFO] --- jacoco-maven-plugin:0.7.7.201606060606:prepare-agent (pre-unit-test) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] argLine set to -javaagent:/home/nicoulaj/.m2/repository/org/jacoco/org.jacoco.agent/0.7.7.201606060606/org.jacoco.agent-0.7.7.201606060606-runtime.jar=destfile=/home/nicoulaj/workspace/compile-command-annotations/target/jacoco.exec
+[INFO] 
+[FAINT][INFO] --- maven-resources-plugin:3.0.1:resources (default-resources) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[FAINT][INFO] --- maven-compiler-plugin:3.6.0:compile (default-compile) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 13 source files to /home/nicoulaj/workspace/compile-command-annotations/target/classes
+[INFO] 
+[FAINT][INFO] --- build-helper-maven-plugin:1.12:add-test-source (add-additional-test-source-roots) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Test Source directory: /home/nicoulaj/workspace/compile-command-annotations/src/samples/java added.
+[INFO] 
+[FAINT][INFO] --- maven-resources-plugin:3.0.1:testResources (default-testResources) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 24 resources
+[INFO] 
+[FAINT][INFO] --- maven-compiler-plugin:3.6.0:testCompile (default-testCompile) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 32 source files to /home/nicoulaj/workspace/compile-command-annotations/target/test-classes
+[INFO] /home/nicoulaj/workspace/compile-command-annotations/src/test/java/net/nicoulaj/compilecommand/CompileCommandProcessorTest.java: Some input files use or override a deprecated API.
+[INFO] /home/nicoulaj/workspace/compile-command-annotations/src/test/java/net/nicoulaj/compilecommand/CompileCommandProcessorTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[FAINT][INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ compile-command-annotations ---[RESET_INTENSITY]
+
+[FOREGROUND_YELLOW]-------------------------------------------------------[FOREGROUND_RESET]
+[FOREGROUND_YELLOW] T E S T S[FOREGROUND_RESET]
+[FOREGROUND_YELLOW]-------------------------------------------------------[FOREGROUND_RESET]
+Running TestSuite
+[FOREGROUND_GREEN]Tests run: 28, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.266 sec - in TestSuite[FOREGROUND_RESET]
+
+[BOLD]Results :[RESET_INTENSITY]
+
+[FOREGROUND_GREEN]Tests run: 28, Failures: 0, Errors: 0, Skipped: 0[FOREGROUND_RESET]
+
+[INFO] 
+[FAINT][INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Building jar: /home/nicoulaj/workspace/compile-command-annotations/target/compile-command-annotations-1.2.2-SNAPSHOT.jar
+[INFO] 
+[FAINT][INFO] --- maven-invoker-plugin:2.0.0:install (run-integration-tests) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Installing /home/nicoulaj/workspace/compile-command-annotations/pom.xml to /home/nicoulaj/workspace/compile-command-annotations/target/it/local-repository/net/nicoulaj/compile-command-annotations/compile-command-annotations/1.2.2-SNAPSHOT/compile-command-annotations-1.2.2-SNAPSHOT.pom
+[INFO] Installing /home/nicoulaj/workspace/compile-command-annotations/target/compile-command-annotations-1.2.2-SNAPSHOT.jar to /home/nicoulaj/workspace/compile-command-annotations/target/it/local-repository/net/nicoulaj/compile-command-annotations/compile-command-annotations/1.2.2-SNAPSHOT/compile-command-annotations-1.2.2-SNAPSHOT.jar
+[INFO] 
+[FAINT][INFO] --- jacoco-maven-plugin:0.7.7.201606060606:prepare-agent-integration (pre-integration-test) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] invoker.mavenOpts set to -javaagent:/home/nicoulaj/.m2/repository/org/jacoco/org.jacoco.agent/0.7.7.201606060606/org.jacoco.agent-0.7.7.201606060606-runtime.jar=destfile=/home/nicoulaj/workspace/compile-command-annotations/target/jacoco-it.exec
+[INFO] 
+[FAINT][INFO] --- maven-invoker-plugin:2.0.0:run (run-integration-tests) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Building: IT-01/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (4.7 s)
+[INFO] Building: IT-03/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (3.0 s)
+[INFO] Building: IT-02/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..FAILED (3.0 s)
+[INFO]   The post-build script returned false.
+[INFO] Building: IT-05/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (2.3 s)
+[INFO] Building: IT-04/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (2.9 s)
+[BOLD][INFO] -------------------------------------------------[RESET_INTENSITY]
+[INFO] Build Summary:
+[INFO]   Passed: 4, Failed: 1, Errors: 0, Skipped: 0
+[BOLD][INFO] -------------------------------------------------[RESET_INTENSITY]
+[BOLD][FOREGROUND_RED][ERROR] The following builds failed:[RESET_INTENSITY][FOREGROUND_RESET]
+[BOLD][FOREGROUND_RED][ERROR] *  IT-02/pom.xml[RESET_INTENSITY][FOREGROUND_RESET]
+[BOLD][INFO] -------------------------------------------------[RESET_INTENSITY]
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[FOREGROUND_RED][INFO] BUILD FAILURE[FOREGROUND_RESET]
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[FAINT][INFO] Total time: 19.879 s[RESET_INTENSITY]
+[FAINT][INFO] Finished at: 2017-03-19T16:28:56+01:00[RESET_INTENSITY]
+[FAINT][INFO] Final Memory: 28M/338M[RESET_INTENSITY]
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[BOLD][FOREGROUND_RED][ERROR] Failed to execute goal org.apache.maven.plugins:maven-invoker-plugin:2.0.0:run (run-integration-tests) on project compile-command-annotations: 1 build failed. See console output above for details. -> [Help 1][RESET_INTENSITY][FOREGROUND_RESET]
+[BOLD][FOREGROUND_RED][ERROR] [RESET_INTENSITY][FOREGROUND_RESET]
+[BOLD][FOREGROUND_RED][ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.[RESET_INTENSITY][FOREGROUND_RESET]
+[BOLD][FOREGROUND_RED][ERROR] Re-run Maven using the -X switch to enable full debug logging.[RESET_INTENSITY][FOREGROUND_RESET]
+[BOLD][FOREGROUND_RED][ERROR] [RESET_INTENSITY][FOREGROUND_RESET]
+[BOLD][FOREGROUND_RED][ERROR] For more information about the errors and possible solutions, please read the following articles:[RESET_INTENSITY][FOREGROUND_RESET]
+[BOLD][FOREGROUND_RED][ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException[RESET_INTENSITY][FOREGROUND_RESET]

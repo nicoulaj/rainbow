@@ -16,10 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-import tempfile
-import sys
 import os
 import subprocess
+import sys
+import tempfile
+import glob
 
 from rainbow.filter import FILTER_GROUPS
 
@@ -37,6 +38,15 @@ FILTERS_SHORT_OPTIONS = [f.short_option for g in FILTER_GROUPS for f in g.filter
 FILTERS_LONG_OPTIONS = [f.long_option for g in FILTER_GROUPS for f in g.filters]
 FILTERS_WITH_SHORT_OPTION = [f for g in FILTER_GROUPS for f in g.filters if f.short_option]
 FILTERS_WITH_LONG_OPTION = [f for g in FILTER_GROUPS for f in g.filters if f.long_option]
+
+# ----------------------------------------------------------------------
+# Configs collections
+# ----------------------------------------------------------------------
+
+BUILTIN_CONFIGS_NAMES = [os.path.splitext(os.path.basename(f))[0] for f in glob.glob('rainbow/configs/*.cfg')]
+BUILTIN_CONFIGS_REFERENCES = dict((f, glob.glob('tests/references/%s-*.log' % f)) for f in BUILTIN_CONFIGS_NAMES)
+BUILTIN_CONFIGS_REFERENCE_PAIRS = [(f, r) for f in BUILTIN_CONFIGS_NAMES for r in BUILTIN_CONFIGS_REFERENCES[f]]
+
 
 # ----------------------------------------------------------------------
 # Subcommand helpers

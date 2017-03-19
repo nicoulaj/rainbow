@@ -1,0 +1,11 @@
+Filesystem     1K-blocks      Used Available Use% Mounted on
+dev              8184284         0   8184284   0% /dev
+run              8189212      1452   8187760   1% /run
+/dev/sda6      279005228  98120552 166688964  38% /
+tmpfs            8189212     74428   8114784   1% /dev/shm
+tmpfs            8189212         0   8189212   0% /sys/fs/cgroup
+tmpfs            8189212   1016812   7172400  13% /tmp
+/dev/sda2          97280     25975     71305  27% /boot/efi
+/dev/sdb1      976760828 902367760  74393068  [FOREGROUND_RED]93%[FOREGROUND_RESET] /mnt/data1
+tmpfs            1637840        16   1637824   1% /run/user/120
+tmpfs            1637840        36   1637804   1% /run/user/1000

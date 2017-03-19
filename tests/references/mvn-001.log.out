@@ -1,0 +1,117 @@
+[FOREGROUND_GREEN][INFO] Scanning for projects[FOREGROUND_RESET]...
+[INFO]                                                                         
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[BOLD][INFO] Building Hotspot compile command annotations 1.2.2-SNAPSHOT[RESET_INTENSITY]
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[FOREGROUND_MAGENTA]Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.0.0/maven-clean-plugin-3.0.0.pom[FOREGROUND_RESET]
+3/5 KB   
+5/5 KB   
+         
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.0.0/maven-clean-plugin-3.0.0.pom (5 KB at 11.0 KB/sec)
+[FOREGROUND_MAGENTA]Downloading: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.0.0/maven-clean-plugin-3.0.0.jar[FOREGROUND_RESET]
+3/30 KB   
+5/30 KB   
+8/30 KB   
+11/30 KB   
+13/30 KB   
+16/30 KB   
+19/30 KB   
+21/30 KB   
+24/30 KB   
+27/30 KB   
+29/30 KB   
+30/30 KB   
+           
+Downloaded: https://repo.maven.apache.org/maven2/org/apache/maven/plugins/maven-clean-plugin/3.0.0/maven-clean-plugin-3.0.0.jar (30 KB at 365.0 KB/sec)
+[INFO] 
+[FAINT][INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Deleting /home/nicoulaj/workspace/compile-command-annotations/target
+[INFO] 
+[FAINT][INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce-maven-version) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] 
+[FAINT][INFO] --- jacoco-maven-plugin:0.7.7.201606060606:prepare-agent (pre-unit-test) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] argLine set to -javaagent:/home/nicoulaj/.m2/repository/org/jacoco/org.jacoco.agent/0.7.7.201606060606/org.jacoco.agent-0.7.7.201606060606-runtime.jar=destfile=/home/nicoulaj/workspace/compile-command-annotations/target/jacoco.exec
+[INFO] 
+[FAINT][INFO] --- maven-resources-plugin:3.0.1:resources (default-resources) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[FAINT][INFO] --- maven-compiler-plugin:3.6.0:compile (default-compile) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 13 source files to /home/nicoulaj/workspace/compile-command-annotations/target/classes
+[INFO] 
+[FAINT][INFO] --- build-helper-maven-plugin:1.12:add-test-source (add-additional-test-source-roots) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Test Source directory: /home/nicoulaj/workspace/compile-command-annotations/src/samples/java added.
+[INFO] 
+[FAINT][INFO] --- maven-resources-plugin:3.0.1:testResources (default-testResources) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 24 resources
+[INFO] 
+[FAINT][INFO] --- maven-compiler-plugin:3.6.0:testCompile (default-testCompile) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 32 source files to /home/nicoulaj/workspace/compile-command-annotations/target/test-classes
+[INFO] /home/nicoulaj/workspace/compile-command-annotations/src/test/java/net/nicoulaj/compilecommand/CompileCommandProcessorTest.java: Some input files use or override a deprecated API.
+[INFO] /home/nicoulaj/workspace/compile-command-annotations/src/test/java/net/nicoulaj/compilecommand/CompileCommandProcessorTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[FAINT][INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ compile-command-annotations ---[RESET_INTENSITY]
+
+[FOREGROUND_YELLOW]-------------------------------------------------------[FOREGROUND_RESET]
+[FOREGROUND_YELLOW] T E S T S[FOREGROUND_RESET]
+[FOREGROUND_YELLOW]-------------------------------------------------------[FOREGROUND_RESET]
+Running TestSuite
+[FOREGROUND_GREEN]Tests run: 28, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.276 sec - in TestSuite[FOREGROUND_RESET]
+
+[BOLD]Results :[RESET_INTENSITY]
+
+[FOREGROUND_GREEN]Tests run: 28, Failures: 0, Errors: 0, Skipped: 0[FOREGROUND_RESET]
+
+[INFO] 
+[FAINT][INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Building jar: /home/nicoulaj/workspace/compile-command-annotations/target/compile-command-annotations-1.2.2-SNAPSHOT.jar
+[INFO] 
+[FAINT][INFO] --- maven-invoker-plugin:2.0.0:install (run-integration-tests) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Installing /home/nicoulaj/workspace/compile-command-annotations/pom.xml to /home/nicoulaj/workspace/compile-command-annotations/target/it/local-repository/net/nicoulaj/compile-command-annotations/compile-command-annotations/1.2.2-SNAPSHOT/compile-command-annotations-1.2.2-SNAPSHOT.pom
+[INFO] Installing /home/nicoulaj/workspace/compile-command-annotations/target/compile-command-annotations-1.2.2-SNAPSHOT.jar to /home/nicoulaj/workspace/compile-command-annotations/target/it/local-repository/net/nicoulaj/compile-command-annotations/compile-command-annotations/1.2.2-SNAPSHOT/compile-command-annotations-1.2.2-SNAPSHOT.jar
+[INFO] 
+[FAINT][INFO] --- jacoco-maven-plugin:0.7.7.201606060606:prepare-agent-integration (pre-integration-test) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] invoker.mavenOpts set to -javaagent:/home/nicoulaj/.m2/repository/org/jacoco/org.jacoco.agent/0.7.7.201606060606/org.jacoco.agent-0.7.7.201606060606-runtime.jar=destfile=/home/nicoulaj/workspace/compile-command-annotations/target/jacoco-it.exec
+[INFO] 
+[FAINT][INFO] --- maven-invoker-plugin:2.0.0:run (run-integration-tests) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Building: IT-01/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (4.4 s)
+[INFO] Building: IT-03/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (3.0 s)
+[INFO] Building: IT-02/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (3.1 s)
+[INFO] Building: IT-05/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (2.5 s)
+[INFO] Building: IT-04/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (2.9 s)
+[BOLD][INFO] -------------------------------------------------[RESET_INTENSITY]
+[INFO] Build Summary:
+[INFO]   Passed: 5, Failed: 0, Errors: 0, Skipped: 0
+[BOLD][INFO] -------------------------------------------------[RESET_INTENSITY]
+[INFO] 
+[FAINT][INFO] --- jacoco-maven-plugin:0.7.7.201606060606:report (post-unit-test) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Loading execution data file /home/nicoulaj/workspace/compile-command-annotations/target/jacoco.exec
+[INFO] Analyzed bundle 'Hotspot compile command annotations' with 4 classes
+[INFO] 
+[FAINT][INFO] --- jacoco-maven-plugin:0.7.7.201606060606:report-integration (post-integration-test) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Loading execution data file /home/nicoulaj/workspace/compile-command-annotations/target/jacoco-it.exec
+[INFO] Analyzed bundle 'Hotspot compile command annotations' with 4 classes
+[INFO] 
+[FAINT][INFO] --- maven-install-plugin:2.4:install (default-install) @ compile-command-annotations ---[RESET_INTENSITY]
+[INFO] Installing /home/nicoulaj/workspace/compile-command-annotations/target/compile-command-annotations-1.2.2-SNAPSHOT.jar to /home/nicoulaj/.m2/repository/net/nicoulaj/compile-command-annotations/compile-command-annotations/1.2.2-SNAPSHOT/compile-command-annotations-1.2.2-SNAPSHOT.jar
+[INFO] Installing /home/nicoulaj/workspace/compile-command-annotations/pom.xml to /home/nicoulaj/.m2/repository/net/nicoulaj/compile-command-annotations/compile-command-annotations/1.2.2-SNAPSHOT/compile-command-annotations-1.2.2-SNAPSHOT.pom
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[FOREGROUND_GREEN][INFO] BUILD SUCCESS[FOREGROUND_RESET]
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]
+[FAINT][INFO] Total time: 20.525 s[RESET_INTENSITY]
+[FAINT][INFO] Finished at: 2017-03-19T16:27:04+01:00[RESET_INTENSITY]
+[FAINT][INFO] Final Memory: 35M/329M[RESET_INTENSITY]
+[BOLD][INFO] ------------------------------------------------------------------------[RESET_INTENSITY]

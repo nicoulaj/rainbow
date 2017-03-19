@@ -1,0 +1,8 @@
+[BOLD]PING www.google.com(dh-in-x67.1e100.net (2a00:1450:400b:c03::67)) 56 data bytes[RESET_INTENSITY]
+64 bytes from dh-in-x67.1e100.net (2a00:1450:400b:c03::67): icmp_seq=1 ttl=54 [FOREGROUND_YELLOW]time=[BOLD]36.6 ms[RESET_INTENSITY][FOREGROUND_RESET]
+64 bytes from dh-in-x67.1e100.net (2a00:1450:400b:c03::67): icmp_seq=2 ttl=54 [FOREGROUND_YELLOW]time=[BOLD]36.6 ms[RESET_INTENSITY][FOREGROUND_RESET]
+64 bytes from dh-in-x67.1e100.net (2a00:1450:400b:c03::67): icmp_seq=3 ttl=54 [FOREGROUND_YELLOW]time=[BOLD]36.6 ms[RESET_INTENSITY][FOREGROUND_RESET]
+
+[BOLD]--- www.google.com ping statistics ---[RESET_INTENSITY]
+3 packets transmitted, 3 received, 0% packet loss, time 2003ms
+rtt min/avg/max/mdev = 36.625/36.640/36.666/[BOLD]0.221 ms[RESET_INTENSITY]

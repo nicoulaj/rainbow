@@ -1,0 +1,4 @@
+[FOREGROUND_RED]Exception in thread "main" java.lang.NullPointerException[FOREGROUND_RESET]
+[FOREGROUND_RED]        at com.example.myproject.Book.getTitle(Book.java:16)[FOREGROUND_RESET]
+[FOREGROUND_RED]        at com.example.myproject.Author.getBookTitles(Author.java:25)[FOREGROUND_RESET]
+[FOREGROUND_RED]        at com.example.myproject.Bootstrap.main(Bootstrap.java:14)[FOREGROUND_RESET]
