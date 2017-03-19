@@ -1,0 +1,86 @@
+--- setup.cfg	2017-03-18 22:27:04.430726575 +0100
++++ setup.py	2017-03-19 11:54:17.386754769 +0100
+@@ -1,3 +1,4 @@
++#!/usr/bin/env python
+ # ----------------------------------------------------------------------
+ # rainbow, a terminal colorizer - https://github.com/nicoulaj/rainbow
+ # copyright (c) 2010-2017 rainbow contributors
+@@ -16,24 +17,60 @@
+ # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ # ----------------------------------------------------------------------
+ 
+-[clean]
+-paths = .cache,
+-        .tox,
+-        build,
+-        dist,
+-        rainbow.egg-info,
+-        .coverage
++import os
+ 
+-[build_completion_bash]
+-shell = bash
+-output = build/completion/rainbow
++from setuptools import setup, find_packages
+ 
+-[build_completion_zsh]
+-shell = zsh
+-output = build/completion/_rainbow
++from rainbow import VERSION
++from rainbow.build import Clean, Build, GenerateCompletion, GenerateManPage
+ 
+-[build_man_page]
+-output = build/man/rainbow.1
+-
+-[bdist_wheel]
+-universal = 1
++setup(
++    name='rainbow',
++    version=VERSION,
++    author='Julien Nicoulaud',
++    author_email='julien.nicoulaud@gmail.com',
++    description='Colorize commands output or STDIN using patterns.',
++    long_description=open(os.path.join(os.path.dirname(__file__), 'README.rst')).read(),
++    license='GPLv3',
++    url='https://github.com/nicoulaj/rainbow',
++    keywords='color colorize colorizer pattern',
++    classifiers=[
++        'Development Status :: 5 - Production/Stable',
++        'Environment :: Console',
++        'Operating System :: MacOS :: MacOS X',
++        'Operating System :: POSIX',
++        'Topic :: System',
++        'Topic :: Utilities',
++        'Intended Audience :: Developers',
++        'Intended Audience :: End Users/Desktop',
++        'Intended Audience :: System Administrators',
++        'Natural Language :: English',
++        'Programming Language :: Python',
++        'Programming Language :: Python :: 2',
++        'Programming Language :: Python :: 2.6',
++        'Programming Language :: Python :: 2.7',
++        'Programming Language :: Python :: 3',
++        'Programming Language :: Python :: 3.3',
++        'Programming Language :: Python :: 3.4',
++        'Programming Language :: Python :: 3.5',
++        'Programming Language :: Python :: 3.6',
++        'Programming Language :: Python :: Implementation :: CPython',
++        'Programming Language :: Python :: Implementation :: PyPy',
++        'License :: OSI Approved :: GNU General Public License (GPL)'
++    ],
++    packages=find_packages(exclude=['tests*']),
++    include_package_data=True,
++    data_files=[
++        ('/etc/bash_completion.d', ['build/completion/rainbow']),
++        ('/usr/share/zsh/site-functions', ['build/completion/_rainbow']),
++        ('/usr/share/man/man1', ['build/man/rainbow.1.gz'])
++    ],
++    scripts=['scripts/rainbow'],
++    cmdclass={
++        'clean': Clean,
++        'build': Build,
++        'build_completion_bash': GenerateCompletion,
++        'build_completion_zsh': GenerateCompletion,
++        'build_man_page': GenerateManPage
++    }
++)

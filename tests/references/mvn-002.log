@@ -1,0 +1,208 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Hotspot compile command annotations 1.2.2-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ compile-command-annotations ---
+[INFO] Deleting /home/nicoulaj/workspace/compile-command-annotations/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce-maven-version) @ compile-command-annotations ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.7.201606060606:prepare-agent (pre-unit-test) @ compile-command-annotations ---
+[INFO] argLine set to -javaagent:/home/nicoulaj/.m2/repository/org/jacoco/org.jacoco.agent/0.7.7.201606060606/org.jacoco.agent-0.7.7.201606060606-runtime.jar=destfile=/home/nicoulaj/workspace/compile-command-annotations/target/jacoco.exec
+[INFO] 
+[INFO] --- maven-resources-plugin:3.0.1:resources (default-resources) @ compile-command-annotations ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.6.0:compile (default-compile) @ compile-command-annotations ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 13 source files to /home/nicoulaj/workspace/compile-command-annotations/target/classes
+[INFO] 
+[INFO] --- build-helper-maven-plugin:1.12:add-test-source (add-additional-test-source-roots) @ compile-command-annotations ---
+[INFO] Test Source directory: /home/nicoulaj/workspace/compile-command-annotations/src/samples/java added.
+[INFO] 
+[INFO] --- maven-resources-plugin:3.0.1:testResources (default-testResources) @ compile-command-annotations ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 24 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.6.0:testCompile (default-testCompile) @ compile-command-annotations ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 32 source files to /home/nicoulaj/workspace/compile-command-annotations/target/test-classes
+[INFO] /home/nicoulaj/workspace/compile-command-annotations/src/test/java/net/nicoulaj/compilecommand/CompileCommandProcessorTest.java: Some input files use or override a deprecated API.
+[INFO] /home/nicoulaj/workspace/compile-command-annotations/src/test/java/net/nicoulaj/compilecommand/CompileCommandProcessorTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ compile-command-annotations ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running TestSuite
+Tests run: 28, Failures: 28, Errors: 0, Skipped: 0, Time elapsed: 1.274 sec <<< FAILURE! - in TestSuite
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.446 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.021 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.022 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.019 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.021 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.016 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.026 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.025 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.019 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.027 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.031 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.014 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.022 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.014 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.017 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.017 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.014 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.012 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.019 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.017 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.019 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.016 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.014 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.014 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.026 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.02 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.017 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)  Time elapsed: 0.017 sec  <<< FAILURE!
+java.lang.AssertionError: expected [true] but found [false]
+	at net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(CompileCommandProcessorTest.java:76)
+
+
+Results :
+
+Failed tests: 
+net.nicoulaj.compilecommand.CompileCommandProcessorTest.test(net.nicoulaj.compilecommand.CompileCommandProcessorTest)
+  Run 1: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 2: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 3: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 4: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 5: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 6: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 7: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 8: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 9: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 10: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 11: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 12: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 13: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 14: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 15: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 16: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 17: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 18: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 19: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 20: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 21: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 22: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 23: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 24: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 25: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 26: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 27: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+  Run 28: CompileCommandProcessorTest.test:76 expected [true] but found [false]
+
+
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 3.563 s
+[INFO] Finished at: 2017-03-19T16:28:06+01:00
+[INFO] Final Memory: 23M/276M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.19.1:test (default-test) on project compile-command-annotations: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/nicoulaj/workspace/compile-command-annotations/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

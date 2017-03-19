@@ -1,0 +1,96 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Hotspot compile command annotations 1.2.2-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:3.0.0:clean (default-clean) @ compile-command-annotations ---
+[INFO] Deleting /home/nicoulaj/workspace/compile-command-annotations/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.4.1:enforce (enforce-maven-version) @ compile-command-annotations ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.7.201606060606:prepare-agent (pre-unit-test) @ compile-command-annotations ---
+[INFO] argLine set to -javaagent:/home/nicoulaj/.m2/repository/org/jacoco/org.jacoco.agent/0.7.7.201606060606/org.jacoco.agent-0.7.7.201606060606-runtime.jar=destfile=/home/nicoulaj/workspace/compile-command-annotations/target/jacoco.exec
+[INFO] 
+[INFO] --- maven-resources-plugin:3.0.1:resources (default-resources) @ compile-command-annotations ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.6.0:compile (default-compile) @ compile-command-annotations ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 13 source files to /home/nicoulaj/workspace/compile-command-annotations/target/classes
+[INFO] 
+[INFO] --- build-helper-maven-plugin:1.12:add-test-source (add-additional-test-source-roots) @ compile-command-annotations ---
+[INFO] Test Source directory: /home/nicoulaj/workspace/compile-command-annotations/src/samples/java added.
+[INFO] 
+[INFO] --- maven-resources-plugin:3.0.1:testResources (default-testResources) @ compile-command-annotations ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 24 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.6.0:testCompile (default-testCompile) @ compile-command-annotations ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 32 source files to /home/nicoulaj/workspace/compile-command-annotations/target/test-classes
+[INFO] /home/nicoulaj/workspace/compile-command-annotations/src/test/java/net/nicoulaj/compilecommand/CompileCommandProcessorTest.java: Some input files use or override a deprecated API.
+[INFO] /home/nicoulaj/workspace/compile-command-annotations/src/test/java/net/nicoulaj/compilecommand/CompileCommandProcessorTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.19.1:test (default-test) @ compile-command-annotations ---
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running TestSuite
+Tests run: 28, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.266 sec - in TestSuite
+
+Results :
+
+Tests run: 28, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:3.0.2:jar (default-jar) @ compile-command-annotations ---
+[INFO] Building jar: /home/nicoulaj/workspace/compile-command-annotations/target/compile-command-annotations-1.2.2-SNAPSHOT.jar
+[INFO] 
+[INFO] --- maven-invoker-plugin:2.0.0:install (run-integration-tests) @ compile-command-annotations ---
+[INFO] Installing /home/nicoulaj/workspace/compile-command-annotations/pom.xml to /home/nicoulaj/workspace/compile-command-annotations/target/it/local-repository/net/nicoulaj/compile-command-annotations/compile-command-annotations/1.2.2-SNAPSHOT/compile-command-annotations-1.2.2-SNAPSHOT.pom
+[INFO] Installing /home/nicoulaj/workspace/compile-command-annotations/target/compile-command-annotations-1.2.2-SNAPSHOT.jar to /home/nicoulaj/workspace/compile-command-annotations/target/it/local-repository/net/nicoulaj/compile-command-annotations/compile-command-annotations/1.2.2-SNAPSHOT/compile-command-annotations-1.2.2-SNAPSHOT.jar
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.7.201606060606:prepare-agent-integration (pre-integration-test) @ compile-command-annotations ---
+[INFO] invoker.mavenOpts set to -javaagent:/home/nicoulaj/.m2/repository/org/jacoco/org.jacoco.agent/0.7.7.201606060606/org.jacoco.agent-0.7.7.201606060606-runtime.jar=destfile=/home/nicoulaj/workspace/compile-command-annotations/target/jacoco-it.exec
+[INFO] 
+[INFO] --- maven-invoker-plugin:2.0.0:run (run-integration-tests) @ compile-command-annotations ---
+[INFO] Building: IT-01/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (4.7 s)
+[INFO] Building: IT-03/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (3.0 s)
+[INFO] Building: IT-02/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..FAILED (3.0 s)
+[INFO]   The post-build script returned false.
+[INFO] Building: IT-05/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (2.3 s)
+[INFO] Building: IT-04/pom.xml
+[INFO] run script postbuild.groovy
+[INFO] ..SUCCESS (2.9 s)
+[INFO] -------------------------------------------------
+[INFO] Build Summary:
+[INFO]   Passed: 4, Failed: 1, Errors: 0, Skipped: 0
+[INFO] -------------------------------------------------
+[ERROR] The following builds failed:
+[ERROR] *  IT-02/pom.xml
+[INFO] -------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 19.879 s
+[INFO] Finished at: 2017-03-19T16:28:56+01:00
+[INFO] Final Memory: 28M/338M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-invoker-plugin:2.0.0:run (run-integration-tests) on project compile-command-annotations: 1 build failed. See console output above for details. -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
