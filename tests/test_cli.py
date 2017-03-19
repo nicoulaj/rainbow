@@ -28,15 +28,17 @@ from rainbow.command.print_config_names import PrintConfigNamesCommand
 from rainbow.command.print_path import PrintPathCommand
 from rainbow.command.stdin import STDINCommand
 from rainbow.filter import FILTERS_BY_NAME
-from rainbow.transformer import TransformerBuilder, IdentityTransformer
+from rainbow.transformer import TransformerBuilder, DummyTransformerBuilder, IdentityTransformer
 from .test_utils import FILTERS_WITH_SHORT_OPTION, FILTERS_WITH_LONG_OPTION
 
 
-def parse(args):
+def parse(args, stdout_builder=None, stderr_builder=None):
     errors = []
 
     command = CommandLineParser(
         paths=None,
+        stdout_builder=stdout_builder,
+        stderr_builder=stderr_builder,
         error_handler=lambda error: errors.append(error)
     ).parse_args(args)
 
@@ -302,6 +304,17 @@ def test_config_file_by_relative_path_without_extension_long_option():
     assert isinstance(command, STDINCommand)
     assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),
                                                                       FILTERS_BY_NAME['foreground-red'])
+
+
+def test_dummy_transfomer_builder():
+    (command, errors) = parse(['true'],
+                              stdout_builder=DummyTransformerBuilder(),
+                              stderr_builder=DummyTransformerBuilder())
+    assert not errors
+    assert isinstance(command, ExecuteCommand)
+    assert command.args == ['true']
+    assert command.stdout_transformer == IdentityTransformer()
+    assert command.stderr_transformer == IdentityTransformer()
 
 
 def test_verbose_short_option():

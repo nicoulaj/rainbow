@@ -136,6 +136,8 @@ class ListTransformer(IdentityTransformer):
 
 
 class DummyTransformerBuilder(object):
+    def __init__(self):
+        self.transformers = []
 
     def add_mapping(self, pattern, filter):
         pass
@@ -145,8 +147,6 @@ class DummyTransformerBuilder(object):
 
 
 class TransformerBuilder(DummyTransformerBuilder):
-    def __init__(self):
-        self.transformers = []
 
     def add_mapping(self, pattern, filter):
         LOGGER.debug('Binding pattern "%s" with filter "%s".', pattern, filter)
