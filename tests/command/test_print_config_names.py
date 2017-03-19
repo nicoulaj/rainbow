@@ -33,10 +33,7 @@ def test_default_path(capsys):
     assert 'diff\n' in out
     assert 'ping' in out
     assert 'md5sum' in out
-    assert 'jonas' in out
-    assert 'jboss' in out
     assert 'env' in out
-    assert 'top' in out
     assert 'java-stack-trace' in out
     assert 'host' in out
     assert 'ifconfig' in out
