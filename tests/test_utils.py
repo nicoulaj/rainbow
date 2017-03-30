@@ -134,7 +134,7 @@ class StringAsFileStdin(CustomStdin):
         stdin_file = tempfile.mktemp()
         with open(stdin_file, 'w') as f:
             f.write(self.contents)
-        return open(stdin_file)
+        return open(stdin_file, 'r')
 
     def __str__(self):
         return "file stdin"

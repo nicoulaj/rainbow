@@ -19,6 +19,7 @@
 import errno
 import os
 import pty
+import re
 import signal
 import subprocess
 import sys
@@ -26,6 +27,8 @@ from select import select
 
 from rainbow.ansi import ANSI_RESET_ALL
 from rainbow.transformer import IdentityTransformer
+
+NEW_LINE = re.compile("\n|\r\n")
 
 
 class ExecuteCommand(object):
@@ -35,44 +38,56 @@ class ExecuteCommand(object):
         self.stderr_transformer = stderr_transformer
 
     def run(self):
-        masters, slaves = zip(pty.openpty(), pty.openpty())
-        p = subprocess.Popen(args=self.args, stdin=sys.stdin, stdout=slaves[0], stderr=slaves[1])
+        stdin_fd = sys.stdin.fileno()
+        in_master, in_slave = pty.openpty() if sys.stdin.isatty() else os.pipe()
+        out_master, out_slave = pty.openpty() if sys.stdout.isatty() else os.pipe()
+        err_master, err_slave = pty.openpty() if sys.stderr.isatty() else os.pipe()
+        p = subprocess.Popen(args=self.args, stdin=in_master, stdout=out_slave, stderr=err_slave)
         try:
-            for fd in slaves:
-                os.close(fd)
-            readables = {masters[0]: sys.stdout, masters[1]: sys.stderr}
-            buffers = {masters[0]: '', masters[1]: ''}
-            transformers = {masters[0]: self.stdout_transformer, masters[1]: self.stderr_transformer}
-            while readables:
+            os.close(out_slave)
+            os.close(err_slave)
+            readables = [stdin_fd, out_master, err_master]
+            writables = {stdin_fd: os.fdopen(in_slave, 'w'), out_master: sys.stdout, err_master: sys.stderr}
+            buffers = {out_master: '', err_master: ''}
+            transformers = {out_master: self.stdout_transformer, err_master: self.stderr_transformer}
+            while True:
                 for fd in select(readables, [], [])[0]:
                     try:
-                        data = os.read(fd, 64)
+                        data = os.read(fd, 4096)
                     except OSError as e:
                         if e.errno != errno.EIO:
                             raise  # no cover
                         data = None
-                    readable = readables[fd]
-                    transformer = transformers[fd]
+                    writable = writables[fd]
                     if data:
-                        buffers[fd] += data.decode()
-                        lines = buffers[fd].splitlines()
-                        if len(lines) > 0:
-                            for line in lines[:-1]:
-                                readable.write(transformer.transform(line) + '\n')
-                            if buffers[fd][-1] == '\n':
-                                readable.write(transformer.transform(lines[-1]) + '\n')
+                        data_str = data.decode()
+                        if fd == stdin_fd:
+                            writable.write(data_str)
+                            for fd in buffers:
                                 buffers[fd] = ''
-                            else:
+                        else:
+                            lines = NEW_LINE.split(buffers[fd] + data_str)
+                            transformer = transformers[fd]
+                            if lines[0] and buffers[fd]:
+                                writable.write('\r')
+                            for line in lines[:-1]:
+                                writable.write(transformer.transform(line) + '\n')
+                            if lines[-1]:
+                                writable.write(transformer.transform(lines[-1]))
                                 buffers[fd] = lines[-1]
-                            readable.flush()
+                            else:
+                                buffers[fd] = ''
+                            writable.flush()
                     else:
-                        for line in buffers[fd].splitlines():
-                            readable.write(transformer.transform(line) + '\n')
-                        readable.write(ANSI_RESET_ALL)
-                        readable.flush()
-                        del readables[fd]
-            for fd in masters:
-                os.close(fd)
+                        if fd == stdin_fd:
+                            writable.close()
+                        else:
+                            writable.write(ANSI_RESET_ALL)
+                            writable.flush()
+                            os.close(fd)
+                        readables.remove(fd)
+                        if out_master not in readables and err_master not in readables:
+                            return p.wait()
         except KeyboardInterrupt:
             os.kill(p.pid, signal.SIGINT)
         return p.wait()
