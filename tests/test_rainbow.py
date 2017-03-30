@@ -55,7 +55,6 @@ def test_read_from_stdin(capfd, stdin):
         assert err == ''
 
 
-@pytest.mark.skip(reason="Issue #17: encoding is not properly managed")
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
 def test_malformed_utf8_from_command(stdin):
     with stdin:

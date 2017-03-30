@@ -31,38 +31,38 @@ rainbow.ENABLE_STDERR = True
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_true(capsys, stdin):
+def test_true(capfd, stdin):
     with stdin:
         assert main(['true']) == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_false(capsys, stdin):
+def test_false(capfd, stdin):
     with stdin:
         assert main(['false']) == 1
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_warning(capsys, stdin):
+def test_warning(capfd, stdin):
     with stdin:
         assert main(['--config', 'does-not-exist', 'true']) == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == 'rainbow warning: Could not resolve config "does-not-exist"\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("filter", FILTERS_WITH_LONG_OPTION, ids=str)
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_error(capsys, stdin, filter):
+def test_error(capfd, stdin, filter):
     with stdin:
         assert main(['--' + filter.long_option]) == 1
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == ''
         assert re.match(
             r'.*rainbow error: %s option requires (an|1) argument\nrainbow: Usage: .*' % ('--' + filter.long_option),
@@ -71,24 +71,23 @@ def test_error(capsys, stdin, filter):
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_stacktrace(capsys, stdin):
+def test_stacktrace(capfd, stdin):
     with stdin:
         assert main(['--does-not-exist']) == 1
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == ''
         assert 'No such file or directory' in err
 
 
 @pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line\n'), ids=str)
-def test_read_from_stdin(capsys, stdin):
+def test_read_from_stdin(capfd, stdin):
     with stdin:
         assert main([]) == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == "line\n" + ansi.ANSI_RESET_ALL
         assert err == ''
 
 
-@pytest.mark.skip(reason="Issue #17: encoding is not properly managed")
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
 def test_malformed_utf8_from_command(stdin):
     with stdin:

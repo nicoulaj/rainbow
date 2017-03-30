@@ -31,25 +31,25 @@ from tests.test_utils import stdin_empty_all_variants, stdin_from_string_all_var
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_true(capsys, stdin):
+def test_true(capfd, stdin):
     with stdin:
         assert ExecuteCommand(['true']).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_false(capsys, stdin):
+def test_false(capfd, stdin):
     with stdin:
         assert ExecuteCommand(['false']).run() == 1
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_identity(capsys, stdin):
+def test_identity(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             [sys.executable, '-c', dedent(r'''
@@ -60,13 +60,13 @@ def test_identity(capsys, stdin):
                 sys.stderr.flush()
             ''')]
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'stdout\n' + ansi.ANSI_RESET_ALL
         assert err == 'stderr\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_identity_no_newline(capsys, stdin):
+def test_identity_no_newline(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             [sys.executable, '-c', dedent(r'''
@@ -77,13 +77,13 @@ def test_identity_no_newline(capsys, stdin):
                 sys.stderr.flush()
             ''')]
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'stdout' + ansi.ANSI_RESET_ALL
         assert err == 'stderr' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_identity_partial_line(capsys, stdin):
+def test_identity_partial_line(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             [sys.executable, '-c', dedent(r'''
@@ -100,13 +100,13 @@ def test_identity_partial_line(capsys, stdin):
                 sys.stderr.write('stderr2')
             ''')]
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'stdout1\rstdout1stdout2' + ansi.ANSI_RESET_ALL
         assert err == 'stderr1\rstderr1stderr2' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_identity_overwritten_line(capsys, stdin):
+def test_identity_overwritten_line(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             [sys.executable, '-c', dedent(r'''
@@ -125,22 +125,22 @@ def test_identity_overwritten_line(capsys, stdin):
                 time.sleep(0.5)
             ''')]
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'stdout1\rstdout1\rstdout2' + ansi.ANSI_RESET_ALL
         assert err == 'stderr1\rstderr1\rstderr2' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_identity_bash(capsys, stdin):
+def test_identity_bash(capfd, stdin):
     with stdin:
         assert ExecuteCommand(['/bin/bash', '-c', 'echo "stdout"; echo "stderr" >&2']).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'stdout\n' + ansi.ANSI_RESET_ALL
         assert err == 'stderr\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_identity_mixed_stdin_and_err(capsys, stdin):
+def test_identity_mixed_stdin_and_err(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             [sys.executable, '-c', dedent(r'''
@@ -153,13 +153,13 @@ def test_identity_mixed_stdin_and_err(capsys, stdin):
                 sys.stderr.write('stderr5\n')
             ''')]
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'stdout1\nstdout3stdout4\n' + ansi.ANSI_RESET_ALL
         assert err == 'stderr2\nstderr4stderr5\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_bufferized_output(capsys, stdin):
+def test_bufferized_output(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             [sys.executable, '-c', dedent(r'''
@@ -173,13 +173,13 @@ def test_bufferized_output(capsys, stdin):
                 sys.stdout.write('stdout4\n')
             ''')]
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'stdout1\nstdout2\nstdout3\nstdout4\n' + ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_bufferized_partial_lines(capsys, stdin):
+def test_bufferized_partial_lines(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             [sys.executable, '-c', dedent(r'''
@@ -190,13 +190,13 @@ def test_bufferized_partial_lines(capsys, stdin):
                 sys.stdout.write('out1\nstdout2\n')
             ''')]
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'std\rstdout1\nstdout2\n' + ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_unflushed_output(capsys, stdin):
+def test_unflushed_output(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             [sys.executable, '-c', dedent(r'''
@@ -204,7 +204,7 @@ def test_unflushed_output(capsys, stdin):
                 sys.stdout.write('message')
             ''')]
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'message' + ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
@@ -212,10 +212,10 @@ def test_unflushed_output(capsys, stdin):
 @pytest.mark.skip(reason="Issue #23: missing unit tests for executing subcommands with stdin")
 @pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line\n'), ids=str)
-def test_cat_stdin(capsys, stdin):
+def test_cat_stdin(capfd, stdin):
     with stdin:
         assert ExecuteCommand(['cat']).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'line\n' + ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
@@ -223,16 +223,16 @@ def test_cat_stdin(capsys, stdin):
 @pytest.mark.skip(reason="Issue #23: missing unit tests for executing subcommands with stdin")
 @pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line1\nline2\n'), ids=str)
-def test_cat_stdin_two_lines(capsys, stdin):
+def test_cat_stdin_two_lines(capfd, stdin):
     with stdin:
         assert ExecuteCommand(['cat']).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'line1\nline2\n' + ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_stdout_transformer(capsys, stdin):
+def test_stdout_transformer(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             args=[sys.executable, '-c', dedent(r'''
@@ -242,25 +242,25 @@ def test_stdout_transformer(capsys, stdin):
             ''')],
             stdout_transformer=ReplaceTransformer('message', 'REPLACED')
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'REPLACED\n' + ansi.ANSI_RESET_ALL
         assert err == 'message\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_stdout_transformer_bash(capsys, stdin):
+def test_stdout_transformer_bash(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             args=['/bin/bash', '-c', 'echo "message"; echo "message" >&2'],
             stdout_transformer=ReplaceTransformer('message', 'REPLACED')
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'REPLACED\n' + ansi.ANSI_RESET_ALL
         assert err == 'message\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_stderr_transformer(capsys, stdin):
+def test_stderr_transformer(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             args=[sys.executable, '-c', dedent(r'''
@@ -270,25 +270,25 @@ def test_stderr_transformer(capsys, stdin):
             ''')],
             stderr_transformer=ReplaceTransformer('message', 'REPLACED')
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'message\n' + ansi.ANSI_RESET_ALL
         assert err == 'REPLACED\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_stderr_transformer_bash(capsys, stdin):
+def test_stderr_transformer_bash(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             args=['/bin/bash', '-c', 'echo "message"; echo "message" >&2'],
             stderr_transformer=ReplaceTransformer('message', 'REPLACED')
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'message\n' + ansi.ANSI_RESET_ALL
         assert err == 'REPLACED\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_stdout_and_stderr_transformers(capsys, stdin):
+def test_stdout_and_stderr_transformers(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             args=[sys.executable, '-c', dedent(r'''
@@ -299,20 +299,20 @@ def test_stdout_and_stderr_transformers(capsys, stdin):
             stdout_transformer=ReplaceTransformer('stdout', 'STDOUT_REPLACED'),
             stderr_transformer=ReplaceTransformer('stderr', 'STDERR_REPLACED')
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'STDOUT_REPLACED\n' + ansi.ANSI_RESET_ALL
         assert err == 'STDERR_REPLACED\n' + ansi.ANSI_RESET_ALL
 
 
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_stdout_and_stderr_transformers_bash(capsys, stdin):
+def test_stdout_and_stderr_transformers_bash(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             args=['/bin/bash', '-c', 'echo "stdout"; echo "stderr" >&2'],
             stdout_transformer=ReplaceTransformer('stdout', 'STDOUT_REPLACED'),
             stderr_transformer=ReplaceTransformer('stderr', 'STDERR_REPLACED')
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'STDOUT_REPLACED\n' + ansi.ANSI_RESET_ALL
         assert err == 'STDERR_REPLACED\n' + ansi.ANSI_RESET_ALL
 
@@ -320,12 +320,12 @@ def test_stdout_and_stderr_transformers_bash(capsys, stdin):
 @pytest.mark.skip(reason="Issue #23: missing unit tests for executing subcommands with stdin")
 @pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", stdin_from_string_all_variants("foo bar"), ids=str)
-def test_read_bash(capsys, stdin):
+def test_read_bash(capfd, stdin):
     with stdin:
         assert ExecuteCommand(
             args=['/bin/bash', '-c', 'read -p "Enter your input:" result; echo "You entered: $result"']
         ).run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'Enter your input:\nYou entered: foo bar' + ansi.ANSI_RESET_ALL
         assert err == ansi.ANSI_RESET_ALL
 
@@ -338,7 +338,6 @@ def test_interrupted(stdin):
         assert ExecuteCommand(['sleep', '100']).run() == -2
 
 
-@pytest.mark.skip(reason="Issue #17: encoding is not properly managed")
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
 def test_malformed_utf8(stdin):
     with stdin:
