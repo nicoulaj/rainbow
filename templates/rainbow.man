@@ -1,4 +1,4 @@
-.TH RAINBOW 1 "May 23, 2010"
+.TH RAINBOW 1
 
 
 .SH NAME
