@@ -16,11 +16,29 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from os.path import basename
+import os
 
 from rainbow import LOGGER
 from rainbow.config.locator import ConfigLocator
 from rainbow.config.parser import ConfigParser
+
+PRECOMMANDS = [
+    'sudo',
+    'strace',
+    'record',
+    'builtin',
+    'command',
+    'exec',
+    'nocorrect',
+    'noglob',
+    'pkexec',
+    'sh',
+    'bash',
+    'csh',
+    'ksh',
+    'fish',
+    'zsh'
+]
 
 
 class ConfigLoader(object):
@@ -51,8 +69,9 @@ class ConfigLoader(object):
 
     @staticmethod
     def find_config_name_from_command_line(command_line_args):
-
-        if not command_line_args:
-            return
-
-        return basename(command_line_args[0])
+        for arg in command_line_args:
+            if arg[0] != '-':
+                basename = os.path.basename(arg)
+                if basename not in PRECOMMANDS:
+                    return basename
+        return

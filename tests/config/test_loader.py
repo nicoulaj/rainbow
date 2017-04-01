@@ -16,7 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-from rainbow.config.loader import ConfigLoader
+import pytest
+
+from rainbow.config.loader import ConfigLoader, PRECOMMANDS
 from rainbow.transformer import IdentityTransformer
 from rainbow.transformer import TransformerBuilder
 
@@ -82,3 +84,23 @@ def test_find_config_name_from_command_line_several_args():
 
 def test_find_config_name_from_command_line_full_path():
     assert ConfigLoader.find_config_name_from_command_line(['/usr/bin/foo']) == 'foo'
+
+
+@pytest.mark.parametrize("precommand", PRECOMMANDS)
+def test_find_config_name_from_command_line_precommand(precommand):
+    assert ConfigLoader.find_config_name_from_command_line([precommand, 'foo']) == 'foo'
+
+
+@pytest.mark.parametrize("precommand", PRECOMMANDS)
+def test_find_config_name_from_command_line_precommand_with_args(precommand):
+    assert ConfigLoader.find_config_name_from_command_line([precommand, '--arg', 'foo']) == 'foo'
+
+
+@pytest.mark.parametrize("precommand", PRECOMMANDS)
+def test_find_config_name_from_command_line_full_path_precommand(precommand):
+    assert ConfigLoader.find_config_name_from_command_line([precommand, '/usr/bin/foo']) == 'foo'
+
+
+@pytest.mark.parametrize("precommand", PRECOMMANDS)
+def test_find_config_name_from_command_line_full_path_precommand_with_args(precommand):
+    assert ConfigLoader.find_config_name_from_command_line([precommand, '--arg', '/usr/bin/foo']) == 'foo'
