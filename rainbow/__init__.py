@@ -22,7 +22,7 @@ import sys
 
 LOGGER = logging.getLogger('rainbow')
 
-VERSION = '2.7.0'
+VERSION = '3.0.0-dev'
 
 DEFAULT_PATH = [
     os.environ.get('RAINBOW_CONFIGS'),
