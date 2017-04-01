@@ -35,14 +35,14 @@ from tests.test_utils import BUILTIN_CONFIGS_NAMES, BUILTIN_CONFIGS_REFERENCES, 
 GENERATE_REFERENCES = False
 
 
-def resolve_and_load_builtin_config(config):
+def load_builtin_config(config):
     stdout_builder = TransformerBuilder()
     errors = []
-    ConfigLoader(['rainbow/config/builtin']) \
-        .resolve_and_load_config(config,
-                                 stdout_builder,
-                                 DummyTransformerBuilder(),
-                                 lambda error: errors.append(error))
+    ConfigLoader(stdout_builder=stdout_builder,
+                 stderr_builder=DummyTransformerBuilder(),
+                 paths=['rainbow/config/builtin'],
+                 error_handler=errors.append) \
+        .load_config_by_name(config, )
     return stdout_builder.build(), errors
 
 
@@ -57,7 +57,7 @@ def test_config_has_at_least_one_reference(config):
 
 @pytest.mark.parametrize("config", BUILTIN_CONFIGS_NAMES)
 def test_config_loads_without_errors(config):
-    (transformer, errors) = resolve_and_load_builtin_config(config)
+    (transformer, errors) = load_builtin_config(config)
     assert not errors
 
 
@@ -67,7 +67,7 @@ def test_config_by_reference(test):
     input_file = test[1]
     expected_file = input_file + '.out'
 
-    (transformer, errors) = resolve_and_load_builtin_config(config_name)
+    (transformer, errors) = load_builtin_config(config_name)
     assert not errors
 
     transformer = ListTransformer([

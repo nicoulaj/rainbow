@@ -46,7 +46,7 @@ def main(args=None):
             paths=DEFAULT_PATH,
             stdout_builder=None if rainbow.ENABLE_STDOUT else DummyTransformerBuilder(),
             stderr_builder=None if rainbow.ENABLE_STDERR else DummyTransformerBuilder(),
-            error_handler=lambda error: errors.append(error)
+            error_handler=errors.append
         )
 
         command = parser.parse_args(args)

@@ -20,12 +20,12 @@ import sys
 from optparse import OptionParser, OptionGroup, BadOptionError, AmbiguousOptionError
 
 from . import LOGGER, VERSION, DEFAULT_PATH
-from .config.loader import ConfigLoader
 from .command.execute import ExecuteCommand
 from .command.noop import NoOpCommand
 from .command.print_config_names import PrintConfigNamesCommand
 from .command.print_path import PrintPathCommand
 from .command.stdin import STDINCommand
+from .config.loader import ConfigLoader
 from .filter import FILTER_GROUPS, FILTERS_BY_LONG_OPTION
 from .transformer import TransformerBuilder, IdentityTransformer
 
@@ -43,10 +43,10 @@ class CommandLineParser(OptionParser):
         self.formatter.max_help_position = 50
         self.formatter.width = 150
         self.command = None
-        self.config_loader = ConfigLoader(paths)
         self.stdout_builder = stdout_builder or TransformerBuilder()
         self.stderr_builder = stderr_builder or TransformerBuilder()
         self.error_handler = error_handler
+        self.config_loader = ConfigLoader(self.stdout_builder, self.stderr_builder, paths, error_handler)
         self.add_option('-f',
                         '--config',
                         action='callback',
@@ -103,10 +103,7 @@ class CommandLineParser(OptionParser):
         if remaining_args:
 
             if not self.stdout_builder.transformers:
-                self.config_loader.load_config_from_command_line(remaining_args,
-                                                                 self.stdout_builder,
-                                                                 self.stderr_builder,
-                                                                 self.error_handler)
+                self.config_loader.load_config_from_command_line(remaining_args)
 
             stdout_transformer = self.stdout_builder.build()
             stderr_transformer = self.stderr_builder.build() if values.enable_stderr_filtering else IdentityTransformer
@@ -134,7 +131,7 @@ class CommandLineParser(OptionParser):
         self.exit(1, msg)
 
     def handle_config_option(self, option, opt, value, parser):
-        self.config_loader.resolve_and_load_config(value, self.stdout_builder, self.stderr_builder, self.error_handler)
+        self.config_loader.load_config_by_name(value)
 
     def handle_pattern_option(self, option, opt, value, parser):
         filter_name = option.get_opt_string()[2:]
