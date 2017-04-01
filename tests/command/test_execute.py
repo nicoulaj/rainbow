@@ -341,4 +341,4 @@ def test_interrupted(stdin):
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
 def test_malformed_utf8(stdin):
     with stdin:
-        assert ExecuteCommand(['cat', 'tests/resources/UTF-8-test.txt']).run() == 0
+        assert ExecuteCommand(['cat', 'tests/data/UTF-8-test.txt']).run() == 0

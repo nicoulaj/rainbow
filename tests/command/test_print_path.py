@@ -17,6 +17,7 @@
 # ----------------------------------------------------------------------
 
 import os
+
 from rainbow import DEFAULT_PATH
 from rainbow.command.print_path import PrintPathCommand
 
@@ -33,4 +34,4 @@ def test_default_path(capsys):
     out, err = capsys.readouterr()
     assert os.path.expanduser('~/.rainbow') in out
     assert os.path.join(os.sep, 'etc', 'rainbow') in out
-    assert os.path.join(os.sep, 'rainbow', 'configs') in out
+    assert os.path.join(os.sep, 'rainbow', 'config', 'builtin') in out

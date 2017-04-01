@@ -26,9 +26,9 @@ from rainbow.ansi import ANSI_BACKGROUND_BLUE, ANSI_BACKGROUND_CYAN, ANSI_BACKGR
     ANSI_FOREGROUND_RED, ANSI_FOREGROUND_RESET, ANSI_FOREGROUND_YELLOW, ANSI_HIDE, ANSI_ITALIC, ANSI_NEGATIVE, \
     ANSI_RESET_ALL, ANSI_RESET_BLINK, ANSI_RESET_HIDE, ANSI_RESET_INTENSITY, ANSI_RESET_ITALIC, ANSI_RESET_NEGATIVE, \
     ANSI_RESET_UNDERLINE, ANSI_UNDERLINE, ANSI_UNDERLINE_DOUBLE
-from rainbow.config import ConfigLoader
+from rainbow.config.loader import ConfigLoader
 from rainbow.transformer import DummyTransformerBuilder, TransformerBuilder, ListTransformer, ReplaceTransformer
-from .test_utils import BUILTIN_CONFIGS_NAMES, BUILTIN_CONFIGS_REFERENCES, BUILTIN_CONFIGS_REFERENCE_PAIRS
+from tests.test_utils import BUILTIN_CONFIGS_NAMES, BUILTIN_CONFIGS_REFERENCES, BUILTIN_CONFIGS_REFERENCE_PAIRS
 
 # Use this to update references.
 # NEVER commit it with True!
@@ -38,10 +38,11 @@ GENERATE_REFERENCES = False
 def resolve_and_load_builtin_config(config):
     stdout_builder = TransformerBuilder()
     errors = []
-    ConfigLoader(['rainbow/configs']).resolve_and_load_config(config,
-                                                              stdout_builder,
-                                                              DummyTransformerBuilder(),
-                                                              lambda error: errors.append(error))
+    ConfigLoader(['rainbow/config/builtin']) \
+        .resolve_and_load_config(config,
+                                 stdout_builder,
+                                 DummyTransformerBuilder(),
+                                 lambda error: errors.append(error))
     return stdout_builder.build(), errors
 
 

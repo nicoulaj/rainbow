@@ -64,7 +64,7 @@ def test_interrupted(capfd):
         assert err == ''
 
 
-@pytest.mark.parametrize("stdin", stdin_from_file_all_variants('tests/resources/UTF-8-test.txt'), ids=str)
+@pytest.mark.parametrize("stdin", stdin_from_file_all_variants('tests/data/UTF-8-test.txt'), ids=str)
 def test_malformed_utf8(stdin):
     with stdin:
         assert STDINCommand().run() == 0

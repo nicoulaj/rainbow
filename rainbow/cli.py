@@ -20,14 +20,14 @@ import sys
 from optparse import OptionParser, OptionGroup, BadOptionError, AmbiguousOptionError
 
 from . import LOGGER, VERSION, DEFAULT_PATH
-from .config import ConfigLoader
+from .config.loader import ConfigLoader
+from .command.execute import ExecuteCommand
+from .command.noop import NoOpCommand
+from .command.print_config_names import PrintConfigNamesCommand
+from .command.print_path import PrintPathCommand
+from .command.stdin import STDINCommand
 from .filter import FILTER_GROUPS, FILTERS_BY_LONG_OPTION
 from .transformer import TransformerBuilder, IdentityTransformer
-from .command.stdin import STDINCommand
-from .command.execute import ExecuteCommand
-from .command.print_path import PrintPathCommand
-from .command.print_config_names import PrintConfigNamesCommand
-from .command.noop import NoOpCommand
 
 
 class CommandLineParser(OptionParser):

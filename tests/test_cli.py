@@ -275,7 +275,7 @@ def test_unresolvable_config_file_long_option():
 
 
 def test_config_file_by_relative_path_short_option():
-    (command, errors) = parse(['-f', 'tests/configs/config006.cfg'])
+    (command, errors) = parse(['-f', 'tests/data/cfg/config006.cfg'])
     assert not errors
     assert isinstance(command, STDINCommand)
     assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),
@@ -283,7 +283,7 @@ def test_config_file_by_relative_path_short_option():
 
 
 def test_config_file_by_relative_path_without_extension_short_option():
-    (command, errors) = parse(['-f', 'tests/configs/config006'])
+    (command, errors) = parse(['-f', 'tests/data/cfg/config006'])
     assert not errors
     assert isinstance(command, STDINCommand)
     assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),
@@ -291,7 +291,7 @@ def test_config_file_by_relative_path_without_extension_short_option():
 
 
 def test_config_file_by_relative_path_long_option():
-    (command, errors) = parse(['--config', 'tests/configs/config006.cfg'])
+    (command, errors) = parse(['--config', 'tests/data/cfg/config006.cfg'])
     assert not errors
     assert isinstance(command, STDINCommand)
     assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),
@@ -299,7 +299,7 @@ def test_config_file_by_relative_path_long_option():
 
 
 def test_config_file_by_relative_path_without_extension_long_option():
-    (command, errors) = parse(['--config', 'tests/configs/config006'])
+    (command, errors) = parse(['--config', 'tests/data/cfg/config006'])
     assert not errors
     assert isinstance(command, STDINCommand)
     assert command.transformer == TransformerBuilder.make_transformer(re.compile(u'ERROR'),

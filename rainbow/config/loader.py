@@ -19,8 +19,8 @@
 import os
 from os.path import basename, isfile, join, dirname
 
-from . import LOGGER
-from .filter import FILTERS_BY_NAME, FILTERS_BY_SHORT_OPTION, FILTERS_BY_LONG_OPTION
+from rainbow import LOGGER
+from rainbow.filter import FILTERS_BY_NAME, FILTERS_BY_SHORT_OPTION, FILTERS_BY_LONG_OPTION
 
 try:
     import configparser
