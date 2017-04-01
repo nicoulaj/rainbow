@@ -78,3 +78,7 @@ def test_find_config_name_from_command_line_one_arg():
 
 def test_find_config_name_from_command_line_several_args():
     assert ConfigLoader.find_config_name_from_command_line(['foo', 'bar', 'bar']) == 'foo'
+
+
+def test_find_config_name_from_command_line_full_path():
+    assert ConfigLoader.find_config_name_from_command_line(['/usr/bin/foo']) == 'foo'
