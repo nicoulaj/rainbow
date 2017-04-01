@@ -19,57 +19,51 @@
 import os
 import signal
 from threading import Timer
-from time import sleep
 
 import pytest
 
 from rainbow import ansi
 from rainbow.command.stdin import STDINCommand
-from tests.test_utils import stdin_empty_all_variants, stdin_from_string_all_variants, stdin_from_file_all_variants
+from tests.test_utils import stdin_empty_all_variants, stdin_from_string_all_variants, stdin_from_file_all_variants, \
+    stdin_pipe
 
 
-@pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_empty(capsys, stdin):
+def test_empty(capfd, stdin):
     with stdin:
         assert STDINCommand().run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ''
 
 
-@pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line\n'), ids=str)
-def test_one_line(capsys, stdin):
+def test_one_line(capfd, stdin):
     with stdin:
         assert STDINCommand().run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'line\n' + ansi.ANSI_RESET_ALL
         assert err == ''
 
 
-@pytest.mark.timeout(2)
 @pytest.mark.parametrize("stdin", stdin_from_string_all_variants('line1\nline2\n'), ids=str)
-def test_several_lines(capsys, stdin):
+def test_several_lines(capfd, stdin):
     with stdin:
         assert STDINCommand().run() == 0
-        out, err = capsys.readouterr()
+        out, err = capfd.readouterr()
         assert out == 'line1\nline2\n' + ansi.ANSI_RESET_ALL
         assert err == ''
 
 
-@pytest.mark.timeout(5)
-@pytest.mark.parametrize("stdin", stdin_empty_all_variants(), ids=str)
-def test_interrupted(capsys, stdin):
-    with stdin:
+def test_interrupted(capfd):
+    with stdin_pipe():
         Timer(1.0, os.kill, [os.getpid(), signal.SIGINT]).start()
-        assert STDINCommand(input_=lambda: sleep(100)).run() == 1
-        out, err = capsys.readouterr()
+        assert STDINCommand().run() == 1
+        out, err = capfd.readouterr()
         assert out == ansi.ANSI_RESET_ALL
         assert err == ''
 
 
-@pytest.mark.skip(reason="Issue #17: encoding is not properly managed")
 @pytest.mark.parametrize("stdin", stdin_from_file_all_variants('tests/resources/UTF-8-test.txt'), ids=str)
 def test_malformed_utf8(stdin):
     with stdin:

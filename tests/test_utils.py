@@ -16,11 +16,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import glob
 import os
 import subprocess
 import sys
 import tempfile
-import glob
 
 from rainbow.filter import FILTER_GROUPS
 
@@ -46,7 +46,6 @@ FILTERS_WITH_LONG_OPTION = [f for g in FILTER_GROUPS for f in g.filters if f.lon
 BUILTIN_CONFIGS_NAMES = [os.path.splitext(os.path.basename(f))[0] for f in glob.glob('rainbow/configs/*.cfg')]
 BUILTIN_CONFIGS_REFERENCES = dict((f, glob.glob('tests/references/%s-*.log' % f)) for f in BUILTIN_CONFIGS_NAMES)
 BUILTIN_CONFIGS_REFERENCE_PAIRS = [(f, r) for f in BUILTIN_CONFIGS_NAMES for r in BUILTIN_CONFIGS_REFERENCES[f]]
-
 
 # ----------------------------------------------------------------------
 # Subcommand helpers
@@ -85,6 +84,10 @@ def stdin_empty():
     return StringAsPipeStdin('')
 
 
+def stdin_pipe():
+    return PipeStdin()
+
+
 def stdin_empty_all_variants():
     return stdin_from_string_all_variants('')
 
@@ -104,13 +107,18 @@ class CustomStdin:
 
     def __enter__(self):
         self.saved_stdin = sys.stdin
-        sys.stdin = self.make_stdin()
+        sys.stdin = self.setup()
 
     def __exit__(self, type, value, traceback):
+        self.teardown()
         sys.stdin = self.saved_stdin
+        self.saved_stdin = None
 
-    def make_stdin(self):
+    def setup(self):
         return sys.stdin
+
+    def teardown(self):
+        pass
 
 
 class FileStdin(CustomStdin):
@@ -118,11 +126,11 @@ class FileStdin(CustomStdin):
         CustomStdin.__init__(self)
         self.path = path
 
-    def make_stdin(self):
+    def setup(self):
         return open(self.path)
 
     def __str__(self):
-        return "file stdin"
+        return "file stdin with fixed contents"
 
 
 class StringAsFileStdin(CustomStdin):
@@ -130,14 +138,14 @@ class StringAsFileStdin(CustomStdin):
         CustomStdin.__init__(self)
         self.contents = contents
 
-    def make_stdin(self):
+    def setup(self):
         stdin_file = tempfile.mktemp()
         with open(stdin_file, 'w') as f:
             f.write(self.contents)
         return open(stdin_file, 'r')
 
     def __str__(self):
-        return "file stdin"
+        return "file stdin with fixed contents"
 
 
 class StringAsPipeStdin(CustomStdin):
@@ -145,11 +153,32 @@ class StringAsPipeStdin(CustomStdin):
         CustomStdin.__init__(self)
         self.contents = contents
 
-    def make_stdin(self):
+    def setup(self):
         pipein, pipeout = os.pipe()
         with os.fdopen(pipeout, 'w') as f:
             f.write(self.contents)
         return os.fdopen(pipein, 'r')
+
+    def __str__(self):
+        return "pipe stdin with fixed contents"
+
+
+class PipeStdin(CustomStdin):
+    def __init__(self):
+        CustomStdin.__init__(self)
+        self.out = None
+
+    def setup(self):
+        pipein, pipeout = os.pipe()
+        self.out = os.fdopen(pipeout, 'w')
+        return os.fdopen(pipein, 'r')
+
+    def teardown(self):
+        self.out.close()
+        self.out = None
+
+    def write(self, string):
+        self.out.write(string)
 
     def __str__(self):
         return "pipe stdin"

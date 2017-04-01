@@ -61,7 +61,6 @@ def test_malformed_utf8_from_command(stdin):
         assert run_rainbow(['cat', 'tests/resources/UTF-8-test.txt']) == 0
 
 
-@pytest.mark.skip(reason="Issue #17: encoding is not properly managed")
 @pytest.mark.parametrize("stdin", stdin_from_file_all_variants('tests/resources/UTF-8-test.txt'), ids=str)
 def test_malformed_utf8_from_stdin(stdin):
     with stdin:

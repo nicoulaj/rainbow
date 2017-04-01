@@ -17,6 +17,8 @@
 # ----------------------------------------------------------------------
 
 
+import codecs
+import os
 import sys
 
 from rainbow.ansi import ANSI_RESET_ALL
@@ -26,18 +28,24 @@ from rainbow.transformer import IdentityTransformer
 class STDINCommand(object):
     def __init__(self,
                  transformer=IdentityTransformer(),
-                 input_=raw_input if sys.version_info[0] < 3 else input):  # noqa: F821
+                 encoding=sys.getdefaultencoding()):
         self.transformer = transformer
-        self.input_ = input_
+        self.encoding = encoding
 
     def run(self):
+
+        stdin_fd = sys.stdin.fileno()
+        stdout_fd = sys.stdout.fileno()
+
+        reader = codecs.getreader(self.encoding)(os.fdopen(stdin_fd, 'rb'), errors='replace')
         try:
             while True:
-                print(self.transformer.transform(self.input_()))
+                line = reader.readline()
+                if line:
+                    os.write(stdout_fd, self.transformer.transform(line).encode(self.encoding, 'replace'))
+                else:
+                    return 0
         except KeyboardInterrupt:
             return 1
-        except EOFError:
-            return 0
         finally:
-            sys.stdout.write(ANSI_RESET_ALL)
-            sys.stdout.flush()
+            os.write(stdout_fd, ANSI_RESET_ALL.encode(self.encoding, 'replace'))
