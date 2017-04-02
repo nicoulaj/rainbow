@@ -16,7 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
-tox==2.5.0
 pytest==3.0.7
 coverage==4.3.4
 pytest-cov==2.4.0

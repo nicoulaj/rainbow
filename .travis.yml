@@ -33,10 +33,12 @@ python:
   - nightly
   - pypy
   - pypy3
+  - pypy3.3-5.2-alpha1
+  - pypy3.3-5.5-alpha
 
 install:
- - pip install tox-travis scrutinizer-ocular codeclimate-test-reporter
  - pip install -r requirements-build.txt -r requirements-test.txt
+ - pip install tox-travis scrutinizer-ocular codeclimate-test-reporter
 
 script:
  - tox
