@@ -1,4 +1,4 @@
-Rainbow
+rainbow
 =======
 
 .. image:: https://img.shields.io/github/tag/nicoulaj/rainbow.svg
@@ -33,6 +33,8 @@ Rainbow
    :target: https://gitter.im/nicoulaj/rainbow
    :alt: gitter chat
 
+----
+
 **Easily colorize logs or commands output using patterns.**
 ::
 
@@ -42,46 +44,39 @@ Rainbow
 Examples
 --------
 
-Using patterns
-~~~~~~~~~~~~~~
-Just prepend ``rainbow`` with ``COLOR=PATTERN`` associations to your
+Using the command line
+~~~~~~~~~~~~~~~~~~~~~~
+Prepend ``rainbow`` with ``--COLOR=PATTERN`` associations to your
 command, for example:
 
 -  Tail some log file with lines containing ``ERROR`` in red:
    ::
 
-     rainbow --red='.*ERROR.*' -- tail -f /var/log/my.log
+     rainbow --red='ERROR.*' tailf /var/log/my.log
 
--  Ping Google with IP addresses colorized in yellow:
-   ::
-
-     rainbow --yellow='\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}' -- ping www.google.com
-
--  Rainbow can also read from STDIN instead of providing a command:
+-  You can also pipe commands output into rainbow:
    ::
 
      tail -f /var/log/my.log | rainbow --red='.*ERROR.*'
 
-Using confs
-~~~~~~~~~~~
+Using configs
+~~~~~~~~~~~~~
 
-Rainbow can read ``COLOR=PATTERN`` associations from config files, which
-is the most common way to use it. It automatically uses the config file
-if there is one named after the command name in ``~/.rainbow``, or a builtin one:
+Rainbow can load configuration for each command from files, which is the most convenient way to use it. When running ``rainbow command``, rainbow will automatically look for a config named ``command.cfg`` in ``/etc/rainbow``, ``~/.rainbow``, or builtin configs:
 
 -  Colorize the ``diff`` command output using the builtin config:
    ::
 
      rainbow diff file1 file2
 
--  Start JBoss application server with colorized logs:
+-  Start my custom command, using ``~/.rainbow/mycommand.cfg``:
    ::
 
-     rainbow --config=jboss -- jboss/bin/run.sh run
+     rainbow mycommand
 
-The syntax for writing configs is very simple. See the
-`builtin configs <https://github.com/nicoulaj/rainbow/blob/master/configs>`_
-for examples.
+The syntax for writing configs is straightforward, see the
+`builtin configs <https://github.com/nicoulaj/rainbow/blob/master/rainbow/config/builtin>`_
+for examples. See also the `commands support table <https://github.com/nicoulaj/rainbow/blob/master/COMMANDS.md>`_.
 
 
 Installation
@@ -110,6 +105,7 @@ You can build from sources this way:
 
     git clone git://github.com/nicoulaj/rainbow.git
     cd rainbow
+    python setup.py build
     sudo python setup.py install
 
 
