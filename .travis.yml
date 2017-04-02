@@ -30,12 +30,13 @@ python:
   - 3.5
   - 3.6
   - 3.7-dev
+  - nightly
   - pypy
   - pypy3
 
 install:
- - pip install -r requirements-build.txt -r requirements-test.txt
  - pip install tox-travis scrutinizer-ocular codeclimate-test-reporter
+ - pip install -r requirements-build.txt -r requirements-test.txt
 
 script:
  - tox
