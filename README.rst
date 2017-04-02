@@ -109,6 +109,12 @@ You can build from sources this way:
     sudo python setup.py install
 
 
+Contributing
+------------
+
+Contributions are welcome, please see `CONTRIBUTING <https://github.com/nicoulaj/rainbow/blob/master/CONTRIBUTING.md>`_.
+
+
 License
 -------
 
