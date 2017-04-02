@@ -63,7 +63,7 @@ def test_rainbow_config_by_path_empty(benchmark):
     with stdin_empty():
         assert benchmark(
             run_rainbow,
-            ['--config', 'tests/data/config001.cfg', 'true'],
+            ['--config', 'tests/data/cfg/config001.cfg', 'true'],
             pipe=False
         ) == 0
 
@@ -72,6 +72,6 @@ def test_rainbow_config_by_path_many_filters(benchmark):
     with stdin_empty():
         assert benchmark(
             run_rainbow,
-            ['--config', 'tests/data/config031.cfg', 'true'],
+            ['--config', 'tests/data/cfg/config031.cfg', 'true'],
             pipe=False
         ) == 0
