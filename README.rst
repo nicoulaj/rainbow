@@ -59,6 +59,10 @@ command, for example:
 
      tail -f /var/log/my.log | rainbow --red='.*ERROR.*'
 
+- Rainbow doesn't colorize if output is piped,
+  to force color use env variables ``RAINBOW_ENABLE_STDOUT``
+  and/or ``RAINBOW_ENABLE_STDERR``.
+
 Using configs
 ~~~~~~~~~~~~~
 
