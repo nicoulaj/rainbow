@@ -21,7 +21,7 @@ coverage==4.5.1
 pytest-cov==2.5.1
 pytest-html==1.17.0
 pytest-metadata==1.7.0
-pytest-timeout==1.2.0
+pytest-timeout==1.2.1
 pytest-flake8==0.8.1
 pytest-pep8==1.0.6
 pytest-benchmark==3.1.0a1
