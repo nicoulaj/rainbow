@@ -43,33 +43,33 @@ def parse(config):
 
 
 def test_parse_inexistent_config():
-    (stdout_transformer, stderr_transformer, errors) = parse('does_not_exist')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'does_not_exist')
     assert errors == ['Could not open config file "does_not_exist"']
 
 
 def test_parse_empty_config():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config001.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config001.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_empty_filters_section():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config002.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config002.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_empty_general_section():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config003.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config003.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_empty_filters_and_general_sections():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config004.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config004.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
@@ -77,14 +77,14 @@ def test_parse_empty_filters_and_general_sections():
 
 @pytest.mark.skipif(condition=sys.version_info[0] < 3, reason="Issue #2: Python 2 does not detect duplicate sections")
 def test_parse_two_empty_filters_sections():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config005.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config005.cfg')
     assert errors == ['Duplicate section "filters" in "tests/data/cfg/config005.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_one_filter():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config006.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config006.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -97,7 +97,7 @@ def test_parse_one_filter():
 
 
 def test_parse_two_different_filters():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config007.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config007.cfg')
     assert not errors
     assert isinstance(stdout_transformer, ListTransformer)
     assert isinstance(stderr_transformer, ListTransformer)
@@ -121,7 +121,7 @@ def test_parse_two_different_filters():
 
 @pytest.mark.skip(reason="Issue #2: Duplicate key support not implemented")
 def test_parse_two_times_same_filter():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config008.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config008.cfg')
     assert not errors
     assert isinstance(stdout_transformer, ListTransformer)
     assert isinstance(stderr_transformer, ListTransformer)
@@ -145,14 +145,14 @@ def test_parse_two_times_same_filter():
 
 @pytest.mark.skip(reason="Issue #2: Support of filters in global section not implemented")
 def test_parse_filter_in_global_section():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config009.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config009.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_one_filter_and_stderr_setting_enabled():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config010.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config010.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -165,7 +165,7 @@ def test_parse_one_filter_and_stderr_setting_enabled():
 
 
 def test_parse_one_filter_and_stderr_setting_enabled_uppercase():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config011.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config011.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -178,7 +178,7 @@ def test_parse_one_filter_and_stderr_setting_enabled_uppercase():
 
 
 def test_parse_one_filter_and_stderr_setting_disabled():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config012.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config012.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
@@ -188,7 +188,7 @@ def test_parse_one_filter_and_stderr_setting_disabled():
 
 
 def test_parse_one_filter_and_stderr_setting_disabled_uppercase():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config013.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config013.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
@@ -198,7 +198,7 @@ def test_parse_one_filter_and_stderr_setting_disabled_uppercase():
 
 
 def test_parse_one_filter_and_stderr_setting_disabled_with_no():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config030.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config030.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
@@ -208,7 +208,7 @@ def test_parse_one_filter_and_stderr_setting_disabled_with_no():
 
 
 def test_parse_one_filter_uppercase():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config014.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config014.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -221,7 +221,7 @@ def test_parse_one_filter_uppercase():
 
 
 def test_parse_one_filter_extra_spaces_before_regex():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config015.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config015.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -234,21 +234,21 @@ def test_parse_one_filter_extra_spaces_before_regex():
 
 
 def test_parse_unknown_filter():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config016.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config016.cfg')
     assert errors == ['Unknown filter "foo" in config "tests/data/cfg/config016.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_unresolved_import():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config017.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config017.cfg')
     assert errors == ['Failed to resolve import of "foo" in config "tests/data/cfg/config017.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_unresolved_import_and_valid_filter():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config018.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config018.cfg')
     assert errors == ['Failed to resolve import of "foo" in config "tests/data/cfg/config018.cfg"']
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -261,7 +261,7 @@ def test_parse_unresolved_import_and_valid_filter():
 
 
 def test_parse_relative_import_without_extension():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config019.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config019.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -274,7 +274,7 @@ def test_parse_relative_import_without_extension():
 
 
 def test_parse_relative_import_with_extension():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config020.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config020.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -287,14 +287,14 @@ def test_parse_relative_import_with_extension():
 
 
 def test_parse_invalid_key_in_general_section():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config021.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config021.cfg')
     assert errors == ['Invalid key "foo" in general section of config "tests/data/cfg/config021.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_two_times_same_filter_once_in_config_once_in_import():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config022.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config022.cfg')
     assert not errors
     assert isinstance(stdout_transformer, ListTransformer)
     assert isinstance(stderr_transformer, ListTransformer)
@@ -317,7 +317,7 @@ def test_parse_two_times_same_filter_once_in_config_once_in_import():
 
 
 def test_parse_multiple_relative_imports_without_extension():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config023.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config023.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -330,7 +330,7 @@ def test_parse_multiple_relative_imports_without_extension():
 
 
 def test_parse_filter_using_filter_name():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config024.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config024.cfg')
     assert not errors
     assert isinstance(stdout_transformer, InsertBeforeAndAfterRegexTransformer)
     assert isinstance(stderr_transformer, InsertBeforeAndAfterRegexTransformer)
@@ -343,35 +343,35 @@ def test_parse_filter_using_filter_name():
 
 
 def test_parse_filter_with_empty_pattern():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config025.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config025.cfg')
     assert errors == ['Empty pattern for "red" in config "tests/data/cfg/config025.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_empty_imports_section():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config026.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config026.cfg')
     assert errors == ['Empty imports section in config "tests/data/cfg/config026.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_multiple_imports_with_empty_one():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config027.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config027.cfg')
     assert errors == ['Empty import in config "tests/data/cfg/config027.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_invalid_section():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config028.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config028.cfg')
     assert errors == ['Invalid section "foo" in config "tests/data/cfg/config028.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_parse_invalid_stderr_filtering_value():
-    (stdout_transformer, stderr_transformer, errors) = parse('tests/data/cfg/config029.cfg')
+    (stdout_transformer, stderr_transformer, errors) = parse(u'tests/data/cfg/config029.cfg')
     assert errors == ['Invalid value "foo" for key "enable-stderr-filtering" in config "tests/data/cfg/config029.cfg"']
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
