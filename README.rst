@@ -2,12 +2,15 @@ rainbow
 =======
 
 .. image:: https://img.shields.io/github/tag/nicoulaj/rainbow.svg
+   :target: https://pypi.org/project/rainbow
    :alt: last release
 
 .. image:: https://pepy.tech/badge/rainbow
+   :target: https://pypi.org/project/rainbow
    :alt: downloads
 
 .. image:: https://img.shields.io/pypi/pyversions/rainbow.svg
+   :target: https://pypi.org/project/rainbow
    :alt: python versions
 
 .. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=master
