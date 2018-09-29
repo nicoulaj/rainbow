@@ -4,7 +4,7 @@
 +#!/usr/bin/env python
  # ----------------------------------------------------------------------
  # rainbow, a terminal colorizer - https://github.com/nicoulaj/rainbow
- # copyright (c) 2010-2017 rainbow contributors
+ # copyright (c) 2010-2018 rainbow contributors
 @@ -16,24 +17,60 @@
  # along with this program.  If not, see <http://www.gnu.org/licenses/>.
  # ----------------------------------------------------------------------

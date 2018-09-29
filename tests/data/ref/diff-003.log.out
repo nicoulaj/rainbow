@@ -4,7 +4,7 @@
 [FOREGROUND_GREEN]+#!/usr/bin/env python[FOREGROUND_RESET]
 [FAINT] # ----------------------------------------------------------------------[RESET_INTENSITY]
 [FAINT] # rainbow, a terminal colorizer - https://github.com/nicoulaj/rainbow[RESET_INTENSITY]
-[FAINT] # copyright (c) 2010-2017 rainbow contributors[RESET_INTENSITY]
+[FAINT] # copyright (c) 2010-2018 rainbow contributors[RESET_INTENSITY]
 [FOREGROUND_MAGENTA]@@ -16,24 +17,60 @@[FOREGROUND_RESET]
 [FAINT] # along with this program.  If not, see <http://www.gnu.org/licenses/>.[RESET_INTENSITY]
 [FAINT] # ----------------------------------------------------------------------[RESET_INTENSITY]
