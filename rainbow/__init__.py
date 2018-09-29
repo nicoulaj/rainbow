@@ -16,9 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # ----------------------------------------------------------------------
 
+import sys
+
 import logging
 import os
-import sys
 
 __prog__ = __name__
 __author__ = 'Julien Nicoulaud'
@@ -33,8 +34,9 @@ LOGGER = logging.getLogger(__prog__)
 
 DEFAULT_PATH = [
     os.environ.get('RAINBOW_CONFIGS'),
-    os.path.expanduser('~/.rainbow'),
-    os.path.join(os.sep, 'etc', 'rainbow'),
+    os.path.join(os.environ.get('XDG_CONFIG_HOME') or os.path.expanduser('~/.config'), __prog__),
+    os.path.join(os.path.expanduser('~'), '.' + __prog__),
+    os.path.join(os.sep, 'etc', __prog__),
     os.path.join(os.sep, os.path.dirname(__file__), 'config', 'builtin')
 ]
 

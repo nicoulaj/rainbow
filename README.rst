@@ -55,7 +55,7 @@ command, for example:
 Using configs
 ~~~~~~~~~~~~~
 
-Rainbow can load configuration for each command from files, which is the most convenient way to use it. When running ``rainbow command``, rainbow will automatically look for a config named ``command.cfg`` in ``~/.rainbow``, ``/etc/rainbow``, or builtin configs:
+Rainbow can load configuration for each command from files, which is the most convenient way to use it. When running ``rainbow mycommand``, rainbow will automatically look for a config named ``mycommand.cfg`` in ``~/.config/rainbow``, ``~/.rainbow``, ``/etc/rainbow``, or builtin configs:
 
 -  Colorize the ``diff`` command output using the builtin config:
    ::
