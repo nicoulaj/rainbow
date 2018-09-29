@@ -21,18 +21,18 @@ import os
 
 from setuptools import setup, find_packages
 
-from rainbow import VERSION
+from rainbow import __prog__, __version__, __license__, __author__, __email__, __url__, __description__
 from rainbow.build import Clean, Build, GenerateCompletion, GenerateManPage
 
 setup(
-    name='rainbow',
-    version=VERSION,
-    author='Julien Nicoulaud',
-    author_email='julien.nicoulaud@gmail.com',
-    description='Colorize commands output or STDIN using patterns.',
+    name=__prog__,
+    version=__version__,
+    author=__author__,
+    author_email=__email__,
+    url=__url__,
+    license=__license__,
+    description=__description__,
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.rst')).read(),
-    license='GPLv3',
-    url='https://github.com/nicoulaj/rainbow',
     keywords='color colorize colorizer pattern',
     classifiers=[
         'Development Status :: 5 - Production/Stable',
@@ -47,24 +47,37 @@ setup(
         'Natural Language :: English',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.3',
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'License :: OSI Approved :: GNU General Public License (GPL)'
     ],
     packages=find_packages(exclude=['tests*']),
     include_package_data=True,
-    data_files=[
-        ('/etc/bash_completion.d', ['build/completion/rainbow']),
-        ('/usr/share/zsh/site-functions', ['build/completion/_rainbow']),
-        ('/usr/share/man/man1', ['build/man/rainbow.1.gz'])
-    ],
+    extras_require={
+        'build': [
+            'Jinja2==2.7.2',
+        ],
+        'test': [
+            'pytest==3.2.5',
+            'coverage==4.5.1',
+            'pytest-cov==2.5.1',
+            'pytest-html==1.17.0',
+            'pytest-timeout==1.2.1',
+            'pytest-flake8==1.0.0',
+            'pytest-pep8==1.0.6',
+            'pytest-benchmark==3.1.1',
+            'pygal==2.4.0',
+            'pygaljs==1.0.1'
+        ]
+    },
     scripts=['scripts/rainbow'],
     cmdclass={
         'clean': Clean,

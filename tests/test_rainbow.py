@@ -19,7 +19,7 @@
 import pytest
 
 import rainbow
-from rainbow import ansi, VERSION
+from rainbow import ansi, __version__
 from rainbow.filter import FILTERS, FILTER_GROUPS
 from .test_utils import run_rainbow, stdin_empty_all_variants, stdin_from_string_all_variants, \
     stdin_from_file_all_variants
@@ -72,7 +72,7 @@ def test_version(capfd, stdin):
     with stdin:
         assert run_rainbow(['--version']) == 0
         out, err = capfd.readouterr()
-        assert out == 'rainbow %s\n' % VERSION
+        assert out == 'rainbow %s\n' % __version__
         assert err == ''
 
 

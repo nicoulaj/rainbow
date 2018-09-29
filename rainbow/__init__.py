@@ -20,9 +20,16 @@ import logging
 import os
 import sys
 
-LOGGER = logging.getLogger('rainbow')
+__prog__ = __name__
+__author__ = 'Julien Nicoulaud'
+__email__ = 'julien.nicoulaud@gmail.com'
+__url__ = 'https://github.com/nicoulaj/rainbow'
+__copyright__ = 'copyright 2010-2018 rainbow contributors'
+__license__ = 'GPLv3'
+__description__ = 'Colorize commands output using patterns.'
+__version__ = '3.0.0-dev'
 
-VERSION = '3.0.0-dev'
+LOGGER = logging.getLogger(__prog__)
 
 DEFAULT_PATH = [
     os.environ.get('RAINBOW_CONFIGS'),

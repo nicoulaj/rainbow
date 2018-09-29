@@ -19,7 +19,7 @@
 import sys
 from optparse import OptionParser, OptionGroup, BadOptionError, AmbiguousOptionError
 
-from . import LOGGER, VERSION, DEFAULT_PATH
+from . import __version__, __description__, LOGGER, DEFAULT_PATH
 from .command.execute import ExecuteCommand
 from .command.noop import NoOpCommand
 from .command.print_config_names import PrintConfigNamesCommand
@@ -36,9 +36,10 @@ class CommandLineParser(OptionParser):
                  stdout_builder=None,
                  stderr_builder=None,
                  error_handler=lambda error: None):
-        OptionParser.__init__(self, usage='%prog [options] -- command [args...] ',
-                              version='%prog ' + VERSION,
-                              description='Colorize command output using patterns.')
+        OptionParser.__init__(self,
+                              usage='%prog [options] -- command [args...] ',
+                              version='%prog ' + __version__,
+                              description=__description__)
         self.disable_interspersed_args()
         self.formatter.max_help_position = 50
         self.formatter.width = 150

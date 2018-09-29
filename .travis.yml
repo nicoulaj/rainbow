@@ -22,19 +22,29 @@ language: python
 
 cache: pip
 
-python:
-  - 2.7
-  - 3.4
-  - 3.5
-  - 3.6
-  - 3.7-dev
-  - nightly
-  - pypy
-  - pypy3
+matrix:
+  include:
+  - python: 2.7
+  - python: 3.4
+  - python: 3.5
+  - python: 3.6
+  - python: 3.7
+    dist: xenial
+    sudo: true
+  - python: 3.8-dev
+    dist: xenial
+    sudo: true
+  - python: nightly
+    dist: xenial
+    sudo: true
+  - python: pypy
+  - python: pypy3
+  allow_failures:
+  - python: 3.8-dev
+  - python: nightly
 
 install:
- - pip install -r requirements-build.txt -r requirements-test.txt
- - pip install tox-travis scrutinizer-ocular codeclimate-test-reporter
+ - pip install tox-travis codeclimate-test-reporter
 
 script:
  - tox
@@ -43,7 +53,6 @@ script:
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - ocular --data-file ".coverage" --config-file ".coveragerc"
   - codeclimate-test-reporter
 
 deploy:
@@ -56,21 +65,20 @@ deploy:
     tags: true
     python: 3.6
 
+addons:
+  code_climate:
+    repo_token: $CODECLIMATE_REPO_TOKEN
+
 notifications:
-  email:
-    on_success: never
-    on_failure: change
-    on_start: never
+  email: false
   webhooks:
     urls: https://webhooks.gitter.im/e/3d9dabdef1a3d8b2ae8d
   irc:
     channels:
-      - "chat.freenode.net#nicoulaj"
-    on_success: always
-    on_failure: always
+    - "chat.freenode.net#nicoulaj"
+    on_success: never
+    on_failure: change
     on_start: never
     use_notice: true
-
-addons:
-  code_climate:
-    repo_token: $CODECLIMATE_REPO_TOKEN
+    template:
+    - "%{repository}/%{branch}#%{build_number}: %{message} | changes : %{compare_url} | build : %{build_url}"
