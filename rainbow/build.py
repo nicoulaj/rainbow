@@ -17,7 +17,9 @@
 # ----------------------------------------------------------------------
 
 import errno
+
 import gzip
+import logging
 import os
 import shutil
 from distutils import log
@@ -95,11 +97,14 @@ class GenerateCompletion(Command):
 
         makeparentdirs(self.output)
 
-        from jinja2 import Environment, FileSystemLoader
-        Environment(loader=FileSystemLoader('templates')) \
-            .get_template('completion.%s' % self.shell) \
-            .stream(filters=FILTERS) \
-            .dump(self.output)
+        try:
+            from jinja2 import Environment, FileSystemLoader
+            Environment(loader=FileSystemLoader('templates')) \
+                .get_template('completion.%s' % self.shell) \
+                .stream(filters=FILTERS) \
+                .dump(self.output)
+        except ImportError:
+            logging.warning('Jinja is not installed, skipping %s completion generation' % self.shell)
 
 
 class GenerateManPage(Command):
@@ -125,23 +130,26 @@ class GenerateManPage(Command):
 
         makeparentdirs(self.output)
 
-        from jinja2 import Environment, FileSystemLoader
-        Environment(loader=FileSystemLoader('templates')) \
-            .get_template('rainbow.man') \
-            .stream(filter_groups=FILTER_GROUPS) \
-            .dump(self.output)
-
-        file_in = None
-        file_out = None
         try:
-            file_in = open(self.output, 'rb')
-            file_out = gzip.open(self.output + '.gz', 'wb')
-            shutil.copyfileobj(file_in, file_out)
-        finally:
-            if file_in:
-                file_in.close()
-            if file_out:
-                file_out.close()
+            from jinja2 import Environment, FileSystemLoader
+            Environment(loader=FileSystemLoader('templates')) \
+                .get_template('rainbow.man') \
+                .stream(filter_groups=FILTER_GROUPS) \
+                .dump(self.output)
+
+            file_in = None
+            file_out = None
+            try:
+                file_in = open(self.output, 'rb')
+                file_out = gzip.open(self.output + '.gz', 'wb')
+                shutil.copyfileobj(file_in, file_out)
+            finally:
+                if file_in:
+                    file_in.close()
+                if file_out:
+                    file_out.close()
+        except ImportError:
+            logging.warning('Jinja is not installed, skipping man page generation')
 
 
 def makeparentdirs(path):
