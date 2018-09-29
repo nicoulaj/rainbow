@@ -105,6 +105,8 @@ rainbow \-\-config MY_CONFIG
 rainbow will look for the config at the following places, in the following order:
   * $RAINBOW_CONFIGS/MY_CONFIG
   * $RAINBOW_CONFIGS/MY_CONFIG.cfg
+  * $XDG_CONFIG_HOME/rainbow/MY_CONFIG
+  * $XDG_CONFIG_HOME/rainbow/MY_CONFIG.cfg
   * ~/.rainbow/MY_CONFIG
   * ~/.rainbow/MY_CONFIG.cfg
   * /etc/rainbow/MY_CONFIG
