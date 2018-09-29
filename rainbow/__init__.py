@@ -28,7 +28,7 @@ __url__ = 'https://github.com/nicoulaj/rainbow'
 __copyright__ = 'copyright 2010-2018 rainbow contributors'
 __license__ = 'GPLv3'
 __description__ = 'Colorize commands output using patterns.'
-__version__ = '2.7.1'
+__version__ = '3.0.0-dev'
 
 LOGGER = logging.getLogger(__prog__)
 
