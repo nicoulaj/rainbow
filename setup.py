@@ -60,7 +60,7 @@ setup(
     include_package_data=True,
     extras_require={
         'build': [
-            'Jinja2==2.7.2',
+            'Jinja2==2.10',
         ],
         'test': [
             # stuck on pytest 3.2.x until next pytest-benchmark release, see
