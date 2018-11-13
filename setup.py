@@ -66,7 +66,7 @@ setup(
             # stuck on pytest 3.2.x until next pytest-benchmark release, see
             # https://github.com/ionelmc/pytest-benchmark/commit/cb3ea794bf6019efb63190fa5cc4e53067d87f0a
             'pytest==3.2.5',
-            'coverage==4.5.1',
+            'coverage==4.5.2',
             'pytest-cov==2.6.0',
             'pytest-html==1.17.0',
             'pytest-timeout==1.2.1',
