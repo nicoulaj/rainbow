@@ -29,7 +29,9 @@ COMPLETION_SHELLS = ['bash', 'zsh']
 
 def generate_completion(request, shell):
     path = 'build/tests-workspace/completion_' + shell + '_' + request.node.name
-    command = GenerateCompletion(Distribution(), shell=shell, output=path)
+    command = GenerateCompletion(Distribution())
+    setattr(command, 'shell', shell)
+    setattr(command, 'output', path)
     command.run()
     return open(path).read()
 
@@ -51,7 +53,8 @@ def test_completion_ends_with_new_line(request, shell):
 
 def generate_man_page(request):
     path = 'build/tests-workspace/manpage_' + request.node.name
-    command = GenerateManPage(Distribution(), output=path)
+    command = GenerateManPage(Distribution())
+    setattr(command, 'output', path)
     command.run()
     return open(path).read()
 

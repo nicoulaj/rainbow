@@ -22,7 +22,6 @@ import gzip
 import logging
 import os
 import shutil
-from distutils import log
 from distutils.command.build import build
 from distutils.command.clean import clean
 from distutils.core import Command
@@ -42,15 +41,15 @@ class Build(build):  # no cover
 
 class Clean(clean):  # no cover
 
-    def __init__(self, dist, **kwargs):
-        self.paths = None
-        clean.__init__(self, dist, **kwargs)
+    def __init__(self, dist):
+        clean.__init__(self, dist)
         self.user_options += [
             ('paths=', 'p', 'paths'),
         ]
 
     def initialize_options(self):
-        clean.initialize_options(self)
+        super(clean, self).initialize_options()
+        self.paths = None
 
     def finalize_options(self):
         clean.finalize_options(self)
@@ -64,10 +63,10 @@ class Clean(clean):  # no cover
                 if os.path.isdir(path):
                     remove_tree(path)
                 elif os.path.isfile(path):
-                    log.info("removing '%s'", path)
+                    self.announce("removing '%s'" % path)
                     os.remove(path)
                 else:
-                    log.info("'%s' does not exist -- can't clean it", path)
+                    self.announce("'%s' does not exist -- can't clean it" % path)
 
 
 class GenerateCompletion(Command):
@@ -78,13 +77,9 @@ class GenerateCompletion(Command):
         ('output=', 'O', 'output file')
     ]
 
-    def __init__(self, dist, **kwargs):
+    def initialize_options(self):
         self.shell = None
         self.output = None
-        Command.__init__(self, dist, **kwargs)
-
-    def initialize_options(self):
-        pass
 
     def finalize_options(self):
         if self.shell is None:  # no cover
@@ -114,12 +109,8 @@ class GenerateManPage(Command):
         ('output=', 'O', 'output file')
     ]
 
-    def __init__(self, dist, **kwargs):
-        self.output = None
-        Command.__init__(self, dist, **kwargs)
-
     def initialize_options(self):
-        pass
+        self.output = None
 
     def finalize_options(self):
         if self.output is None:  # no cover
