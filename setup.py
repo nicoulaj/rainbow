@@ -63,17 +63,19 @@ setup(
             'Jinja2==2.7.2',
         ],
         'test': [
-            # stuck on pytest 3.2.x until next pytest-benchmark release, see
-            # https://github.com/ionelmc/pytest-benchmark/commit/cb3ea794bf6019efb63190fa5cc4e53067d87f0a
-            'pytest==3.2.5',
-            'coverage==4.5.1',
+            'pytest==4.0.0',
+            'coverage==4.5.2',
             'pytest-cov==2.6.0',
-            'pytest-html==1.17.0',
-            'pytest-timeout==1.2.1',
-            'pytest-flake8==1.0.0',
-            'pytest-benchmark==3.1.1',
+            'pytest-html==1.19.0',
+            'pytest-timeout==1.3.3',
+            'pytest-flake8==1.0.2',
             'pygal==2.4.0',
-            'pygaljs==1.0.1'
+            'pygaljs==1.0.1',
+
+            # we need https://github.com/ionelmc/pytest-benchmark/commit/cb3ea794bf6019efb63190fa5cc4e53067d87f0a,
+            # but unfortunately pytest-benchmark won't make a new release
+            'pytest-benchmark'
+            ' @ https://github.com/ionelmc/pytest-benchmark/archive/cb3ea794bf6019efb63190fa5cc4e53067d87f0a.zip',
         ]
     },
     scripts=['scripts/rainbow'],
