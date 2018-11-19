@@ -22,37 +22,30 @@ language: python
 
 cache: pip
 
-matrix:
-  include:
-  - python: 2.7
-  - python: 3.4
-  - python: 3.5
-  - python: 3.6
-  - python: 3.7
-    dist: xenial
-    sudo: true
-  - python: 3.8-dev
-    dist: xenial
-    sudo: true
-  - python: nightly
-    dist: xenial
-    sudo: true
-  - python: pypy
-  - python: pypy3
-  allow_failures:
-  - python: 3.8-dev
-  - python: nightly
-
 jobs:
   include:
     - stage: test
-      script: tox
+      python: 2.7
+    - stage: test
+      python: 3.4
+    - stage: test
+      python: 3.5
+    - stage: test
+      python: 3.6
+    - stage: test
+      python: 3.7
+      dist: xenial
+      sudo: true
+    - stage: test
+      python: pypy
+    - stage: test
+      python: pypy3
     - stage: lint
+      python: 3.6
       script: tox -e lint
-      python: 3.7
     - stage: benchmark
+      python: 3.6
       script: tox -e benchmarks
-      python: 3.7
 
 install:
  - pip install tox-travis codeclimate-test-reporter
@@ -71,7 +64,7 @@ deploy:
     secure: "PH03sct2gKSxhfefRCNVYUqHGi5gPxBfMBe4ZIdNXR6WbfoLn/tOv1MkIasptABMHkhuSJ+Rr7o4GfsCXUmSuOPdMx9xsFhWyA/HBAeHRJpg4auDPUNIxGn89YJNVsWipJhL9vxjEXhuI1ySzaPR2KQ7wgYa6rfT9yGn34aQUBA="
   on:
     tags: true
-    python: 3.7
+    python: 3.6
 
 addons:
   code_climate:
