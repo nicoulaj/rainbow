@@ -70,8 +70,8 @@ def test_manpage_filter_included(request):
     man_page = generate_man_page(request)
     for filter in FILTERS:
         if filter.short_option:
-            assert '\-' + filter.short_option in man_page
-        assert '\-\-' + filter.long_option in man_page
+            assert '\\-' + filter.short_option in man_page
+        assert '\\-\\-' + filter.long_option in man_page
         assert filter.help in man_page
 
 
