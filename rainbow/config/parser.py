@@ -80,7 +80,7 @@ class ConfigParser(object):
                     elif key == 'enable-stderr-filtering':
                         try:
                             enable_stderr_filtering = config_parser.getboolean(section, 'enable-stderr-filtering')
-                        except ValueError as e:
+                        except ValueError:
                             self.error_handler(
                                 'Invalid value "%s" for key "%s" in config "%s"' % (value, key, config_file))
 
