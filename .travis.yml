@@ -45,6 +45,8 @@ matrix:
 
 jobs:
   include:
+    - stage: test
+      script: tox
     - stage: lint
       script: tox -e lint
       python: 3.7
@@ -55,8 +57,7 @@ jobs:
 install:
  - pip install tox-travis codeclimate-test-reporter
 
-script:
-  - tox
+script: tox
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
