@@ -43,13 +43,20 @@ matrix:
   - python: 3.8-dev
   - python: nightly
 
+jobs:
+  include:
+    - stage: lint
+      script: tox -e lint
+      python: 3.7
+    - stage: benchmark
+      script: tox -e benchmarks
+      python: 3.7
+
 install:
  - pip install tox-travis codeclimate-test-reporter
 
 script:
- - tox
- - tox -e lint
- - tox -e benchmarks
+  - tox
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
@@ -63,7 +70,7 @@ deploy:
     secure: "PH03sct2gKSxhfefRCNVYUqHGi5gPxBfMBe4ZIdNXR6WbfoLn/tOv1MkIasptABMHkhuSJ+Rr7o4GfsCXUmSuOPdMx9xsFhWyA/HBAeHRJpg4auDPUNIxGn89YJNVsWipJhL9vxjEXhuI1ySzaPR2KQ7wgYa6rfT9yGn34aQUBA="
   on:
     tags: true
-    python: 3.6
+    python: 3.7
 
 addons:
   code_climate:
