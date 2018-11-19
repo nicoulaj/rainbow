@@ -24,7 +24,6 @@ cache: pip
 
 env:
   global:
-    - PYTEST_ADDOPTS="--color=yes"
     - PY_COLORS=1
 
 install:
