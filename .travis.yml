@@ -22,10 +22,15 @@ language: python
 
 cache: pip
 
+env:
+  global:
+    - PYTEST_ADDOPTS="--color=yes"
+    - PY_COLORS=1
+
 install:
  - pip install tox-travis codeclimate-test-reporter
 
-script: PY_COLORS=1 tox
+script: tox
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
@@ -46,12 +51,12 @@ jobs:
 
     - stage: lint
       python: 3.6
-      script: PY_COLORS=1 tox -e lint
+      script: tox -e lint
       after_success: skip
 
     - stage: benchmark
       python: 3.6
-      script: PY_COLORS=1 tox -e benchmarks
+      script: tox -e benchmarks
       after_success: skip
 
     - stage: deploy
