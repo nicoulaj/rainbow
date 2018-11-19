@@ -43,7 +43,10 @@ FILTERS_WITH_LONG_OPTION = [f for g in FILTER_GROUPS for f in g.filters if f.lon
 # Configs collections
 # ----------------------------------------------------------------------
 
-BUILTIN_CONFIGS_NAMES = [os.path.splitext(os.path.basename(f))[0] for f in glob.glob('rainbow/config/builtin/*.cfg')]
+if sys.version_info.major == 3:
+    unicode = str
+BUILTIN_CONFIGS_NAMES = [unicode(os.path.splitext(os.path.basename(f))[0])
+                         for f in glob.glob('rainbow/config/builtin/*.cfg')]
 BUILTIN_CONFIGS_REFERENCES = dict((f, glob.glob('tests/data/ref/%s-*.log' % f)) for f in BUILTIN_CONFIGS_NAMES)
 BUILTIN_CONFIGS_REFERENCE_PAIRS = [(f, r) for f in BUILTIN_CONFIGS_NAMES for r in BUILTIN_CONFIGS_REFERENCES[f]]
 

@@ -57,14 +57,14 @@ def test_load_unresolvable_config_file():
 
 
 def test_load_empty_config_file():
-    (stdout_transformer, stderr_transformer, errors) = load_by_name('tests/data/cfg/config001.cfg')
+    (stdout_transformer, stderr_transformer, errors) = load_by_name(u'tests/data/cfg/config001.cfg')
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)
 
 
 def test_load_empty_config_file_from_command_line():
-    (stdout_transformer, stderr_transformer, errors) = load_from_command_line(['config001'])
+    (stdout_transformer, stderr_transformer, errors) = load_from_command_line([u'config001'])
     assert not errors
     assert isinstance(stdout_transformer, IdentityTransformer)
     assert isinstance(stderr_transformer, IdentityTransformer)

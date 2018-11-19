@@ -42,7 +42,7 @@ def load_builtin_config(config):
                  stderr_builder=DummyTransformerBuilder(),
                  paths=['rainbow/config/builtin'],
                  error_handler=errors.append) \
-        .load_config_by_name(config, )
+        .load_config_by_name(config)
     return stdout_builder.build(), errors
 
 
