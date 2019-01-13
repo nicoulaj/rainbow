@@ -68,14 +68,10 @@ setup(
             'pytest-cov==2.6.1',
             'pytest-html==1.19.0',
             'pytest-timeout==1.3.3',
-            'pytest-flake8==1.0.2',
+            'flake8==3.6.0',
             'pygal==2.4.0',
             'pygaljs==1.0.1',
-
-            # we need https://github.com/ionelmc/pytest-benchmark/commit/cb3ea794bf6019efb63190fa5cc4e53067d87f0a,
-            # but unfortunately pytest-benchmark won't make a new release
-            'pytest-benchmark'
-            ' @ https://github.com/ionelmc/pytest-benchmark/archive/cb3ea794bf6019efb63190fa5cc4e53067d87f0a.zip',
+            'pytest-benchmark==3.2.2'
         ]
     },
     scripts=['scripts/rainbow'],
