@@ -66,7 +66,7 @@ setup(
             'pytest==4.1.1',
             'coverage==4.5.2',
             'pytest-cov==2.6.1',
-            'pytest-html==1.19.0',
+            'pytest-html==1.20.0',
             'pytest-timeout==1.3.3',
             'flake8==3.6.0',
             'pygal==2.4.0',
