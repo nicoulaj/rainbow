@@ -68,7 +68,7 @@ setup(
             'pytest-cov==2.6.1',
             'pytest-html==1.20.0',
             'pytest-timeout==1.3.3',
-            'flake8==3.7.5',
+            'flake8==3.7.6',
             'pygal==2.4.0',
             'pygaljs==1.0.1',
             'pytest-benchmark==3.2.2'
