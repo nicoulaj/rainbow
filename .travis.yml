@@ -45,21 +45,21 @@ jobs:
     - python: 3.5
     - python: 3.6
     - python: 3.7
-      dist: xenial
-      sudo: true
+    - python: 3.8
+    - python: 3.9
 
     - stage: lint
-      python: 3.6
+      python: 3.9
       script: tox -e lint
       after_success: skip
 
     - stage: benchmark
-      python: 3.6
+      python: 3.9
       script: tox -e benchmarks
       after_success: skip
 
     - stage: deploy
-      python: 3.6
+      python: 3.9
       install: skip
       script: skip
       after_success: skip
