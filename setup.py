@@ -70,7 +70,7 @@ setup(
             'pytest-timeout==1.4.2',
             'flake8==3.7.8',
             'pygal==2.4.0',
-            'pygaljs==1.0.1',
+            'pygaljs==1.0.2',
             'pytest-benchmark==3.2.2'
         ]
     },
