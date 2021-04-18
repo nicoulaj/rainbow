@@ -33,3 +33,8 @@ jobs:
 
     - name: Run tests
       run: tox
+
+    - name: Publish code coverage to CodeClimate
+      uses: paambaati/codeclimate-action@v2.7.5
+      env:
+        CC_TEST_REPORTER_ID: 566232623bbdb013f0441fe7173d4a7e07ec3944326a0e2056ce77355beabf44
