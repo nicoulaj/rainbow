@@ -1,20 +1,17 @@
-name: Lint
+name: Tests
 
 on:
-  workflow_run:
-    workflows: [ 'Tests' ]
-    types: [completed]
+  - push
+  - pull_request
 
 jobs:
-  lint:
-
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  test:
 
     strategy:
       fail-fast: false
       matrix:
-        os: [ 'ubuntu-latest' ]
-        python: [ '3.9' ]
+        os: [ 'ubuntu-latest', 'macos-latest' ]
+        python: [ '2.7', '3.6', '3.7', '3.8', '3.9', 'pypy-2.7', 'pypy-3.6', 'pypy-3.7']
 
     runs-on: ${{ matrix.os }}
 
@@ -32,7 +29,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install tox
+        pip install tox tox-gh-actions
 
-    - name: Run checks
-      run: tox -e lint
+    - name: Run tests
+      run: tox
