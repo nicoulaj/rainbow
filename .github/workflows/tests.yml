@@ -36,5 +36,9 @@ jobs:
 
     - name: Publish code coverage to CodeClimate
       uses: paambaati/codeclimate-action@v2.7.5
+      if: matrix.os == 'ubuntu-latest' && matrix.python == '3.9'
+      continue-on-error: true
+      with:
+        coverageLocations: ${{github.workspace}}/build/tests/*/reports/coverage.xml:coverage.py
       env:
         CC_TEST_REPORTER_ID: 566232623bbdb013f0441fe7173d4a7e07ec3944326a0e2056ce77355beabf44
