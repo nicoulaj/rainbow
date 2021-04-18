@@ -8,16 +8,12 @@ on:
     branches:
     - master
 
-env:
-  PLATFORM: 'ubuntu-latest'
-  PYTHON_VERSION: '3.9'
-
 jobs:
   python-packages:
 
-    name: ${{ env.PLATFORM }} - python ${{ env.PYTHON_VERSION }}
+    name: 'python packages'
 
-    runs-on: ${{ env.PLATFORM }}
+    runs-on: 'ubuntu-latest'
 
     steps:
     - name: Checkout
@@ -26,7 +22,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ env.PYTHON_VERSION }}
+        python-version: 3.9
 
     - name: Install dependencies
       run: |
