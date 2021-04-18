@@ -15,7 +15,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    name: ${{ matrix.os }} - python ${{ matrix.python }}
+    name: tests - ${{ matrix.os }} - python ${{ matrix.python }}
 
     steps:
     - name: Checkout
