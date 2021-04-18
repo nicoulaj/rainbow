@@ -1,33 +1,32 @@
 name: Lint
 
 on:
-  workflow_run:
-    workflows: [ 'Tests' ]
-    types: [completed]
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+env:
+  PLATFORM: 'ubuntu-latest'
+  PYTHON_VERSION: '3.9'
 
 jobs:
   lint:
 
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: ${{ env.PLATFORM }} - python ${{ env.PYTHON_VERSION }}
 
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ 'ubuntu-latest' ]
-        python: [ '3.9' ]
-
-    runs-on: ${{ matrix.os }}
-
-    name: lint - ${{ matrix.os }} - python ${{ matrix.python }}
+    runs-on: ${{ env.PLATFORM }}
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python }}
+    - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python }}
+        python-version: ${{ env.PYTHON_VERSION }}
 
     - name: Install dependencies
       run: |

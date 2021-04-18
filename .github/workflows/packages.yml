@@ -1,18 +1,23 @@
 name: Packages
 
 on:
-  workflow_run:
-    workflows: [ 'Tests' ]
-    types: [completed]
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
+
+env:
+  PLATFORM: 'ubuntu-latest'
+  PYTHON_VERSION: '3.9'
 
 jobs:
   python-packages:
 
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: ${{ env.PLATFORM }} - python ${{ env.PYTHON_VERSION }}
 
-    runs-on: 'ubuntu-latest'
-
-    name: wheel
+    runs-on: ${{ env.PLATFORM }}
 
     steps:
     - name: Checkout
@@ -21,7 +26,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.9
+        python-version: ${{ env.PYTHON_VERSION }}
 
     - name: Install dependencies
       run: |

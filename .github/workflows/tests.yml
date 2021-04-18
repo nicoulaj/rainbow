@@ -1,8 +1,12 @@
 name: Tests
 
 on:
-  - push
-  - pull_request
+  push:
+    branches:
+    - master
+  pull_request:
+    branches:
+    - master
 
 jobs:
   test:
@@ -15,7 +19,7 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    name: tests - ${{ matrix.os }} - python ${{ matrix.python }}
+    name: ${{ matrix.os }} - python ${{ matrix.python }}
 
     steps:
     - name: Checkout
