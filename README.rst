@@ -13,13 +13,13 @@ rainbow
    :target: https://pypi.org/project/rainbow
    :alt: python versions
 
-.. image:: https://travis-ci.org/nicoulaj/rainbow.svg?branch=master
-   :target: https://travis-ci.org/nicoulaj/rainbow
+.. image:: https://github.com/nicoulaj/rainbow/actions/workflows/tests.yml/badge.svg
+   :target: https://github.com/nicoulaj/rainbow/actions
    :alt: continuous integration
 
-.. image:: https://codecov.io/gh/nicoulaj/rainbow/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/nicoulaj/rainbow
-   :alt: test coverage
+.. image:: https://api.codeclimate.com/v1/badges/724f29330eb898c7516b/test_coverage
+   :target: https://codeclimate.com/github/nicoulaj/rainbow/test_coverage
+   :alt: test Coverage
 
 .. image:: https://badges.gitter.im/nicoulaj/rainbow.svg
    :target: https://gitter.im/nicoulaj/rainbow
