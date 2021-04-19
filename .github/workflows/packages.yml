@@ -64,6 +64,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Define version
+      id: version
+      uses: jimschubert/query-tag-action@v1
+
+    - name: Show version
+      run: |
+        echo 'Version: ${{steps.version.outputs.tag}}'
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
