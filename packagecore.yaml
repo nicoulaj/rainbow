@@ -17,6 +17,20 @@ packages:
   centos6.9: &dependencies-default
     builddeps:
       - python-jinja2
+      - python-setuptools
     deps:
       - python
   centos7.7: *dependencies-default
+  centos8.0: *dependencies-default
+  debian8: *dependencies-default
+  debian9: *dependencies-default
+  debian10: *dependencies-default
+  fedora32: *dependencies-default
+  opensuse.tumbleweed: *dependencies-default
+  opensuse42.3: *dependencies-default
+  opensuse15.1: *dependencies-default
+  opensuse15.2: *dependencies-default
+  ubuntu17.04: *dependencies-default
+  ubuntu17.10: *dependencies-default
+  ubuntu18.04: *dependencies-default
+  ubuntu20.04: *dependencies-default
