@@ -105,7 +105,7 @@ def test_config_by_reference(test):
     ])
 
     with open(input_file) as f:
-        actual_lines = [transformer.transform(l) for l in f.read().splitlines()]
+        actual_lines = [transformer.transform(line) for line in f.read().splitlines()]
 
     if GENERATE_REFERENCES:
         with open(expected_file, 'w') as f:
