@@ -1,0 +1,22 @@
+name: rainbow
+maintainer: Julien Nicoulaud <julien.nicoulaud@gmail.com>
+license: GPL3
+summary: Easily colorize commands output using patterns.
+homepage: https://github.com/nicoulaj/rainbow
+
+commands:
+  compile: |
+    python setup.py build
+  install: |
+    python setup.py install --prefix=/usr --root="${BP_DESTDIR}/" --optimize=1 --skip-build
+  testinstall: |
+    /usr/bin/rainbow --help
+    /usr/bin/rainbow --version
+
+packages:
+  centos6.9: &dependencies-default
+    builddeps:
+      - python-jinja2
+    deps:
+      - python
+  centos7.7: *dependencies-default

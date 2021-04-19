@@ -36,3 +36,6 @@ MANIFEST
 .coverage.*
 out/
 .pytest_cache/
+*.rpm
+*.deb
+*.tar.*
