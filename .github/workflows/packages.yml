@@ -38,10 +38,8 @@ jobs:
       fail-fast: false
       matrix:
         distro: [
-            'centos6.9',
             'centos7.7',
             'centos8.0',
-            'debian8',
             'debian9',
             'debian10',
             'fedora32',
