@@ -97,7 +97,7 @@ jobs:
         pip install packagecore cloudsmith-cli
 
     - name: Build package
-      run: packagecore -p ${{ matrix.distribution }} $(grep -Po "__version__ = '\K.[^']+" rainbow/__init__.py)
+      run: packagecore -p ${{ matrix.packagecore-distribution }} $(grep -Po "__version__ = '\K.[^']+" rainbow/__init__.py)
 
     - name: Upload package to repository
       env:
