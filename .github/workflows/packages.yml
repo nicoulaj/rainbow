@@ -70,7 +70,7 @@ jobs:
             format: deb
 
 
-    name: ${{ matrix.format }} - ${{ packagecore-distribution }}
+    name: ${{ matrix.format }} - ${{ matrix.packagecore-distribution }}
 
     runs-on: 'ubuntu-latest'
 
