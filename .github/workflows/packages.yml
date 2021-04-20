@@ -11,7 +11,7 @@ on:
 jobs:
   python-packages:
 
-    name: 'python packages'
+    name: 'wheel'
 
     runs-on: 'ubuntu-latest'
 
@@ -37,24 +37,40 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        distro: [
-            'centos7.7',
-            'centos8.0',
-            'debian9',
-            'debian10',
-            'fedora32',
-            'opensuse.tumbleweed',
-            'opensuse42.3',
-            'opensuse15.0',
-            'opensuse15.1',
-            'opensuse15.2',
-            'ubuntu17.04',
-            'ubuntu17.10',
-            'ubuntu18.04',
-            'ubuntu20.04'
-        ]
+        include:
+          - packagecore-distribution: 'centos7.7'
+            cloudsmith-distribution: 'el/7'
+            format: rpm
+          - packagecore-distribution: 'centos8.0'
+            cloudsmith-distribution: 'el/8'
+            format: rpm
+          - packagecore-distribution: 'fedora32'
+            cloudsmith-distribution: 'fedora/32'
+            format: rpm
+          - packagecore-distribution: 'opensuse.tumbleweed'
+            cloudsmith-distribution: 'opensuse/Tumbleweed'
+            format: rpm
+          - packagecore-distribution: 'opensuse42.3'
+            cloudsmith-distribution: 'opensuse/42.3'
+            format: rpm
+          - packagecore-distribution: 'opensuse15.1'
+            cloudsmith-distribution: 'opensuse/15.1'
+            format: rpm
+          - packagecore-distribution: 'opensuse15.2'
+            cloudsmith-distribution: 'opensuse/15.2'
+            format: rpm
+          - packagecore-distribution: 'debian10'
+            cloudsmith-distribution: 'debian/buster'
+            format: deb
+          - packagecore-distribution: 'ubuntu18.04'
+            cloudsmith-distribution: 'ubuntu/bionic'
+            format: deb
+          - packagecore-distribution: 'ubuntu20.04'
+            cloudsmith-distribution: 'ubuntu/focal'
+            format: deb
 
-    name: ${{ matrix.distro }}
+
+    name: ${{ matrix.format }} - ${{ packagecore-distribution }}
 
     runs-on: 'ubuntu-latest'
 
@@ -81,4 +97,9 @@ jobs:
         pip install packagecore cloudsmith-cli
 
     - name: Build package
-      run: packagecore -p ${{ matrix.distro }} $(grep -Po "__version__ = '\K.[^']+" rainbow/__init__.py)
+      run: packagecore -p ${{ matrix.distribution }} $(grep -Po "__version__ = '\K.[^']+" rainbow/__init__.py)
+
+    - name: Upload package to repository
+      env:
+        CLOUDSMITH_API_KEY: $${{ secrets.CLOUDSMITH_API_KEY }}
+      run: cloudsmith push ${{ matrix.format }} --republish rainbow/stable/${{ matrix.cloudsmith-distribution }} *.${{ matrix.format }}
