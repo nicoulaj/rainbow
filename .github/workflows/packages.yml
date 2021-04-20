@@ -9,6 +9,7 @@ on:
     - master
 
 jobs:
+
   python-packages:
 
     name: 'wheel'
@@ -32,7 +33,7 @@ jobs:
     - name: Build source distribution and wheel package
       run: python setup.py sdist bdist_wheel
 
-    - name: Publish package
+    - name: Publish on PyPI repository
       if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
@@ -102,7 +103,8 @@ jobs:
     - name: Build package
       run: packagecore -p ${{ matrix.packagecore-distribution }} $(grep -Po "__version__ = '\K.[^']+" rainbow/__init__.py)
 
-    - name: Upload package to repository
+    - name: Publish on Cloudsmith repository
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
       env:
         CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
       run: cloudsmith push ${{ matrix.format }} --republish rainbow/stable/${{ matrix.cloudsmith-distribution }} *.${{ matrix.format }}
