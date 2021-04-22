@@ -3,10 +3,10 @@ name: Packages
 on:
   push:
     branches:
-    - master
+      - master
   pull_request:
     branches:
-    - master
+      - master
 
 jobs:
 
@@ -17,28 +17,28 @@ jobs:
     runs-on: 'ubuntu-latest'
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install wheel
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install wheel
 
-    - name: Build source distribution and wheel package
-      run: python setup.py sdist bdist_wheel
+      - name: Build source distribution and wheel package
+        run: python setup.py sdist bdist_wheel
 
-    - name: Publish on PyPI repository
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-      uses: pypa/gh-action-pypi-publish@release/v1
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
+      - name: Publish on PyPI repository
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
 
   linux-packages:
 
@@ -83,28 +83,28 @@ jobs:
     runs-on: 'ubuntu-latest'
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
 
-    - name: Define version
-      id: version
-      uses: jimschubert/query-tag-action@v1
+      - name: Define version
+        id: version
+        uses: jimschubert/query-tag-action@v1
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install packagecore cloudsmith-cli
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install packagecore cloudsmith-cli
 
-    - name: Build package
-      run: packagecore -p ${{ matrix.packagecore-distribution }} $(grep -Po "__version__ = '\K.[^']+" rainbow/__init__.py)
+      - name: Build package
+        run: packagecore -p ${{ matrix.packagecore-distribution }} $(grep -Po "__version__ = '\K.[^']+" rainbow/__init__.py)
 
-    - name: Publish on Cloudsmith repository
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
-      env:
-        CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
-      run: cloudsmith push ${{ matrix.format }} --republish rainbow/stable/${{ matrix.cloudsmith-distribution }} *.${{ matrix.format }}
+      - name: Publish on Cloudsmith repository
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        env:
+          CLOUDSMITH_API_KEY: ${{ secrets.CLOUDSMITH_API_KEY }}
+        run: cloudsmith push ${{ matrix.format }} --republish rainbow/stable/${{ matrix.cloudsmith-distribution }} *.${{ matrix.format }}
