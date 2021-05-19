@@ -64,7 +64,7 @@ setup(
         'test': [
             'pytest==4.6.3',
             'coverage==5.5',
-            'pytest-cov==2.11.1',
+            'pytest-cov==2.12.0',
             'pytest-html==1.20.0',
             'pytest-timeout==1.4.2',
             'flake8==3.9.2',
