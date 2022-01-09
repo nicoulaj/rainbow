@@ -1,29 +1,13 @@
 version: 2
+
 updates:
-- package-ecosystem: pip
-  directory: "/"
-  schedule:
-    interval: daily
-    time: "04:00"
-  open-pull-requests-limit: 10
-  ignore:
-  - dependency-name: jinja2
-    versions:
-    - "> 2.7.2"
-  - dependency-name: pytest
-    versions:
-    - "> 4.6.3"
-  - dependency-name: pytest-html
-    versions:
-    - "> 1.20.0"
-  - dependency-name: flake8
-    versions:
-    - 3.8.4
-    - 3.9.0
-    - 3.9.1
-  - dependency-name: pytest-benchmark
-    versions:
-    - 3.2.3
-  - dependency-name: coverage
-    versions:
-    - "5.4"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: weekly
+
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
