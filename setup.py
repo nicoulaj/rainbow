@@ -50,6 +50,7 @@ setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: Implementation :: CPython',
         'Programming Language :: Python :: Implementation :: PyPy',
         'License :: OSI Approved :: GNU General Public License (GPL)'
@@ -59,16 +60,16 @@ setup(
     python_requires='>=3.6',
     extras_require={
         'build': [
-            'Jinja2==2.7.2',
+            'Jinja2==3.0.3',
         ],
         'test': [
-            'pytest==4.6.3',
-            'coverage==5.5',
-            'pytest-cov==2.12.1',
-            'pytest-html==1.20.0',
-            'pytest-timeout==1.4.2',
-            'flake8==3.9.2',
-            'pygal==2.4.0',
+            'pytest==6.2.5',
+            'coverage==6.2',
+            'pytest-cov==3.0.0',
+            'pytest-html==3.1.1',
+            'pytest-timeout==2.0.2',
+            'flake8==4.0.1',
+            'pygal==3.0.0',
             'pygaljs==1.0.2',
             'pytest-benchmark==3.4.1'
         ]
