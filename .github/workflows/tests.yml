@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ 'ubuntu-latest', 'macos-latest' ]
-        python: [ '3.6', '3.7', '3.8', '3.9', 'pypy-3.6', 'pypy-3.7' ]
+        python: [ '3.6', '3.7', '3.8', '3.9', '3.10', 'pypy-3.6', 'pypy-3.7' ]
 
     runs-on: ${{ matrix.os }}
 
@@ -46,9 +46,9 @@ jobs:
 
       - name: Publish code coverage to CodeClimate
         uses: paambaati/codeclimate-action@v2.7.5
-        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.9'
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.10'
         continue-on-error: true
         with:
           coverageLocations: ${{github.workspace}}/build/tests/*/reports/coverage.xml:coverage.py
         env:
-          CC_TEST_REPORTER_ID: 566232623bbdb013f0441fe7173d4a7e07ec3944326a0e2056ce77355beabf44
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
