@@ -60,7 +60,7 @@ setup(
     python_requires='>=3.6',
     extras_require={
         'build': [
-            'Jinja2==2.7.2',
+            'Jinja2==3.0.3',
         ],
         'test': [
             'pytest==6.2.5',
