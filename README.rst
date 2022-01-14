@@ -81,11 +81,9 @@ Using packages
 ============================================  ============================================
  System                                        Installation instructions
 ============================================  ============================================
- Debian / Ubuntu                               `rainbow repository <https://software.opensuse.org/download.html?project=home%3Anicoulaj%3Arainbow&package=rainbow>`_
- Fedora / CentOS / RHEL / Scientific Linux     `rainbow repository <https://software.opensuse.org/download.html?project=home%3Anicoulaj%3Arainbow&package=rainbow>`_
- OpenSUSE / SLE                                `rainbow repository <https://software.opensuse.org/download.html?project=home%3Anicoulaj%3Arainbow&package=rainbow>`_
+ Debian / RPM based                            `rainbow repository <https://software.opensuse.org/download.html?project=home%3Anicoulaj%3Arainbow&package=rainbow>`_ (`sources here <https://build.opensuse.org/package/show/home:nicoulaj:rainbow/rainbow>`_)
  Arch Linux                                    `AUR/rainbow <https://aur.archlinux.org/packages/rainbow>`_ / `AUR/rainbow-git <https://aur.archlinux.org/packages/rainbow-git>`_
- `pip` / `easy_install`                        `PyPI: rainbow <https://pypi.org/project/rainbow>`_
+ pip                                           `PyPI: rainbow <https://pypi.org/project/rainbow>`_
 ============================================  ============================================
 
 
