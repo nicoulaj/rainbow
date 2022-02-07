@@ -63,7 +63,7 @@ setup(
             'Jinja2==3.0.3',
         ],
         'test': [
-            'pytest==6.2.5',
+            'pytest==7.0.0',
             'coverage==6.2',
             'pytest-cov==3.0.0',
             'pytest-html==3.1.1',
