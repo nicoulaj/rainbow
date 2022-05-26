@@ -137,12 +137,6 @@ If you want to request and/or plan to working on one, please send a pull request
 | screen               | :x:                  | cope                                     |                                      |
 | sdiff                | :x:                  | cwrapper                                 |                                      |
 | services             | :x:                  | cwrapper                                 |                                      |
-| sha1sum              | :x:                  | cope                                     | rainbow config needed                |
-| sha224sum            | :x:                  | cope                                     | rainbow config needed                |
-| sha256sum            | :x:                  | cope                                     | rainbow config needed                |
-| sha384sum            | :x:                  | cope                                     | rainbow config needed                |
-| sha512sum            | :x:                  | cope                                     | rainbow config needed                |
-| shasum               | :x:                  | cope                                     | rainbow config needed                |
 | showmount            | :x:                  | cwrapper                                 |                                      |
 | smbstatus            | :x:                  | cwrapper                                 |                                      |
 | socklist             | :x:                  | cope                                     |                                      |
