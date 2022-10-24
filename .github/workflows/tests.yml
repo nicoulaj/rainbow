@@ -39,7 +39,7 @@ jobs:
         run: tox
 
       - name: Publish code coverage to CodeClimate
-        uses: paambaati/codeclimate-action@v3.0.0
+        uses: paambaati/codeclimate-action@v3.2.0
         if: matrix.os == 'ubuntu-latest' && matrix.python == '3.10'
         continue-on-error: true
         with:
