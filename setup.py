@@ -71,7 +71,7 @@ setup(
             'flake8==4.0.1',
             'pygal==3.0.0',
             'pygaljs==1.0.2',
-            'pytest-benchmark==3.4.1'
+            'pytest-benchmark==4.0.0'
         ]
     },
     scripts=['scripts/rainbow'],
